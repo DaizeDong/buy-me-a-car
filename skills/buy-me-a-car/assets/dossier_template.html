@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{VEHICLE_TITLE}} - Purchase Proposal & Market Research Dossier</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', "Microsoft YaHei", "PingFang SC", serif;
+    color: #1a1a1a;
+    max-width: 8.5in;
+    margin: 0.6in auto;
+    padding: 0 0.4in;
+    line-height: 1.55;
+    font-size: 11pt;
+  }
+  h1 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 19pt;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 6px;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+  }
+  h2 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14pt;
+    border-bottom: 1px solid #888;
+    padding-bottom: 4px;
+    margin: 22px 0 8px 0;
+    color: #1a1a1a;
+    page-break-after: avoid;
+    font-weight: 700;
+  }
+  h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12pt;
+    margin: 14px 0 4px 0;
+    color: #333;
+    page-break-after: avoid;
+    font-weight: 700;
+  }
+  p { margin: 6px 0; text-align: justify; line-height: 1.7; }
+  ul, ol { margin: 6px 0; padding-left: 22px; line-height: 1.7; }
+  li { margin: 2px 0; }
+  table {
+    border-collapse: collapse;
+    margin: 8px 0 14px 0;
+    width: 100%;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #2c3e50;
+    color: white;
+    text-align: left;
+    padding: 6px 8px;
+    border: 1px solid #1a2530;
+    font-weight: 600;
+  }
+  td {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f4f6f8; }
+
+  .header {
+    background: #f4f6f8;
+    padding: 10px 14px;
+    border-left: 4px solid #2c3e50;
+    margin-bottom: 18px;
+    font-size: 10.5pt;
+  }
+  .header table { margin: 0; }
+  .header td { border: none; padding: 2px 4px; }
+
+  .offer-box {
+    background: #fef9e7;
+    border: 2px solid #b7950b;
+    padding: 14px 16px;
+    margin: 14px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  .offer-box .label {
+    font-size: 10pt;
+    color: #7d6608;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .offer-box .value {
+    font-size: 24pt;
+    font-weight: bold;
+    color: #1a1a1a;
+  }
+  .offer-box .note {
+    font-size: 10pt;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .badge-green { color: #1e8449; font-weight: 700; }
+  .badge-red { color: #c0392b; font-weight: 700; }
+  .badge-orange { color: #b9770e; font-weight: 700; }
+
+  hr { border: 0; border-top: 1px solid #ccc; margin: 18px 0; }
+
+  .toc {
+    background: #f4f6f8;
+    padding: 10px 16px;
+    margin: 12px 0 22px 0;
+    font-size: 10pt;
+  }
+
+  .footer-meta {
+    text-align: center;
+    font-size: 9pt;
+    color: #888;
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+
+  @media print {
+    body { margin: 0.5in; padding: 0; max-width: none; }
+    h1 { page-break-before: avoid; }
+    h2 { page-break-before: auto; }
+    table, .offer-box { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>{{TITLE}}</h1>
+
+<div class="header">
+<table>
+  <tr><td><strong>Buyer:</strong></td><td>{{BUYER_NAME}}</td>
+      <td><strong>Date:</strong></td><td>{{DATE}}</td></tr>
+  <tr><td><strong>Email:</strong></td><td>{{BUYER_EMAIL}}</td>
+      <td><strong>Phone:</strong></td><td>{{BUYER_PHONE}}</td></tr>
+  <tr><td><strong>Address:</strong></td><td colspan="3">{{BUYER_ADDRESS}}</td></tr>
+  <tr><td><strong>Vehicle:</strong></td>
+      <td colspan="3">{{VEHICLE_DESCRIPTION}}</td></tr>
+  <tr><td><strong>Dealer:</strong></td>
+      <td colspan="3">{{DEALER_NAME_ADDRESS}}</td></tr>
+  <tr><td><strong>Asking OTD:</strong></td><td>${{ASK_OTD}}</td>
+      <td><strong>Proposed OTD:</strong></td><td><strong>${{TARGET_OTD}}</strong></td></tr>
+</table>
+</div>
+
+<div class="offer-box">
+  <div class="label">Proposed Out-the-Door Price</div>
+  <div class="value">${{TARGET_OTD}}</div>
+  <div class="note">{{TERMS_SUMMARY}}</div>
+</div>
+
+<h2>Executive Summary</h2>
+
+<p>{{EXEC_SUMMARY_PARAGRAPH_1}}</p>
+
+<p>{{EXEC_SUMMARY_PARAGRAPH_2}}</p>
+
+<p>The proposal of <strong>${{TARGET_OTD}} OTD</strong> is supported by:</p>
+
+<ol>
+  <li>{{SUPPORT_POINT_1}}</li>
+  <li>{{SUPPORT_POINT_2}}</li>
+  <li>{{SUPPORT_POINT_3}}</li>
+  <li>{{SUPPORT_POINT_4}}</li>
+</ol>
+
+<div class="toc">
+<strong>Contents</strong>
+<ol>
+  <li>Buyer Profile</li>
+  <li>Vehicle of Interest - Detailed Specification</li>
+  <li>Regional Market Research</li>
+  <li>Trim &amp; Feature Analysis</li>
+  <li>Warranty &amp; CPO Eligibility</li>
+  <li>Concurrent Competing Offers</li>
+  <li>Internal Dealer Pricing Analysis</li>
+  <li>Proposed Out-the-Door Price</li>
+  <li>Conditions of Sale</li>
+  <li>Sources</li>
+</ol>
+</div>
+
+<h2>1. Buyer Profile</h2>
+
+<table>
+  <tr><th>Attribute</th><th>Value</th></tr>
+  <tr><td>Buyer name</td><td>{{BUYER_NAME}}</td></tr>
+  <tr><td>Residence</td><td>{{BUYER_ADDRESS}}</td></tr>
+  <tr><td>Distance from dealer</td><td>{{DISTANCE}}</td></tr>
+  <tr><td>Payment method</td><td>Cash, cashier's check</td></tr>
+  <tr><td>Financing</td><td>None</td></tr>
+  <tr><td>Trade-in</td><td>None</td></tr>
+  <tr><td>Closing timeline</td><td>{{CLOSE_TIMING}}</td></tr>
+  <tr><td>Active comparison offers</td><td>{{NUM_COMPETING_OFFERS}}</td></tr>
+</table>
+
+<h2>2. Vehicle of Interest - Detailed Specification</h2>
+
+<table>
+  <tr><th>Field</th><th>Value</th></tr>
+  <tr><td>Year</td><td>{{YEAR}}</td></tr>
+  <tr><td>Make / Model</td><td>{{MAKE_MODEL}}</td></tr>
+  <tr><td>Trim</td><td>{{TRIM}}</td></tr>
+  <tr><td>Mileage</td><td>~{{MILES}} mi</td></tr>
+  <tr><td>Drivetrain</td><td>{{DRIVETRAIN}}</td></tr>
+  <tr><td>Engine</td><td>{{ENGINE}}</td></tr>
+  <tr><td>Transmission</td><td>{{TRANSMISSION}}</td></tr>
+  <tr><td>Exterior color</td><td>{{COLOR}}</td></tr>
+  <tr><td>Original MSRP</td><td>${{MSRP}}</td></tr>
+</table>
+
+<h2>3. Regional Market Research</h2>
+
+<table>
+  <tr><th>Source</th><th>Geographic Filter</th><th>Avg Listed Price</th><th>Range</th><th>Sample</th></tr>
+  <tr><td>{{SOURCE_1}}</td><td>{{GEO_1}}</td><td>${{AVG_1}}</td><td>{{RANGE_1}}</td><td>{{SAMPLE_1}}</td></tr>
+  <tr><td>{{SOURCE_2}}</td><td>{{GEO_2}}</td><td>${{AVG_2}}</td><td>{{RANGE_2}}</td><td>{{SAMPLE_2}}</td></tr>
+  <tr><td>{{SOURCE_3}}</td><td>{{GEO_3}}</td><td>${{AVG_3}}</td><td>{{RANGE_3}}</td><td>{{SAMPLE_3}}</td></tr>
+</table>
+
+<h2>4. Trim &amp; Feature Analysis</h2>
+
+<p>{{TRIM_ANALYSIS_PARA}}</p>
+
+<table>
+  <tr><th>Feature</th><th>Base/Lower Trim</th><th>{{TRIM}}</th></tr>
+  <tr><td>{{FEATURE_1}}</td><td>{{LOWER_1}}</td><td>{{HIGHER_1}}</td></tr>
+  <tr><td>{{FEATURE_2}}</td><td>{{LOWER_2}}</td><td>{{HIGHER_2}}</td></tr>
+  <tr><td>{{FEATURE_3}}</td><td>{{LOWER_3}}</td><td>{{HIGHER_3}}</td></tr>
+</table>
+
+<h2>5. Warranty &amp; CPO Eligibility</h2>
+
+<table>
+  <tr><th>Warranty</th><th>Coverage</th><th>Limit</th><th>Status</th></tr>
+  <tr><td>Original Basic</td><td>All defects</td><td>{{BASIC_TERM}}</td><td>{{BASIC_STATUS}}</td></tr>
+  <tr><td>Original Powertrain</td><td>Engine/trans</td><td>{{PWRT_TERM}}</td><td>{{PWRT_STATUS}}</td></tr>
+  <tr><td>CPO Eligibility</td><td>{{CPO_TERM}}</td><td>{{CPO_LIMIT}}</td><td>{{CPO_STATUS}}</td></tr>
+</table>
+
+<h2>6. Concurrent Competing Offers</h2>
+
+<table>
+  <tr><th>Vehicle</th><th>Dealer</th><th>OTD</th><th>Mileage</th><th>Status</th></tr>
+  <tr><td>{{COMP_VEH_1}}</td><td>{{COMP_DEALER_1}}</td><td>${{COMP_OTD_1}}</td><td>{{COMP_MILES_1}}</td><td>{{COMP_STATUS_1}}</td></tr>
+  <tr><td>{{COMP_VEH_2}}</td><td>{{COMP_DEALER_2}}</td><td>${{COMP_OTD_2}}</td><td>{{COMP_MILES_2}}</td><td>{{COMP_STATUS_2}}</td></tr>
+</table>
+
+<h2>7. Internal Dealer Pricing Analysis</h2>
+
+<p>{{INTERNAL_ANCHOR_PARA}}</p>
+
+<h2>8. Proposed Out-the-Door Price</h2>
+
+<h3>8.1 Offer Structure</h3>
+<table>
+  <tr><th>Line Item</th><th>Amount</th></tr>
+  <tr><td>Sales price</td><td>${{PROPOSED_SALES}}</td></tr>
+  <tr><td>{{STATE}} Sales Tax ({{TAX_RATE}}%)</td><td>${{TAX_AMOUNT}}</td></tr>
+  <tr><td>Registration ({{STATE}} MVC)</td><td>${{REG_AMOUNT}}</td></tr>
+  <tr><td>Doc fee</td><td>${{DOC_AMOUNT}}</td></tr>
+  <tr><td><strong>Total OTD</strong></td><td><strong>${{TARGET_OTD}}</strong></td></tr>
+</table>
+
+<h2>9. Conditions of Sale</h2>
+
+<ul>
+  <li><strong>CARFAX Report</strong> confirming clean title, no accidents, no salvage</li>
+  <li><strong>Pre-Purchase Inspection</strong> by independent ASE-certified mechanic</li>
+  <li><strong>No open recalls</strong> outstanding for this VIN</li>
+  <li>{{CPO_OR_WARRANTY_CONDITION}}</li>
+  <li>Clean title transfer to {{STATE}}</li>
+  <li>Plate transfer from existing {{STATE}} registration</li>
+  <li>All taxes and fees paid through deal — no post-sale invoicing</li>
+</ul>
+
+<h2>10. Sources</h2>
+
+<ol>
+  <li>{{SOURCE_LINK_1}}</li>
+  <li>{{SOURCE_LINK_2}}</li>
+  <li>{{SOURCE_LINK_3}}</li>
+  <li>{{SOURCE_LINK_4}}</li>
+  <li>Buyer's email inbox - written OTD quotes available upon request</li>
+</ol>
+
+<hr>
+
+<h2>Closing</h2>
+
+<p>{{CLOSING_PARAGRAPH}}</p>
+
+<p style="margin-top:14px;"><strong>- {{BUYER_NAME}}</strong></p>
+
+<table style="margin-top:10px; max-width:4in;">
+  <tr><td><strong>Email</strong></td><td>{{BUYER_EMAIL}}</td></tr>
+  <tr><td><strong>Phone</strong></td><td>{{BUYER_PHONE}}</td></tr>
+  <tr><td><strong>Address</strong></td><td>{{BUYER_ADDRESS}}</td></tr>
+</table>
+
+<div class="footer-meta">
+  Pre-Owned Vehicle Purchase Proposal &amp; Market Research Dossier
+  &nbsp;.&nbsp; {{BUYER_NAME}}
+  &nbsp;.&nbsp; {{DATE}}
+</div>
+
+</body>
+</html>

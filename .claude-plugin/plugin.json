@@ -1,0 +1,25 @@
+{
+  "name": "buy-me-a-car",
+  "version": "0.1.0",
+  "description": "Complete used-car pre-purchase workflow for Claude Code: multi-site research, mass dealer outreach, recurring inbox monitoring, OTD negotiation with market-data anchors, CARFAX/service-record analysis, and decision tracking. Covers all 50 US states + DC.",
+  "author": {
+    "name": "[Buyer name]"
+  },
+  "homepage": "https://github.com/DaizeDong/buy-me-a-car",
+  "license": "MIT",
+  "keywords": [
+    "car-buying",
+    "used-car",
+    "dealer-negotiation",
+    "OTD",
+    "Carfax",
+    "Subaru",
+    "Honda",
+    "Toyota",
+    "Ford",
+    "automotive",
+    "workflow",
+    "gmail",
+    "skill"
+  ]
+}
