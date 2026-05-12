@@ -1,4 +1,4 @@
-# Dossier Config Template — fill in for your specific car negotiation
+# Dossier Config Template - fill in for your specific car negotiation
 # Run: python scripts/generate_dossier.py --config this.yaml --output my_dossier.html
 # Optional: add --to-pdf my_dossier.pdf to also produce PDF
 # For Chinese: add --template ../assets/dossier_template_cn.html

@@ -20,8 +20,9 @@ from pathlib import Path
 
 
 def load_config(path):
-    """Load YAML (preferred) or JSON config."""
-    text = Path(path).read_text(encoding="utf-8")
+    """Load YAML (preferred) or JSON config. Always reads as UTF-8 explicitly."""
+    with open(path, "r", encoding="utf-8") as f:
+        text = f.read()
     if path.endswith((".yaml", ".yml")):
         try:
             import yaml
@@ -106,14 +107,16 @@ def main():
     if not template_path.exists():
         sys.exit(f"Error: template not found at {template_path}")
 
-    template_text = template_path.read_text(encoding="utf-8")
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_text = f.read()
     config = load_config(args.config)
 
     result, missing, used = substitute(template_text, config)
 
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(result, encoding="utf-8")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(result)
 
     print(f"Wrote {len(result):,} bytes to {output_path}")
     print(f"Substituted {len(used)} unique placeholders")

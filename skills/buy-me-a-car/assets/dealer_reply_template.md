@@ -109,13 +109,13 @@ Hi {DEALER_REP_NAME},
 
 Thanks for the OTD. Before I commit, a few verification asks:
 
-1. CARFAX report — could you forward the PDF? Single owner, no accidents, no salvage / lemon / flood title brands, no open recalls?
+1. CARFAX report: could you forward the PDF? Single owner, no accidents, no salvage / lemon / flood title brands, no open recalls?
 
-2. Pre-sale inspection — what did your service team find in their recent inspection? Tire tread, brake pad thickness, battery test reading, fluid conditions?
+2. Pre-sale inspection: what did your service team find in their recent inspection? Tire tread, brake pad thickness, battery test reading, fluid conditions?
 
-3. Service records — any maintenance history from the previous owner that you can share?
+3. Service records: any maintenance history from the previous owner that you can share?
 
-4. Open recalls — anything outstanding for this VIN?
+4. Open recalls: anything outstanding for this VIN?
 
 If everything checks out, I am ready for an independent PPI and same-week close. Thanks!
 
@@ -236,7 +236,7 @@ Confirming the final terms for the {VEHICLE}:
 - Other / add-ons: ${OTHER}
 - {TOTAL_LABEL}: ${OTD}
 
-Plate transfer: {YES_NO} — {existing plates / new plates}
+Plate transfer: {YES_NO}, {existing plates / new plates}
 PPI scheduled: {DATE_TIME}
 Cashier's check delivery: {DATE_TIME}
 
