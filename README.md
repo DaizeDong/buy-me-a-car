@@ -131,14 +131,9 @@ MIT
 
 ## Contributing
 
-Issues and PRs welcome. The skill has known gaps:
+Issues and PRs welcome. See [ROADMAP.md](ROADMAP.md) for the full list of future features grouped into 7 categories (workflow enhancements, new vehicle types, tooling, community data, multi-language, post-purchase, speculative).
 
-- State fee data may go stale (state laws change); annual review needed
-- Lease workflow not yet supported
-- Trade-in tax credit calculator not included
-- Insurance shopping not integrated
-
-To suggest improvements, open an issue with a concrete use case.
+To pick up an item, open a GitHub issue saying "I'm working on X." To suggest a new idea, open an issue with a concrete use case.
 
 ## Acknowledgments
 
