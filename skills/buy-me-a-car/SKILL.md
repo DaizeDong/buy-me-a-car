@@ -107,18 +107,44 @@ See `references/pdf_review_checklist.md` for what to check in each PDF type.
 
 ### Phase 7: Decision Dossier
 
-Before any test drive, generate a professional 7-10 page market-research dossier (HTML + PDF) that the buyer can show the dealer if needed. Use `assets/dossier_template.html` as the starting point. Include:
+Before any test drive, generate a professional 7-10 page market-research dossier (HTML + PDF) that the buyer can show the dealer if needed.
+
+The dossier covers:
 
 - Buyer profile (cash buyer, no trade, ready-this-week)
 - Regional market average (AutoTrader / Edmunds / CarGurus)
 - Trim-specific MSRP anchors
-- Subaru CPO (or equivalent program) embedded value
+- CPO (or equivalent program) embedded value
 - Competing OTD quotes from other dealers
 - Internal anchor analysis (dealer's own inventory)
 - Proposed OTD with structured paths to get there
 - Conditions of sale (CARFAX, PPI, no recalls, plate transfer)
 
-Generate Chinese version if the dealer is Chinese-speaking. Use Chrome headless to convert HTML to PDF: see `scripts/html_to_pdf.sh`.
+Workflow (1 command):
+
+```bash
+# Edit a copy of dossier_config_template.yaml with the buyer + vehicle + comp data
+cp assets/dossier_config_template.yaml my_dossier.yaml
+$EDITOR my_dossier.yaml
+
+# Generate HTML + PDF in one step
+python scripts/generate_dossier.py \
+  --config my_dossier.yaml \
+  --output my_dossier.html \
+  --to-pdf my_dossier.pdf
+```
+
+For Chinese-speaking dealers, point `--template` at the Chinese template:
+
+```bash
+python scripts/generate_dossier.py \
+  --config my_dossier.yaml \
+  --template assets/dossier_template_cn.html \
+  --output my_dossier_cn.html \
+  --to-pdf my_dossier_cn.pdf
+```
+
+The generator substitutes `{{KEY}}` placeholders in the template using the YAML config. It auto-detects Chrome or Edge on Windows / macOS / Linux for the PDF conversion. See `assets/dossier_config_template.yaml` for the full list of supported placeholders.
 
 ### Phase 8: Test Drive + Close
 
