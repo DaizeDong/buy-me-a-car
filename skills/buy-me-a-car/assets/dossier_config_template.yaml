@@ -1,0 +1,165 @@
+# Dossier Config Template — fill in for your specific car negotiation
+# Run: python scripts/generate_dossier.py --config this.yaml --output my_dossier.html
+# Optional: add --to-pdf my_dossier.pdf to also produce PDF
+# For Chinese: add --template ../assets/dossier_template_cn.html
+
+# ============================================================
+# BUYER PROFILE
+# ============================================================
+BUYER_NAME: "John Doe"
+BUYER_EMAIL: "buyer@example.com"
+BUYER_PHONE: "(555) 555-1234"
+BUYER_ADDRESS: "City, State ZIP"
+DATE: "2026-05-12"
+DISTANCE: "approximately 5 miles from dealer"
+CLOSE_TIMING: "within 1 week of agreement, pending PPI"
+NUM_COMPETING_OFFERS: "3 confirmed written OTDs"
+
+# ============================================================
+# VEHICLE OF INTEREST
+# ============================================================
+TITLE: "2024 Subaru Forester Limited - Purchase Proposal"
+VEHICLE_DESCRIPTION: "2024 Subaru Forester Limited AWD, ~20,000 mi, Black"
+DEALER_NAME_ADDRESS: "Dealer Name, 123 Main St, City NJ ZIP"
+YEAR: "2024"
+MAKE_MODEL: "Subaru / Forester"
+TRIM: "Limited"
+MILES: "20,000"
+DRIVETRAIN: "All-wheel drive"
+ENGINE: "2.5L H-4 naturally aspirated, 182 HP"
+TRANSMISSION: "CVT Lineartronic"
+COLOR: "Black"
+MSRP: "33,820"
+
+# ============================================================
+# OFFER
+# ============================================================
+ASK_OTD: "32,200"          # Dealer's asking OTD
+TARGET_OTD: "30,000"       # Your proposed OTD
+TERMS_SUMMARY: "Cash, no trade-in, no financing, ready to close within 1 week pending PPI"
+
+# Offer structure breakdown (math should add up to TARGET_OTD)
+PROPOSED_SALES: "27,950"
+TAX_AMOUNT: "1,851"
+REG_AMOUNT: "200"
+DOC_AMOUNT: "0"
+TAX_RATE: "6.625"
+STATE: "NJ"
+
+# ============================================================
+# EXECUTIVE SUMMARY (free-text paragraphs)
+# ============================================================
+EXEC_SUMMARY_PARAGRAPH_1: |
+  This document presents an evidence-based market analysis and purchase proposal
+  for the 2024 Subaru Forester Limited (~20,000 mi) listed at this dealer.
+  Sources include AutoTrader, Edmunds, CarGurus, and Subaru official trim
+  specifications, plus competing offers obtained this week.
+
+EXEC_SUMMARY_PARAGRAPH_2: |
+  The buyer is a cash-ready local resident (5 miles from dealer), with no trade-in
+  and no financing contingency, prepared to close within one week pending
+  pre-purchase inspection.
+
+SUPPORT_POINT_1: "Regional 2024 Forester market average $28,000-$29,000 (Edmunds / AutoTrader / CarGurus)"
+SUPPORT_POINT_2: "Bottom-up internal anchor (dealer's own concurrent inventory) implies fair Limited OTD $28,500-$29,500"
+SUPPORT_POINT_3: "Three confirmed competing offers from other dealers this week"
+SUPPORT_POINT_4: "Subaru CPO eligibility criteria met for this vehicle (2024 + 20k mi)"
+
+# ============================================================
+# REGIONAL MARKET DATA (3 sources)
+# ============================================================
+SOURCE_1: "AutoTrader"
+GEO_1: "<NJ town> (~10 mi)"
+AVG_1: "28,177"
+RANGE_1: "$23,498 - $32,042"
+SAMPLE_1: "263 listings"
+
+SOURCE_2: "Edmunds"
+GEO_2: "Jersey City NJ (~28 mi)"
+AVG_2: "28,784"
+RANGE_2: "n/a"
+SAMPLE_2: "n/a"
+
+SOURCE_3: "CarGurus"
+GEO_3: "National"
+AVG_3: "30,229"
+RANGE_3: "n/a"
+SAMPLE_3: "4,767 listings"
+
+# ============================================================
+# TRIM FEATURE COMPARISON
+# ============================================================
+TRIM_ANALYSIS_PARA: |
+  The Limited trim adds the following over Base / Premium: leather-trimmed
+  upholstery, harman/kardon 9-speaker audio, power liftgate, 18-inch wheels,
+  heated front seats, and adaptive headlights.
+
+FEATURE_1: "Upholstery"
+LOWER_1: "Cloth"
+HIGHER_1: "Perforated leather"
+
+FEATURE_2: "Audio"
+LOWER_2: "6-speaker"
+HIGHER_2: "harman/kardon 9-speaker"
+
+FEATURE_3: "Wheels"
+LOWER_3: "17 inch"
+HIGHER_3: "18 inch alloy"
+
+# ============================================================
+# WARRANTY & CPO
+# ============================================================
+BASIC_TERM: "3 yr / 36k mi"
+BASIC_STATUS: "Likely expired"
+PWRT_TERM: "5 yr / 60k mi"
+PWRT_STATUS: "Active until ~2029"
+CPO_TERM: "Subaru CPO Eligible"
+CPO_LIMIT: "Under 5 yr + Under 80k mi"
+CPO_STATUS: "Eligible (this vehicle qualifies)"
+
+CPO_OR_WARRANTY_CONDITION: "Subaru CPO enrollment requested as part of sale (or equivalent extended warranty discussion)"
+
+# ============================================================
+# COMPETING OFFERS (2 most relevant)
+# ============================================================
+COMP_VEH_1: "2019 Subaru Outback Limited AWD"
+COMP_DEALER_1: "Other Dealer A, City NJ"
+COMP_OTD_1: "20,946"
+COMP_MILES_1: "50,000 mi"
+COMP_STATUS_1: "Confirmed, CARFAX clean"
+
+COMP_VEH_2: "2024 Ford Escape Active FWD"
+COMP_DEALER_2: "Other Dealer B, City NJ"
+COMP_OTD_2: "20,348"
+COMP_MILES_2: "51,000 mi"
+COMP_STATUS_2: "Confirmed, no-haggle"
+
+# ============================================================
+# INTERNAL ANCHOR ANALYSIS
+# ============================================================
+INTERNAL_ANCHOR_PARA: |
+  This dealer concurrently lists a 2024 Forester Standard at $25,000 sales /
+  $26,900 OTD. The implied fair spread between Standard and Limited (accounting
+  for trim premium $2-3k less mileage delta $1-1.5k) is $1-2k, NOT the $5k
+  difference in the asking prices. Implied fair Limited sales price is
+  $26,500-$27,500, equivalent to $28,500-$29,500 OTD. The proposed $30,000 OTD
+  sits at the upper end of this fair range, leaving the dealer reasonable
+  margin while reflecting the buyer's strong terms.
+
+# ============================================================
+# SOURCES
+# ============================================================
+SOURCE_LINK_1: "Subaru of America - 2024 Forester Trim MSRP and standard equipment (subaru.com/forester)"
+SOURCE_LINK_2: "Subaru Certified Pre-Owned Program (subaru.com/certified)"
+SOURCE_LINK_3: "AutoTrader.com and Edmunds.com - 2024 Forester listings near buyer ZIP (accessed 2026-05-12)"
+SOURCE_LINK_4: "Kelley Blue Book - 2024 Forester Fair Purchase Price (kbb.com)"
+
+# ============================================================
+# CLOSING
+# ============================================================
+CLOSING_PARAGRAPH: |
+  Thank you for your time. This vehicle's mileage, condition, and trim are a
+  strong fit for my needs, and the dealership's pricing structure has not been
+  matched by any other dealer in this comparison. The proposed $30,000 OTD
+  reflects the documented market and an offer to close this week with cash.
+  I look forward to discussing.
