@@ -1,7 +1,7 @@
 {
   "name": "buy-me-a-car",
-  "version": "0.1.0",
-  "description": "Complete used-car pre-purchase workflow for Claude Code: multi-site research, mass dealer outreach, recurring inbox monitoring, OTD negotiation with market-data anchors, CARFAX/service-record analysis, and decision tracking. Covers all 50 US states + DC.",
+  "version": "0.2.0",
+  "description": "Multi-skill plugin for car purchases (new + used + EV). Orchestrator runs the full 9-phase pipeline (research -> outreach -> negotiate -> close). 14 narrow sub-skills handle single tasks: dealer reply drafting, OTD math, state fee lookup, CPO eligibility, CARFAX/PDF review, inbox triage, close-day checklist, quote-evidence collection, trade-in valuation, EV federal credit, payment method, lease vs cash, PPI booking, and dossier generation. Covers 22 US states + DC at fee-detail depth; 8 brand CPO programs; 5 buyer paths (cash / finance / lease / trade / EV).",
   "author": {
     "name": "[Buyer name]"
   },
@@ -12,7 +12,14 @@
     "used-car",
     "dealer-negotiation",
     "OTD",
-    "Carfax",
+    "CARFAX",
+    "lease",
+    "trade-in",
+    "EV",
+    "CPO",
+    "PPI",
+    "negotiation",
+    "multi-skill",
     "Subaru",
     "Honda",
     "Toyota",

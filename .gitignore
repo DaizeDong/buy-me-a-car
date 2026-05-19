@@ -22,6 +22,7 @@ desktop.ini
 .firecrawl/
 scratch/
 *.local.md
+*.local.txt
 
 # Personal data (should NEVER be committed if using this plugin in a real car-buying project)
 # Treat user-generated tracker/PDFs/prep files as private

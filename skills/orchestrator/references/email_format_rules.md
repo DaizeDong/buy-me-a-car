@@ -1,6 +1,23 @@
 # Email Draft Format Rules (Plain ASCII Only)
 
+> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
+
 Gmail Drafts created via the `mcp__claude_ai_Gmail__create_draft` API render as plain text in Gmail compose view. Markdown markers and Unicode punctuation render as literal characters, which looks unprofessional to dealers.
+
+## Language Rule (mandatory)
+
+**Dealer-facing emails are ALWAYS English-only.** This is independent of the buyer's preferred language for chat dialogue, `criteria.md`, or the dossier. The rule covers:
+
+- Every Gmail draft saved via `create_draft`
+- Every first-touch, counter, follow-up, walk-away, hold, deposit, PPI, CARFAX, add-on refusal, F&I hard-no, and close-day email
+- Every SMS or text-channel message sent to a dealer rep
+- Every dealer-form submission (lead form, OTD request form, finance pre-qual form)
+
+No Chinese characters, no Spanish text, no non-English content under any circumstance. CRM systems used by US dealers (VinSolutions, DealerSocket, eLead, DriveCentric) sometimes strip or mangle non-ASCII Unicode silently; the dealer rep may see "?" boxes or whitespace where the buyer's text should be. The buyer's negotiating posture degrades.
+
+The bilingual SKILL trigger phrases ("buy me a car" / "帮我找车") signal acceptable buyer-side languages for the agent-to-buyer surface. They do NOT authorize bilingual content in dealer-facing emails. See SKILL.md § Language and audience separation for the full surface-by-surface language matrix.
+
+If the buyer's `criteria.md` is in Chinese or another language, translate buyer-profile values (name, city, state, walk-away ceiling) into English at draft-creation time. The values go into the dealer email in English regardless of which language `criteria.md` was authored in.
 
 ## Do NOT Use
 
@@ -30,7 +47,7 @@ Gmail Drafts created via the `mcp__claude_ai_Gmail__create_draft` API render as 
 | Straight quotes `"` `'` | Standard ASCII |
 | Blank lines for section separation | Instead of `---` or `***` |
 | Plain text URLs | `https://example.com` written out, not `[Example](url)` |
-| Sign-off: just the name | `[Buyer name]` with NO leading dash, NO em-dash |
+| Sign-off: just the name | `{{BUYER_NAME}}` with NO leading dash, NO em-dash |
 
 ## Conversion Patterns
 
