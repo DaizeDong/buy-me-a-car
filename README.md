@@ -64,14 +64,6 @@ Output: typically **$5-9k saved** vs walking in cold.
 
 ---
 
-## Example output
-
-![market matrix + dedup](examples/market.png)
-
-What Phase 2 produces: a 9-site capability matrix (top) + VIN-deduped candidate list with deal tags (bottom), auto-rendered as Markdown tables.
-
----
-
 ## How to invoke each skill
 
 Each block: when to use, trigger phrases, one-line example, what comes back.
@@ -205,6 +197,14 @@ When a query could activate multiple skills, the **most narrow + specific** trig
 | "ready to close" | `close-day-checklist` | `orchestrator` |
 
 If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this`. Unsure which one? Call `orchestrator` — it routes internally.
+
+---
+
+## Example output
+
+![market matrix + dedup](./examples/market_en.png)
+
+What Phase 2 produces: a 9-site capability matrix (top) + VIN-deduped candidate list with deal tags (bottom), auto-rendered as Markdown tables.
 
 ---
 

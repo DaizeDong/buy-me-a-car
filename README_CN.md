@@ -64,14 +64,6 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 
 ---
 
-## 输出示例
-
-![站点能力矩阵 + 候选去重](examples/market.png)
-
-Phase 2 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键差异 + 推荐顺序，下半是按 VIN 去重的候选清单含 Deal Tag。两张都是 Markdown 表格 → Claude 渲染。
-
----
-
 ## 每个 skill 怎么用
 
 每块 4 行：何时用、触发短语、示例输入、产出。
@@ -205,6 +197,14 @@ Phase 2 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键
 | "提车清单" / "ready to close" | `close-day-checklist` | `orchestrator` |
 
 歧义时显式点名 skill：`用 dealer-reply-drafter 起草这封`。不确定调哪个？喊 `orchestrator`，它会在内部路由。
+
+---
+
+## 输出示例
+
+![站点能力矩阵 + 候选去重](./examples/market_cn.png)
+
+Phase 2 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键差异 + 推荐顺序，下半是按 VIN 去重的候选清单含 Deal Tag。两张都是 Markdown 表格 → Claude 渲染。
 
 ---
 
