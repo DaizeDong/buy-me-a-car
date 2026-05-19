@@ -1,5 +1,7 @@
 # Multi-Site Dealer Outreach Strategy
 
+> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
+
 ## Site-by-Site Submission Methods
 
 ### High-Success (Direct Email or Native Form)
@@ -93,6 +95,26 @@ Rank candidates by composite score:
 6. **Dealer reputation** (light): brand-direct preferred over independent multi-brand
 
 Pull top 30-50 by combined score for outreach phase.
+
+## New-Car ADM Detection and Filtering
+
+For NEW-MY listings, compute a derived column `ADM_delta = Internet_Price − MSRP` per candidate. The Phase 3 inventory pull MUST surface this delta before ranking; agents have repeatedly missed ADM in past runs by treating Internet Price as the comparable.
+
+**Auto-flag a listing as ADM-present when ANY of the following fire:**
+
+- `ADM_delta > 0` (Internet Price exceeds MSRP, regardless of line-item naming)
+- Listing copy / itemized quote contains any of the four common ADM line names:
+  - **Market Adjustment** (most common; also "Hybrid Market Adjustment", "EV Market Adjustment")
+  - **Hybrid Premium** / **Hybrid Adjustment** / **Toyota Premium**
+  - **Dealer Markup** / **Dealer Adjustment**
+  - **Allocation Fee** / **Allocation Premium** / **Protection Plus** (when bundled with MSRP-overage)
+- Free-text listing fields mention "ADM", "ADP" (additional dealer profit), "MAP override", or "above MSRP"
+
+**Ranking rule:** ADM-flagged listings are **Tier 3 by default** — held back from first-touch outreach unless the buyer's preferred trim+color is otherwise scarce in radius (<3 MSRP-clean alternatives). In Phase 4 outreach, the first-touch email to a Tier-3 ADM dealer MUST open with "remove the [exact ADM line name] line and re-quote at MSRP" — do not negotiate around ADM, demand removal. If dealer refuses ADM removal in their reply, mark dead and reroute to next-best candidate. ADM listings may be promoted to Tier 2 IF (a) preferred-trim scarcity is binding AND (b) post-ADM-removal net would still land under the walk-away OTD.
+
+**Cross-state ADM nuance:** A DE / NH / OR (no-tax) dealer with $1,500 ADM can still net below a PA / NY MSRP-clean offer because the structural tax advantage dominates. Compute net OTD with state_fees.md cross-state rows BEFORE applying the Tier-3 rule. The Tier-3 default holds — but the per-listing OTD math is what actually decides outreach order.
+
+**Heads-up to buyer:** When ADM is detected on 2+ listings in the radius, surface in Phase 3 output: *"X of N listings carry $A-$B ADM under names [list]. Phase 6 first ask on each: removal. If dealer holds, walk to MSRP-clean alternative."* This is the Phase-3 mechanical complement to the Phase-1 ADM heads-up.
 
 ## Common Pitfalls
 

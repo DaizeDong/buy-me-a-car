@@ -1,5 +1,8 @@
 # Subaru Certified Pre-Owned (CPO) Program
 
+> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
+> **Data refresh schedule**: state rates / CPO programs / EV incentives / lease parameters should be re-verified annually or upon any user-cited deal that contradicts. The 2026-05-18 timestamp marks last full audit.
+
 Subaru CPO is one of the strongest OEM CPO programs for used Subaru vehicles. Understanding eligibility and embedded value is critical for negotiations.
 
 ## Eligibility Criteria
