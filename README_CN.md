@@ -1,11 +1,11 @@
 # buy-me-a-car
 
-15 个 Claude Code skill，把一个用车周末压缩成 2 小时决策：9 个网站并行抓库存、起草 counter-offer、生成买家级 dossier。
+16 个 Claude Code skill，把一个用车周末压缩成 2 小时决策：9 个网站并行抓库存、起草 counter-offer、生成买家级 dossier。
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-orange?style=flat)](https://docs.anthropic.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![All 50 States](https://img.shields.io/badge/Tax%20Data-50%E5%B7%9E%20%2B%20DC-green?style=flat)](skills/orchestrator/references/state_fees.md)
-[![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.1%20alpha-purple?style=flat)](ROADMAP.md)
+[![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.2%20alpha-purple?style=flat)](ROADMAP.md)
 
 [English](README.md) | [中文版](README_CN.md)
 
@@ -52,7 +52,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 
 ## Skill 一览
 
-总计 15 个：1 个宽触发 orchestrator + 14 个窄触发子 skill。子 skill 都能独立调用，orchestrator 在 9-phase 流程内部路由它们。
+总计 16 个：1 个宽触发 orchestrator + 15 个窄触发子 skill。子 skill 都能独立调用，orchestrator 在 9-phase 流程内部路由它们。
 
 | 分组 | Skill |
 |---|---|
@@ -60,7 +60,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 | **价格数学 + 文件** | [otd-calculator](#otd-calculator) · [state-fee-lookup](#state-fee-lookup) · [trade-in-valuator](#trade-in-valuator) |
 | **谈判** | [dealer-reply-drafter](#dealer-reply-drafter) · [dossier-builder](#dossier-builder) |
 | **决策 + 核查** | [lease-vs-cash-analyzer](#lease-vs-cash-analyzer) · [payment-method-decider](#payment-method-decider) · [ev-buyer-helper](#ev-buyer-helper) · [cpo-eligibility](#cpo-eligibility) · [carfax-pdf-review](#carfax-pdf-review) |
-| **提车** | [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
+| **提车** | [insurance-shopper](#insurance-shopper) · [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
 
 ---
 
@@ -146,6 +146,12 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 - **示例**：`找 <你所在州> 2024 Outback Premium 的 XHS 报价`
 - **产出**：REAL 标记的压缩 `_FINAL_*.jpg`（1300px，100-300 KB），可直接手动 paperclip。
 
+### insurance-shopper
+- **何时用**：提车前上车险 —— 新司机、cash buyer、跨州移居。
+- **触发**：`上保`、`保险报价`、`car insurance quote`、`new driver insurance`
+- **示例**：`帮我新司机在 <你所在州> 上一辆 SUV 的车险`
+- **产出**：NJM / Geico / Progressive 三家 6-month 报价对比 + 推荐 coverage + bind 步骤。
+
 ### ppi-scheduler
 - **何时用**：要约 PPI 检车 —— 按地区匹配 mobile PPI 服务商。
 - **触发**：`约 PPI`、`提车前检车`、`book PPI`
@@ -194,6 +200,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 | "生成 dossier" / "build dossier PDF" | `dossier-builder` | `orchestrator` |
 | "看下邮箱" / "check inbox" | `inbox-triage` | `orchestrator` |
 | "评估置换" / "valuate trade-in" | `trade-in-valuator` | `otd-calculator` |
+| "上保" / "set up insurance" | `insurance-shopper` | `close-day-checklist` |
 | "提车清单" / "ready to close" | `close-day-checklist` | `orchestrator` |
 
 歧义时显式点名 skill：`用 dealer-reply-drafter 起草这封`。不确定调哪个？喊 `orchestrator`，它会在内部路由。

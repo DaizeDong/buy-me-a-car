@@ -1,11 +1,11 @@
 # buy-me-a-car
 
-15 Claude Code skills that turn a used-car weekend into a 2-hour decision: scrape 9 sites in parallel, draft counter-offers, print a buyer-grade dossier.
+16 Claude Code skills that turn a used-car weekend into a 2-hour decision: scrape 9 sites in parallel, draft counter-offers, print a buyer-grade dossier.
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-orange?style=flat)](https://docs.anthropic.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![All 50 States](https://img.shields.io/badge/Tax%20Data-50%20States%20%2B%20DC-green?style=flat)](skills/orchestrator/references/state_fees.md)
-[![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.1%20alpha-purple?style=flat)](ROADMAP.md)
+[![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.2%20alpha-purple?style=flat)](ROADMAP.md)
 
 [English](README.md) | [中文版](README_CN.md)
 
@@ -52,7 +52,7 @@ Output: typically **$5-9k saved** vs walking in cold.
 
 ## Skills at a glance
 
-15 skills total: 1 broad orchestrator + 14 narrow-trigger sub-skills. Sub-skills work standalone; the orchestrator routes to them inside the 9-phase pipeline.
+16 skills total: 1 broad orchestrator + 15 narrow-trigger sub-skills. Sub-skills work standalone; the orchestrator routes to them inside the 9-phase pipeline.
 
 | Bucket | Skills |
 |---|---|
@@ -60,7 +60,7 @@ Output: typically **$5-9k saved** vs walking in cold.
 | **Price math & paperwork** | [otd-calculator](#otd-calculator) · [state-fee-lookup](#state-fee-lookup) · [trade-in-valuator](#trade-in-valuator) |
 | **Negotiate** | [dealer-reply-drafter](#dealer-reply-drafter) · [dossier-builder](#dossier-builder) |
 | **Decide & verify** | [lease-vs-cash-analyzer](#lease-vs-cash-analyzer) · [payment-method-decider](#payment-method-decider) · [ev-buyer-helper](#ev-buyer-helper) · [cpo-eligibility](#cpo-eligibility) · [carfax-pdf-review](#carfax-pdf-review) |
-| **Close** | [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
+| **Close** | [insurance-shopper](#insurance-shopper) · [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
 
 ---
 
@@ -146,6 +146,12 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Example**: `find XHS quotes for 2024 Outback Premium in <your state>`
 - **Output**: REAL-tagged compressed `_FINAL_*.jpg` (1300px, 100-300 KB) ready for manual paperclip.
 
+### insurance-shopper
+- **Use when**: setting up auto insurance before close day — new driver, cash buyer, or cross-state move.
+- **Triggers**: `set up insurance`, `car insurance quote`, `new driver insurance`, `上保`, `保险报价`
+- **Example**: `set up insurance for a new SUV in <your state>, first-time driver`
+- **Output**: 3-carrier quote comparison (NJM / Geico / Progressive), 6-month total, recommended coverage spec, bind sequence.
+
 ### ppi-scheduler
 - **Use when**: ready to book pre-purchase inspection — mobile-PPI services by region.
 - **Triggers**: `book PPI`, `提车前检车`, `mobile inspector`
@@ -194,6 +200,7 @@ When a query could activate multiple skills, the **most narrow + specific** trig
 | "build dossier PDF" | `dossier-builder` | `orchestrator` |
 | "check inbox" | `inbox-triage` | `orchestrator` |
 | "valuate trade-in" | `trade-in-valuator` | `otd-calculator` |
+| "set up insurance" | `insurance-shopper` | `close-day-checklist` |
 | "ready to close" | `close-day-checklist` | `orchestrator` |
 
 If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this`. Unsure which one? Call `orchestrator` — it routes internally.

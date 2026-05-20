@@ -1,9 +1,9 @@
 {
   "name": "buy-me-a-car",
-  "version": "0.2.0",
-  "description": "Multi-skill plugin for car purchases (new + used + EV). Orchestrator runs the full 9-phase pipeline (research -> outreach -> negotiate -> close). 14 narrow sub-skills handle single tasks: dealer reply drafting, OTD math, state fee lookup, CPO eligibility, CARFAX/PDF review, inbox triage, close-day checklist, quote-evidence collection, trade-in valuation, EV federal credit, payment method, lease vs cash, PPI booking, and dossier generation. Covers 22 US states + DC at fee-detail depth; 8 brand CPO programs; 5 buyer paths (cash / finance / lease / trade / EV).",
+  "version": "0.2.2",
+  "description": "Multi-skill plugin for car purchases (new + used + EV). Orchestrator runs the full 9-phase pipeline (research -> outreach -> negotiate -> close). 15 narrow sub-skills handle single tasks: dealer reply drafting, OTD math, state fee lookup, CPO eligibility, CARFAX/PDF review, inbox triage, close-day checklist, quote-evidence collection, trade-in valuation, EV federal credit, payment method, lease vs cash, PPI booking, dossier generation, and insurance shopping. Covers 22 US states + DC at fee-detail depth; 8 brand CPO programs; 5 buyer paths (cash / finance / lease / trade / EV).",
   "author": {
-    "name": "[Buyer name]"
+    "name": "DaizeDong"
   },
   "homepage": "https://github.com/DaizeDong/buy-me-a-car",
   "license": "MIT",
@@ -18,6 +18,7 @@
     "EV",
     "CPO",
     "PPI",
+    "insurance",
     "negotiation",
     "multi-skill",
     "Subaru",
