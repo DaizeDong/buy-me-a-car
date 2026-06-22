@@ -305,7 +305,7 @@ Pivot frequency: empirically, ~30% of buying cycles see at least one load-bearin
 
 | File | Purpose |
 |---|---|
-| `phases.md` | Combined detail for Phases 3-9 (use anchors `#phase-3--inventory` through `#phase-9--close`): new-vs-used router gate + site table (P3); tracker capture + D11 dealer-group (P4); three-cron architecture + OOO handling (P5, stub → `cron_monitoring.md`); anchors + ADM kill list + escalation ladder + bait-and-switch + buyer-type notes (P6); PDF extraction targets (P7, stub → `pdf_review_checklist.md`); dossier generation pipeline + Chromium auto-detect + CN template (P8); close-day re-confirm + 5 buyer-type sub-checklists (P9) |
+| `phases.md` | Combined detail for Phases 3-9 (use anchors `#phase-3--inventory` through `#phase-9--close`): new-vs-used router gate + site table + Playwright-first scraping recipe + pagination guide + Site Capability Matrix synthesis (P3); tracker capture + D11 dealer-group (P4); three-cron architecture + OOO handling (P5, stub → `cron_monitoring.md`); anchors + ADM kill list + escalation ladder + bait-and-switch + buyer-type notes (P6); PDF extraction targets (P7, stub → `pdf_review_checklist.md`); dossier generation pipeline + Chromium auto-detect + CN template (P8); close-day re-confirm + 5 buyer-type sub-checklists (P9) |
 | `outreach_strategy.md` | Multi-site outreach, anti-bot handling, multi-channel (email/SMS/phone) |
 | `negotiation_playbook.md` | Internal-anchor logic, market-comp anchoring, walk-away lines, cash leverage |
 | `pdf_review_checklist.md` | CARFAX / service records / proposal PDF red flags |

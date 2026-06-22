@@ -10,7 +10,7 @@ Trigger: `help me buy a car` / `帮我找车` / `买车` / `find me an SUV` / `n
 |---|---|
 | 1. Requirements | criteria.md with walk-away ceiling + buyer-type router (cash / finance / trade / EV) |
 | 2. Baseline data | Market price baseline pulled live (REAL/SYNTHESIZED tagged) |
-| 3. Inventory | Parallel scrape of 11 sites, deduped by VIN |
+| 3. Inventory | Playwright-first scrape of 11 sites (paginated, deduped by VIN) -> Site Capability Matrix + candidate list |
 | 4. Outreach | 30-50 plain-ASCII dealer emails with cross-bid anchors |
 | 5. Gmail monitoring | Cron scans every 15min + spam/promo + morning catch-up |
 | 6. OTD negotiation | Round 1 Cold Open, ADM kill list, escalation ladder, state-parameterized math |
