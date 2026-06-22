@@ -410,6 +410,51 @@ For image-heavy social posts (Instagram lease ads, dealer flyers) where text ext
 - **Use for**: When user references "I saw on XiaoHongShu someone got $X off" — verify by asking for the post URL or trim/region/dealer details
 - **Caveat**: Heavy bias toward best-case posts; many include incentive stacks (loyalty conquest cash + recent grad + military) that don't transfer to all buyers. Always ask "what trim, what region, what month, did they trade in another car?"
 
+### Spanish-Language (ES) Buyer Communities — US Hispanic / Latino market
+
+> **Verified 2026-06-22 via web_search.** This is the ES analog of the XHS tier: where Spanish-speaking US buyers exchange car info. **Hard rule (anti-hallucination): only the sources below were confirmed to exist with a real resolving URL. Do NOT add any ES source you have not just re-verified via web_search — a fabricated community is worse than none.** Re-verify reachability before each engagement; FB group IDs and subreddit activity drift.
+>
+> **Reality check vs XHS**: the ES tier is materially *weaker* for dealer-quote evidence than XHS. Two structural reasons: (1) Spanish-language Reddit is **fragmented** (per Sherlock Comms LATAM analysis — Brazil/Portuguese has the dense activity; Spanish is spread thin and country-split), and most large ES subs (r/mexico, r/espanol) are **MX/LATAM-domestic**, where prices/taxes/incentives do NOT transfer to US OTD math. (2) The US-Latino Facebook groups are **private-seller buy/sell marketplaces** (FSBO listings), not a dealer-worksheet-screenshot posting culture like XHS. Treat ES as a *thin supplementary* anchor for Spanish-dominant buyers, never as a primary OTD-evidence source. Cross-check every datapoint against the English Reddit + aggregator tiers.
+
+**Reachability legend**: `OPEN` = readable without login (subreddits, public web). `LOGIN` = Facebook account + group-join approval required (use Playwright local browser, same workflow as FB groups above).
+
+#### Reddit (ES) — OPEN, but mostly LATAM-domestic pricing
+
+| Subreddit | URL | What it is | Reachability | Deal-evidence value |
+|---|---|---|---|---|
+| **r/mexico** | `reddit.com/r/mexico` | Largest active Spanish hub on Reddit (MX ~15.7M Reddit users; confirmed primary ES discussion space). Car-buying threads appear but pricing is **MX-domestic** (pesos, tenencia, MX dealers). | OPEN | LOW for US OTD — wrong-market prices. Useful only for general buying-process / scam-avoidance discussion. |
+| **r/espanol** | `reddit.com/r/espanol` | General Spanish-language catch-all; occasional car-advice threads. Fragmented, low car-specific density. | OPEN | LOW — thin, no consistent US dealer quotes. |
+| **r/AskLatinAmerica** | `reddit.com/r/asklatinamerica` | Q&A across LATAM + diaspora; can field "buying a car in the US" questions from Spanish speakers. | OPEN | LOW-MED — ask-and-answer, not posted quote screenshots. |
+| **r/carros**, **r/mecanica** | `reddit.com/r/carros`, `reddit.com/r/mecanica` | General ES cars / mechanics subs. Mecanica is repair-focused (useful for used-car condition vetting), not pricing. | OPEN | LOW for pricing; mecanica MED for used-car inspection questions. |
+
+Use the same Reddit extraction path as the English tier (browser session / `firecrawl search "site:reddit.com ..."`). Query in Spanish: `comprar carro usado concesionario precio OTD`, `cuánto pagaste por`, `me dieron de descuento`.
+
+#### Facebook (ES) US-Latino buy/sell groups — LOGIN required
+
+All groups below returned a **real resolving group URL** on 2026-06-22. They are FSBO/marketplace groups (private-seller listings + asking prices), NOT dealer-worksheet culture — value is as a *regional private-party price floor*, not dealer-discount evidence. Member counts are no longer publicly shown by FB, so "active" cannot be asserted from search alone — **open in Playwright and check the most-recent-post date before citing.**
+
+| Group | URL | Region | Reachability |
+|---|---|---|---|
+| COMPRA Y VENTA DE AUTOS EN VIRGINIA #LATINOS | `facebook.com/groups/706490468073515` | VA | LOGIN + join |
+| COMPRA Y VENTA DE AUTOS HOUSTON TX | `facebook.com/groups/186744047475623` | Houston TX | LOGIN + join |
+| CARROS CASH HOUSTON TX Y SUS ALREDEDORES | `facebook.com/groups/237983615635519` | Houston TX | LOGIN + join |
+| Compra y venta de Carros usados Los Angeles | `facebook.com/groups/219715817773528` | LA CA | LOGIN + join |
+| VENTAS de autos nuevos y USADOS (Los Angeles) | `facebook.com/groups/711862078920360` | LA CA | LOGIN + join |
+| Compra-Venta de Autos en California | `facebook.com/groups/568277525205205` | CA (statewide) | LOGIN + join |
+
+Search inside a joined group in Spanish for a target model (`Honda CR-V`, `precio`, `OTD`, `descuento`). FB workflow = same Playwright local-browser login path as the brand FB groups described above.
+
+#### REJECTED (NOT communities — do not list as deal sources)
+
+These surfaced under "latino car" searches but are **dealer storefronts / lead-gen / content sites, not peer buyer communities** — they post their own asking prices, not independent buyer quote evidence. Listing them as community sources would be a category error:
+
+- `autoslatinos.com`, `carrosenusa.com` — online used-car dealers / lead-gen.
+- Facebook **Pages** (not groups): "Auto Latinos" (LA), "Autos Latinos" (Hollywood FL), "Latinos Unidos Auto Sales" (Houston) — dealer business pages.
+- `autonationusa.com/espanol`, `franco automotors`, `latinocerca.com` — dealer chain / dealer directory.
+- LATAM-domestic FB groups (Buenos Aires, Lima Perú, CDMX) — **wrong market**, non-US pricing.
+
+If a new "latino autos" result appears, classify it first: a **group** where many buyers post = candidate community (verify + add); a **page/site** selling cars = dealer, reject.
+
 ### Instagram & TikTok Dealer Posts
 
 - **What**: Dealer-posted lease ads reveal manufacturer lease cash structure (e.g., "$349/mo 36mo $2,500 down" implies ~$3,000-4,000 lease cash baked in)

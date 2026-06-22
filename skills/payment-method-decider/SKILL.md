@@ -1,6 +1,6 @@
 ---
 name: Payment Method Decider
-description: Use to choose the right payment method (cashier's check, debit, credit card, financing, lease) for a car purchase given buyer's specific situation (card rewards, dealer POS limits, financing pre-approval, captive vs CU). Triggers include "cash or CC for car", "Visa for $30k purchase", "crypto cashback card rewards", "dealer POS limit", "Chase Sapphire car purchase", "支付方式", "买车用刷卡还是支票".
+description: Use to choose the right payment method (cashier's check, debit, credit card, financing, lease) for a car purchase given buyer's specific situation (card rewards, dealer POS limits, financing pre-approval, captive vs CU). Triggers include "cash or CC for car", "Visa for $30k purchase", "crypto cashback card rewards", "dealer POS limit", "Chase Sapphire car purchase", "支付方式", "买车用刷卡还是支票", and Spanish phrases "metodo de pago para el carro", "pago el carro con tarjeta o con cheque de caja".
 ---
 
 # Payment Method Decider

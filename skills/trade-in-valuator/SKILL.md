@@ -1,6 +1,6 @@
 ---
 name: Trade-in Valuator
-description: Use to valuate the buyer's trade-in vehicle (KBB / private party / wholesale / dealer allowance), compute state trade-in tax credit, handle lien payoff timing, and decide separate-sell vs trade-in. Triggers include "valuate my trade", "what's my Civic worth", "KBB vs private party", "trade-in tax credit", "lien payoff", "评估置换车", "卖给 dealer 还是私卖".
+description: Use to valuate the buyer's trade-in vehicle (KBB / private party / wholesale / dealer allowance), compute state trade-in tax credit, handle lien payoff timing, and decide separate-sell vs trade-in. Triggers include "valuate my trade", "what's my Civic worth", "KBB vs private party", "trade-in tax credit", "lien payoff", "评估置换车", "卖给 dealer 还是私卖", and Spanish phrases "evaluar mi carro a cuenta", "lo entrego al dealer o lo vendo por mi cuenta".
 ---
 
 # Trade-in Valuator
