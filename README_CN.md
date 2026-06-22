@@ -211,7 +211,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 
 ![站点能力矩阵 + 候选去重](./examples/market_cn.png)
 
-Phase 2 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键差异 + 推荐顺序，下半是按 VIN 去重的候选清单含 Deal Tag。两张都是 Markdown 表格 → Claude 渲染。
+Phase 3 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键差异 + 推荐顺序，下半是按 VIN 去重的候选清单含 Deal Tag。两张都是 Markdown 表格 → Claude 渲染。
 
 ---
 
@@ -220,7 +220,7 @@ Phase 2 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键
 安装后跑这几条，验证骨架是否齐全：
 
 ```bash
-ls skills/   # 应看到 15 个目录
+ls skills/   # 应看到 16 个目录
 python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
 python skills/orchestrator/scripts/generate_dossier.py \
   --config skills/orchestrator/assets/dossier_config_template.yaml \
