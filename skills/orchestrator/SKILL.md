@@ -168,7 +168,7 @@ This is the source of truth every subsequent counter cites. Re-pull whenever the
 
 ### Phase 3: Multi-Site Inventory Research
 
-Dispatch parallel subagents across inventory sites (Carfax / Cars.com / AutoTrader / Edmunds / TrueCar / CarGurus / CarMax / Carvana / OEM SmartPath). Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, price, dealer, deal tags, link, Delivery Mode for new cars). After all return, generate `master_comparison.md` deduplicated by VIN. New-car vs used-car router gate fires before dispatch and changes site set + history-PDF requirement.
+Dispatch parallel subagents across inventory sites (Carfax / Cars.com / AutoTrader / Edmunds / TrueCar / CarGurus / CarMax / Carvana / OEM SmartPath). Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, price, dealer, deal tags, link, Delivery Mode for new cars). After all return, generate `master_comparison.md` as the buyer-facing market scan in two sections: a **Site Capability Matrix** on top (one role-tagged row per site — which source to trust for what, ranked Primary / Secondary / Negotiation-lever / Research-only / Plan-B / Skip) and the **VIN-deduplicated candidate list** on the bottom. New-car vs used-car router gate fires before dispatch and changes site set + history-PDF requirement.
 
 **Full details**: see `references/phases.md#phase-3--inventory`.
 

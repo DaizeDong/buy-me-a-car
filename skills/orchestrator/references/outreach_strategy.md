@@ -81,7 +81,7 @@ For each site, dispatch one subagent in parallel with a prompt like:
 
 Run all subagents in a single message (parallel) — they are independent and gain ~5-10x wall clock improvement from concurrency.
 
-After subagents return, merge their outputs into `master_comparison.md` with columns: site, year/trim, miles, price, dealer, location, deal-rating, VIN, URL, notes.
+After subagents return, merge their outputs into `master_comparison.md`. The file has two sections: a **Site Capability Matrix** on top (one role-tagged row per site — see `phases.md#phase-3--inventory` for the fixed columns + role taxonomy) and, below it, the **VIN-deduplicated candidate list** with columns: site, year/trim, miles, price, dealer, location, deal-rating, VIN, URL, notes.
 
 ## Identifying Top Candidates
 

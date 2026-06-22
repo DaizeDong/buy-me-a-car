@@ -211,7 +211,7 @@ If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this
 
 ![market matrix + dedup](./examples/market_en.png)
 
-What Phase 2 produces: a 9-site capability matrix (top) + VIN-deduped candidate list with deal tags (bottom), auto-rendered as Markdown tables.
+What Phase 3 produces: a 9-site capability matrix (top) + VIN-deduped candidate list with deal tags (bottom), auto-rendered as Markdown tables.
 
 ---
 
@@ -220,7 +220,7 @@ What Phase 2 produces: a 9-site capability matrix (top) + VIN-deduped candidate 
 Verify the install:
 
 ```bash
-ls skills/   # should show 15 directories
+ls skills/   # should show 16 directories
 python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
 python skills/orchestrator/scripts/generate_dossier.py \
   --config skills/orchestrator/assets/dossier_config_template.yaml \

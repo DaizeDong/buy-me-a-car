@@ -56,9 +56,41 @@ Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, pri
 
 ### After all subagents return
 
-Generate `master_comparison.md` deduplicated by VIN.
+Generate `master_comparison.md` with TWO sections, in this order. This is the buyer-facing market-scan artifact shown in the README "Example output" (`examples/market_en.png` / `market_cn.png`).
 
-See `references/outreach_strategy.md` for dedup + ranking logic (including the **New-Car ADM Detection and Filtering** section that fires on positive `Internet Price − MSRP` deltas — gotcha D9).
+#### Section 1 (top): Site Capability Matrix
+
+One row per site dispatched, so the buyer sees at a glance which source to trust for what. Do NOT skip this section because it feels redundant with the candidate list — it is the part buyers reuse across the whole cycle to decide where to re-search and which quote to treat as an anchor. Fixed columns:
+
+| Column | Content |
+|---|---|
+| Site | Site name (Carfax, CarGurus, Cars.com, ...) |
+| Listings (radius) | Count this site's subagent returned inside the buyer's ZIP + radius (`0` if blocked / none) |
+| Price posture | Relative to the Phase 2 baseline: `below-market` / `at-market` / `above-market` / `fixed-no-haggle` |
+| Price tier | Typical deal quality this site surfaces for THIS search (e.g. "GREAT/GOOD deal flags", "MSRP-anchored", "rental-fleet flat") |
+| Key differentiator | One line — pull from the per-site notes in the dispatch table above (best dedup / native email / anti-bot / OTD-direct / rental-warranty / OEM-Monroney) |
+| Buyer role | One role tag from the taxonomy below |
+
+**Buyer-role taxonomy** (this is the categorization the matrix exists to deliver):
+
+| Role tag | Meaning | Default sites |
+|---|---|---|
+| `Primary #N` | Main search source — dispatch first, native email + best dedup; rank `#1`, `#2`... | Carfax (`#1` used), OEM SmartPath / national locator (`#1` new), CarGurus |
+| `Secondary #N` | Supplementary supply behind the primaries | Cars.com, AutoTrader |
+| `Negotiation lever` | No-haggle but returns a hard OTD number usable as a cross-bid anchor | Carvana |
+| `Research-only` | Market-data / TMV reference, not an inventory source to email | Edmunds, TrueCar |
+| `Plan B fallback` | Real inventory but no-haggle / fleet — use only if the primaries run thin | CarMax, EchoPark, Enterprise, Hertz |
+| `Skip` | Excluded for this buyer type — always append the reason in parentheses | new-MY → CarMax / Carvana / EchoPark / Enterprise / Hertz per the router gate |
+
+Role-assignment rules:
+
+- Honor the **new-vs-used router gate** above first. For a NEW-MY search, the no-haggle / rental sites (CarMax, Carvana, EchoPark, Enterprise, Hertz) are `Skip (no new-MY inventory)` and OEM SmartPath / national locator becomes `Primary #1`.
+- A site that returned **0 listings or was anti-bot-blocked** still gets a row — mark `Listings (radius) = 0` and either keep its role with a `(blocked, retry via Playwright)` note or downgrade to `Plan B fallback`. Never silently drop a dispatched site; the buyer needs to know it was checked.
+- Rank the `Primary` / `Secondary` numbers by listings-in-radius x price posture, not by brand prestige.
+
+#### Section 2 (bottom): VIN-deduplicated candidate list
+
+Generate the candidate table deduplicated by VIN. See `references/outreach_strategy.md` for the column set + dedup + ranking logic (including the **New-Car ADM Detection and Filtering** section that fires on positive `Internet Price − MSRP` deltas — gotcha D9).
 
 ### Cross-references
 
