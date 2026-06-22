@@ -37,7 +37,7 @@ help me buy a used compact SUV this week, budget $25k OTD, under 60k miles, near
 
 What runs automatically:
 
-1. Confirms 9 criteria + buyer-type router (cash / financing / trade-in / EV / pickup)
+1. Confirms 9 criteria + buyer-type router (cash / financing / trade-in / EV / pickup / private-party)
 2. Parallel subagents scrape **9 sites** (Carfax, CarMax, Carvana, Cars.com, AutoTrader, Edmunds, TrueCar, CarGurus, Enterprise) and dedupe by VIN
 3. Submits lead forms to top 30 candidates via Playwright MCP (anti-bot aware)
 4. **15-min cron** monitors Gmail; triages dealer replies into 4 buckets (real / OOO / CRM / spam)
@@ -73,6 +73,7 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Triggers**: `buy me a car`, `find me a car`, `帮我找车`, `买车`
 - **Example**: `help me buy a 2022-2024 Outback Premium under 60k miles within 50mi of <ZIP>, budget $32k OTD`
 - **Output**: phase-by-phase artifacts under a `car_buying_<YEAR>/` working dir.
+- **6 buyer paths**: cash / financing / trade-in / EV / pickup, plus **private-party** — seller is a private individual (FSBO), not a dealer. No OTD stack and no F&I office; buyer pays tax + title + registration at the DMV. The work shifts to title transfer, state tax basis (purchase price vs book value vs Illinois-style fixed table), curbstoner detection, and payment/escrow safety (cashier's check at the seller's bank; pay any lien off directly to the lienholder). See `skills/orchestrator/references/private_party_playbook.md`.
 
 ### otd-calculator
 - **Use when**: convert sale price → OTD, or reverse-engineer max sale from target OTD.
@@ -90,7 +91,7 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Use when**: verify factory CPO eligibility + embedded $ value before paying the CPO premium.
 - **Triggers**: `is this car CPO`, `Subaru CPO`, `Honda Certified`, `CPO 资格`
 - **Example**: `check CPO on 2021 Kia Telluride @ 55k miles`
-- **Output**: eligibility verdict (8-brand matrix), embedded $1-3k value, fake-CPO red flags.
+- **Output**: eligibility verdict (12-brand matrix: 8 mainstream + Stellantis SPOTiCAR + luxury Lexus/Genesis/Acura), embedded $1-3k value, fake-CPO red flags.
 
 ### carfax-pdf-review
 - **Use when**: dealer sent you CARFAX / service-record / F&I-proposal PDFs.

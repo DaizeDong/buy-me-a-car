@@ -171,6 +171,10 @@ Generate the candidate table deduplicated by VIN. See `references/outreach_strat
 
 Submit lead forms or send direct emails to the top 30-50 candidates. Each outbound touch is sent in a 5-minute window so dealers feel parallel pressure (see `outreach_strategy.md` § parallel cross-bid).
 
+### Private-party branch (seller = FSBO)
+
+**If seller = private (FSBO): SKIP mass outreach entirely.** There is no lead-form fan-out, no top-30 VIN blast, no Playwright form submission, and no inbox-triage 4-bucket pass (one human, no CRM). Replace with a **single-seller contact**: one message to verify the car is available, that the **title is in the seller's name and clear of liens**, and to request an **independent-shop PPI**. Use dealer-reply-drafter in single-seller mode (short, human, no CRM assumptions). The triage step is repurposed to **screen the seller for curbstoner/scam signals** (`private_party_playbook.md` sec 4), not to sort dealer replies. See the Phase-1 seller-type gate in SKILL.md.
+
 ### Capture per dealer
 
 Per dealer row in `tracker.md`:
@@ -272,6 +276,10 @@ Reply templates: `assets/dealer_reply_template.md`.
 **When this runs**: AFTER Phase 5 cron has collected the first round of dealer replies with written numbers. RUNS CONCURRENTLY with Phase 5 (cron continues), Phase 7 (PDFs as they arrive), and the cross-bid escalation cadence in `negotiation_playbook.md`.
 
 **Purpose**: Push the cross-bid field toward the buyer's walk-away ceiling using market-data anchors, internal-trim anchors, and competitor OTD citations.
+
+### Private-party branch (seller = FSBO)
+
+**If seller = private (FSBO): single-seller negotiation, not 3-anchor dealer logic.** There is no dealer-pricing spread or F&I margin to exploit. Anchor instead on **regional private-party comps + documented condition/PPI deductions**. Negotiation outcome feeds the **bill of sale price**, which is also the **tax basis** in purchase-price states (CA/NJ) - so a clean, documented price both closes the deal and proves the tax. Then drive to a **safe close**: cashier's check at the **seller's own bank**, no pre-wiring; if the car has a lien, pay the **lienholder directly** via a 10-day payoff letter (`private_party_playbook.md` sec 5-6); capture the signed **odometer disclosure**; handle plates; diary the state title-transfer deadline (e.g. NJ 10 days, IL RUT-50 30 days). All dealer-only mechanics below (ADM kill list, F&I add-on, bait-and-switch, dealer-group) do not apply to FSBO.
 
 ### The ask format (always written, never verbal)
 

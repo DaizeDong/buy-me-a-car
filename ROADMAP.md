@@ -18,9 +18,11 @@ Snapshot of where `buy-me-a-car` stands and where it goes next.
   per-site extraction recipes + pagination guide, and a buyer-facing Site
   Capability Matrix on top of the VIN-deduped candidate list.
 - 22 US states + DC covered at fee-detail depth.
-- 8 brand CPO programs (Subaru, Toyota, Honda, Mazda, Hyundai, Kia, Ford,
-  GM).
-- 5 buyer paths supported (cash / finance / lease / trade / EV).
+- 12 brand CPO programs (Subaru, Toyota, Honda, Mazda, Hyundai, Kia, Ford,
+  GM, Stellantis SPOTiCAR [Ram/Jeep/Chrysler/Dodge/Fiat], Lexus, Genesis,
+  Acura).
+- 6 buyer paths supported (cash / finance / lease / trade / EV /
+  private-party).
 - ~80 deltas resolved with root-cause attribution across iterations 1-5
   and P0-P5 fix rounds.
 - Smoke test 6/6 passing.
@@ -49,8 +51,10 @@ Snapshot of where `buy-me-a-car` stands and where it goes next.
   style and tune outreach + counter-offer tone.
 - Expand state coverage from 22 to 50 (currently stubbed states need
   fee-detail fill-in).
-- Add brand CPO programs for Ram, Jeep, Chrysler, Lexus, Genesis, Acura.
-  (Hyundai, Kia, Ford, GM, Mazda, Subaru, Toyota, Honda already shipped.)
+- Add brand CPO programs for remaining luxury / niche makes (BMW, MB, Audi,
+  Porsche, Infiniti, Cadillac, Lincoln, Volvo). (Subaru, Toyota, Honda,
+  Mazda, Hyundai, Kia, Ford, GM, Stellantis SPOTiCAR [Ram/Jeep/Chrysler/
+  Dodge/Fiat], Lexus, Genesis, Acura already shipped.)
 
 ---
 

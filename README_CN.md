@@ -37,7 +37,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 
 自动跑起来：
 
-1. 确认 9 项核心需求 + buyer-type router（cash / financing / trade-in / EV / pickup）
+1. 确认 9 项核心需求 + buyer-type router（cash / financing / trade-in / EV / pickup / private-party（个人对个人））
 2. 并行 subagent 抓 **9 个网站**（Carfax、CarMax、Carvana、Cars.com、AutoTrader、Edmunds、TrueCar、CarGurus、Enterprise），按 VIN 去重
 3. 通过 Playwright MCP 给 top 30 候选提交 lead form（自动绕 anti-bot）
 4. **每 15 分钟 cron** 扫 Gmail，把 dealer 回信分进 4 桶（real / OOO / CRM / spam）
@@ -73,6 +73,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 - **触发**：`buy me a car`、`帮我找车`、`买车`、`选车`
 - **示例**：`帮我找一辆 2022-2024 款 Outback Premium，里程 60k 以下，离 <ZIP> 50 英里内，预算 32k OTD`
 - **产出**：每个 phase 的 artifacts 输出到 `car_buying_<YEAR>/` 工作目录。
+- **6 条买家路径**：cash / financing / trade-in / EV / pickup，外加 **private-party（个人对个人）** —— 卖家是私人（FSBO）而非经销商。无 OTD 总价堆叠、无 F&I 加项；买家在 DMV 自行缴税 + 过户 + 上牌。重点转向 title 过户、各州计税基准（成交价 vs 账面值 vs 伊利诺伊式固定表）、无照倒卖（curbstoner）识别 与 支付/托管安全（在卖家开户行出 cashier's check；车带 lien 时直接付清给 lienholder）。详见 `skills/orchestrator/references/private_party_playbook.md`。
 
 ### otd-calculator
 - **何时用**：sale price → OTD，或目标 OTD 反推最大 sale price。
@@ -90,7 +91,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 - **何时用**：付 CPO 溢价之前核实工厂认证资格 + 嵌入价值。
 - **触发**：`is this car CPO`、`Subaru CPO`、`CPO 资格`
 - **示例**：`查下 2021 款 Kia Telluride @ 55k 还能不能 CPO`
-- **产出**：8 品牌资格矩阵裁定 + 嵌入价值 $1-3k + 假 CPO 红旗。
+- **产出**：12 品牌资格矩阵裁定（8 主流 + Stellantis SPOTiCAR + 豪华 Lexus/Genesis/Acura）+ 嵌入价值 $1-3k + 假 CPO 红旗。
 
 ### carfax-pdf-review
 - **何时用**：dealer 发了 CARFAX、保养记录或 F&I 报价 PDF。
