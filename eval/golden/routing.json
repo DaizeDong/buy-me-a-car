@@ -1,0 +1,324 @@
+{
+  "_comment": "Golden routing fixtures for buy-me-a-car skills. 'skills' maps each skill DIRECTORY -> display name, 'triggers' (exact phrases from SKILL.md frontmatter 'Triggers include ...'), and 'readme_triggers' (the backticked phrases under that skill's README '### <dir>' block). 'readme_trigger_table' maps each phrase in the README '## Trigger routing' table -> the expected skill directory. test_routing.py asserts: (1) no two skills share an identical exact trigger phrase across the combined trigger vocabulary; (2) every README trigger-table phrase routes to its expected skill under the 'most narrow + specific match wins' rule.",
+  "skills": {
+    "carfax-pdf-review": {
+      "name": "Carfax & PDF Review",
+      "triggers": [
+        "review this CARFAX",
+        "analyze service records",
+        "what's in this proposal PDF",
+        "did dealer hide add-ons",
+        "看下 CARFAX",
+        "审 PDF",
+        "F&I add-on detection"
+      ],
+      "readme_triggers": [
+        "review this CARFAX",
+        "审 PDF",
+        "F&I add-on detection"
+      ]
+    },
+    "close-day-checklist": {
+      "name": "Close Day Checklist",
+      "triggers": [
+        "ready to close",
+        "close day checklist",
+        "F&I add-on refusal",
+        "lien payoff timing",
+        "提车清单",
+        "准备签约"
+      ],
+      "readme_triggers": [
+        "ready to close",
+        "F&I add-on refusal",
+        "提车清单"
+      ]
+    },
+    "cpo-eligibility": {
+      "name": "CPO Eligibility Check",
+      "triggers": [
+        "is this car CPO eligible",
+        "CPO program details for X",
+        "embedded CPO value",
+        "should I pay for CPO",
+        "factory CPO vs dealer certified",
+        "Subaru CPO",
+        "Honda Certified"
+      ],
+      "readme_triggers": [
+        "is this car CPO",
+        "Subaru CPO",
+        "Honda Certified",
+        "CPO 资格"
+      ]
+    },
+    "dealer-reply-drafter": {
+      "name": "Dealer Reply Drafter",
+      "triggers": [
+        "draft counter to dealer",
+        "reply to this dealer email",
+        "follow up with dealer",
+        "respond to OTD quote",
+        "回复 dealer",
+        "给 dealer 起草回信",
+        "对 dealer 报价做 counter"
+      ],
+      "readme_triggers": [
+        "draft counter to dealer",
+        "回复 dealer",
+        "对 dealer 报价做 counter"
+      ]
+    },
+    "dossier-builder": {
+      "name": "Decision Dossier Builder",
+      "triggers": [
+        "build dossier",
+        "generate market research PDF",
+        "dealer dossier",
+        "decision document",
+        "make dossier for dealer",
+        "生成 dossier",
+        "制作 PDF"
+      ],
+      "readme_triggers": [
+        "build dossier",
+        "生成 PDF",
+        "make dossier"
+      ]
+    },
+    "ev-buyer-helper": {
+      "name": "EV Buyer Helper",
+      "triggers": [
+        "EV federal credit",
+        "$7,500 POS transfer",
+        "Ioniq 5 incentives",
+        "NACS adapter",
+        "EV charging at home",
+        "买电车",
+        "电车补贴",
+        "EV battery health"
+      ],
+      "readme_triggers": [
+        "EV federal credit",
+        "$7,500 POS",
+        "电车补贴"
+      ]
+    },
+    "inbox-triage": {
+      "name": "Dealer Inbox Triage",
+      "triggers": [
+        "check my dealer inbox",
+        "triage these emails",
+        "is this real or autoresponder",
+        "看下邮箱",
+        "dealer 回复了吗",
+        "spam folder check"
+      ],
+      "readme_triggers": [
+        "check my dealer inbox",
+        "看下邮箱",
+        "dealer 回复了吗"
+      ]
+    },
+    "insurance-shopper": {
+      "name": "Insurance Shopper",
+      "triggers": [
+        "set up insurance",
+        "上保",
+        "car insurance quote",
+        "new driver insurance",
+        "保险报价",
+        "ID card before pickup"
+      ],
+      "readme_triggers": [
+        "set up insurance",
+        "car insurance quote",
+        "new driver insurance",
+        "上保",
+        "保险报价"
+      ]
+    },
+    "lease-vs-cash-analyzer": {
+      "name": "Lease vs Cash Analyzer",
+      "triggers": [
+        "lease or buy",
+        "lease 数学",
+        "compute lease monthly",
+        "money factor markup",
+        "lease cash incentive",
+        "lease vs cash break-even"
+      ],
+      "readme_triggers": [
+        "lease or buy",
+        "money factor markup",
+        "租还是买"
+      ]
+    },
+    "orchestrator": {
+      "name": "Buy Me a Car",
+      "triggers": [
+        "buy me a car",
+        "find me a car",
+        "research cars",
+        "email dealers",
+        "compare quotes",
+        "negotiate OTD",
+        "buy a Subaru/Toyota/Honda/Mazda",
+        "帮我找车",
+        "买车",
+        "选车",
+        "砍价",
+        "对比经销商"
+      ],
+      "readme_triggers": [
+        "buy me a car",
+        "find me a car",
+        "帮我找车",
+        "买车"
+      ]
+    },
+    "otd-calculator": {
+      "name": "OTD Calculator",
+      "triggers": [
+        "compute OTD",
+        "OTD math",
+        "what's my OTD",
+        "reverse OTD to sale price",
+        "算 OTD",
+        "算总价"
+      ],
+      "readme_triggers": [
+        "compute OTD",
+        "OTD math",
+        "算 OTD",
+        "算总价"
+      ]
+    },
+    "payment-method-decider": {
+      "name": "Payment Method Decider",
+      "triggers": [
+        "cash or CC for car",
+        "Visa for $30k purchase",
+        "crypto cashback card rewards",
+        "dealer POS limit",
+        "Chase Sapphire car purchase",
+        "支付方式",
+        "买车用刷卡还是支票"
+      ],
+      "readme_triggers": [
+        "cash or CC for car",
+        "支付方式",
+        "Visa for $30k car"
+      ]
+    },
+    "ppi-scheduler": {
+      "name": "PPI Scheduler",
+      "triggers": [
+        "book PPI",
+        "mobile inspector NJ",
+        "pre-purchase inspection",
+        "Lemon Protector",
+        "YourMechanic",
+        "Pep Boys mobile inspection",
+        "提车前检车"
+      ],
+      "readme_triggers": [
+        "book PPI",
+        "提车前检车",
+        "mobile inspector"
+      ]
+    },
+    "quote-evidence-collector": {
+      "name": "Quote Evidence Collector",
+      "triggers": [
+        "find quote screenshots",
+        "find dealer evidence",
+        "scrape XHS for quotes",
+        "Reddit OTD reports",
+        "搜集报价截图",
+        "找证据图",
+        "找别人 dealer 给的报价"
+      ],
+      "readme_triggers": [
+        "find quote screenshots",
+        "搜集报价截图",
+        "find dealer evidence"
+      ]
+    },
+    "state-fee-lookup": {
+      "name": "State Fee Lookup",
+      "triggers": [
+        "what's the doc fee in X",
+        "NJ sales tax rate",
+        "Texas DMV fees",
+        "州的税率",
+        "doc fee cap",
+        "trade-in credit"
+      ],
+      "readme_triggers": [
+        "doc fee in NJ",
+        "state 税率",
+        "trade-in credit"
+      ]
+    },
+    "trade-in-valuator": {
+      "name": "Trade-in Valuator",
+      "triggers": [
+        "valuate my trade",
+        "what's my Civic worth",
+        "KBB vs private party",
+        "trade-in tax credit",
+        "lien payoff",
+        "评估置换车",
+        "卖给 dealer 还是私卖"
+      ],
+      "readme_triggers": [
+        "valuate my trade",
+        "评估置换车",
+        "trade-in tax credit"
+      ]
+    }
+  },
+  "readme_trigger_table": [
+    {
+      "phrase": "help me buy a car",
+      "expected": "orchestrator"
+    },
+    {
+      "phrase": "draft reply to dealer",
+      "expected": "dealer-reply-drafter"
+    },
+    {
+      "phrase": "compute OTD",
+      "expected": "otd-calculator"
+    },
+    {
+      "phrase": "doc fee in NJ",
+      "expected": "state-fee-lookup"
+    },
+    {
+      "phrase": "lease or buy",
+      "expected": "lease-vs-cash-analyzer"
+    },
+    {
+      "phrase": "Visa for $30k car",
+      "expected": "payment-method-decider"
+    },
+    {
+      "phrase": "find quote screenshots",
+      "expected": "quote-evidence-collector"
+    },
+    {
+      "phrase": "$7,500 EV credit",
+      "expected": "ev-buyer-helper"
+    },
+    {
+      "phrase": "book PPI",
+      "expected": "ppi-scheduler"
+    },
+    {
+      "phrase": "review this CARFAX",
+      "expected": "carfax-pdf-review"
+    }
+  ]
+}

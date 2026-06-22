@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "description": "Golden OTD test cases. Inputs (state base tax rate, title, reg) are sourced from data/state_fees.json verified values; expected_tax / expected_otd are computed by skills/orchestrator/scripts/otd_calculator.py and frozen here. The combined tax rate the test uses is base_rate(from JSON) + local_pct/100, computed the SAME way the calculator and CLI do (do NOT store a pre-rounded combined rate: rounding it to e.g. 0.085 shifts the result by a half-cent at boundary cases like NY/TX).",
+    "regen": "See eval/README.md -> 'Regenerating golden cases'.",
+    "local_pct_note": "local_pct values mirror worked examples in state_fees.md detail stubs (e.g. WA Seattle 10.55% = 6.5 base + 4.05 local; OH Cuyahoga 8% = 5.75 + 2.25).",
+    "tolerance_usd": 0.005,
+    "seed_date": "2026-06-22"
+  },
+  "forward": [
+    {"state": "NJ", "sale": 25000, "doc": 499, "local_pct": 0, "title": 85, "reg": 70, "expected_tax": 1689.31, "expected_otd": 27343.31},
+    {"state": "CA", "sale": 25000, "doc": 85, "local_pct": 1.5, "title": 25, "reg": 250, "expected_tax": 2194.94, "expected_otd": 27554.94},
+    {"state": "TX", "sale": 25000, "doc": 150, "local_pct": 0, "title": 33, "reg": 51, "expected_tax": 1571.88, "expected_otd": 26805.88},
+    {"state": "MD", "sale": 31000, "doc": 800, "local_pct": 0, "title": 50, "reg": 135, "expected_tax": 1908.0, "expected_otd": 33893.0},
+    {"state": "OH", "sale": 24500, "doc": 250, "local_pct": 2.25, "title": 15, "reg": 31, "expected_tax": 1980.0, "expected_otd": 26776.0},
+    {"state": "NC", "sale": 26000, "doc": 129, "local_pct": 0, "title": 56, "reg": 36, "expected_tax": 783.87, "expected_otd": 27004.87},
+    {"state": "NY", "sale": 30000, "doc": 175, "local_pct": 4.5, "title": 50, "reg": 100, "expected_tax": 2564.87, "expected_otd": 32889.88},
+    {"state": "MI", "sale": 28000, "doc": 230, "local_pct": 0, "title": 15, "reg": 100, "expected_tax": 1693.8, "expected_otd": 30038.8},
+    {"state": "VA", "sale": 33000, "doc": 599, "local_pct": 0, "title": 15, "reg": 41, "expected_tax": 1394.36, "expected_otd": 35049.36},
+    {"state": "WA", "sale": 35000, "doc": 200, "local_pct": 4.05, "title": 15, "reg": 80, "expected_tax": 3713.6, "expected_otd": 39008.6},
+    {"state": "FL", "sale": 32500, "doc": 500, "local_pct": 1, "title": 77, "reg": 225, "expected_tax": 2310.0, "expected_otd": 35612.0},
+    {"state": "IL", "sale": 40000, "doc": 347.26, "local_pct": 1.25, "title": 155, "reg": 151, "expected_tax": 3026.04, "expected_otd": 43679.3}
+  ]
+}
