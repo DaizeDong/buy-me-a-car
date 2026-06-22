@@ -83,9 +83,9 @@ States vary on whether sales tax applies to the doc fee (most do), whether trade
 Notes:
 - **Doc Fee Cap "None"** means no statutory cap. Dealers can charge whatever, but $499-899 is typical industry range.
 - **Trade-In Tax Credit** indicates whether sales tax applies to the net price after trade-in deduction. Most states allow this credit; CA, KY, DC are notable exceptions.
-- **CA Doc Fee Capped at $85** is one of the strongest consumer protections in the US.
-- **NY Doc Fee Capped at $175** is the second strongest.
-- **DE has no sales tax** but charges a 4.25% "document fee" on the purchase price plus title — functionally similar to sales tax.
+- **CA Doc Fee Capped at $85** is the lowest binding doc-fee cap in the US — the strongest consumer protection.
+- **NC ($129), NY ($175), WA ($200), TX ($225 OCCC safe-harbor), MI ($230)** round out the next-lowest caps after CA. (NH's $27 is a state-title-fee cap only; NH dealer admin fees are uncapped.)
+- **DE has no sales tax** but charges a 5.25% "document fee" (raised from 4.25% eff. 2025-10-01) on the purchase price plus title — functionally similar to sales tax. This is a state title document fee, not a dealer doc fee (DE does not cap dealer processing fees).
 - **OR, MT, NH have no state sales tax.** AK has no state tax but most boroughs charge local sales tax.
 
 ## Sub-State Tax Stacking
@@ -202,19 +202,19 @@ OTD = $25,000 + $115 + $0 + $122 + $100 = $25,337
 
 OR has the cleanest OTD math.
 
-### TX Example (Mid-tax with strong doc fee cap)
+### TX Example (Mid-tax with OCCC doc-fee safe harbor)
 
-Sales $25,000, Doc $150 (TX cap), TX tax 6.25%:
+Sales $25,000, Doc $225 (TX OCCC safe-harbor, eff. 2024-07-11), TX tax 6.25%:
 
 ```
-Taxable = $25,000 + $150 = $25,150
-Tax = $25,150 × 0.0625 = $1,571.88
+Taxable = $25,000 + $225 = $25,225
+Tax = $25,225 × 0.0625 = $1,576.56
 Title = $33
 Reg = $50 (assume)
-OTD = $25,000 + $150 + $1,571.88 + $33 + $50 = $26,804.88
+OTD = $25,000 + $225 + $1,576.56 + $33 + $50 = $26,884.56
 ```
 
-TX is one of the most buyer-friendly states for OTD: low doc fee, mid-range tax.
+TX is buyer-friendly for OTD: mid-range tax and a low presumed-reasonable doc amount ($225, OCCC safe-harbor — not a hard cap; above $225 requires an OCCC cost-justification filing). The widely-cited "$150 TX doc limit" is outdated.
 
 ## Trade-In Tax Credit Math
 
@@ -247,7 +247,7 @@ Quick-reference stubs for the NJ tri-state core. The "Does NOT have" subsection 
 
 ### NY — New York
 - **Sales tax**: 4% state + 4-4.875% local (NYC combined 8.875%).
-- **Doc fee cap**: **$175 (legal cap — second strongest in US).** Typical $175.
+- **Doc fee cap**: **$175 (legal cap — third-strongest in US, after CA $85 and NC $129).** Typical $175.
 - **Title fee**: $50. **Registration**: weight-based, typical $26-140 for 2-year passenger.
 - **Trade-in tax credit**: Yes.
 - **Has**: MCTD (Metropolitan Commuter Transportation District) $50 fee for NYC area registrations; tire recycling fee on new tires only ($2.50/tire) — not normally on used vehicle retail sales.
@@ -318,7 +318,7 @@ Quick-reference stubs for CT, MA, RI, NH, ME, VT. Full breakdowns (registration 
   - **Kane County (St. Charles, Geneva, Aurora-Kane portion)**: 7-7.5% combined
   - **Lake County (Waukegan, Libertyville)**: 7-8% combined
   - Always confirm the buyer's registration ZIP combined rate before defaulting — DuPage (60540) != Cook (606XX).
-- **Doc fee cap**: **$347.26 (legal cap as of 2025)**. **Highest doc-fee cap in the US.** Updated annually for inflation (Illinois Vehicle Code 625 ILCS 5/5-101.1; CPI-linked). PA dealers run $499-999 uncapped; IL dealers are statute-bound. Treat any IL quote with doc above $347.26 as a leak — flat illegal under IL law.
+- **Doc fee cap**: **$347.26 (legal cap as of 2025)**. **Highest cap among the low-tier (sub-$400) capped states — NOT the highest cap in the US** (MD $800, NJ $799, MO $604.47, VA $599, WV $575, LA $436, MN $350 all exceed it). Updated annually for inflation (Illinois Vehicle Code 625 ILCS 5/5-101.1; CPI-linked). PA dealers run $499-999 uncapped; IL dealers are statute-bound. Treat any IL quote with doc above $347.26 as a leak — flat illegal under IL law.
 - **Title fee**: $155 (one of higher US title fees). **Registration**: $151/yr passenger vehicle. **Plate transfer**: ~$26 (transfer from trade vehicle to new vehicle — cheaper than new-plate issuance).
 - **License + Emissions inspection ("LE")**: $20 for emissions-test counties (Cook, DuPage, Kane, Lake, Will, McHenry, Madison, Monroe, St. Clair). Other counties exempt.
 - **Trade-in tax credit**: **YES BUT CAPPED at first $10,000 of trade allowance** (Illinois Vehicle Code; was uncapped pre-2020, capped 2020-2024 per Rivian-vs-Ford SB-690 lobbying compromise, **kept at $10k cap** through 2025+ — verify current legislation). A $12,000 trade allowance in IL only gets credit on $10,000 × combined rate. A $5,800 trade (the buyer's Ram) gets full credit ($5,800 × 7.5% = $435 tax savings in the buyer's Illinois county).
@@ -368,13 +368,13 @@ If trade allowance had been $12,000 instead of $7,000:
 
 | Buyer State | Dealer State | Tax Paid | Doc Fee | Notes |
 |---|---|---|---|---|
-| IL (60540 Naperville, DuPage 7.5%) | IN (Munster / Highland / Hammond, 46XXX) | IL 7.5% (paid at IL SOS) | IN typ $279-399 (IN doc cap $199 statutory but many IN dealers add fees) | IN dealer should NOT charge IN 7% tax; IL buyer pays IL 7.5% at IL SOS titling. **IN doc cap $279 vs IL $347.26**: IN doc is $68 cheaper. Cross-state IL→IN small advantage. |
+| IL (60540 Naperville, DuPage 7.5%) | IN (Munster / Highland / Hammond, 46XXX) | IL 7.5% (paid at IL SOS) | IN $251.05 (statutory cap, CPI-indexed) | IN dealer should NOT charge IN 7% tax; IL buyer pays IL 7.5% at IL SOS titling. **IN cap $251.05 vs IL $347.26**: IN doc is ~$96 cheaper. Cross-state IL→IN small advantage. |
 | IL (60540) | WI (Kenosha / Pleasant Prairie, 53XXX) | IL 7.5% (paid at IL SOS) | WI no statutory doc cap (typ $399-499) | WI dealer should NOT charge WI 5% tax. **WI doc typ $399-499 = $50-150 more than IL $347.26 cap**. Cross-state IL→WI net advantage flips negative on doc; net effect: nil for IL buyer (tax same, doc slightly more). |
 | IL (60540) | MO (border zones — IL→MO uncommon for Chicagoland) | IL 7.5% (paid at IL SOS) | MO doc cap $599 statutory | MO doc cap $599 > IL $347.26. No advantage. |
 | IL (60540) | IA (Quad Cities border, 522XX→527XX) | IL 7.5% (paid at IL SOS) | IA doc typ $499 | No advantage. |
-| IL (606XX Chicago, 10.25%) | IN (Lake County / Hammond) | IL 10.25% (paid at IL SOS) | IN doc cap $279 | Chicago buyers face the highest combined US tax (10.25%) — cross-state buys don't reduce tax burden because IL SOS collects IL tax regardless of dealer location. The cross-state move only saves $68 on doc. |
+| IL (606XX Chicago, 10.25%) | IN (Lake County / Hammond) | IL 10.25% (paid at IL SOS) | IN $251.05 (statutory cap) | Chicago buyers face the highest combined US tax (10.25%) — cross-state buys don't reduce tax burden because IL SOS collects IL tax regardless of dealer location. The cross-state move only saves ~$96 on doc (IN $251.05 vs IL $347.26). |
 
-**IL has no structural cross-state arbitrage advantage** — IL's combined tax stacking is high enough that even no-tax-state dealers (DE, NH, OR) far from Chicagoland would lose to local IL on the doc cap. The exception is IL→IN ($68 doc savings), which is too small to drive cross-state buying decisions on its own; only relevant when an IN dealer happens to have the exact specific VIN at a price advantage.
+**IL has no structural cross-state arbitrage advantage** — IL's combined tax stacking is high enough that even no-tax-state dealers (DE, NH, OR) far from Chicagoland would lose to local IL on the doc cap. The exception is IL→IN (~$96 doc savings: IN $251.05 cap vs IL $347.26 cap), which is too small to drive cross-state buying decisions on its own; only relevant when an IN dealer happens to have the exact specific VIN at a price advantage.
 
 ## High-Population State Detail Stubs — FL / OH / NC / GA / MI / VA / WA + DC / MD
 
@@ -423,7 +423,7 @@ Tax savings from trade credit: $8,000 × 6% (state only, surtax already capped) 
 ### OH — Ohio
 
 - **Sales tax**: 5.75% state base + county/transit district 0.25%-2.25% (typical combined 6.5-8%). Cuyahoga (Cleveland 44XXX) 8%, Franklin (Columbus 432XX) 7.5%, Hamilton (Cincinnati 452XX) 7.8%, Summit (Akron 443XX) 6.75%, Montgomery (Dayton 454XX) 7.5%, Lucas (Toledo 436XX) 7.75%. Confirm buyer's registration ZIP combined rate.
-- **Doc fee cap**: **$250 (statutory cap)** — among the lowest in the US (only IL $347, RI $250, MI $230, WA $200, TX $150, NY $175, CA $85 are comparable or lower). OH doc-fee compliance is mechanically enforced; treat any OH quote with doc above $250 as a flat illegal leak.
+- **Doc fee cap**: **$250 (statutory cap)** — among the lowest in the US (only CA $85, NC $129, NY $175, WA $200, TX $225 safe-harbor, MI $230 are lower; RI $250 and OR $250 tie). OH doc-fee compliance is mechanically enforced; treat any OH quote with doc above $250 as a flat illegal leak.
 - **Title fee**: $15 + $5 lien recording if financed = $20 with lien. **Registration**: $35 base + $3-91 by axle/weight (passenger sedan typical $50-65/yr).
 - **Trade-in tax credit**: **YES** — full trade allowance subtracted from sales price before tax.
 - **Has**: $5 lien fee (financed sales only); axle-based commercial vehicle surcharge.
@@ -753,8 +753,8 @@ Tax savings       = $10,000 × 6% = $600 (vs $0 in VA — the DC-corridor struct
 | FL (Miami-Dade 33101, 7% w/ ceiling) | AL (Mobile) | FL 6% + surtax | AL no cap (typ $599-799) | AL dealer should NOT charge AL 2% sales tax. AL doc similar to GA. Net: small advantage on doc, FL still pays $225 initial reg fee. |
 | OH (Cleveland Cuyahoga 8%) | PA (Pittsburgh Allegheny 7%) | OH 8% (paid at OH BMV) | PA no cap (typ $499-999) | PA dealer should NOT charge PA 7%. PA doc typ $499-999 vs OH $250 cap. Net DISADVANTAGE on doc ($250-750 more in PA), no advantage on tax. OH→PA only worth it for specific VIN scarcity. |
 | OH (Toledo Lucas 7.75%) | MI (Detroit Wayne 6%) | OH 7.75% (paid at OH BMV) | MI $230 cap | MI dealer should NOT charge MI 6%. MI doc $230 = $20 cheaper than OH $250 cap. Tax same buyer-state rate. Net: $20 advantage. |
-| OH (Cincinnati Hamilton 7.8%) | IN (Indianapolis Marion) | OH 7.8% | IN typ $279-399 | IN dealer should NOT charge IN 7%. IN doc $30-150 more than OH $250 cap. Net disadvantage on doc. |
-| OH (border 43XXX) | WV (Wheeling Ohio County) | OH 5.75-8% | WV $199 cap | WV doc $51 cheaper than OH cap. Tax same. Net: small advantage IF WV dealer has the VIN. |
+| OH (Cincinnati Hamilton 7.8%) | IN (Indianapolis Marion) | OH 7.8% | IN $251.05 cap | IN dealer should NOT charge IN 7%. IN cap $251.05 ≈ OH $250 cap (~$1 apart). Net: doc-neutral, no advantage. |
+| OH (border 43XXX) | WV (Wheeling Ohio County) | OH 5.75-8% | WV $575 cap | WV cap $575 is $325 ABOVE OH $250 cap. Tax same. Net DISADVANTAGE on doc — OH buyers should stay in-state; only cross for specific VIN. |
 | NC (Charlotte Mecklenburg) | VA (Bristol/Roanoke) | NC HUT 3% | VA $599 cap | VA dealer should NOT charge VA 4.15% SUT. NC HUT 3% is the buyer's rate. VA doc $599 = $470 MORE than NC $129. Net major doc disadvantage. NC buyers should stay in-state for doc savings; only cross-state for specific VIN scarcity. |
 | NC (Raleigh Wake) | SC (Greenville Anderson) | NC HUT 3% | SC IMF capped $500/vehicle + doc typ $399-499 | SC has unique 5% Infrastructure Maintenance Fee (IMF) capped $500/vehicle in lieu of sales tax for out-of-state titles; SC dealer should NOT apply IMF to NC buyer. NC HUT applies. SC doc $270-370 MORE than NC $129. |
 | NC (Asheville Buncombe) | TN (Knoxville Knox) | NC HUT 3% | TN no cap (typ $499-899) | TN dealer should NOT charge TN 9.25%. NC HUT applies. TN doc $370-770 MORE than NC $129. NC buyers cross-state to TN ONLY for specific VIN. |
@@ -763,10 +763,10 @@ Tax savings       = $10,000 × 6% = $600 (vs $0 in VA — the DC-corridor struct
 | GA (Augusta Richmond) | SC (Aiken) | GA TAVT 6.6% | SC IMF capped $500 + doc $399-499 | SC IMF does NOT apply to GA buyer (out-of-state). GA TAVT applies at GA DOR. SC doc $200-300 LESS than GA typ $599-799 — small advantage if SC dealer has the VIN. |
 | GA (Columbus Muscogee) | TN (Chattanooga Hamilton) | GA TAVT 6.6% | TN typ $499-899 | TN doc $100-300 more than GA typical. No advantage. |
 | MI (Detroit Wayne) | OH (Toledo Lucas) | MI 6% (paid at MI SOS) | OH $250 cap | OH doc $20 cheaper than MI $230 cap. Tax same. Net: $20 advantage. |
-| MI (Grand Rapids Kent) | IN (South Bend St. Joseph) | MI 6% | IN typ $279-399 | IN doc $49-169 MORE than MI cap. Net disadvantage. |
+| MI (Grand Rapids Kent) | IN (South Bend St. Joseph) | MI 6% | IN $251.05 cap | IN cap $251.05 is ~$21 MORE than MI $230 cap. Net minor disadvantage on doc. |
 | VA (Arlington 22203, DC commuter) | DC (Georgetown) | VA 4.15% SUT, NO trade credit | DC no cap (typ $599-899) | DC dealer should NOT charge DC excise to VA buyer. VA SUT applies at VA DMV titling. DC doc typ $200-300 MORE than VA $599 cap. Trade-in: if buyer has trade, MD/DC sales would grant credit but VA registration does NOT — buyer pays full SUT regardless of dealer state. **VA buyers with trades: this is the structural disadvantage; consider relocating before purchase if trade is large.** |
 | VA (Fairfax 22030) | MD (Bethesda Montgomery) | VA 4.15% SUT, NO trade credit | MD $800 cap | MD dealer should NOT charge MD 6%. VA SUT applies. MD's $800 cap is $201 HIGHER than VA's $599 cap — **no doc advantage crossing to MD; MD is now the high-doc state in this pair.** Trade credit lost at VA DMV regardless of MD origin. |
-| VA (Loudoun 20176) | WV (Charles Town Jefferson) | VA 4.15% SUT, NO trade credit | WV $199 cap | WV doc $400 LESS than VA $599 cap — even bigger doc savings than MD. WV dealer should NOT charge WV 6%. |
+| VA (Loudoun 20176) | WV (Charles Town Jefferson) | VA 4.15% SUT, NO trade credit | WV $575 cap | WV cap $575 is only ~$24 below VA $599 cap — marginal doc savings, not the large gap once claimed. WV dealer should NOT charge WV 6%. For real doc savings from VA, cross to NC ($129) instead. |
 | VA (Norfolk 23508) | NC (Raleigh Wake) | VA 4.15% SUT | NC $129 cap | NC doc $470 LESS than VA $599 cap — best doc-fee cross-state from VA. NC dealer should NOT charge NC HUT to VA buyer. |
 | DC (Capitol Hill 20003) | VA (Arlington) | DC excise by weight class | VA $599 cap | VA dealer should NOT charge VA 4.15%. DC excise applies at DC DMV. VA doc cheaper than DC's uncapped. **VA = doc-fee sweet spot for DC buyers** (parallel to DE for PA, MD for VA). |
 | DC (Adams Morgan 20009) | MD (Silver Spring Montgomery) | DC excise | MD $800 cap | MD dealer should NOT charge MD 6%. DC excise applies. **MD's $800 cap is the highest in the DC corridor** — weak doc protection. For doc savings a DC buyer should cross to VA ($599 cap), not MD. |
@@ -1906,14 +1906,15 @@ verified: 2026-06-22 | source: SalesTaxHandbook (WY vehicles) + Laramie County T
 - **FL has no state income tax + no doc fee cap** — FL is a destination state for retirees/out-of-state buyers but FL dealers charge among the highest doc fees in the US ($999-1,499 typical, no statutory ceiling)
 - **FL surtax ceiling on first $5,000** — county discretionary surtax (0.5-2%) only applies to first $5k of price, so total surtax is capped at ~$100 per vehicle regardless of sale price
 - **FL first-time registration fee $225** — out-of-state buyers transferring to FL hit this one-time fee at first FL title issuance
-- **OH doc fee cap $250** — among the strongest US protections (only TX $150, NY $175, CA $85 lower)
+- **OH doc fee cap $250** — among the strongest US protections (only CA $85, NC $129, NY $175, WA $200, TX $225 safe-harbor, MI $230 lower; ties RI $250 and OR $250)
+- **Verified low-doc-cap ranking (states WITH a statutory cap, lowest first)**: CA $85 (lowest binding cap) < NC $129 < NY $175 < WA $200 < TX $225 (OCCC safe-harbor, not a hard cap) < MI $230 < OH $250 = RI $250 = OR $250 (integrator) < IN $251.05 < IL $347.26 < MN $350 < LA $436 < WV $575 < VA $599 < MO $604.47 < NJ $799 < MD $800 (highest). NH $27 is a state-title-fee cap only — dealer admin fees are uncapped, so NH is NOT a low-doc state in practice. All other states have NO statutory cap. **MD $800 is the single highest statutory doc cap in the country and is decisively NOT low-doc.**
 - **NC uses Highway Use Tax 3% (NOT sales tax)** — any "sales tax" line on an NC quote is a flat error; NC doc fee cap $129 is second-lowest in US (after CA $85)
 - **GA uses TAVT 6.6% one-time at registration** — replaced annual ad valorem in 2013 for vehicles purchased after March 1, 2013; TAVT base is GA DOR FMV (Motor Vehicle Assessment Manual) OR sale price, whichever applies — agents must verify FMV at Phase 2 since FMV can be higher OR lower than sale price
 - **MI trade-in tax credit capped at $9,000 (2025)** — rises $1k/year to uncapped by 2029 per Public Act 1 of 2018 phase-in
 - **VA does NOT grant trade-in tax credit** — unique among DC-corridor states (DC=yes, MD=yes, VA=no); a $10k trade in VA saves $0 in tax vs $600 in MD same trade
 - **DC excise tax by vehicle weight class** — not traditional sales tax; 4 weight tiers each with 2 brackets (first $40k MSRP vs above $40k); EV exemption on first $40k
 - **WA combined tax can exceed 10.5% in Seattle** — state 6.5% + local up to 3.5% + MVET 0.3% = up to 10.55% Seattle; drives WA→OR residency arbitrage attempts (audited by WA DOL)
-- **IL doc fee $347.26** is statutorily capped; updated annually for inflation. **Highest cap in US.**
+- **IL doc fee $347.26** is statutorily capped; CPI-indexed annually. It is the highest cap among the *low-tier* (sub-$400) capped states, but NOT the highest cap in the US — MD $800, NJ $799, MO $604.47, VA $599, WV $575, LA $436, and MN $350 all exceed it. (The old "highest cap in US" claim was based on an outdated read and is wrong.)
 - **IL trade-in tax credit capped at first $10,000** (Rivian-vs-Ford SB-690 outcome, in effect since 2020). Above $10k of trade allowance gets no tax credit.
 - **IL combined local-rate stacking ranges from 6.25% (rural counties) to 10.25% (Chicago Cook City).** ZIP-by-ZIP variance is the largest in the US after CA.
 - **NC uses "Highway Use Tax" 3%** instead of sales tax — much lower than typical

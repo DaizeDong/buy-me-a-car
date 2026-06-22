@@ -4,7 +4,8 @@
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-orange?style=flat)](https://docs.anthropic.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![All 50 States](https://img.shields.io/badge/Tax%20Data-50%E5%B7%9E%20%2B%20DC-green?style=flat)](skills/orchestrator/references/state_fees.md)
+[![Tax Data](https://img.shields.io/badge/%E7%A8%8E%E8%B4%B9%E6%95%B0%E6%8D%AE-50%E5%B7%9E%20%2B%20DC%20%C2%B7%2034%20web--verified-green?style=flat)](skills/orchestrator/references/state_fees.md)
+[![Languages](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-EN%20%2F%20CN%20%2F%20ES-blue?style=flat)](#语言)
 [![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.2%20alpha-purple?style=flat)](ROADMAP.md)
 
 [English](README.md) | [中文版](README_CN.md)
@@ -79,19 +80,19 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 - **何时用**：sale price → OTD，或目标 OTD 反推最大 sale price。
 - **触发**：`compute OTD`、`算 OTD`、`算总价`
 - **示例**：`算下 NJ $30k sale + $499 doc 的 OTD`
-- **产出**：50 州 + DC 的逐项 OTD 分解（税 / doc / title / reg / DMV）。
+- **产出**：50 州 + DC 的逐项 OTD 分解（税 / doc / title / reg / DMV）。全部州均为 fee-detail 深度，其中 34 个 web-verified。
 
 ### state-fee-lookup
 - **何时用**：拉某州 6 字段汇总（税率 / local / doc cap / title / reg / trade credit）。
 - **触发**：`doc fee in NJ`、`state 税率`、`trade-in credit`
 - **示例**：`看下 TX 的 doc fee 上限和 EV 附加费`
-- **产出**：州级汇总 + "Does NOT have" 漏洞清单（用于侦测 dealer 报价里跑错州的费项）。
+- **产出**：州级汇总 + "Does NOT have" 漏洞清单（用于侦测 dealer 报价里跑错州的费项）。底层数据：50 州 + DC，全部 fee-detail 深度（30 full + 21 stub），其中 34 个 web-verified。
 
 ### cpo-eligibility
 - **何时用**：付 CPO 溢价之前核实工厂认证资格 + 嵌入价值。
 - **触发**：`is this car CPO`、`Subaru CPO`、`CPO 资格`
 - **示例**：`查下 2021 款 Kia Telluride @ 55k 还能不能 CPO`
-- **产出**：12 品牌资格矩阵裁定（8 主流 + Stellantis SPOTiCAR + 豪华 Lexus/Genesis/Acura）+ 嵌入价值 $1-3k + 假 CPO 红旗。
+- **产出**：16 品牌资格矩阵（共 12 个 program：8 主流 + Stellantis SPOTiCAR [Ram/Jeep/Chrysler/Dodge/Fiat，一套 program 覆盖 5 品牌] + 豪华 Lexus/Genesis/Acura）+ 嵌入价值 $1-3k + 假 CPO 红旗。
 
 ### carfax-pdf-review
 - **何时用**：dealer 发了 CARFAX、保养记录或 F&I 报价 PDF。
@@ -216,6 +217,19 @@ Phase 3 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键
 
 ---
 
+## 语言
+
+### 语言与受众分离
+
+三种语言、两个面向，必须分开：
+
+- **面向买家（chat + `criteria.md` + dossier）**：English / 中文 / Español 都行。触发短语三语都能激活（`buy me a car` / `帮我买车` / `ayudame a comprar un carro`）。dossier 有 EN 和 CN 两套打印模板；西语为买家侧 chat 支持 + 对 load-bearing 术语（OTD、doc fee、ADM、CPO、NACS、GAP、MSRP）的解释性 ES glossary，并按地区做 `carro / coche / auto` 镜像。
+- **面向 dealer 的邮件**：**无论买家用什么语言聊，发给 dealer 的件一律 English + 纯 ASCII**。dealer 的 CRM 客户端会把非 ASCII 字符渲染错乱，而英文 OTD ask 能和 dealer 自己的报价同线程对齐。买家用母语读这单生意，dealer 读到的 ask 是英文。详见 `skills/orchestrator/SKILL.md` 的 _Language and Audience Separation_ 段。
+
+> ES gloss 均为待母语者签字的 working translation，生产使用前需复核。
+
+---
+
 ## 自检
 
 安装后跑这几条，验证骨架是否齐全：
@@ -234,7 +248,7 @@ python skills/orchestrator/scripts/generate_dossier.py \
 
 ## 局限
 
-- **单作者 alpha** —— 工作流基于一次真实购车 + 5 场情景压测，未经多市场对抗验证。
+- **单作者 alpha** —— 工作流基于一次真实购车 + 8 个 worked example 情景（见 `examples/`），未经多市场对抗验证。
 - **数据会漂移** —— 州费、CPO 条款、EV 补贴最后核对 2026-05-18，半年内可能有州法修订。
 - **anti-bot 不稳定** —— CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar 依赖 Playwright MCP，网站改版可能让 subagent 整组失败。
 - **非税务 / 法律 / 财务建议** —— 所有计算仅供谈判参考，过户、贷款、保险请咨询持牌专业人士。
@@ -243,7 +257,7 @@ python skills/orchestrator/scripts/generate_dossier.py \
 
 ## Roadmap · 贡献 · License
 
-[ROADMAP.md](ROADMAP.md) 记录 v0.3.0 / v1.0.0 计划（多作者数据、对抗性 dealer 测试、剩余州补全、更多品牌 CPO）。挑一个 → 开 issue → PR。
+[ROADMAP.md](ROADMAP.md) 记录 v0.3.0 / v1.0.0 计划（多作者数据、对抗性 dealer 测试、EV 抵免恢复跟踪、剩余豪华品牌 CPO）。挑一个 → 开 issue → PR。
 
 MIT —— Fork it, ship it, save someone money.
 
