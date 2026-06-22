@@ -22,7 +22,7 @@ Trigger: `help me buy a car` / `帮我找车` / `买车` / `find me an SUV` / `n
 
 - **22 states** at depth (NJ/NY/PA/CT/MA/RI/NH/ME/VT/CA/TX/IL/FL/OH/NC/GA/MI/VA/WA/DC/MD + 50-state base)
 - **8 CPO programs** (Subaru/Honda/Toyota/Hyundai/Kia/Ford/GM/Mazda)
-- **5 buyer paths** (cash / finance / lease / trade / EV federal $7,500 POS transfer)
+- **5 buyer paths** (cash / finance / lease / trade / EV — note: federal §30D/§25E/§45W EV credits terminated 2025-09-30 per OBBBA; EV path is now state-rebate + charging/SoH diligence only)
 - **6 vehicle classes** including pickup, heavy-duty, commercial, luxury
 - **14 anti-patterns** auto-detected at Phase 1
 - **English** (dealer-facing); **Chinese / other** (buyer-facing)

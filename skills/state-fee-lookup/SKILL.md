@@ -79,9 +79,14 @@ TradeCr  : YES / NO / partial
 | WI | 5% | 0-0.5% | none | $164 | $75 | Yes |
 | WY | 4% | 0-2% | none | $15 | $30 | Yes |
 
-## 22 states with detail stubs (one-liner each)
+## Quirk one-liners (22 high-traffic states)
 
-These have ZIP-level or quirk-level breakdowns in `../orchestrator/references/state_fees.md`:
+All 50 states + DC are covered at fee-detail depth in the backing data
+(`data/state_fees.json`, rendered to `../orchestrator/references/state_fees.md`;
+30 full + 21 stub, 34 web-verified). The 22 states below get an extra
+ZIP-level / quirk one-liner here because they are the high-traffic
+registering states; the rest are looked up directly from the all-state
+table above plus the backing data:
 
 - **NJ** - flat 6.625%, $799 doc cap, no local stacking
 - **NY** - 4% + 4-4.875% local, $175 doc cap (2nd strongest US), MCTD $50 NYC
