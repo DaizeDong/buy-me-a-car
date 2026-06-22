@@ -345,8 +345,68 @@ Skip private-party and trade-in when:
 
 ---
 
+## 13. EV / PHEV Trade-In — Battery SoH Discount + §25E Sub-Path
+
+EV and PHEV trades follow the same four-anchor / separate-the-negotiation mechanics above, **plus a battery overlay that the books (KBB/NADA/Black Book) systematically miss.** For any EV or PHEV trade, run this sub-path in addition to Sections 1-12.
+
+> Cross-reference: `references/ev_buyer_playbook.md` is the source of truth for EV battery health, the federal § 30D ($7,500 new) and § 25E ($4,000 used) credits, and EV-specific dealer tactics. This section covers only the **trade-in side** (valuing the buyer's outgoing EV/PHEV); the buyer's *acquisition* of a used EV (claiming § 25E) lives in the EV playbook.
+
+### 13a. Why the books miss EVs
+
+Traditional valuation tools were built on a gas-car depreciation curve. For EVs they have three failure modes (verify per current sources):
+
+- They often **ignore battery State of Health (SoH) entirely** — a generic book value applies no SoH adjustment, so two identical-VIN/identical-mileage EVs get the same book number even if one pack is at 95% and the other at 78%.
+- They **lag fast-moving EV price swings by months** — used-EV pricing has been more volatile than ICE; a stale book is worse leverage on an EV than on a Honda.
+- They **lump EVs onto an ICE depreciation curve** — EVs have historically depreciated faster than gas cars in years 2-3 (some EVs lose 25-35% vs. 15-20% for gas as newer, longer-range models enter the market). A book that under-models this *over*-values the buyer's trade on paper but the dealer's desk will not honor it.
+
+**Consequence:** the four-anchor table (Section 1) is necessary but NOT sufficient for an EV/PHEV. Add SoH as a fifth anchor (see `trade-in-valuator/SKILL.md`) and treat book numbers as a soft ceiling, not a floor.
+
+### 13b. Battery SoH as the dominant valuation factor
+
+For a used EV, the **battery pack is the single most expensive component**, so SoH usually moves resale value more than paint, trim, or even mileage. Treat SoH like "mileage for the pack." Approximate market behavior (verify; no rigid formula — dealers apply an invisible adjustment table):
+
+| SoH band | Meaning | Trade-value effect (relative to a healthy peer of same model/age/miles) |
+|---|---|---|
+| 90-95%+ | Near-original capacity | Premium / supports book |
+| ~85-89% | Solid for a multi-year-old EV | Roughly book; minor or no deduct |
+| ~80-84% | Noticeable loss; ~"warranty threshold" zone | Begins to discount |
+| < ~80% | ≥20% capacity lost | Market discounts **~10-20%** vs. a healthy example |
+| < ~70% | Real range loss | Steep discount; can be hard to move |
+
+Real-world magnitudes seen in market commentary (verify, not a guarantee): a 5-yr-old EV at 92% SoH vs. 82% SoH can differ by **$3,000-$5,000**; below ~82% SoH, dealers add another **$2,000-$5,000** risk discount for sooner replacement. **If the factory battery warranty does NOT transfer to the next owner, that is worth roughly another $5,000 of dealer discount** — and conversely, transferable remaining warranty is a premium lever for the buyer.
+
+### 13c. Get verified SoH — not the dashboard guess
+
+- The dash "guess-o-meter" range estimate is based on recent driving, **not** actual pack capacity. Do not quote it.
+- Pull **verified SoH** via an OBD-II scan (or a third-party EV battery report / dealer scan). The math: a 75 kWh pack now holding 64 kWh = ~15% loss regardless of the screen.
+- **Bring the SoH report to the trade negotiation proactively.** Battery data is real leverage — market commentary reports buyers who brought a battery-health report saved meaningfully more on EV transactions than those who didn't. Transparency on a *healthy* pack supports a premium; silence lets the dealer assume worst-case.
+- Capture SoH as **field 13** in the Phase 1 trade capture for any EV/PHEV (Section 1's 12-field set + SoH), with the report date and source (OBD-II vs. dealer scan vs. manufacturer app).
+
+### 13d. PHEV note
+
+PHEVs carry a much smaller pack, so the absolute dollar SoH swing is smaller than a BEV's — but the same direction holds, and a degraded PHEV pack that no longer holds meaningful electric-only range is discounted toward an equivalent hybrid/ICE. Still pull SoH; still treat books as a soft ceiling.
+
+### 13e. § 25E annotation — the credit lives on the *acquisition*, not the trade
+
+A frequent buyer confusion: the federal **Used Clean Vehicle Credit under IRC § 25E** attaches to the buyer **purchasing** a qualifying used EV/PHEV — it does **NOT** attach to the EV the buyer is trading *away*. Keep the two transactions mentally separate (which also reinforces Section 2's separate-the-negotiation rule). Authoritative mechanics (verify against IRS — see citations below; **note this credit was repealed for vehicles acquired after 2025-09-30**, so confirm current applicability before relying on it):
+
+- **Who/what:** 30% of sale price, **max $4,000** credit, on a used clean vehicle bought from a **licensed dealer**.
+- **$25,000 price cap (strict):** sale price must be **≤ $25,000**, measured **after incentives but BEFORE trade-in value**, and **dealer doc fees count toward the cap** (regs explicitly refused to exclude doc fees, to stop price-shifting around the cap). One dollar over → credit drops to $0.
+  - **Trade-in interaction (the load-bearing point):** because the cap is measured **before** trade-in, a large trade-in allowance does **not** help you slip under $25k — the gating number is the vehicle's sale price itself. Do not let a dealer claim "your trade brings it under $25k."
+- **Model-year rule:** model year must be **at least 2 years before** the calendar year of sale (e.g., for a 2025 sale, MY 2023 or older).
+- **First-transfer rule:** must be the **first transfer** of that vehicle since 2022-08-16 to someone other than the original owner.
+- **Dealer point-of-sale transfer (since 2024):** the buyer may **transfer the credit to a registered dealer** for an equivalent up-front price reduction (cash / down-payment / partial payment) at point of sale. Transferring also makes it **refundable** (can exceed the buyer's tax liability), unlike the nonrefundable claim-at-filing path.
+  - **Transfer does not change the sale price.** Dealers may **not** raise the sale price because the buyer elects to transfer — the $25k cap is tested on the unchanged sale price.
+  - **Dealer reporting:** dealer must be registered on IRS **Energy Credits Online (ECO)** and file the seller report **within 3 days** of sale; without that report the vehicle is **not** credit-eligible. Get the IRS time-of-sale report copy at delivery.
+- **Buyer caps (claim or transfer):** MAGI ≤ **$75,000** single / **$150,000** MFJ (lesser of current/prior year); not a dependent; not for resale; no other § 25E credit claimed in the prior 3 years.
+
+When the buyer is *both* trading in an old EV/PHEV and buying a used EV/PHEV, run **this section (13a-13d) for the trade** and **`ev_buyer_playbook.md` § 25E for the purchase** — two independent transactions, negotiated separately.
+
+---
+
 ## Cross-References
 
+- `references/ev_buyer_playbook.md` — **EV/PHEV source of truth**: battery health, § 30D ($7,500 new) and § 25E ($4,000 used) credits, charging/range, EV dealer tactics. This file's Section 13 covers only the trade-in (outgoing-EV) side.
 - `references/state_fees.md` — full trade-in tax credit table (column 7 in All-State Summary)
 - `references/negotiation_playbook.md` — Cold Open formula (use Round 1 cold open on no-trade ask first); add-on refusal list
 - SKILL.md Phase 1 — trade-in router gate (this file is loaded when gate fires YES)
