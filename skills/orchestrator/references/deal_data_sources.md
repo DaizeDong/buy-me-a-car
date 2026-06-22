@@ -73,6 +73,14 @@ mcp__plugin_playwright_playwright__browser_close()
 | Large screenshot capture | Playwright MCP | Faster, no upload bandwidth |
 | Sites with DataDome / Akamai | Try both — Playwright local sometimes wins | Local IP less flagged than cloud |
 
+### Inventory SRP scraping (Phase 3) — Playwright-first, real browser wins on ALL of them
+
+**Verified 2026-06-21 (used CX-5, SF Bay Area).** This is about pulling LISTINGS (VIN + price + mileage + dealer) from search-result pages, distinct from the deal/pricing sources above. Finding: a headless `WebFetch` from a subagent gets **403 / DataDome / Akamai on every inventory SRP except CarGurus** — but the **real Playwright MCP browser unlocked all 8 sites tested** (Carfax, CarGurus, Cars.com, AutoTrader, Edmunds, TrueCar, CarMax, Carvana). Local Chromium clears the anti-bot checks that block both headless WebFetch and Firecrawl cloud.
+
+Extraction priority: **JSON-LD** (`script[type="application/ld+json"]` @type Car — TrueCar, Carvana) > **embedded JS state** (Carfax `window.__MOBX_STATE__.SearchRequestStore.results.listings`) > **DOM cards + VIN regex** (`/JM3[A-Z0-9]{14}/g` on `innerHTML` — AutoTrader, Edmunds, CarMax, Cars.com).
+
+The full per-site recipe table (URL pattern, exact selector/state path, fields, gotchas) lives in **`phases.md` -> Phase 3 -> "Per-site scraping recipe"**. Because Playwright is a single shared browser, run the Playwright-fallback passes sequentially (or collapse anti-bot sites into one browser-harvest subagent); keep only the WebFetch-first attempts parallel.
+
 ### Browser Session Workflow (UNLOCKS Reddit + FB + IG + XHS)
 
 The Firecrawl `scrape` API blocks Reddit, Facebook, Instagram, XiaoHongShu, etc. with "we do not support this site". **The browser session command bypasses this filter entirely** because it operates a real Chromium instance rather than going through the scrape API. This is the single highest-leverage discovery for deal data — it unlocks the entire community-content tier.
