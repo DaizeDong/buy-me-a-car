@@ -349,7 +349,7 @@ Skip private-party and trade-in when:
 
 EV and PHEV trades follow the same four-anchor / separate-the-negotiation mechanics above, **plus a battery overlay that the books (KBB/NADA/Black Book) systematically miss.** For any EV or PHEV trade, run this sub-path in addition to Sections 1-12.
 
-> Cross-reference: `references/ev_buyer_playbook.md` is the source of truth for EV battery health, the federal § 30D ($7,500 new) and § 25E ($4,000 used) credits, and EV-specific dealer tactics. This section covers only the **trade-in side** (valuing the buyer's outgoing EV/PHEV); the buyer's *acquisition* of a used EV (claiming § 25E) lives in the EV playbook.
+> Cross-reference: `references/ev_buyer_playbook.md` is the source of truth for EV battery health, the federal § 30D ($7,500 new) and § 25E ($4,000 used) credits (**both TERMINATED for vehicles acquired after 2025-09-30 per OBBBA — historical only; do not quote on current purchases**), and EV-specific dealer tactics. This section covers only the **trade-in side** (valuing the buyer's outgoing EV/PHEV); the buyer's *acquisition* of a used EV (formerly claiming § 25E) lives in the EV playbook.
 
 ### 13a. Why the books miss EVs
 
@@ -386,9 +386,11 @@ Real-world magnitudes seen in market commentary (verify, not a guarantee): a 5-y
 
 PHEVs carry a much smaller pack, so the absolute dollar SoH swing is smaller than a BEV's — but the same direction holds, and a degraded PHEV pack that no longer holds meaningful electric-only range is discounted toward an equivalent hybrid/ICE. Still pull SoH; still treat books as a soft ceiling.
 
-### 13e. § 25E annotation — the credit lives on the *acquisition*, not the trade
+### 13e. § 25E annotation — TERMINATED 2025-09-30; credit lived on the *acquisition*, not the trade
 
-A frequent buyer confusion: the federal **Used Clean Vehicle Credit under IRC § 25E** attaches to the buyer **purchasing** a qualifying used EV/PHEV — it does **NOT** attach to the EV the buyer is trading *away*. Keep the two transactions mentally separate (which also reinforces Section 2's separate-the-negotiation rule). Authoritative mechanics (verify against IRS — see citations below; **note this credit was repealed for vehicles acquired after 2025-09-30**, so confirm current applicability before relying on it):
+> **⚠️ §25E is TERMINATED.** OBBBA (Public Law 119-21, signed 2025-07-04) terminated the federal §25E Used Clean Vehicle Credit ($4,000) for any vehicle **acquired after 2025-09-30** (same date as §30D / §45W). For any 2026 used-EV purchase there is **NO** federal $4,000 credit — do NOT enter it in OTD / net-price math and do NOT cite it as a buyer-side benefit. Only still-funded **state/local rebates** remain (see `ev_buyer_playbook.md` state EV rebate matrix). Sources: IRS FAQ Fact Sheet 2025-05; IRS accelerated-termination FAQ under OBBB. The mechanics below are retained as **HISTORICAL** reference for pre-2025-10-01 acquisitions only.
+
+A frequent buyer confusion (HISTORICAL, pre-2025-10-01 only): the federal **Used Clean Vehicle Credit under IRC § 25E** attached to the buyer **purchasing** a qualifying used EV/PHEV — it did **NOT** attach to the EV the buyer is trading *away*. Keep the two transactions mentally separate (which also reinforces Section 2's separate-the-negotiation rule). Historical mechanics (now terminated — do not apply to current purchases):
 
 - **Who/what:** 30% of sale price, **max $4,000** credit, on a used clean vehicle bought from a **licensed dealer**.
 - **$25,000 price cap (strict):** sale price must be **≤ $25,000**, measured **after incentives but BEFORE trade-in value**, and **dealer doc fees count toward the cap** (regs explicitly refused to exclude doc fees, to stop price-shifting around the cap). One dollar over → credit drops to $0.
@@ -400,13 +402,13 @@ A frequent buyer confusion: the federal **Used Clean Vehicle Credit under IRC §
   - **Dealer reporting:** dealer must be registered on IRS **Energy Credits Online (ECO)** and file the seller report **within 3 days** of sale; without that report the vehicle is **not** credit-eligible. Get the IRS time-of-sale report copy at delivery.
 - **Buyer caps (claim or transfer):** MAGI ≤ **$75,000** single / **$150,000** MFJ (lesser of current/prior year); not a dependent; not for resale; no other § 25E credit claimed in the prior 3 years.
 
-When the buyer is *both* trading in an old EV/PHEV and buying a used EV/PHEV, run **this section (13a-13d) for the trade** and **`ev_buyer_playbook.md` § 25E for the purchase** — two independent transactions, negotiated separately.
+When the buyer is *both* trading in an old EV/PHEV and buying a used EV/PHEV, run **this section (13a-13d) for the trade** and **`ev_buyer_playbook.md` § 25E for the purchase** — two independent transactions, negotiated separately. (Note: the §25E purchase credit itself is TERMINATED for acquisitions after 2025-09-30 — the trade-in valuation mechanics in 13a-13d still apply regardless.)
 
 ---
 
 ## Cross-References
 
-- `references/ev_buyer_playbook.md` — **EV/PHEV source of truth**: battery health, § 30D ($7,500 new) and § 25E ($4,000 used) credits, charging/range, EV dealer tactics. This file's Section 13 covers only the trade-in (outgoing-EV) side.
+- `references/ev_buyer_playbook.md` — **EV/PHEV source of truth**: battery health, § 30D ($7,500 new) and § 25E ($4,000 used) credits (**both TERMINATED for vehicles acquired after 2025-09-30 per OBBBA — historical only**), charging/range, EV dealer tactics. This file's Section 13 covers only the trade-in (outgoing-EV) side.
 - `references/state_fees.md` — full trade-in tax credit table (column 7 in All-State Summary)
 - `references/negotiation_playbook.md` — Cold Open formula (use Round 1 cold open on no-trade ask first); add-on refusal list
 - SKILL.md Phase 1 — trade-in router gate (this file is loaded when gate fires YES)

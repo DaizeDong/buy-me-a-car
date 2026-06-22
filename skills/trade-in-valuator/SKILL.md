@@ -68,14 +68,20 @@ discount**, while transferable remaining warranty is a buyer premium lever.
   no longer holds meaningful EV-only range gets discounted toward an equivalent
   hybrid/ICE.
 
-> **§ 25E is a separate transaction.** The federal Used Clean Vehicle Credit
-> (IRC § 25E, up to $4,000) attaches to the buyer **purchasing** a qualifying
-> used EV, NOT to the EV being **traded away**. Its $25,000 price cap is
-> measured **before** trade-in value, so a big trade allowance does not slip a
-> car under the cap. Full mechanics (price cap, MY≥2yr, dealer point-of-sale
-> transfer + IRS ECO reporting, MAGI caps, repeal after 2025-09-30) live in
+> **§ 25E is TERMINATED (2025-09-30) — and was always a separate transaction.**
+> The federal Used Clean Vehicle Credit (IRC § 25E, formerly up to $4,000) was
+> **terminated by OBBBA (Public Law 119-21) for any vehicle acquired after
+> 2025-09-30** — it is **not available for a 2026 used-EV purchase** and must NOT
+> be counted in OTD / net-price math. See the CRITICAL banner in `ev-buyer-helper`.
+> Separately (and even when it existed), § 25E attached to the buyer **purchasing**
+> a qualifying used EV, NOT to the EV being **traded away** — so it never offset a
+> trade valuation regardless. Historically its $25,000 price cap was measured
+> **before** trade-in value, so a big trade allowance did not slip a car under the
+> cap. Full mechanics + historical detail (price cap, MY≥2yr, dealer point-of-sale
+> transfer + IRS ECO reporting, MAGI caps, termination 2025-09-30) live in
 > `../orchestrator/references/ev_buyer_playbook.md` § 25E and `trade_in.md`
-> Section 13e. Do not conflate the two.
+> Section 13e (HISTORICAL). Do not conflate the two, and do not present § 25E as a
+> live buy-side credit.
 
 ## Capture-all-four checklist (12 fields)
 
@@ -187,9 +193,11 @@ desk have different incentive structures; mixing closes off negotiation.
   12-field capture, lien payoff details, ACV vs trade allowance; **Section 13 =
   EV/PHEV battery-SoH trade discount + § 25E annotation**).
 - `../orchestrator/references/ev_buyer_playbook.md` -- **EV/PHEV source of
-  truth**: battery health, § 30D ($7,500 new) and § 25E ($4,000 used) credits,
-  charging/range, EV dealer tactics. Use for the buyer's *acquisition* of a used
-  EV (§ 25E); this skill's anchor 5 covers the *outgoing* EV trade.
+  truth**: battery health, charging/range, EV dealer tactics, and the now-terminated
+  federal credits (§ 30D $7,500 new / § 25E $4,000 used / § 45W $7,500 lease — all
+  TERMINATED 2025-09-30, HISTORICAL only; state rebates are the only live incentive
+  layer — see the `ev-buyer-helper` CRITICAL banner). Use for the buyer's *acquisition*
+  of a used EV; this skill's anchor 5 covers the *outgoing* EV trade.
 - `../orchestrator/references/state_fees.md` -- per-state Trade-In Tax Credit
   column, worked OTD examples with trade.
 - `../orchestrator/SKILL.md` gotcha D5 -- never mix new vs used anchors.

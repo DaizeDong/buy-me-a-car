@@ -157,7 +157,7 @@ OTD = ($25,000 + $150) × 1.0625 + $33 + $67 + $200
     = $27,021.88
 ```
 
-Federal §30D $7,500 New Clean Vehicle Credit is NOT applied in this OTD math — it's a buyer-side credit at point of sale (if dealer is IRS Energy Credits Online registered; see `ev_buyer_playbook.md`) or at tax filing. Net cash out-of-pocket for the BEV case: $27,021.88 − $7,500 = $19,521.88.
+The federal §30D $7,500 New Clean Vehicle Credit is **TERMINATED** for any vehicle acquired after 2025-09-30 (OBBBA / Public Law 119-21; see IRS FAQ Fact Sheet 2025-05). For any 2026 purchase there is NO federal $7,500 credit — do NOT subtract it from net cash or OTD. The BEV case net cash out-of-pocket is the full OTD ($27,021.88), unless a still-funded **state/local rebate** applies (see `ev_buyer_playbook.md` state EV rebate matrix, the only live federal/state incentive layer). HISTORICAL: for a vehicle acquired on or before 2025-09-30 the §30D credit was a buyer-side POS or tax-filing credit ($27,021.88 − $7,500 = $19,521.88); that window is now closed.
 
 ### Quick state-rate lookup (most-common registering states)
 
