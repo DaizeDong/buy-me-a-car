@@ -8,7 +8,7 @@
   },
   "forward": [
     {"state": "NJ", "sale": 25000, "doc": 499, "local_pct": 0, "title": 85, "reg": 70, "expected_tax": 1689.31, "expected_otd": 27343.31},
-    {"state": "CA", "sale": 25000, "doc": 85, "local_pct": 1.5, "title": 25, "reg": 250, "expected_tax": 2194.94, "expected_otd": 27554.94},
+    {"state": "CA", "sale": 25000, "doc": 85, "local_pct": 1.5, "title": 15, "reg": 250, "expected_tax": 2194.94, "expected_otd": 27544.94},
     {"state": "TX", "sale": 25000, "doc": 150, "local_pct": 0, "title": 33, "reg": 51, "expected_tax": 1571.88, "expected_otd": 26805.88},
     {"state": "MD", "sale": 31000, "doc": 800, "local_pct": 0, "title": 50, "reg": 135, "expected_tax": 1908.0, "expected_otd": 33893.0},
     {"state": "OH", "sale": 24500, "doc": 250, "local_pct": 2.25, "title": 15, "reg": 31, "expected_tax": 1980.0, "expected_otd": 26776.0},

@@ -41,22 +41,22 @@ States vary on whether sales tax applies to the doc fee (most do), whether trade
 | HI    | 4% (GET)     | 0-0.5%            | None        | $399-499        | $5        | Yes |
 | ID    | 6%           | 0-3%              | None        | $499-799        | $14       | Yes |
 | IL    | 6.25%        | 0-4.75%           | $347.26 (2025) | $347.26 (legal max) | $155 | Yes (capped) |
-| IN    | 7%           | 0%                | None        | $199-399        | $15       | Yes |
+| IN    | 7%           | 0%                | $251.05 (2025, CPI-indexed) | $251.05 (legal max) | $15       | Yes |
 | IA    | 6%           | 0-1%              | None        | $499-180 (cap by some counties) | $25 | Yes |
 | KS    | 6.5%         | 0-4%              | None        | $499-799        | $10       | Yes |
 | KY    | 6%           | 0%                | None        | $499-799        | $9        | No |
-| LA    | 4.45%        | 1-5%              | $200        | $200 (capped)   | $68.50    | Yes |
+| LA    | 4.45%        | 1-5%              | $436 (2025, CPI-indexed) | $436 (capped)   | $68.50    | Yes |
 | ME    | 5.5%         | 0%                | None        | $499            | $33       | Yes |
 | MD    | 6%           | 0%                | $800 (raised eff. July 1 2024 from $500) | $499-799 | $50      | Yes (see MD detail stub) |
 | MA    | 6.25%        | 0%                | None        | $499-799        | $75       | Yes |
 | MI    | 6%           | 0%                | $230        | $230 (capped low) | $15     | Yes BUT capped at first $9k (2025; rises $1k/yr to uncapped 2029) — see MI detail stub |
-| MN    | 6.5%         | 0-1.5%            | $125        | $125 (capped low) | $11     | Yes |
+| MN    | 6.875%       | 0-1.5%            | $350 (eff. July 1 2025, raised from $125) | $350 (capped) | $11     | Yes |
 | MS    | 7% (5% trucks) | 0%             | None        | $499-799        | $9        | Yes |
-| MO    | 4.225%       | 0-5.5%            | $599 (statutory cap as of 2024) | $499-599 | $11 | Yes |
+| MO    | 4.225%       | 0-5.5%            | $604.47 (2025, CPI-indexed) | $604.47 (legal max) | $11 | Yes |
 | MT    | 0%           | 0%                | None        | $299-499        | $10.30    | N/A |
 | NE    | 5.5%         | 0-2%              | None        | $499-799        | $10       | Yes |
 | NV    | 6.85%        | 0-1.5%            | None        | $499-799        | $29       | Yes |
-| NH    | 0%           | 0%                | None        | $399-599        | $25       | N/A |
+| NH    | 0%           | 0%                | $27 (state doc/title fee only; dealer admin fees uncapped) | $399-599 (dealer admin) | $25       | N/A |
 | **NJ** | **6.625%** | 0%                | **$799 (legal cap)** | $499-799 | $60-85 | Yes |
 | NM    | 4% (motor vehicle excise) | 0% | None | $399-499      | $5        | Yes |
 | NY    | 4%           | 4-4.875%          | $175 (legal cap) | $175 (capped low) | $50 | Yes |
@@ -64,18 +64,18 @@ States vary on whether sales tax applies to the doc fee (most do), whether trade
 | ND    | 5%           | 0-3%              | None        | $399-499        | $5        | Yes |
 | OH    | 5.75%        | 0.25-2.25%        | $250 (statutory cap) | $250 (capped low) | $15 | Yes (see OH detail stub) |
 | OK    | 4.5% (excise 3.25%) | 0-7%      | None        | $499-799        | $11       | Partial |
-| OR    | 0%           | 0%                | None        | $115 (CAT applies for new) | $122 | N/A |
+| OR    | 0% (0.5% privilege tax on new) | 0% | $250 (integrator) / $200 (eff. 2025-09-26) | $200-250 | $122 | N/A |
 | PA    | 6%           | 1-2% (Philly/Allegheny) | None  | $499-999        | $58       | Yes |
 | RI    | 7%           | 0%                | $250        | $250 (capped low) | $52    | Yes |
 | SC    | 5% IMF (capped $500 / vehicle) | 0% | None | $399-499 | $15 | Yes |
 | SD    | 4.5% (excise)| 0-2%              | None        | $399-499        | $10       | Yes |
 | TN    | 7%           | 1.5-2.75%         | None        | $499-899        | $11       | Yes |
-| TX    | 6.25% (motor vehicle sales tax) | 0% | $150 (legal cap) | $150 | $33 | Yes |
+| TX    | 6.25% (motor vehicle sales tax) | 0% | $225 (OCCC safe-harbor, eff. 2024-07-11) | $225 | $33 | Yes |
 | UT    | 4.85%        | 1-3%              | None        | $499-799        | $6        | Yes |
 | VT    | 6%           | 0%                | None        | $599 (typical)  | $35       | Yes |
 | VA    | 4.15% (motor vehicle SUT, min $75) | 0-1% local | $599 (statutory cap) | $599 (capped) | $15 | **NO** (VA does NOT grant trade credit — see VA detail stub) |
 | WA    | 6.5% (MVET 0.3% extra) | 0.5-3.5% | $200        | $200 (capped low) | $15    | Yes (see WA detail stub) |
-| WV    | 6% (privilege tax)| 0%             | $199        | $199 (capped low) | $15    | Yes |
+| WV    | 6% (privilege tax)| 0%             | $575 (eff. July 1 2024, CPI-indexed) | $575 (capped) | $15    | Yes |
 | WI    | 5%           | 0-0.5%            | None        | $399-499        | $164.50   | Yes |
 | WY    | 4%           | 0-2%              | None        | $399-499        | $15       | Yes |
 | DC    | 6-9% excise by weight class on first $40k MSRP, higher tier above | 0% | None | $599-899 | $26 | Yes (see DC detail stub) |
@@ -288,10 +288,10 @@ Quick-reference stubs for CT, MA, RI, NH, ME, VT. Full breakdowns (registration 
 
 ### NH — New Hampshire
 - **Sales tax**: **0% — no state sales tax on vehicles.** This is a structural advantage; an NH-resident buyer titling in NH pays no sales tax regardless of dealer state.
-- **Doc fee cap**: No statutory cap. Typical industry range $399-599.
+- **Doc fee cap**: **$27 state document/title fee cap only** (NH RSA 261:171-a — $25 title + $2 agent). Dealer "administrative/documentary" fees are NOT capped (commonly $300-$495). The JSON `doc_cap=27` records the statutory state fee; treat dealer admin fees as uncapped negotiation targets. (verified 2026-06-22)
 - **Title fee**: $25. **Registration**: town-based, formula on MSRP × age factor; typical $200-500 first year for newer vehicles.
 - **Trade-in tax credit**: N/A (no sales tax).
-- **Does NOT have**: any sales tax line at all (any sales-tax-rate appearing on an NH quote is a flat template leak), per-tire fee, NJ supplemental titling fee.
+- **Does NOT have**: any sales tax line at all (any sales-tax-rate appearing on an NH quote is a flat template leak), per-tire fee, NJ supplemental titling fee, statutory cap on dealer administrative fees.
 
 ### ME — Maine
 - **Sales tax**: 5.5% flat.
@@ -798,6 +798,1107 @@ For a buyer with NO trade:
 - DC 6-9% by weight class
 
 Phase 1 buyer-type router should surface the trade-vs-no-trade DC-corridor split when buyer's ZIP is in 22XXX (VA) / 200XX-209XX (DC) / 207XX-219XX (MD).
+
+## Round 2 Verified State Detail Stubs
+
+Web-verified detail stubs (source_url + source_verified_date in `data/state_fees.json`, `verified:true`). Doc-fee caps here are the single source of truth reconciled with the All-State Summary Table and the JSON. "Does NOT have" lines catch dealer CRM template leaks from other states. NH's verified stub lives in the New England section above. last_verified: 2026-06-22
+
+### AK — Alaska
+
+- **Sales tax**: **No state sales tax.** Boroughs/cities impose local sales tax 0-7.5% (Anchorage & Fairbanks 0%, Juneau 5%); many jurisdictions cap tax per transaction (e.g., Wasilla taxes only first $500; Kodiak caps taxable at $3,000), drastically reducing tax on a vehicle. A local use tax applies if you buy outside your taxing jurisdiction.
+- **Doc fee cap**: **No statutory cap** (secondary-sourced). Typical doc fee ~$80, usually non-negotiable.
+- **Title fee**: $15 (lien recording $15/lien). **Registration**: biennial, ~$100 for a standard passenger vehicle (≈$50/yr), paid every two years. A locally-imposed Motor Vehicle Registration Tax (MVRT) adds $10-$221 depending on borough and vehicle age; Fairbanks and Kenai Peninsula charge no MVRT.
+- **Trade-in tax credit**: N/A at the state level — governed by local ordinance where local tax applies.
+- **Does NOT have**: state sales tax; doc-fee statutory cap; a statewide trade-in credit rule; emissions inspection in most boroughs.
+
+#### AK Worked OTD Example (Anchorage, 0% local, no trade)
+
+Sales $30,000, doc $80, Anchorage 0% local tax:
+
+```
+Tax        = $0 (Anchorage has no local sales tax)
+Doc        = $80
+Title      = $15
+Reg (2 yr) = $100 (annualize ~$50/yr)
+OTD        = $30,000 + $80 + $15 + $100 = $30,195
+```
+
+(Same purchase in Juneau at 5% local with no per-transaction cap would add ~$1,500 in tax.)
+
+verified: 2026-06-22 | source: LegalClarity Alaska vehicle sales tax + FindTheBestCarPrice (AK) + AK DMV title/reg fee schedule | by: orchestrator-S7
+
+---
+
+### AL — Alabama
+
+- **Sales tax**: **2% state** automotive sales tax (notably below Alabama's 4% general rate; applies to new, used, and private-party sales). **Heavily local-ZIP-driven**: counties add 0.3-2.5% and cities 0-4%, each as a **separate, usually lower automotive rate**, so the combined vehicle rate at the buyer's locale typically runs ~2.3-5% and occasionally higher. There is **no uniform statewide local rate** — the real rate is entirely a function of the buyer's county+city.
+- **Doc fee cap**: **No statutory cap.** Doc/"clerical/processing" fees are dealer-set and, unusually, **taxable at the automotive rate** (so a $499 doc adds tax on top). AL average is ~$485. With no ceiling, treat the doc line as fully negotiable; there is no statute to cite against an inflated number.
+- **Title fee**: $18 ($15 certificate of title, Code of Ala. §§ 32-8-1 et seq., + ~$3 processing). **Registration**: ~$23/yr standard passenger (plus value-based ad valorem property tax collected at registration under Code of Ala. § 40-8-1, assessed at 15% of market value — a separate annual property charge, not a one-time purchase fee).
+- **Trade-in tax credit**: **YES** on **dealer** purchases — the trade-in value is deducted from the taxable price (state level; some sources note local taxes may not always honor it). **No trade credit on private-party sales** (full agreed price is taxed), and **rebates do NOT reduce** the tax base.
+- **Has**: separate county + city automotive rates stacked on the 2% state; **EV registration surcharge $200/yr BEV, $100/yr PHEV** (Rebuild Alabama Act, 2019 Act 2019-2); annual ad valorem property tax on the vehicle at registration; taxable doc fee.
+- **Does NOT have**: a statutory doc-fee cap; a uniform statewide local vehicle rate; TAVT; highway-use tax; IMF; a Texas-style SPV minimum-value floor; trade-in credit on private-party sales; rebate tax reduction.
+
+#### AL Worked OTD Example (Huntsville / Madison Co., ~3.25% combined automotive, no trade)
+
+Sales $30,000, doc $485, AL 2% state + 1.25% local automotive = 3.25%:
+
+```
+Taxable = $30,000 + $485 = $30,485   # doc fee is taxable in AL
+Tax     = $30,485 × 0.0325 = $990.76
+Title   = $18
+Reg     = $23 (annual; excludes value-based ad valorem property tax)
+OTD     = $30,000 + $485 + $990.76 + $18 + $23 = $31,516.76
+```
+
+#### AL Worked OTD Example (Huntsville / Madison Co., ~3.25%, $7,000 trade — dealer sale)
+
+Sales $30,000, doc $485, trade $7,000, AL 3.25%:
+
+```
+Net sale   = $30,000 - $7,000 = $23,000
+Taxable    = $23,000 + $485 = $23,485   # trade credited (dealer sale); doc still taxable
+Tax        = $23,485 × 0.0325 = $763.26
+Title      = $18
+Reg        = $23
+Cash OTD   = $23,000 + $485 + $763.26 + $18 + $23 = $24,289.26
+Tax savings on trade = $7,000 × 0.0325 = $227.50   (dealer sale only; $0 on private-party)
+```
+
+verified: 2026-06-22 | source: AL Dept. of Revenue Automotive Sales/Use/Lease Tax Guide (2% rate, taxable doc, trade credit) + SalesTaxHandbook AL vehicles (no doc cap, local stacking) + ADOR Memo 2023-002 / Rebuild Alabama Act 2019-2 (EV $200 / PHEV $100) | by: orchestrator-S3
+
+---
+
+### AR — Arkansas
+
+- **Sales tax**: 6.5% state sales tax; + 1-5% local at buyer's address (combined typically ~9.5-11.5%). Buyer pays tax to the DFA at registration, not to the dealer at point of sale. Note a 2025 used-vehicle relief tier (SB49, effective ~2025-10-01): used vehicles under $10,000 are exempt, $10,000-$14,999 taxed at a reduced 3.5%, $15,000+ at the full 6.5%.
+- **Doc fee cap**: **No statutory cap.** Typical industry range $110-395. A "$125 cap" figure appears on some calculator sites but is NOT supported by Arkansas statute or DFA guidance — treat it as unverified folklore and treat anything above ~$395 as a leak.
+- **Title fee**: $10. **Registration**: ~$25/yr (weight-based, passenger baseline).
+- **Trade-in tax credit**: **YES** — taxable base is sale price minus trade. Arkansas is unusually generous: under Ark. Code § 26-53-126 you can even claim a private-sale credit if you sell your old vehicle privately and buy a replacement of greater value within 60 days (bill of sale required at registration).
+- **Has**: EV annual registration surcharge $200 (BEV) / $100 (PHEV) / $50 (HEV), per Ark. Code 27-24 / AFDC, on top of standard registration.
+- **Does NOT have**: statutory doc fee cap; no trade-in credit denial (full trade credit allowed).
+
+#### AR Worked OTD Example (Pulaski County ~9.5%, $30,000 new, no trade)
+
+```
+Taxable = $30,000 + $200 doc = $30,200
+Tax     = $30,200 x 0.095 = $2,869.00   (6.5% state + ~3% local)
+Title   = $10
+Reg     = $25
+OTD     = 30,200 + 2,869 + 10 + 25 = $33,104.00
+```
+
+verified: 2026-06-22 | source: Ark. Code § 26-53-126 (trade/private-sale credit) + AR DFA used-vehicle tax credit page + AFDC law 12182 (EV fee) | by: agent-S5
+
+---
+
+### AZ — Arizona
+
+- **Sales tax**: 5.6% state Transaction Privilege Tax (TPT) — legally on the dealer, passed to buyer like a sales tax; + county/city stacking at buyer ZIP (combined typically ~7.7%, up to 11.2% in Pinal County). Manufacturer rebates are NOT deducted from the taxable base; trade-in IS.
+- **Doc fee cap**: **No statutory dollar cap.** A.R.S. requires only that the fee be "reasonable." Typical AZ doc fee runs $395-499 (median ~$499); some dealers quote $500-700. Treat anything above ~$500 as a negotiation target / potential leak — there is no ceiling protecting you, so push it down at the OTD line.
+- **Title fee**: $4. **Registration**: ~$50/year fixed fees ($8 reg + $5 plate + $1.50 air quality + small compliance), PLUS the annual Vehicle License Tax (VLT) assessed on 60% of base MSRP at $2.80/$100 new ($2.89/$100 used) — the VLT is the big recurring number, not the flat fees.
+- **Trade-in tax credit**: **YES** — taxable base is sale price minus trade-in value. You save 5.6%+ on the trade amount.
+- **Has**: 5.6% state TPT + local stacking; VLT on the value of the vehicle each year; $4 title; standard reg fees.
+- **Does NOT have**: statutory doc fee cap; tax on private/casual sales (private-party purchases are untaxed in AZ); rebate deduction from the tax base; a flat EV registration surcharge (EVs ride the VLT formula, historically at a reduced assessment basis).
+
+#### AZ Worked OTD Example (Maricopa County ~8.0% combined, no trade)
+
+Sales $30,000, doc $499, AZ 8.0% combined:
+
+```
+Taxable = $30,000 + $499 = $30,499
+Tax     = $30,499 × 0.08 = $2,439.92
+Title   = $4
+Reg     = ~$50 flat fees (VLT billed separately on value)
+OTD     = $30,499 + $2,439.92 + $4 + $50 = $32,992.92
+```
+
+#### AZ Worked OTD Example (Maricopa County ~8.0% combined, $5,000 trade)
+
+Sales $30,000, doc $499, trade $5,000, AZ 8.0% combined:
+
+```
+Net sale = $30,000 - $5,000 = $25,000
+Taxable  = $25,000 + $499 = $25,499
+Tax      = $25,499 × 0.08 = $2,039.92
+Title    = $4
+Reg      = ~$50 flat fees
+Cash OTD = $25,499 + $2,039.92 + $4 + $50 = $27,592.92
+Tax savings on trade = $5,000 × 0.08 = $400
+```
+
+verified: 2026-06-22 | source: azdor.gov Motor Vehicle Sales (TPT 5.6%, trade-in deduction, $4 title) + SalesTaxHandbook AZ (combined rate range, no doc cap) | by: orchestrator-S2
+
+---
+
+### CA — California
+
+- **Sales tax**: 7.25% statewide base (the highest state base rate in the US), levied as sales/use tax; **+ district (local) tax 0.10-2.00%** added at the buyer's registration ZIP, so the combined rate runs ~7.75-10.75%. The taxable rate is keyed to where the vehicle will be primarily kept/registered, not where the dealer sits (CDTFA). Use tax on private-party buys is collected by DMV at registration.
+- **Doc fee cap**: **$85 statutory cap** for dealers that are DMV business partners under Veh. Code § 1685, and **$70** for non-partner dealers (CA Vehicle Code §§ 11713.1(g) and 4456.5; charge must be itemized and disclosed per Civ. Code § 2982, the Automobile Sales Finance Act). This is by far the lowest doc-fee ceiling in the country. **SB 791 (2025)** would have raised it to the lesser of 1% of price or $260, but **Governor Newsom vetoed it in October 2025**, so the $85/$70 caps remain in force. Treat any doc/"DPC" line above $85 as a leak.
+- **Title fee**: $15 (basic title transfer). **Registration**: ~$250 first-year cash all-in (base reg ~$74 + CHP $32 + value-based Transportation Improvement Fee $27-$192 by vehicle value under SB 1 + 0.65% Vehicle License Fee); annualized.
+- **Trade-in tax credit**: **NO.** California taxes the full negotiated sale price; a trade-in (and manufacturer rebates) do NOT reduce the taxable base. This is California's structural disadvantage versus trade-credit states like Texas — on a $7k trade you lose ~$540 of tax savings you'd get next door.
+- **Has**: district transaction tax at buyer ZIP; CHP fee $32; Vehicle License Fee 0.65% of value; Transportation Improvement Fee (value-tiered); **ZEV / EV Road Improvement Fee $118/yr** on 2020-and-newer zero-emission vehicles at renewal; smog/emissions transfer fee on many used sales.
+- **Does NOT have**: trade-in tax credit; rebate tax credit; arbitrary local-rate stacking beyond the published district tax; Texas-style SPV minimum-value tax floor; GA TAVT; NC highway-use tax; an MD-style high doc cap.
+
+#### CA Worked OTD Example (Los Angeles County, 9.50% combined, no trade)
+
+Sales $30,000, doc $85, CA 9.50% (7.25% state + 2.25% LA district):
+
+```
+Taxable = $30,000 + $85 = $30,085   # doc is taxable; no trade reduction
+Tax     = $30,085 × 0.0950 = $2,858.08
+Title   = $15
+Reg     = $250 (first-year all-in, annualized)
+OTD     = $30,000 + $85 + $2,858.08 + $15 + $250 = $33,208.08
+```
+
+#### CA Worked OTD Example (Los Angeles County, 9.50%, $7,000 trade)
+
+Sales $30,000, doc $85, trade $7,000, CA 9.50%:
+
+```
+Net sale   = $30,000 - $7,000 = $23,000
+Taxable    = $30,085   # FULL price + doc — CA gives NO trade credit, trade does not reduce tax
+Tax        = $30,085 × 0.0950 = $2,858.08
+Title      = $15
+Reg        = $250
+Cash OTD   = $23,000 + $85 + $2,858.08 + $15 + $250 = $26,208.08
+Tax savings on trade = $0  (California does not credit trade-ins — called out)
+```
+
+verified: 2026-06-22 | source: CA Vehicle Code §§ 11713.1 & 4456.5 (doc cap) + CA DMV VIRP manual 3.030 + CDTFA tax-rate FAQ (7.25% + district) | by: orchestrator-S1
+
+---
+
+### CO — Colorado
+
+- **Sales tax**: 2.9% state (the lowest state rate in the US) + county (up to 5%) + city/special district. At Denver and Boulder ZIPs the combined rate is ~8.85%. Use the buyer's exact ZIP — Colorado is heavily home-rule, so two addresses a mile apart can differ. Trade-in reduces the base at dealers; rebates/incentives do NOT.
+- **Doc fee cap**: **No statutory cap.** Often labeled "dealer handling fee" on CO paperwork. Typical $400-700, with Denver-metro dealers commonly at the high end. No legal ceiling — negotiate to the OTD number.
+- **Title fee**: ~$7 ($4 state + $3.20 county clerk). **Registration**: ~$67/year (road safety $23 + bridge safety $32 + license $6 + small clerk/EMS), plus the annual Specific Ownership Tax (SOT) on 85% of original MSRP, declining by vehicle age (2.10% yr1 down to ~$3 flat by yr10). A $29 Keep Colorado Wild Pass is added by default (opt-out available).
+- **Trade-in tax credit**: **YES at a dealer** — taxable base is price minus trade. **Caveat**: this applies only to dealer sales; private-party buyers get no trade deduction.
+- **Has**: 2.9% state + home-rule local stacking; SOT each year on MSRP basis; ~$7 title; ~$67 reg; $73/year EV fee (BEV); Keep Colorado Wild Pass $29; $40 lien filing fee on financed vehicles (eff 2025-07-01).
+- **Does NOT have**: statutory doc fee cap; rebate deduction from the tax base; trade-in credit on private-party sales.
+
+Home-rule note: Denver (80202 etc.) and Boulder (80301 etc.) ZIPs land near 8.85% combined; always price at the delivery ZIP, not the state rate.
+
+#### CO Worked OTD Example (Denver 80202, ~8.81% combined, no trade)
+
+Sales $30,000, doc $600, CO ~8.81% combined:
+
+```
+Taxable = $30,000 + $600 = $30,600
+Tax     = $30,600 × 0.0881 = $2,695.86
+Title   = $7
+Reg     = ~$67 (+ $29 Wild Pass, opt-out; SOT billed on MSRP basis)
+OTD     = $30,600 + $2,695.86 + $7 + $67 = $33,369.86
+```
+
+#### CO Worked OTD Example (Denver 80202, ~8.81% combined, $5,000 trade)
+
+Sales $30,000, doc $600, trade $5,000, CO ~8.81% combined:
+
+```
+Net sale = $30,000 - $5,000 = $25,000
+Taxable  = $25,000 + $600 = $25,600
+Tax      = $25,600 × 0.0881 = $2,255.36
+Title    = $7
+Reg      = ~$67
+Cash OTD = $25,600 + $2,255.36 + $7 + $67 = $27,929.36
+Tax savings on trade = $5,000 × 0.0881 = $440.50
+```
+
+verified: 2026-06-22 | source: dmv.colorado.gov Taxes and Fees (2.9% state, trade-in deduction, $4+$3.20 title, EV fee) + SalesTaxHandbook CO (combined rate / Denver-Boulder 8.85%, no doc cap) | by: orchestrator-S2
+
+---
+
+### DE — Delaware
+
+- **Sales tax**: **None.** Delaware levies a state **document fee in lieu of sales tax**: **5.25%** of the greater of purchase price or NADA trade-in value, paid once at titling. (Rate increased from 4.25% to 5.25% effective **2025-10-01**.) Revenue goes to the Transportation Trust Fund. No local sales tax exists in DE.
+- **Doc fee cap**: The 5.25% figure is the *state title document fee* (the tax mechanism), not a dealer processing fee. Delaware does **not cap** a separate dealer doc/processing fee. Do not confuse the 5.25% state doc fee with a dealer add-on.
+- **Title fee**: ~$35 (cash/clean title; ~$55 if financed/lien). **Registration**: $40/yr (registrable up to 5 years).
+- **Trade-in tax credit**: **N/A — no sales tax.** However, a trade-in (or qualifying private sale within 60 days) *does* reduce the 5.25% document-fee base; manufacturer rebates do not.
+- **Does NOT have**: traditional sales tax; local sales tax stacking; a separate sales-tax-based trade credit (the doc fee is the only purchase tax).
+
+#### DE Worked OTD Example (Wilmington, no trade)
+
+Sales $30,000, doc fee 5.25%:
+
+```
+Doc fee = max($30,000, NADA) × 0.0525 = $30,000 × 0.0525 = $1,575
+Title   = $35
+Reg     = $40
+OTD     = $1,575 + $35 + $40 + $30,000 = $31,650
+```
+
+#### DE Worked OTD Example (Wilmington, $8,000 trade)
+
+Sales $30,000, trade $8,000, doc fee 5.25%:
+
+```
+Net base = $30,000 - $8,000 = $22,000   (trade reduces the doc-fee base)
+Doc fee  = $22,000 × 0.0525 = $1,155
+Title    = $35
+Reg      = $40
+Cash OTD = $1,155 + $35 + $40 + $22,000 = $23,230
+Doc-fee savings on trade = $8,000 × 0.0525 = $420
+```
+
+verified: 2026-06-22 | source: https://news.delaware.gov/2025/09/30/dmv-fees-increase-in-october-2025/ + https://dmv.de.gov/Common/DMVFees/index.shtml | by: orchestrator-S4
+
+---
+
+### HI — Hawaii
+
+- **Sales tax**: No traditional sales tax — Hawaii uses the **General Excise Tax (GET)**, 4.0% statewide, plus a **0.5% county surcharge now in effect in all four counties** (Honolulu, Kauai, Maui, Hawaii Island) = **4.5%** on vehicle purchases. Because GET is a tax on the seller, dealers may pass on a "tax-on-tax" rate up to **4.712%** (incl. surcharge).
+- **Doc fee cap**: **No statutory cap identified** (secondary-sourced; no HRS provision found). UNVERIFIED as a hard statutory fact — flag any unusually high doc fee.
+- **Title fee**: $10 (HRS § 286-41). **Registration**: ~$66.50 base first year (state $46 per HRS § 249-3 + county $20 + highway beautification $7 + emblem $0.50 + plate $5 - example), PLUS a state weight tax (1.75¢/lb up to 4,000 lb, HRS § 249-33) and a county weight tax that varies sharply by island.
+- **Trade-in tax credit**: **NO** — trade-ins do not reduce the GET base; only dealer discounts do. This is the opposite of most mainland states and a structural disadvantage.
+- **EV surcharge**: $50/yr (HRS § 249-3.5); HiRUC road-usage option may substitute.
+- **Does NOT have**: traditional retail sales tax (uses GET); trade-in tax credit; doc-fee statutory cap.
+
+#### HI Worked OTD Example (Honolulu, no trade)
+
+Sales $30,000, doc $300, GET pass-on 4.712%:
+
+```
+GET (pass-on) = $30,000 x 0.04712 = $1,413.60
+Doc           = $300
+Title         = $10
+Reg + weight  = ~$66.50 base + ~$58 state weight (3,300 lb) = ~$125
+OTD           = $30,000 + $1,413.60 + $300 + $10 + $125 = ~$31,848.60
+```
+
+verified: 2026-06-22 | source: tax.hawaii.gov County Surcharge + GET pages (HRS §§ 237/238) + HRS §§ 249-3/249-3.5/286-41 via comparemechanic | by: orchestrator-S7
+
+---
+
+### IA — Iowa
+
+- **Sales tax**: **None** in the traditional sense. Iowa charges a **5% "Fee for New Registration"** (Iowa Code § 321.105A) in lieu of sales tax on every vehicle transfer (new/used, dealer/private). No local stacking. Formula: $10 + (Net Purchase Price × 0.05).
+- **Doc fee cap**: **No statutory cap.** Iowa law does not limit dealer doc fees; typical ~$135.
+- **Title fee**: ~$25. **Registration**: ~$100/yr (annual fee is a separate weight + list-price declining-rate formula, Iowa Code §§ 321.109–321.124).
+- **Trade-in tax credit**: **YES** — Net Purchase Price = Purchase Price − Trade-In − Rebate, so both trade-in and rebates reduce the 5% fee base.
+- **EV surcharge**: $130/yr full EV (BEV); $65 PHEV; $9 electric motorcycle. Statute Iowa Code § 321.116 (HF 767), fully phased in since CY2022.
+- **Does NOT have**: traditional sales tax (5% Fee for New Registration applies instead); local sales tax stacking; statutory doc fee cap.
+
+#### IA Worked OTD Example (Polk County / Des Moines, no trade)
+
+Sales $30,000, doc $135, IA 5% Fee for New Registration:
+
+```
+Net price = $30,000
+Fee for New Reg = $10 + ($30,000 × 0.05) = $10 + $1,500 = $1,510
+Title   = $25
+Annual reg = $100 (weight + list-price formula; declines with age)
+Doc     = $135
+OTD     = $1,510 + $25 + $100 + $135 + $30,000 = $31,770
+```
+
+#### IA Worked OTD Example (Polk County / Des Moines, $8,000 trade)
+
+Sales $30,000, trade $8,000, IA 5%:
+
+```
+Net price = $30,000 - $8,000 = $22,000
+Fee for New Reg = $10 + ($22,000 × 0.05) = $10 + $1,100 = $1,110
+Title   = $25
+Annual reg = $100
+Cash OTD = $1,110 + $25 + $100 + $22,000 = $23,235
+Tax savings on trade = $8,000 × 0.05 = $400
+```
+
+verified: 2026-06-22 | source: https://www.legis.iowa.gov/docs/code/321.105A.pdf + https://www.legis.iowa.gov/docs/code/321.116.pdf | by: orchestrator-S4
+
+<!-- Batch S5 detail-stubs: AR, KS, MS, NM, UT. lite stub depth. All verified 2026-06-22 against 2 authoritative sources each. -->
+
+---
+
+### ID — Idaho
+
+- **Sales tax**: flat 6% state sales tax on vehicles; **no local add-on** on motor vehicle sales (Idaho restricts local-option sales tax from applying to motor vehicles even in resort areas). Taxable base is reduced by trade-in; NOT reduced by rebates (Idaho taxes before rebates).
+- **Doc fee cap**: **No statutory cap** — must be disclosed but is uncapped; median ~$265, dealer ranges to ~$399. Doc fee is NOT taxable and does not reduce the taxable amount.
+- **Title fee**: $14. **Registration**: base ~$69/yr (age-tiered) + county admin fee $3-$14; example total ~$78.50/yr (Ada County, mid-age vehicle).
+- **Trade-in tax credit**: **YES** — trade-in value is deducted from the taxable price.
+- **Has**: EV registration fee $140/yr and plug-in hybrid fee $75/yr, in addition to standard registration, under Idaho Code § 49-457.
+- **Does NOT have**: statutory doc fee cap; local sales tax stacking on vehicles; NY MCTD fee; NJ supplemental titling fee; GA TAVT; NC highway use tax.
+
+#### ID Worked OTD Example (Ada County / Boise, no trade)
+
+Sales $30,000, doc $299, ID 6% (doc not taxable):
+
+```
+Taxable = $30,000
+Tax     = $30,000 x 0.06 = $1,800
+Title   = $14
+Reg     = ~$78.50 (base + county admin)
+Doc     = $299
+OTD     ~ $32,191.50
+```
+
+#### ID Worked OTD Example (Boise, $8,000 trade)
+
+Sales $30,000, trade $8,000, doc $299, ID 6%:
+
+```
+Net sale = $30,000 - $8,000 = $22,000
+Tax      = $22,000 x 0.06 = $1,320
+Title    = $14
+Reg      = ~$78.50
+Doc      = $299
+Cash OTD ~ $23,711.50; tax savings on trade = $480
+```
+
+verified: 2026-06-22 | source: Idaho State Tax Commission Sales & Use Tax Guide for Vehicle Transactions (tax.idaho.gov); Idaho Code § 49-457 (legislature.idaho.gov); SalesTaxHandbook ID | by: orchestrator/S6
+
+<!-- Batch S7 detail-stubs: MT, OR, NH, AK, HI, WY. Lite stubs to round out the 50+DC set. -->
+
+---
+
+### IN — Indiana
+
+- **Sales tax**: 7% flat statewide. Indiana has **no local or county sales tax** on vehicles — you pay 7% no matter where in the state you buy. Trade-in reduces the base; manufacturer rebates do NOT.
+- **Doc fee cap**: **$251.05** (effective 2025-07-01) — the document preparation fee under **IC 9-32-13-7**. The statutory base is $200, CPI-indexed annually; the SOS Auto Dealer Services Division publishes the no-enforcement threshold ($237.51 in 2023, $251.05 from 2025-07-01). Charging above the published figure or hiding the fee is an unfair practice (civil penalty up to $10,000/violation). This is a real, enforced cap — among the tighter ones in this batch.
+- **Title fee**: $15. **Registration**: ~$40/year ($15 BMV base + annual excise tax on MSRP/age basis + county fee, most counties +$7.50).
+- **Trade-in tax credit**: **YES** — taxable base is price minus trade-in value.
+- **Has**: 7% flat state tax; $15 title; BMV reg + MSRP-based excise + county fee; **EV supplemental registration fee** (statutory base $150 under IC 9-18.1-5-12, fuel-index-adjusted to ~$230 currently); hybrid supplemental ~$77 (base $50).
+- **Does NOT have**: local/county sales tax stacking (flat 7% everywhere); rebate deduction from the tax base.
+
+EV note: the JSON uses $230 (the current fuel-index-adjusted figure per DOE/AFDC and IRP); the statutory base in IC 9-18.1-5-12 is $150. If a dealer/BMV quote shows $150 it is the un-indexed base — confirm the current-year amount with the BMV Fee Chart.
+
+#### IN Worked OTD Example (statewide 7%, no trade)
+
+Sales $30,000, doc $251.05 (at cap), IN 7%:
+
+```
+Taxable = $30,000 + $251.05 = $30,251.05
+Tax     = $30,251.05 × 0.07 = $2,117.57
+Title   = $15
+Reg     = ~$40 (BMV base + excise + county)
+OTD     = $30,251.05 + $2,117.57 + $15 + $40 = $32,423.62
+```
+
+#### IN Worked OTD Example (statewide 7%, $5,000 trade)
+
+Sales $30,000, doc $251.05, trade $5,000, IN 7%:
+
+```
+Net sale = $30,000 - $5,000 = $25,000
+Taxable  = $25,000 + $251.05 = $25,251.05
+Tax      = $25,251.05 × 0.07 = $1,767.57
+Title    = $15
+Reg      = ~$40
+Cash OTD = $25,251.05 + $1,767.57 + $15 + $40 = $27,073.62
+Tax savings on trade = $5,000 × 0.07 = $350
+```
+
+verified: 2026-06-22 | source: IN SOS Auto Dealer Services "Doc Fees in 2025" PDF + IC 9-32-13-7 ($251.05 cap eff 2025-07-01) + IC 9-18.1-5-12 / DOE-AFDC (EV supplemental) + SalesTaxHandbook IN (flat 7%, trade-in deduction) | by: orchestrator-S2
+
+---
+
+### KS — Kansas
+
+- **Sales tax**: 6.5% state sales tax; + 0-4% local at the buyer's county of residence (combined can reach ~11.5%). Rate is the buyer's home county rate, not the seller/treasurer location.
+- **Doc fee cap**: **No statutory cap.** Dealer-set, typical ~$285. Note the doc fee is itself part of taxable gross receipts under KS Dept. of Revenue Pub. KS-1526 — it is taxed.
+- **Title fee**: $10. **Registration**: ~$40/yr (passenger baseline; weight-based).
+- **Trade-in tax credit**: **YES** — tax applies to the net trade difference. Credit is capped at the value of the vehicle received (a trade worth more than the purchased vehicle zeroes the tax but does not refund). Manufacturer rebates paid to the purchaser remain taxable per KS-1526.
+- **Has**: EV annual registration fee $100 (BEV) / $50 (PHEV/HEV). Per KS legislative research, the Kansas EV fee is structured *in lieu of* (replacing) other registration fees, unlike most states which add it on top.
+- **Does NOT have**: statutory doc fee cap; no trade-in credit denial.
+
+#### KS Worked OTD Example (Sedgwick County ~7.5%, $26,000 new, $6,300 trade)
+
+```
+Net sale = $26,000 - $6,300 = $19,700
+Taxable  = $19,700 + $285 doc = $19,985
+Tax      = $19,985 x 0.075 = $1,498.88
+Title    = $10
+Reg      = $40
+OTD      = 19,985 + 1,498.88 + 10 + 40 = $21,533.88
+Tax savings on trade = $6,300 x 0.075 = $472.50
+```
+
+verified: 2026-06-22 | source: KS Dept. of Revenue Pub. KS-1526 (tax/trade/doc) + SalesTaxHandbook KS vehicles + AFDC law 12182 (EV fee) | by: agent-S5
+
+---
+
+### KY — Kentucky
+
+- **Sales tax**: 6% **motor vehicle usage tax** (in lieu of property tax at purchase), flat statewide; **no local usage tax stacking** — 6% is the most you pay.
+- **Doc fee cap**: **No statutory cap.** Dealer doc fees are set by dealers; Kentucky does not legislate a ceiling.
+- **Title fee**: $9. **Registration**: $21/yr (passenger). (Note: the seed value of $65 was stale; current KY passenger base registration is $21.)
+- **Trade-in tax credit**: **YES (new vehicles)** — per KY DOR, since 2014-07-01 trade-in allowance is granted on the usage-tax base for new-vehicle purchases. For **used** vehicles a trade-in also reduces the base, but a "50% floor" rule applies and both vehicles must have been previously KY-registered. NOTE: the S4 batch brief described KY as "no trade credit"; the authoritative DOR page contradicts that, so this stub follows DOR (posture = yes).
+- **EV surcharge**: $120/yr full EV; $60 hybrid/electric motorcycle. Statute KRS 138.475, annually CPI-adjusted (max +5%/yr), in effect since 2024.
+- **Does NOT have**: local sales/usage tax stacking; statutory doc fee cap.
+
+#### KY Worked OTD Example (Louisville, no trade)
+
+Sales $30,000, KY usage tax 6%:
+
+```
+Taxable = $30,000
+Usage tax = $30,000 × 0.06 = $1,800
+Title   = $9
+Reg     = $21
+OTD     = $1,800 + $9 + $21 + $30,000 = $31,830
+```
+
+#### KY Worked OTD Example (Louisville, $8,000 trade, new vehicle)
+
+Sales $30,000, trade $8,000, KY usage tax 6%:
+
+```
+Net taxable = $30,000 - $8,000 = $22,000   (new-vehicle trade credit)
+Usage tax   = $22,000 × 0.06 = $1,320
+Title       = $9
+Reg         = $21
+Cash OTD    = $1,320 + $9 + $21 + $22,000 = $23,350
+Tax savings on trade = $8,000 × 0.06 = $480
+```
+
+verified: 2026-06-22 | source: https://revenue.ky.gov/Property/Motor-Vehicles/Pages/Motor-Vehicle-Usage-Tax.aspx + https://drive.ky.gov/Pages/EV-HV-Fee.aspx | by: orchestrator-S4
+
+---
+
+### LA — Louisiana
+
+- **Sales tax**: **5% state** sales/use tax on vehicles (raised from 4.45% to 5% effective **2025-01-01** under 2024 HB10 / Act 11; scheduled to step down to 4.75% on 2030-01-01) — the old 4.45% figure is **outdated**. **Plus parish/municipal local tax of roughly 4-7%**, so the combined rate at the buyer's registration parish/ZIP commonly lands in the **~9-10%** band and can reach ~12.95% in the highest-rate locales. The taxable rate follows the buyer's parish of registration, not the dealer's.
+- **Doc fee cap**: **~$436**, CPI-indexed (max 3%/yr increase, published annually by the LA Motor Vehicle Commission) under **La. R.S. 6:969.18(A)(2)**, with the current figure effective **2025-07-04** (Acts 2025 No. 502). This replaced the prior $200 cap the seed carried — that **$200 figure is outdated**. The cap has climbed $35 -> $200 -> $425 (2020 SB144) -> ~$436. Confirm the exact published number against the LMVC site for a given year; treat a doc/compliance fee materially above the published cap as a leak.
+- **Title fee**: $68.50 (La. R.S. 32:728) plus an $8 handling fee per transaction. **Registration**: value-based at 0.1% of vehicle value, issued for 2-year periods (min $20/2yr on a $10,000-floor value); the ~$25/yr figure reflects a typical annualized passenger plate.
+- **Trade-in tax credit**: **YES** — taxable base is sale price minus trade-in allowance.
+- **Has**: 5% state + parish/municipal local tax (~9-10% combined); EV/hybrid **road-usage fee $110/yr EV, $60/yr hybrid** (per LA OMV); $8 handling fee; optional Public Tag Agent convenience fee up to $23.
+- **Does NOT have**: IMF; TAVT; highway-use tax; a Texas-style SPV minimum-value floor; a trade-in tax disadvantage.
+
+#### LA Worked OTD Example (East Baton Rouge Parish, ~9.95% combined, no trade)
+
+Sales $30,000, doc $436, LA 5% state + 4.95% parish = 9.95%:
+
+```
+Taxable = $30,000   # LA vehicle tax is on the sale price (trade-adjusted); doc is not in the tax base
+Tax     = $30,000 × 0.0995 = $2,985.00
+Title   = $68.50
+Handling= $8.00
+Reg     = $25 (annualized passenger plate)
+Doc     = $436 (current CPI-indexed cap)
+OTD     = $30,000 + $436 + $2,985.00 + $68.50 + $8.00 + $25 = $33,522.50
+```
+
+#### LA Worked OTD Example (East Baton Rouge Parish, ~9.95%, $7,000 trade)
+
+Sales $30,000, doc $436, trade $7,000, LA 9.95%:
+
+```
+Net sale   = $30,000 - $7,000 = $23,000
+Taxable    = $23,000   # trade credited against the taxable base
+Tax        = $23,000 × 0.0995 = $2,288.50
+Title      = $68.50
+Handling   = $8.00
+Reg        = $25
+Doc        = $436
+Cash OTD   = $23,000 + $436 + $2,288.50 + $68.50 + $8.00 + $25 = $25,826.00
+Tax savings on trade = $7,000 × 0.0995 = $696.50
+```
+
+verified: 2026-06-22 | source: La. R.S. 6:969.18 (doc cap ~$436, eff 2025-07-04) + Sales Tax Institute / 2024 HB10 Act 11 (state 5%, eff 2025-01-01) + LA OMV fee schedule (title $68.50, EV $110) | by: orchestrator-S3
+
+---
+
+### MN — Minnesota
+
+- **Sales tax**: 6.875% Motor Vehicle Sales Tax (MVST) on the taxable sale price; rate rose from 6.5% to **6.875% effective 2023-07-01** (Minn. Stat. § 297B). **No general local sales tax stacks on vehicles** — MVST is the whole tax. A few counties/cities (e.g., metro transit-improvement jurisdictions) add a flat **$20 vehicle excise tax** per sale, but it is a fixed dollar amount, not a percentage, so the combined "rate" stays 6.875%.
+- **Doc fee cap**: **$350 statutory cap** (the lesser of $350 or 10% of sale value; the 10% prong only matters on vehicles at or under $3,499), under **Minn. Stat. § 168.27 subd. 31**, effective **2025-07-01** (HF1513). This replaced Minnesota's long-standing very-low caps ($75, then $125) — the old "$125 MN doc cap" you may see cited is **outdated**. Treat any doc/"document administration" line above $350 as a leak.
+- **Title fee**: $11 (transfer). **Registration**: MSRP/value-based — roughly 1.285-1.575% of the depreciating base value plus a $10 flat, so first-year tabs on a ~$30-35k car run ~$400-560 and fall each year to a $20 floor after year 11. The ~$100 figure is a rough mid-life annualized placeholder; real first-year cost is materially higher and value-driven.
+- **Trade-in tax credit**: **YES** — the taxable price is sale price minus the trade-in allowance (and minus rebates), confirmed by MN Dept. of Revenue. Exception: trading in an off-road vehicle (ATV/watercraft/snowmobile) does NOT reduce the base.
+- **Has**: $20 flat county/city vehicle excise tax in some jurisdictions; **$75/yr EV registration surcharge** on all-electric vehicles (Minn. Stat. § 168.013 subd. 1m) — note this rises to a $150 minimum EV / $75 PHEV (MSRP-scaled) **beginning 2026-01-01**, but for current-year purposes the surcharge is $75; rebate amounts are not taxed (rebates DO reduce the base in MN, unlike most states).
+- **Does NOT have**: percentage local sales-tax stacking on vehicles; TAVT; highway-use tax; IMF; a Texas-style SPV minimum-value floor; GA TAVT; NC HUT.
+
+#### MN Worked OTD Example (Hennepin County, no trade)
+
+Sales $30,000, doc $350, MN 6.875% MVST + $20 county excise:
+
+```
+Taxable = $30,000   # MN MVST is on the vehicle sale price; doc fee is not in the MVST base
+Tax     = $30,000 × 0.06875 = $2,062.50
+Excise  = $20 (flat county vehicle excise)
+Title   = $11
+Reg     = $100 (mid-life annualized placeholder; first-year value-based is higher)
+Doc     = $350 (statutory cap)
+OTD     = $30,000 + $350 + $2,062.50 + $20 + $11 + $100 = $32,543.50
+```
+
+#### MN Worked OTD Example (Hennepin County, $7,000 trade)
+
+Sales $30,000, doc $350, trade $7,000, MN 6.875%:
+
+```
+Net sale   = $30,000 - $7,000 = $23,000
+Taxable    = $23,000   # MN credits the trade-in against the MVST base
+Tax        = $23,000 × 0.06875 = $1,581.25
+Excise     = $20
+Title      = $11
+Reg        = $100
+Doc        = $350
+Cash OTD   = $23,000 + $350 + $1,581.25 + $20 + $11 + $100 = $25,062.25
+Tax savings on trade = $7,000 × 0.06875 = $481.25
+```
+
+verified: 2026-06-22 | source: MN Dept. of Revenue Motor Vehicle Sales guide (6.875% + trade credit) + Minn. Stat. § 168.013 (EV $75) + Minn. Stat. § 168.27 subd. 31 / HF1513 + MADA (doc cap $350, eff 2025-07-01) | by: orchestrator-S3
+
+---
+
+### MO — Missouri
+
+- **Sales tax**: 4.225% state + county/city/special district stacking (0-5.5% at buyer ZIP). Use the buyer's home address — MO taxes the vehicle at the purchaser's domicile rate, not the dealer's. Trade-in reduces the base.
+- **Doc fee cap**: **$604.47** for the 2025 licensure year (rule effective 2025-08-17) — the dealer "administrative fee" under **RSMo § 301.558**, with the dollar table in **12 CSR 10-26.231**. Base $500 (2021), CPI-indexed annually: $523.50 (2022), $565.38 (2023), $587.43 (2024), $604.47 (2025). Two wrinkles: the dealer must remit 10% of every administrative fee collected to the MV Administration Technology Fund, and must charge a single uniform declared fee to all retail buyers for the license period. Capped, but the cap is high (~$604) — one of the most generous in this batch.
+- **Title fee**: $11 (plus $8.50 processing in practice). **Registration**: ~$50/year (varies by horsepower/weight).
+- **Trade-in tax credit**: **YES** — taxable base is price minus trade-in value.
+- **Has**: 4.225% state + local stacking at buyer ZIP; CPI-indexed administrative fee up to $604.47; $11 title; HP/weight-based reg.
+- **Does NOT have**: an uncapped doc fee (it is capped, just generously); tax on the trade-in value.
+
+#### MO Worked OTD Example (St. Louis County ~8.0% combined, no trade)
+
+Sales $30,000, admin fee $604.47 (at cap), MO ~8.0% combined:
+
+```
+Taxable = $30,000 + $604.47 = $30,604.47
+Tax     = $30,604.47 × 0.08 = $2,448.36
+Title   = $11
+Reg     = ~$50
+OTD     = $30,604.47 + $2,448.36 + $11 + $50 = $33,113.83
+```
+
+#### MO Worked OTD Example (St. Louis County ~8.0% combined, $5,000 trade)
+
+Sales $30,000, admin fee $604.47, trade $5,000, MO ~8.0% combined:
+
+```
+Net sale = $30,000 - $5,000 = $25,000
+Taxable  = $25,000 + $604.47 = $25,604.47
+Tax      = $25,604.47 × 0.08 = $2,048.36
+Title    = $11
+Reg      = ~$50
+Cash OTD = $25,604.47 + $2,048.36 + $11 + $50 = $27,713.83
+Tax savings on trade = $5,000 × 0.08 = $400
+```
+
+verified: 2026-06-22 | source: RSMo § 301.558 (revisor.mo.gov) + 12 CSR 10-26.231 ($604.47 max 2025, eff 2025-08-17, via Cornell LII) + SalesTaxHandbook MO (4.225% state, local stacking, trade-in deduction) | by: orchestrator-S2
+
+---
+
+### MS — Mississippi
+
+- **Sales tax**: 5% state sales tax on cars/light trucks <=10,000 lb GVW (3% for carriers of property / trucks over 10,000 lb), per Miss. Code § 27-65-201. No local sales-tax stacking on the purchase, but counties levy an ad valorem (property) tax at registration that dominates total Mississippi registration cost.
+- **Doc fee cap**: **No statewide statutory cap.** Dealer-set, typical ~$230.
+- **Title fee**: $9. **Registration**: ~$25/yr base tag (plus county ad valorem, value-based, separate).
+- **Trade-in tax credit**: **YES** — tax on net difference (new vehicle true value minus trade allowance), per § 27-65-201. Manufacturer rebates do NOT reduce the taxable base; dealer discounts do.
+- **Has**: EV annual registration surcharge $150 (BEV) / $75 (PHEV/HEV), Miss. Code §§ 27-19-21/23, indexed for inflation annually since 2021-07-01. County ad valorem tax at registration (with 5% legislative tag credit).
+- **Does NOT have**: statutory doc fee cap; no trade-in credit denial; no local sales-tax stacking on the 5% purchase tax.
+
+#### MS Worked OTD Example (Hinds County, $30,000 new, $10,000 trade, gas car)
+
+```
+Net sale = $30,000 - $10,000 = $20,000
+Taxable  = $20,000 + $230 doc = $20,230
+Tax      = $20,230 x 0.05 = $1,011.50
+Title    = $9
+Reg      = $25 (base tag; county ad valorem billed separately, value-based)
+OTD      = 20,230 + 1,011.50 + 9 + 25 = $21,275.50
+Tax savings on trade = $10,000 x 0.05 = $500.00
+```
+
+verified: 2026-06-22 | source: Miss. Code § 27-65-201 (5% tax + net-difference trade) + AFDC ELEC MS (EV $150/$75, §§ 27-19-21/23) + SalesTaxHandbook MS vehicles | by: agent-S5
+
+---
+
+### MT — Montana
+
+- **Sales tax**: 0% — Montana is one of five no-sales-tax states. No state or local *sales* tax on vehicles, so trade-ins are tax-irrelevant. Caveat: 45 of 56 counties levy a separate **county option tax** (~0.3-0.5% of depreciated MSRP, per § 61-3-503 MCA) collected with registration — not a sales tax, but a real recurring cost.
+- **Doc fee cap**: **No statutory cap.** Typical industry doc fee ~$224. Treat anything well above that as a leak.
+- **Title fee**: $10.30 (this is the *replacement* title fee, incl. 3% admin per § 61-3-111 MCA; a new title is bundled into registration). **Registration**: $217/yr for vehicles 0-4 yrs, $87 for 5-10 yrs, $28 for 11+ yrs (age-based flat fee, § 61-3-321(2)(d) MCA, incl. 3% admin). A $150k+ MSRP vehicle ≤10 yrs adds an $825/yr luxury surcharge.
+- **Trade-in tax credit**: N/A — no sales tax to offset.
+- **Does NOT have**: state sales tax; trade-in tax credit (moot); doc-fee cap; emissions/safety inspection at sale.
+
+#### MT Worked OTD Example (Gallatin County, 0-4 yr vehicle, no trade)
+
+Sales $30,000, doc $224, MT 0% sales tax:
+
+```
+Taxable    = n/a (no sales tax)
+Tax        = $0
+Doc        = $224
+Title      = $0 (bundled into reg; replacement title would be $10.30)
+Reg        = $217 (age 0-4 yr, incl 3% admin)
+County opt = ~$45 (0.5% of ~$9,000 depreciated MSRP — varies by county/age)
+OTD        = $30,000 + $224 + $217 + ~$45 = ~$30,486
+```
+
+verified: 2026-06-22 | source: mvdmt.gov Light Vehicle Registration & Fees + § 61-3-321 MCA + SalesTaxHandbook (MT) | by: orchestrator-S7
+
+---
+
+### ND — North Dakota
+
+- **Sales tax**: 5% motor vehicle **excise tax** (NDCC ch. 57-40.3), in lieu of general sales tax; **no local stacking** on motor vehicles. Calculated on net purchase price after trade-in.
+- **Doc fee cap**: **No statutory cap** — North Dakota does not regulate a dealer doc fee ceiling. Title, registration, license, and doc fees are excluded from the excise-taxable price.
+- **Title fee**: $5. **Registration**: weight-and-age based, base passenger fee ~$49/yr ranging up to ~$274/yr (annual). $1.50 abandoned-vehicle disposal fee on first ND titling.
+- **Trade-in tax credit**: **YES** — 5% excise applies to purchase price minus trade-in allowance.
+- **Has**: EV road-use surcharge $120/yr (all-electric); plug-in hybrid $50/yr, added at registration.
+- **Does NOT have**: statutory doc fee cap; traditional sales tax on motor vehicles; local sales tax stacking on vehicles; safety/emissions inspection at sale; NY MCTD fee.
+
+#### ND Worked OTD Example (Bismarck, no trade)
+
+Sales $30,000, doc $200, ND 5% excise (doc NOT in excise base):
+
+```
+Taxable = $30,000 (doc fee excluded from excise base)
+Excise  = $30,000 x 0.05 = $1,500
+Title   = $5
+Reg     = ~$49 (base passenger; scales by weight/age)
+Doc     = $200
+OTD     ~ $31,754
+```
+
+#### ND Worked OTD Example (Bismarck, $8,000 trade)
+
+Sales $30,000, trade $8,000, ND 5% excise:
+
+```
+Net sale = $30,000 - $8,000 = $22,000
+Excise   = $22,000 x 0.05 = $1,100
+Title    = $5
+Reg      = ~$49
+Doc      = $200
+Cash OTD ~ $21,354 + financed balance basis; tax savings on trade = $400
+```
+
+verified: 2026-06-22 | source: ND Motor Vehicle Excise Tax Guideline (tax.nd.gov); NDCC ch. 57-40.3 (ndlegis.gov); SalesTaxHandbook ND | by: orchestrator/S6
+
+---
+
+### NE — Nebraska
+
+- **Sales tax**: 5.5% state sales tax; local stacking 0-2% at buyer ZIP (combined up to ~7.5%). Applied to sale price minus trade-in, after rebates.
+- **Doc fee cap**: **No statutory cap** — typical industry doc fee is ~$280; treat anything materially above ~$350 as a leak and negotiate. Nebraska law requires disclosure but does not limit the amount.
+- **Title fee**: $10. **Registration**: ~$30/yr base (annual), plus a separate MSRP-based Motor Vehicle Tax and Motor Vehicle Fee that scale by value/age, and ~$5.50 in fixed statutory surcharges (EMS, DMV cash, recreation, county) per year.
+- **Trade-in tax credit**: **YES** — taxable base is sale price minus trade-in value.
+- **Has**: EV/alternative-fuel registration surcharge of $150/yr on electric and hydrogen vehicles ($75 for plug-in hybrid / motorcycle), effective 2025-01-01 under Neb. Rev. Stat. § 60-3,191 (raised from $75).
+- **Does NOT have**: statutory doc fee cap; NY MCTD fee; NJ supplemental titling fee; GA TAVT; NC highway use tax.
+
+#### NE Worked OTD Example (Lincoln, ~7.0% combined, no trade)
+
+Sales $30,000, doc $280, NE 7.0%:
+
+```
+Taxable = $30,000 + $280 = $30,280
+Tax     = $30,280 x 0.07 = $2,119.60
+Title   = $10
+Reg     = ~$30 (base; MSRP-based MV tax/fee additional)
+OTD     ~ $32,239.60 + value-based MV tax/fee
+```
+
+verified: 2026-06-22 | source: Nebraska DMV Registration Fees & Taxes (dmv.nebraska.gov); Neb. Rev. Stat. § 60-3,191; SalesTaxHandbook NE | by: orchestrator/S6
+
+---
+
+### NM — New Mexico
+
+- **Sales tax**: Vehicles are NOT subject to ordinary retail gross-receipts/sales tax. Instead a flat **4% Motor Vehicle Excise Tax (MVET)**, uniform statewide (no local component), per NMSA § 7-14-4 (raised from 3% to 4% effective 2019-07-01). (The canonical JSON previously labeled this `sales_tax`; the verified mechanism is the MVET excise.)
+- **Doc fee cap**: **No statutory cap.** A dealer transfer/document service fee is a separate add-on subject to gross-receipts tax and is explicitly NOT part of the MVET "price paid" base — so doc fees do not get MVET-taxed.
+- **Title fee**: $5. **Registration**: $27-$62 for one year ($54-$124 biennial), by weight and model year — annualize the biennial figure; ~$35/yr is a representative passenger value.
+- **Trade-in tax credit**: **YES** — trade-in allowances are deducted from "price paid" before the 4% MVET, per § 7-14-4. Contractually-guaranteed manufacturer rebates also reduce the base. A trade worth more than the purchase zeroes the MVET.
+- **Has**: 50% MVET penalty if title not applied for within 90 days (effectively 6%). Out-of-state tax credit against MVET.
+- **Does NOT have**: statutory doc fee cap; no traditional retail sales tax on vehicles (4% MVET excise instead); no trade-in credit denial; **no enacted statewide EV registration surcharge** — an EV fee (HB 145 / a 2025 DOT proposal) passed the House 65-0 but did NOT become law as of this verification, so ev_reg_surcharge is null.
+
+#### NM Worked OTD Example (statewide 4% MVET, $40,000 new, $10,000 trade)
+
+```
+Net sale = $40,000 - $10,000 = $30,000   # "price paid" reduced by trade
+Taxable  = $30,000  (doc fee is GRT-taxed separately, NOT in MVET base)
+MVET     = $30,000 x 0.04 = $1,200.00
+Title    = $5
+Reg      = $35 (passenger, annualized from biennial)
+OTD      = 30,000 + 1,200 + 5 + 35 = $31,240.00 (+ separately quoted doc fee + GRT on it)
+Tax savings on trade = $10,000 x 0.04 = $400.00
+```
+
+verified: 2026-06-22 | source: NMSA § 7-14-4 (4% MVET, trade deduction) + NM Taxation & Revenue Motor Vehicle Excise Tax page | by: agent-S5
+
+---
+
+### NV — Nevada
+
+- **Sales tax**: 4.6% state base + mandatory county add-ons; **minimum combined 6.85%**, average ~7.96%, max 8.375%, at buyer's county. Sales/use tax applies to dealer sales only — private-party transfers are exempt.
+- **Governmental Services Tax (GST)**: a separate value-based annual reg charge = 4% of the depreciated DMV valuation (35% of original MSRP, depreciating), $16 minimum; Clark/Churchill counties add a Supplemental GST.
+- **Doc fee cap**: **No statutory cap.** Dealer doc fees are unregulated by amount.
+- **Title fee**: $28.25 (first-time). **Registration**: $33/yr base (passenger), plus GST/SGST above.
+- **Trade-in tax credit**: **YES** — taxable base is sale price minus trade. Dealer rebates also reduce the base; manufacturer rebates do not.
+- **EV surcharge**: **None** — Nevada has no statewide EV registration surcharge as of 2026.
+- **Does NOT have**: EV registration surcharge; statutory doc fee cap; sales tax on private-party transfers.
+
+#### NV Worked OTD Example (Clark County / Las Vegas, no trade)
+
+Sales $30,000, doc $499, NV 8.375% (Clark combined):
+
+```
+Taxable = $30,000 + $499 = $30,499   (NV taxes doc fee)
+Tax     = $30,499 × 0.08375 = $2,554
+Title   = $28.25
+Reg     = $33 (base; GST/SGST additional, value-based)
+OTD     = $2,554 + $28.25 + $33 + $30,499 = $33,114.25
+```
+
+verified: 2026-06-22 | source: https://dmv.nv.gov/regfees.htm + https://www.salestaxhandbook.com/nevada/sales-tax-vehicles | by: orchestrator-S4
+
+---
+
+### OK — Oklahoma
+
+- **Sales tax**: 3.25% flat **excise tax** in lieu of sales tax (47/68 O.S.); no state or local sales tax stacks on a titled vehicle. New vehicles taxed at 3.25% of price; used vehicles $20 on first $1,500 + 3.25% above. As of HB 1183 (effective 2026-07-01) excise is based on actual sales price, removing the +/-20% NADA-value band.
+- **Doc fee cap**: **No statutory cap.** Title 47 / ONMVC advertising rules govern *disclosure* of the documentary fee, not its amount. Typical OK doc fee runs ~$300-$785 (avg ~$549) — treat anything well above that as a leak.
+- **Title fee**: $11. **Registration**: ~$96/yr (declining by vehicle age under 47 O.S. § 1132).
+- **Trade-in tax credit**: **YES** — under SB 1619 the trade-in value is subtracted from purchase price before the 3.25% excise is computed.
+- **EV surcharge**: $110/yr for full EVs (Class 1, gross weight <6,000 lbs); $82 PHEV. Statute 68 O.S. § 6511 (HB 1014X, in effect since 2024).
+- **Does NOT have**: traditional state/local sales tax on titled vehicles; statutory doc fee cap; local tax stacking on the excise.
+
+#### OK Worked OTD Example (Oklahoma City, no trade)
+
+Sales $30,000, doc $549, OK excise 3.25%:
+
+```
+Taxable = $30,000 (excise on price; doc fee not part of excise base)
+Excise  = $30,000 × 0.0325 = $975
+Title   = $11
+Reg     = $96
+Doc     = $549
+OTD     = $975 + $11 + $96 + $549 + $30,000 = $31,631
+```
+
+verified: 2026-06-22 | source: https://oklahoma.gov/service/all-services/auto-vehicle/fees.html + https://www.salestaxhandbook.com/oklahoma/sales-tax-vehicles + 68 O.S. § 6511 | by: orchestrator-S4
+
+---
+
+### OR — Oregon
+
+- **Sales tax**: No general sales tax, BUT a **0.5% vehicle privilege tax** applies to dealer sales of new vehicles (2018+, <7,500 mi, never OR-titled), and a **0.5% use tax** on out-of-state purchases titled in OR. Dealers may pass the privilege tax to the buyer. No county sales-tax stacking.
+- **Doc fee cap**: **$250** if the dealer uses an integrator, **$200** if not — capped by **ORS 822.043(4)** (amended 2025 c.415 §20; raised from the prior $150/$115). Negotiable; over-collection must be refunded within 5 business days.
+- **Title fee**: ~$101. **Registration**: biennial, ~$126-$316 for two years depending on MPG class (≈$63-$158/yr); EV biennial surcharge ~$128 (≈$64/yr). Local/transit district fees may stack in some counties.
+- **Trade-in tax credit**: **NO** — trade-in value does *not* reduce the 0.5% privilege-tax base; only manufacturer rebates/dealer discounts do. (Privilege tax is small, so impact is minor.)
+- **Does NOT have**: general retail sales tax; trade-in credit against privilege tax; county sales-tax stacking.
+
+#### OR Worked OTD Example (Multnomah County, new vehicle, no trade)
+
+Sales $30,000, doc $250 (integrator), OR 0.5% privilege tax:
+
+```
+Privilege tax = $30,000 x 0.005 = $150
+Doc           = $250
+Title         = $101
+Reg (2 yr)    = $254 (annualize ~$127/yr)
+OTD           = $30,000 + $150 + $250 + $101 + $254 = $30,755
+```
+
+verified: 2026-06-22 | source: ORS 822.043 (oregon.public.law) + oregon.gov/odot/dmv fees + OR DOR Vehicle Privilege Tax | by: orchestrator-S7
+
+---
+
+### SC — South Carolina
+
+- **Sales tax**: SC does **not** charge a traditional sales tax on titled vehicles. Instead it imposes a **5% Infrastructure Maintenance Fee (IMF)**, **capped at $500 per vehicle** (S.C. Code Ann. § 56-3-627). Because the IMF replaces sales/use tax, there is **no county/local rate stacking** on the vehicle. New residents titling an out-of-state car pay a flat **$250 IMF**.
+- **$500 IMF cap — VERIFIED**: confirmed at 5% with a hard $500 ceiling under § 56-3-627. It was set at $500 effective **2017-07-01** (2017 Act 40, raising the prior $300 sales-tax cap), with the collection/titling mechanics amended by 2021 Act 70. On any vehicle priced above $10,000 the buyer hits the $500 cap.
+- **Doc / "closing" fee cap**: **No hard dollar cap.** Under **S.C. Code Ann. § 37-2-307**, a dealer may set its own closing fee but must file an annual written notice with DOR/DMV (with a $10 filing fee). A closing fee **above $225** triggers a DOR "reasonableness" review; at or below $225 no review occurs. So $225 is a practical soft threshold, not a statutory maximum — treat a closing fee well above $225 as a flag worth questioning.
+- **Title fee**: $15. **Registration**: ~$40/yr for a standard passenger vehicle (biennial $80 option also offered; annualized).
+- **Trade-in tax credit**: **YES** — the trade-in allowance reduces the IMF base, and because of the $500 cap a trade-in can keep an otherwise-capped buyer under $500. SCDMV examples: $12,000 sale with $7,000 trade => IMF on $5,000 = $250; equal-value trade => $0 IMF. Rebates do NOT reduce the base.
+- **Has**: 5% IMF (capped $500); dealer closing fee (uncapped, >$225 reviewable); standard title/reg. No EV registration surcharge currently in the structured data (none confirmed in this pass).
+- **Does NOT have**: traditional state/local sales tax on titled vehicles; percentage local-rate stacking; a hard statutory doc/closing-fee dollar cap; TAVT; NC highway-use tax; a Texas-style SPV minimum-value floor.
+
+#### SC Worked OTD Example (Richland County, $35k car, no trade — IMF capped)
+
+Sales $35,000, closing fee $225, SC 5% IMF (capped $500):
+
+```
+IMF base = $35,000
+IMF (5%) = $35,000 × 0.05 = $1,750  ->  CAPPED at $500
+Title    = $15
+Reg      = $40 (annualized)
+Closing  = $225 (no-review threshold)
+OTD      = $35,000 + $225 + $500 + $15 + $40 = $35,780.00
+```
+
+#### SC Worked OTD Example (Richland County, $35k car, $7,000 trade)
+
+Sales $35,000, closing fee $225, trade $7,000, SC 5% IMF:
+
+```
+Net sale = $35,000 - $7,000 = $28,000
+IMF base = $28,000   # trade credited against IMF base
+IMF (5%) = $28,000 × 0.05 = $1,400  ->  still CAPPED at $500
+Title    = $15
+Reg      = $40
+Closing  = $225
+Cash OTD = $28,000 + $225 + $500 + $15 + $40 = $28,780.00
+IMF savings on trade = $0 here (both pre- and post-trade IMF exceed the $500 cap, so the cap, not the trade, governs)
+```
+
+verified: 2026-06-22 | source: S.C. Code Ann. § 56-3-627 (5% IMF, $500 cap, eff 2017-07-01) + S.C. Code Ann. § 37-2-307 (closing fee, $225 review threshold) + SC DOR Chapter 10 Maximum Tax Items | by: orchestrator-S3
+
+---
+
+### SD — South Dakota
+
+- **Sales tax**: 4% motor vehicle **excise tax** in lieu of sales/use tax; **no local stacking** on vehicles. Calculated on purchase price minus verified trade-in (rebates do NOT reduce base).
+- **Doc fee cap**: **No statutory cap** — typical doc fee ~$115. Note: the doc fee IS part of the 4% excise-taxable purchase price in SD (along with rebates, extended warranties, GAP).
+- **Title fee**: $10. **Registration**: weight-based, ~$36-$144+/yr by shipping weight; vehicles 10+ years old get a 30% reduction. Counties may add a wheel tax up to $5/wheel ($60 max).
+- **Trade-in tax credit**: **YES** — trade-in deducted from purchase price if verified by VIN on contract and titled to the applicant.
+- **Has**: EV surcharge $50/yr (mandatory state fee). 45-day titling window; penalties after.
+- **Does NOT have**: statutory doc fee cap; traditional sales tax on motor vehicles; local sales tax stacking on vehicles; NY MCTD fee; GA TAVT.
+
+#### SD Worked OTD Example (Sioux Falls, no trade)
+
+Sales $30,000, doc $115, SD 4% excise (doc IS in base):
+
+```
+Taxable = $30,000 + $115 = $30,115
+Excise  = $30,115 x 0.04 = $1,204.60
+Title   = $10
+Reg     = ~$60 (weight-based passenger)
+OTD     ~ $31,389.60
+```
+
+#### SD Worked OTD Example (Sioux Falls, $10,000 trade)
+
+Sales $30,000, trade $10,000, doc $115, SD 4% excise:
+
+```
+Net sale = $30,000 - $10,000 = $20,000
+Taxable  = $20,000 + $115 = $20,115
+Excise   = $20,115 x 0.04 = $804.60
+Title    = $10
+Reg      = ~$60
+Cash OTD ~ $20,989.60; tax savings on trade = $400
+```
+
+verified: 2026-06-22 | source: SD DOR Motor Vehicle - Title, Fees & Registration (dor.sd.gov); SD DOR Motor Vehicle page; SalesTaxHandbook SD | by: orchestrator/S6
+
+---
+
+### TN — Tennessee
+
+- **Sales tax**: 7% flat state rate on the full taxable amount. Local option tax (2.00-2.75% by county) applies only to the first $1,600 (max ~$36), then a state-level 2.75% "single-article" tax applies to the slice from $1,600 to $3,200 (max ~$44). The local portion is capped — TN does NOT stack uncapped local rates on the whole price. Trade-in reduces the base; rebates do NOT.
+- **Doc fee cap**: **No statutory dollar cap.** T.C.A. § 55-17-114 authorizes the fee but voids it if the dealer represents it as a government charge. Typical TN doc fee ~$495-499. No ceiling — negotiate at OTD.
+- **Title fee**: ~$11 ($5.50 + $8.50; +$11 lien notation if financed). **Registration**: ~$24-26.50 state base, plus a local wheel tax that varies $0 to $75+ by county (annual renewal can run $29 to $100+).
+- **Trade-in tax credit**: **YES** — taxable base is price minus trade-in value.
+- **Has**: 7% state + capped local + single-article tax; $11 title; state reg + county wheel tax; **$200/year EV registration surcharge** (all-electric, T.C.A. § 55-4-116, $200 for 2024-2026, rising to $274 in 2027); separate $100/year hybrid fee.
+- **Does NOT have**: statutory doc fee cap; uncapped local sales tax (local is limited to the first $1,600); rebate deduction from the tax base.
+
+#### TN Worked OTD Example (Knox County, 2.25% local, no trade)
+
+Sales $30,000, doc $499, TN 7% + capped local + single-article:
+
+```
+Taxable          = $30,000 + $499 = $30,499
+State tax        = $30,499 × 0.07 = $2,134.93
+Local (first $1,600 × 2.25%)        = $36.00
+Single-article ($1,600 × 2.75%)     = $44.00
+Title            = $11
+Reg              = ~$26.50 (+ county wheel tax, varies)
+OTD              = $30,499 + $2,134.93 + $36 + $44 + $11 + $26.50 = $32,751.43
+```
+
+#### TN Worked OTD Example (Knox County, 2.25% local, $5,000 trade)
+
+Sales $30,000, doc $499, trade $5,000, TN 7% + capped local + single-article:
+
+```
+Net sale         = $30,000 - $5,000 = $25,000
+Taxable          = $25,000 + $499 = $25,499
+State tax        = $25,499 × 0.07 = $1,784.93
+Local (first $1,600 × 2.25%)        = $36.00
+Single-article ($1,600 × 2.75%)     = $44.00
+Title            = $11
+Reg              = ~$26.50
+Cash OTD         = $25,499 + $1,784.93 + $36 + $44 + $11 + $26.50 = $27,401.43
+Tax savings on trade = $5,000 × 0.07 = $350 (state portion; local/single-article already maxed)
+```
+
+verified: 2026-06-22 | source: TN Dept of Revenue VTR-34 (7% state, trade-in deduction, local $1,600 cap, single-article) + VR-5 / T.C.A. § 55-4-116 ($200 EV fee 2024-2026) + SalesTaxHandbook TN | by: orchestrator-S2
+
+---
+
+### TX — Texas
+
+- **Sales tax**: 6.25% state motor-vehicle sales/use tax; **+ up to 1.75% local** (combined max 8.00%). For dealer sales the base is sale price minus trade-in allowance. For **private-party** used buys, tax is the greater of actual price or 80% of the vehicle's **Standard Presumptive Value (SPV)** set by TxDMV — a minimum-value floor unique among the big states; a certified appraisal within 20 working days can override it.
+- **Doc fee cap**: **$225 presumed-reasonable amount, NOT a hard statutory cap** (Tex. Finance Code § 348.006(f); OCCC rule 7 TAC § 84.205). Effective **2024-07-11** the OCCC "safe harbor" rose from $150 (set 2016) to $225; a dealer may charge above $225 only after filing a cost justification with the OCCC. The widely-cited "$150 Texas doc limit" is **outdated** — do not use it. Treat doc above $225 as a flag (legal but requires OCCC justification).
+- **Title fee**: $33 (county application fee; $28 in some counties). **Registration**: ~$51/yr ($50.75 base passenger + small county add-ons + $7.50/$16.75 Inspection Program Replacement Fee since safety inspections were dropped 2025-01-01).
+- **Trade-in tax credit**: **YES** — taxable base is sale price minus the trade-in vehicle's value (vehicle-for-vehicle only; boats/livestock don't count), but **only on licensed-dealer purchases**. No trade credit on private-party deals, and trade-downs incur no tax.
+- **Has**: $200/yr EV registration surcharge ($400 at new-vehicle initial 2-year registration) on full-electric vehicles ≤10,000 lb under SB 505, effective 2023-09-01 (hybrids exempt); SPV minimum-value tax on private-party used buys; Inspection Program Replacement Fee; metal plate at point of sale (HB 718, 2025-07-01).
+- **Does NOT have**: state income tax; local-rate stacking above 1.75%; CA-style district tax; CA's no-trade-credit rule; GA TAVT; NC highway-use tax; an MD-style high doc cap; trade-in credit on private-party sales.
+
+#### TX Worked OTD Example (Harris County, 8.25% combined, no trade)
+
+Sales $30,000, doc $225, TX 6.25% state + 2.00% local = 8.25% (Harris combined typ. ~8.25%):
+
+```
+Taxable = $30,000   # TX motor-vehicle tax is on sale price; doc fee is not part of the 6.25% base
+Tax     = $30,000 × 0.0825 = $2,475.00
+Title   = $33
+Reg     = $51 (annualized)
+Doc     = $225 (capped/presumed-reasonable)
+OTD     = $30,000 + $225 + $2,475.00 + $33 + $51 = $32,784.00
+```
+
+#### TX Worked OTD Example (Harris County, 8.25%, $7,000 dealer trade)
+
+Sales $30,000, doc $225, trade $7,000, TX 8.25%:
+
+```
+Net sale   = $30,000 - $7,000 = $23,000
+Taxable    = $23,000   # TX credits the trade-in at a licensed dealer
+Tax        = $23,000 × 0.0825 = $1,897.50
+Title      = $33
+Reg        = $51
+Doc        = $225
+Cash OTD   = $23,000 + $225 + $1,897.50 + $33 + $51 = $25,206.50
+Tax savings on trade = $7,000 × 0.0825 = $577.50  (vs $0 in California)
+```
+
+verified: 2026-06-22 | source: Texas Comptroller Motor Vehicle Sales & Use Tax (6.25% + trade credit + SPV) + OCCC final doc-fee rule adoption 7 TAC § 84.205 / Fin. Code § 348.006 ($225 eff. 2024-07-11) + TxDMV SB 505 EV fee release ($200) | by: orchestrator-S1
+
+---
+
+### UT — Utah
+
+- **Sales tax**: 4.85% state sales tax; + 1-3% local (combined typically ~6.1-9.05%, e.g. Park City/Summit ~9.05%, Wayne County ~6.1%). Rate is the dealer location, or the registration locality for private/out-of-area.
+- **Doc fee cap**: **No statutory cap** — the Utah DMV confirms no limit. Utah Admin Code R877-23V-14 imposes a *disclosure* requirement (posted sign with the fee amount) but no dollar ceiling. Dealer-set, typical $300-500. HB 194 (2023) bars dealers from adding mandatory fees beyond the negotiated price other than legally-required fees, the doc service fee, and certain heavy-truck manufacturer increases.
+- **Title fee**: $6. **Registration**: ~$44/yr (age/weight-based) + a $10 county highway/corridor fee in some counties.
+- **Trade-in tax credit**: **YES** — the trade-in value is excluded from the taxable price, but only for a true vehicle-to-vehicle trade documented in the *same* transaction at the same dealer; the credit applies to sales tax only (not title/reg). Manufacturer rebates also reduce the taxable amount.
+- **Has**: EV/alt-fuel annual registration surcharge ~$138.50 (BEV) / ~$56.50 (PHEV) / lower (HEV), inflation-adjusted, set as of 2025-04-01; drivers may instead opt into UDOT's Road Usage Charge (~$0.0111/mile, capped at the flat fee).
+- **Does NOT have**: statutory doc fee cap; no trade-in credit denial.
+
+#### UT Worked OTD Example (Salt Lake County ~7.75%, $35,000 new, $8,000 trade)
+
+```
+Net sale = $35,000 - $8,000 = $27,000
+Taxable  = $27,000 + $400 doc = $27,400
+Tax      = $27,400 x 0.0775 = $2,123.50
+Title    = $6
+Reg      = $44 (passenger, annualized)
+OTD      = 27,400 + 2,123.50 + 6 + 44 = $29,573.50
+Tax savings on trade = $8,000 x 0.0775 = $620.00
+```
+
+verified: 2026-06-22 | source: UT DMV dealer sales FAQ + Utah Admin Code R877-23V-14 (doc disclosure) + AFDC ELEC UT (EV fee) + SalesTaxHandbook UT vehicles | by: agent-S5
+
+---
+
+### WI — Wisconsin
+
+- **Sales tax**: 5% state sales/use tax; **+0.5% county** in most counties (0% in Waukesha and Winnebago; Milwaukee County 0.9%, and the **City of Milwaukee** adds a further 2% from 2024-01-01, the only municipal vehicle sales tax in the state). Combined is 5.5% in the typical county, up to ~7.9% inside Milwaukee city. Manitowoc Co. added 0.5% (Jan 2025) and Racine Co. 0.5% (Apr 2025).
+- **Doc fee cap**: **No statutory cap.** The "service/document/title-prep" fee is dealer-set and **taxable**; the Wisconsin average is only ~$190 and some dealers add an optional ~$99 service fee. Because there is no ceiling, treat an unusually high doc line as negotiable rather than statutorily-limited — Wisconsin sits among the low-doc-fee states despite having no cap.
+- **Title fee**: **$214.50** ($207 base + $7.50 supplemental, Wis. Stat. § 342.14), increased from $164.50 effective **2025-10-01** under 2025 WI **Act 15** (the biennial budget) — now the highest title fee in the US. Spouse/partner transfers are $0. **Registration**: $85/yr for a standard passenger auto; some counties/municipalities add a $15-$35 "wheel tax."
+- **Trade-in tax credit**: **YES** — subtract the trade-in allowance from the sale price before applying the rate (Wis. DOR Pub. 202). Rebates/incentives do NOT reduce the base (you still pay tax on rebate amounts).
+- **Has**: $0.5-0.9% county tax + Milwaukee city 2%; **$175/yr EV registration surcharge** and **$75/yr hybrid surcharge** (Wis. Stat. § 341.25(1)(L), added by 2017 Act 4) on top of the $85 base reg; optional local wheel tax $15-$35; taxable doc fee.
+- **Does NOT have**: a statutory doc-fee cap; a city-level vehicle sales tax anywhere except Milwaukee; TAVT; highway-use tax; IMF; a Texas-style SPV minimum-value floor.
+
+#### WI Worked OTD Example (Dane County, 5.5% combined, no trade)
+
+Sales $30,000, doc $190, WI 5% state + 0.5% county = 5.5%:
+
+```
+Taxable = $30,000 + $190 = $30,190   # doc fee is taxable in WI
+Tax     = $30,190 × 0.055 = $1,660.45
+Title   = $214.50 (post-2025-10-01)
+Reg     = $85 (annual; before any wheel tax)
+OTD     = $30,000 + $190 + $1,660.45 + $214.50 + $85 = $32,149.95
+```
+
+#### WI Worked OTD Example (Dane County, 5.5%, $7,000 trade)
+
+Sales $30,000, doc $190, trade $7,000, WI 5.5%:
+
+```
+Net sale   = $30,000 - $7,000 = $23,000
+Taxable    = $23,000 + $190 = $23,190   # trade credited, doc still taxable
+Tax        = $23,190 × 0.055 = $1,275.45
+Title      = $214.50
+Reg        = $85
+Cash OTD   = $23,000 + $190 + $1,275.45 + $214.50 + $85 = $24,764.95
+Tax savings on trade = $7,000 × 0.055 = $385.00
+```
+
+verified: 2026-06-22 | source: WI DOR Pub. 202 (5% + 0.5% county + trade credit) + Wis. Stat. § 342.14 / 2025 Act 15 (title $214.50, eff 2025-10-01) + Wis. Stat. § 341.25(1)(L) (EV $175 / hybrid $75) | by: orchestrator-S3
+
+---
+
+### WV — West Virginia
+
+- **Sales tax**: 5% motor vehicle title privilege/sales tax on vehicles (WV general rate is 6%, but the vehicle title privilege tax rate is 5%); **no local stacking** on vehicles. Applied to net price after trade-in.
+- **Doc fee cap**: **$575** statutory/regulatory cap, effective **2024-07-01** (raised from $499), set by the DMV Dealer Advisory Board under WV Code 17A-6A-8a; **CPI-indexed annually beginning 2025-07-01**. NOTE: the $199 figure carried in the seed is INCORRECT (that is closer to Missouri's $199.99 cap) — corrected here.
+- **Title fee**: $15. **Registration**: ~$51.50/yr passenger (annual).
+- **Trade-in tax credit**: **YES** — privilege tax applies to price minus trade-in.
+- **Has**: EV registration surcharge ~$200/yr (alternative-fuel annual fee).
+- **Does NOT have**: local sales tax stacking on vehicles; NY MCTD fee; NJ supplemental titling fee; GA TAVT; NC highway use tax.
+
+#### WV Worked OTD Example (Charleston, no trade)
+
+Sales $30,000, doc $575 (at cap), WV 5% (doc not in tax base):
+
+```
+Taxable = $30,000
+Tax     = $30,000 x 0.05 = $1,500
+Title   = $15
+Reg     = ~$51.50
+Doc     = $575
+OTD     ~ $32,141.50
+```
+
+#### WV Worked OTD Example (Charleston, $8,000 trade)
+
+Sales $30,000, trade $8,000, doc $575, WV 5%:
+
+```
+Net sale = $30,000 - $8,000 = $22,000
+Tax      = $22,000 x 0.05 = $1,100
+Title    = $15
+Reg      = ~$51.50
+Doc      = $575
+Cash OTD ~ $23,741.50; tax savings on trade = $400
+```
+
+verified: 2026-06-22 | source: WVADA / DMV Dealer Advisory Board (doc cap $575 eff. 2024-07-01, CPI-indexed); WV Code 17A-6A-8a (code.wvlegislature.gov); SalesTaxHandbook WV (5% vehicle tax) | by: orchestrator/S6
+
+---
+
+### WY — Wyoming
+
+- **Sales tax**: 4% state + 0-2% county (typical combined 5-6%); rate is set by the buyer's **county of residence**, not the point of sale. The doc fee is itself taxable as part of the sales price. Private-party sales are taxed on Fair Market Value regardless of negotiated price.
+- **Doc fee cap**: **No statutory cap.** Typical $100-$495. Because it is folded into the taxable base, a high doc fee costs extra tax too.
+- **Title fee**: $15 (Wyo. Stat. §§ 31-2-101 et seq.; lien recording $20). **Registration**: state fee $30 for a passenger car, PLUS a county fee = factory-cost (original MSRP) x age-based depreciation % x 3% (e.g., a 6th-year $35k-MSRP car = $35,000 x 15% x 3% = $157.50). Out-of-state vehicles pay a $10 VIN inspection.
+- **Trade-in tax credit**: **YES** on dealer sales — taxable base = purchase price minus gross trade-in allowance (and minus dealer-assigned rebates). Not available on private sales (taxed at FMV).
+- **EV surcharge**: $200/yr (all registered EVs, with annual renewal).
+- **Does NOT have**: doc-fee statutory cap; emissions/safety inspection; trade-credit on private FMV-taxed sales.
+
+#### WY Worked OTD Example (Laramie County 6%, no trade)
+
+Sales $30,000, doc $400 (taxable), WY 6%:
+
+```
+Taxable = $30,000 + $400 = $30,400
+Tax     = $30,400 x 0.06 = $1,824
+Title   = $15
+Reg     = $30 state + ~$157.50 county fee (factory MSRP x depr x 3%) = ~$187.50
+OTD     = $30,000 + $400 + $1,824 + $15 + $187.50 = $32,426.50
+```
+
+#### WY Worked OTD Example (Laramie County 6%, $8,000 trade, dealer sale)
+
+```
+Net sale = $30,000 - $8,000 = $22,000
+Taxable  = $22,000 + $400 doc = $22,400
+Tax      = $22,400 x 0.06 = $1,344
+Title    = $15
+Reg      = ~$187.50
+Cash OTD = $22,000 + $400 + $1,344 + $15 + $187.50 = $23,946.50
+Tax savings on trade = $8,000 x 0.06 = $480
+```
+
+verified: 2026-06-22 | source: SalesTaxHandbook (WY vehicles) + Laramie County Treasurer Vehicle Sales & Use Tax + Wyo. Stat. Title 31/39 | by: orchestrator-S7
 
 ## State-Specific Quirks
 
