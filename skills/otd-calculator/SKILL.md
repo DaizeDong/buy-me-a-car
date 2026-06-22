@@ -59,7 +59,7 @@ If state does NOT grant credit, drop the `Trade` term from the taxable base.
 | CT | 6.35% (7.75% >$50k) | none | $25 | $80 | Yes |
 | MA | 6.25% | none | $75 | $60 | Yes |
 | CA | 8.75-9.5% (combined) | $85 | $25 | ~1%/yr MSRP | NO |
-| TX | 6.25% (no local) | $150 | $33 | $50 + $200 EV | Yes |
+| TX | 6.25% (no local) | $225 | $33 | $50 + $200 EV | Yes |
 | FL | 6-7.5% (combined) | none | $77 | $225 | Yes |
 | IL | 7.5-10.25% (combined) | $347 | $155 | $151 | Yes |
 | OH | 6-7.5% (combined) | $250 | $15 | $31 | Yes |
