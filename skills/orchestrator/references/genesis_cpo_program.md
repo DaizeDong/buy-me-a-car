@@ -13,6 +13,8 @@ This file mirrors the structure of `hyundai_cpo_program.md`, `subaru_cpo_program
 
 ## Eligibility Criteria
 
+> ⚠️ **PENDING heterogeneous re-verify:** an independent cross-family check (Codex + web) could not confirm the exact ≤5 MY / <60k mi / 10yr-100k powertrain figures against a primary Genesis source in its pass — the official CPO page surfaced general warranty/inspection benefits but not these specific thresholds. Treat the numbers below as **strong-but-unconfirmed**; re-verify against genesis.com/us/en/certified or a Genesis retailer before relying on them as hard eligibility rules.
+
 Per Genesis Certified Pre-Owned at genesis.com/us/en/certified (verified 2026-06-22; cross-checked KBB CPO program page):
 
 | Criterion | Threshold |
