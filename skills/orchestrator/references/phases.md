@@ -54,9 +54,67 @@ If USED car: keep the CARFAX-centric workflow below as-is.
 
 Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, price, dealer, deal tags, link, **Delivery Mode for new cars**).
 
+### Subagent scraping method — Playwright-first for anti-bot inventory sites
+
+**Verified 2026-06-21 (used CX-5, SF Bay Area run).** Every major inventory site EXCEPT CarGurus returns HTTP 403 / DataDome / Akamai to a headless `WebFetch` from a subagent — but the **real Playwright MCP browser bypasses the block on all of them** (local IP is less flagged than cloud; a real Chromium clears the JS / anti-bot checks). Consequences for dispatch:
+
+- **Per-site order:** try `WebFetch` ONCE (cheap; CarGurus and most dealer sites work). On 403 / empty body / captcha, switch to **Playwright MCP** (`browser_navigate` -> `browser_evaluate`). Do NOT spend multiple WebFetch retries — one failure means switch.
+- **Playwright is a single shared browser, so the Playwright-fallback passes must run SEQUENTIALLY.** Either (a) keep the WebFetch-first attempts parallel across subagents and serialize only the Playwright fallbacks, or (b) collapse all anti-bot sites into ONE "browser-harvest" subagent that visits each in turn. Never fan out parallel subagents that each drive Playwright — they collide on the one browser.
+- **Extraction priority (fastest reliable first):**
+  1. **JSON-LD** — `script[type="application/ld+json"]` objects with `@type` Car / Vehicle / Product. Cleanest structured VIN + price + mileage + name. (TrueCar, Carvana.)
+  2. **Embedded JS state** — the site's hydration store. (Carfax: `window.__MOBX_STATE__.SearchRequestStore.results.listings`.)
+  3. **DOM cards + VIN regex** — parse rendered listing-card text; pull VINs with the make's WMI prefix regex (Mazda: `/JM3[A-Z0-9]{14}/g`) over `document.documentElement.innerHTML`. (AutoTrader, Edmunds, CarMax, Cars.com.)
+
+#### Per-site scraping recipe (verified 2026-06-21, Mazda CX-5 / SF)
+
+| Site | Headless WebFetch | Playwright bypass | Best extractor | Key fields | Gotchas |
+|---|---|---|---|---|---|
+| CarGurus | often ✅ | ✅ | DOM cards / page body | VIN, price, miles, city, Great/Good/Fair Deal | only site that survives headless; include ZIP in URL |
+| Carfax | ❌ 403 (DataDome) | ✅ | `window.__MOBX_STATE__.SearchRequestStore.results.listings` | VIN, year, trim, `mileage.value`, currentPrice, drivetype, cpoData (`id===1` = real CPO), oneOwner, accidents, badge, dealer.label, dealer.phone | native Send-Email lead per VDP; `mileage` is `{label,value}`; dealer name is `.label` not `.name` |
+| Cars.com | ❌ timeout | ✅ | web-components: `a[href*="/vehicledetail/"]` + card innerText | year/trim/price/miles/Deal/dealer | lazy-loads on scroll (~7 above fold — scroll to load rest); VIN hidden until VDP |
+| AutoTrader | ❌ 403 | ✅ | DOM cards `[data-cmp="inventoryListing"]` + VIN regex on HTML | year/trim/miles/price/Deal/"Dealer Fees Included" | `__NEXT_DATA__` is shell only (listings load via XHR); VIN in HTML, not a per-card attr |
+| Edmunds | ❌ Akamai 403 | ✅ | DOM card text + VIN regex | year/trim/price/Deal/miles/dealer | no embedded-state globals; Wayback also recovers avg-paid |
+| TrueCar | ❌ JS error | ✅ | **JSON-LD** (`@type: Car`) | name (year+trim), price, mileage, VIN | cleanest of all — ~29 structured cars in one parse |
+| CarMax | ❌ 403 | ✅ | DOM cards (Angular SPA) + VIN regex | year/trim/miles/price/**store location** | no-haggle (price = price); inter-store transfer; surfaces Serramonte/Fremont/etc. |
+| Carvana | ❌ 403 | ✅ | JSON-LD + DOM cards | name, all-in price, VIN, factory-upgrades, shipping | online-only all-in price (use as anchor); URL year filter loose — filter client-side |
+
+Reusable `browser_evaluate` snippets (run after `browser_navigate`):
+- **VINs:** `[...new Set((document.documentElement.innerHTML.match(/JM3[A-Z0-9]{14}/g)||[]))]` (swap the WMI prefix per make).
+- **JSON-LD cars:** parse each `script[type="application/ld+json"]`, recurse for objects with `@type` in {Car, Vehicle, Product}, read `name` / `offers.price` / `vehicleIdentificationNumber`.
+- **Embedded state:** probe `window.__MOBX_STATE__` / `__PRELOADED_STATE__` / `__NEXT_DATA__` and walk for an array whose first element has a `vin` key.
+
+See `deal_data_sources.md` for the deal/pricing-source (non-inventory) scraping matrix and the login-site (XHS/FB/Reddit) browser workflow.
+
+#### Maximize coverage — paginate EVERY site (do not stop at page 1)
+
+**The single biggest under-collection bug: pulling only page 1.** Each site's SRP shows ~10-30 listings per page; the headline count (e.g. "197 results") is the **all-years / all-trims / all-mileage** total, NOT the in-criteria count. Always paginate to exhaustion, then dedup. (Worked example: a Mazda CX-5 SF run showed CarGurus 218 / AutoTrader 197 / TrueCar 709 headline, but the **in-criteria** set — filtered year + mileage + drivetrain + budget — was only ~22-30 per aggregator and ~65 unique across ALL sites after VIN dedup. Page-1-only would have surfaced ~20 and looked falsely thin.)
+
+Rules:
+- **Loop-until-dry:** keep advancing pages until **2 consecutive pages add 0 new VINs**, then stop. Do not assume a fixed page count.
+- **Dedup globally by VIN** across all sites as you go (fall back to year+trim+miles+price when VIN is hidden). The aggregators are dealer-fed and overlap heavily — the same VIN recurs on 3-5 sites.
+- **Pace to avoid anti-bot:** wait **4-6 s between page navigations** (8 s for TrueCar). Rapid pagination trips a hard block — TrueCar and CarMax return "Access to this page has been denied" after a few fast hits. One denied page does not mean the site is down; slow down and resume.
+- **Push filters into the URL** (year, mileage, drivetrain, price) so each page is mostly in-criteria — far fewer pages to walk than filtering client-side from the unfiltered SRP.
+
+#### Per-site pagination method (verified 2026-06-21)
+
+| Site | Paginate via | Page size | Notes |
+| --- | --- | --- | --- |
+| Edmunds | `?pagenumber=N` (URL) | ~21 | cleanest pagination; walks the deepest |
+| AutoTrader | `&firstRecord=N` (offset, step 25) | 25 | converges fast once year/mileage filtered |
+| Cars.com | `&page=N` (+ `&page_size=20`) | 20 | scroll each page to render the web-components |
+| CarGurus | **scroll** (lazy-load) on `/Cars/l-…` URL | grows on scroll | or `inventorylisting…action&offset=N`; always include `zip`+`minYear`+`maxYear`+`maxMileage` |
+| TrueCar | `&page=N` (URL) | ~30 (JSON-LD) | **rate-limits on fast nav — pace 8 s**; JSON-LD reflects only the current page |
+| Carfax | **in-app click only** — `?page=N` is IGNORED (re-serves page 1) | 24 | click the pagination control, then re-read `__MOBX_STATE__`; or accept page-1 + tight filters (it mirrors the other aggregators anyway) |
+| CarMax | **infinite scroll** (Angular) or API `/cars/api/search/run` | grows on scroll | no-haggle own inventory — unique pool, worth the scroll |
+| Carvana | **infinite scroll** (React); JSON-LD covers only initial ~21 | grows on scroll | online-only own inventory — unique pool |
+
+CarMax + Carvana are the two **own-inventory** pools (not mirrored on the aggregators) — always scroll both to depth. The six aggregators (Carfax/CarGurus/Cars.com/AutoTrader/Edmunds/TrueCar) mostly recirculate the same dealer feed, so once two of them go dry on new VINs, the marginal unique yield from the rest is small.
+
 ### After all subagents return
 
 Generate `master_comparison.md` with TWO sections, in this order. This is the buyer-facing market-scan artifact shown in the README "Example output" (`examples/market_en.png` / `market_cn.png`).
+
+**Who synthesizes it:** the **orchestrator** (main reasoning loop), NOT a subagent and NOT a script. It is a reasoning step over the merged `report_<site>.md` / structured returns: (1) union all candidates, (2) **dedup by VIN** (fall back to year+trim+miles+price signature when VIN is hidden), (3) when the SAME VIN appears on multiple sites at different prices, keep a one-line cross-site price-spread note — that spread is real negotiation intel (cite the lowest; e.g. the 2026 CX-5 run found one VIN at CarGurus $26,683 / AutoTrader $26,598 / TrueCar $27,682), (4) build the two sections below. No `generate_*` script exists for this; do not invent one.
 
 #### Section 1 (top): Site Capability Matrix
 

@@ -18,6 +18,9 @@ desktop.ini
 *.swp
 *~
 
+# Playwright MCP scratch (browser snapshots / console logs from inventory scraping)
+.playwright-mcp/
+
 # Local working notes
 .firecrawl/
 scratch/
