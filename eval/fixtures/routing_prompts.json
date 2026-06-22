@@ -1,0 +1,165 @@
+{
+  "_meta": {
+    "purpose": "Routing eval for the buy-me-a-car skill suite. Each case is a user prompt; the model under test must pick the single best skill to dispatch. expected_skill is the canonical answer; acceptable_skills lists any defensible alternates (judge marks pass if chosen skill is in acceptable_skills). 'note' explains the discriminating signal.",
+    "skill_universe": [
+      "orchestrator",
+      "dealer-reply-drafter",
+      "carfax-pdf-review",
+      "close-day-checklist",
+      "cpo-eligibility",
+      "dossier-builder",
+      "ev-buyer-helper",
+      "inbox-triage",
+      "insurance-shopper",
+      "lease-vs-cash-analyzer",
+      "otd-calculator",
+      "payment-method-decider",
+      "ppi-scheduler",
+      "quote-evidence-collector",
+      "state-fee-lookup",
+      "trade-in-valuator"
+    ]
+  },
+  "cases": [
+    {
+      "id": "R01",
+      "prompt": "Buy me a car. I want a used Outback under 35k miles within 50 miles of Hartford CT, cash, close in two weeks.",
+      "expected_skill": "orchestrator",
+      "acceptable_skills": ["orchestrator"],
+      "note": "Full end-to-end intent (research + outreach + negotiate + close) => 9-phase orchestrator, not a narrow sub-skill."
+    },
+    {
+      "id": "R02",
+      "prompt": "帮我找车，想要一台二手 CR-V，加州，预算三万以内，现金。",
+      "expected_skill": "orchestrator",
+      "acceptable_skills": ["orchestrator"],
+      "note": "Chinese bilingual trigger for the full workflow."
+    },
+    {
+      "id": "R03",
+      "prompt": "Here is the dealer's reply with their OTD quote. Draft a counter.",
+      "expected_skill": "dealer-reply-drafter",
+      "acceptable_skills": ["dealer-reply-drafter"],
+      "note": "One reply in hand, one email to draft. Narrow sub-skill, NOT orchestrator."
+    },
+    {
+      "id": "R04",
+      "prompt": "给 dealer 这封报价邮件起草一个 counter 回信。",
+      "expected_skill": "dealer-reply-drafter",
+      "acceptable_skills": ["dealer-reply-drafter"],
+      "note": "Chinese trigger for dealer reply drafter."
+    },
+    {
+      "id": "R05",
+      "prompt": "The dealer attached a CARFAX PDF. Can you review it for accidents and service gaps?",
+      "expected_skill": "carfax-pdf-review",
+      "acceptable_skills": ["carfax-pdf-review"],
+      "note": "PDF attachment review => carfax-pdf-review, not dealer-reply-drafter."
+    },
+    {
+      "id": "R06",
+      "prompt": "I'm signing tomorrow. Give me the close-day checklist for a cash buyer with no trade.",
+      "expected_skill": "close-day-checklist",
+      "acceptable_skills": ["close-day-checklist"],
+      "note": "Close imminent => close-day-checklist."
+    },
+    {
+      "id": "R07",
+      "prompt": "Is this 2021 Subaru Forester with 48,000 miles still CPO eligible, and what's the coverage worth?",
+      "expected_skill": "cpo-eligibility",
+      "acceptable_skills": ["cpo-eligibility"],
+      "note": "CPO eligibility/value question."
+    },
+    {
+      "id": "R08",
+      "prompt": "Build me the 8-page dossier to bring to the test drive with my comps and target OTD.",
+      "expected_skill": "dossier-builder",
+      "acceptable_skills": ["dossier-builder"],
+      "note": "Dossier/printout artifact."
+    },
+    {
+      "id": "R09",
+      "prompt": "I'm buying an Ioniq 5. How does the $7,500 federal credit work at point of sale and what NACS adapter do I need?",
+      "expected_skill": "ev-buyer-helper",
+      "acceptable_skills": ["ev-buyer-helper"],
+      "note": "EV credit + charging => ev-buyer-helper."
+    },
+    {
+      "id": "R10",
+      "prompt": "Triage my Gmail dealer replies - which are real responses vs out-of-office vs CRM spam?",
+      "expected_skill": "inbox-triage",
+      "acceptable_skills": ["inbox-triage"],
+      "note": "Classify incoming inbox => inbox-triage."
+    },
+    {
+      "id": "R11",
+      "prompt": "I'm a first-time driver in NJ and need auto insurance bound before close day. What's the minimum and best full coverage?",
+      "expected_skill": "insurance-shopper",
+      "acceptable_skills": ["insurance-shopper"],
+      "note": "Insurance binder/coverage => insurance-shopper."
+    },
+    {
+      "id": "R12",
+      "prompt": "Should I lease or pay cash for this RAV4 if I only keep cars 3 years? Run the lease structure.",
+      "expected_skill": "lease-vs-cash-analyzer",
+      "acceptable_skills": ["lease-vs-cash-analyzer", "payment-method-decider"],
+      "note": "Lease vs cash with ownership horizon => lease-vs-cash-analyzer."
+    },
+    {
+      "id": "R13",
+      "prompt": "Compute the OTD on a $24,500 sale in Alameda County CA with an $85 doc fee.",
+      "expected_skill": "otd-calculator",
+      "acceptable_skills": ["otd-calculator"],
+      "note": "Pure OTD math => otd-calculator."
+    },
+    {
+      "id": "R14",
+      "prompt": "Should I pay with a cashier's check, debit, or put part on a credit card for the rewards?",
+      "expected_skill": "payment-method-decider",
+      "acceptable_skills": ["payment-method-decider"],
+      "note": "Payment instrument selection => payment-method-decider."
+    },
+    {
+      "id": "R15",
+      "prompt": "Book a mobile PPI for two final CR-V candidates in NJ next week.",
+      "expected_skill": "ppi-scheduler",
+      "acceptable_skills": ["ppi-scheduler"],
+      "note": "Pre-purchase inspection booking => ppi-scheduler."
+    },
+    {
+      "id": "R16",
+      "prompt": "Find me real screenshots of recent CR-V OTD quotes on Reddit or XHS I can use as cross-bid anchors.",
+      "expected_skill": "quote-evidence-collector",
+      "acceptable_skills": ["quote-evidence-collector"],
+      "note": "Hunt online quote evidence => quote-evidence-collector (NOT dealer-reply-drafter, which uses anchors already in hand)."
+    },
+    {
+      "id": "R17",
+      "prompt": "What's the doc fee cap and sales tax rate in Illinois, and does IL give trade-in tax credit?",
+      "expected_skill": "state-fee-lookup",
+      "acceptable_skills": ["state-fee-lookup"],
+      "note": "State fee lookup => state-fee-lookup."
+    },
+    {
+      "id": "R18",
+      "prompt": "Value my 2018 Accord trade-in and tell me if I should trade it or sell it privately.",
+      "expected_skill": "trade-in-valuator",
+      "acceptable_skills": ["trade-in-valuator"],
+      "note": "Trade-in valuation/decision => trade-in-valuator."
+    },
+    {
+      "id": "R19",
+      "prompt": "The dealer says the car I asked about just sold but he has another one a bit more expensive. Help me respond.",
+      "expected_skill": "dealer-reply-drafter",
+      "acceptable_skills": ["dealer-reply-drafter"],
+      "note": "Bait-and-switch (D10) handled inside dealer-reply-drafter, not orchestrator -- one email to draft."
+    },
+    {
+      "id": "R20",
+      "prompt": "The CT quote has a $7.50 tire fee on it. Is that legit and how do I push back?",
+      "expected_skill": "dealer-reply-drafter",
+      "acceptable_skills": ["dealer-reply-drafter", "state-fee-lookup"],
+      "note": "D8 leak in a quote needing a reply => dealer-reply-drafter; state-fee-lookup acceptable if user only wants the fee-legitimacy answer without a draft."
+    }
+  ]
+}

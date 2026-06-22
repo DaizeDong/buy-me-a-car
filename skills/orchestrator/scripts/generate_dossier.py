@@ -6,8 +6,11 @@ Usage:
   python generate_dossier.py --config my_dossier.yaml --output my_dossier.html
   python generate_dossier.py --config my_dossier.yaml --output my_dossier.html --to-pdf my_dossier.pdf
   python generate_dossier.py --config my_dossier.yaml --output my_dossier_cn.html --template ../assets/dossier_template_cn.html
+  python generate_dossier.py --config my_dossier.yaml --output my_dossier_es.html --template ../assets/dossier_template_es.html
 
 The template uses {{KEY}} placeholders; keys are resolved from the config file's top-level dict.
+The EN / CN / ES templates share an identical {{KEY}} placeholder set, so the same config
+drives all three (default: dossier_template.html; --template selects the CN or ES variant).
 
 By default the script fails loudly if:
   (a) the config is missing any LOAD_BEARING_KEYS (buyer address, year, target OTD, state,
@@ -149,7 +152,8 @@ def main():
     p = argparse.ArgumentParser(description="Generate a dossier HTML from a YAML/JSON config and HTML template")
     p.add_argument("--config", required=True, help="Path to YAML or JSON config file")
     p.add_argument("--template", default=None,
-                   help="Path to HTML template (default: ../assets/dossier_template.html relative to this script)")
+                   help="Path to HTML template (default: ../assets/dossier_template.html relative to this script; "
+                        "use ../assets/dossier_template_cn.html for CN or ../assets/dossier_template_es.html for ES)")
     p.add_argument("--output", required=True, help="Path to output HTML file")
     p.add_argument("--to-pdf", default=None,
                    help="If set, also convert output HTML to PDF at this path (uses html_to_pdf.sh)")

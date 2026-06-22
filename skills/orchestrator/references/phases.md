@@ -171,6 +171,10 @@ Generate the candidate table deduplicated by VIN. See `references/outreach_strat
 
 Submit lead forms or send direct emails to the top 30-50 candidates. Each outbound touch is sent in a 5-minute window so dealers feel parallel pressure (see `outreach_strategy.md` § parallel cross-bid).
 
+### Private-party branch (seller = FSBO)
+
+**If seller = private (FSBO): SKIP mass outreach entirely.** There is no lead-form fan-out, no top-30 VIN blast, no Playwright form submission, and no inbox-triage 4-bucket pass (one human, no CRM). Replace with a **single-seller contact**: one message to verify the car is available, that the **title is in the seller's name and clear of liens**, and to request an **independent-shop PPI**. Use dealer-reply-drafter in single-seller mode (short, human, no CRM assumptions). The triage step is repurposed to **screen the seller for curbstoner/scam signals** (`private_party_playbook.md` sec 4), not to sort dealer replies. See the Phase-1 seller-type gate in SKILL.md.
+
 ### Capture per dealer
 
 Per dealer row in `tracker.md`:
@@ -273,6 +277,10 @@ Reply templates: `assets/dealer_reply_template.md`.
 
 **Purpose**: Push the cross-bid field toward the buyer's walk-away ceiling using market-data anchors, internal-trim anchors, and competitor OTD citations.
 
+### Private-party branch (seller = FSBO)
+
+**If seller = private (FSBO): single-seller negotiation, not 3-anchor dealer logic.** There is no dealer-pricing spread or F&I margin to exploit. Anchor instead on **regional private-party comps + documented condition/PPI deductions**. Negotiation outcome feeds the **bill of sale price**, which is also the **tax basis** in purchase-price states (CA/NJ) - so a clean, documented price both closes the deal and proves the tax. Then drive to a **safe close**: cashier's check at the **seller's own bank**, no pre-wiring; if the car has a lien, pay the **lienholder directly** via a 10-day payoff letter (`private_party_playbook.md` sec 5-6); capture the signed **odometer disclosure**; handle plates; diary the state title-transfer deadline (e.g. NJ 10 days, IL RUT-50 30 days). All dealer-only mechanics below (ADM kill list, F&I add-on, bait-and-switch, dealer-group) do not apply to FSBO.
+
 ### The ask format (always written, never verbal)
 
 Critical Rule #3: Written OTD before any in-person visit. If a dealer refuses to send the full breakdown by email, decline the visit and pivot.
@@ -310,7 +318,7 @@ When a dealer claims the original VIN-X is "just sold" and pivots to VIN-Y at hi
 - **Financing buyer**: binding-constraint OTD computed at Phase 1 (cash_down + financed_cap_from_monthly). Re-verify at every Phase 6 counter that effective OTD cap still holds against the proposed counter. See `references/payment_methods.md` § financing.
 - **Lease buyer**: anchor on Money Factor markup buy-rate, not OTD — see `references/lease_playbook.md` § MF markup + paste-ready buy-rate counter language.
 - **Trade buyer**: SEPARATE the trade negotiation from the new-car negotiation (gotcha — see `references/trade_in.md` § 8 separate-the-negotiation). Lock new-car OTD first, then evaluate trade allowance independently against KBB Instant Cash Offer.
-- **EV buyer**: federal $7,500 credit (POS transfer or tax filing) and § 45W lease pass-through enter the math. See `references/ev_buyer_playbook.md` § 1 and `references/lease_playbook.md` § 8.
+- **EV buyer**: federal §30D $7,500 / §25E $4,000 / §45W lease pass-through credits are **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05) — do NOT enter them in OTD / net-price math for any 2026 purchase. Only still-funded state/local rebates remain live. See `references/ev_buyer_playbook.md` § 1 (historical mechanics + state rebate matrix) and `references/lease_playbook.md` § 8.
 - **Pickup buyer**: verify factory tow package via VIN decode before Phase 6 OTD lock — see `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 7.
 - **Heavy-duty / commercial / luxury**: see `references/vertical_playbooks.md#part-2--heavy--commercial--luxury` § 3 luxury pricing dynamics (sticker rarely budges MSRP - 4-7% on volume; lease incentives MORE aggressive).
 - **CPO buyer**: embedded value calculation per brand — see Subaru/Honda/Toyota/Hyundai/Kia/Ford/GM/Mazda CPO references.
@@ -320,7 +328,7 @@ When a dealer claims the original VIN-X is "just sold" and pivots to VIN-Y at hi
 - `references/negotiation_playbook.md` — full math, walk-away lines, cash leverage, Escalation Ladder, Sequential Dealer Pricing Disclosure
 - `references/state_fees.md` — all-state tax/doc/reg detail + cross-state titling + gotcha D8 "Does NOT have" leak lists
 - `references/payment_methods.md` — Captive-vs-credit-union rebate playbook, financing decision matrix
-- `references/lease_playbook.md` — lease-specific Phase 6 framework (MF buy-rate counter, captive markup ceilings, EV § 45W)
+- `references/lease_playbook.md` — lease-specific Phase 6 framework (MF buy-rate counter, captive markup ceilings, EV §45W — NOTE §45W lease pass-through TERMINATED for vehicles acquired after 2025-09-30 per OBBBA; historical only)
 - `references/trade_in.md` § 4 + § 8 — separate-the-negotiation, lien payoff workflow
 - `assets/dealer_reply_template.md` — counter / walk-away / add-on refusal / ADM removal templates
 - Gotchas D5 (used/new mixing), D8 (state-template leak), D9 (ADM kill list), D10 (bait-and-switch), D11 (dealer group), N1 (transparent anchors), N2 (parallel drop-X asks), P3 (close-day F&I hard-no)
@@ -484,8 +492,8 @@ The close checklist branches by buyer type. Use the relevant sub-checklist below
 
 #### EV buyer close-day sub-checklist
 
-- [ ] POS credit transfer at signing if eligible: dealer is IRS Energy Credits Online registered (verify); Form 8936 signed; $7,500 reduction shown as separate line item per `references/ev_buyer_playbook.md` § 1
-- [ ] Time of Sale report copy retained (required at tax filing)
+- [ ] Federal §30D $7,500 POS credit is **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05) — do NOT expect a $7,500 line item or POS transfer on any 2026 purchase; if a dealer quotes one, it is wrong. (HISTORICAL: for a pre-2025-10-01 acquisition the buyer signed Form 8936 and the $7,500 reduction showed as a separate line per `references/ev_buyer_playbook.md` § 1.) Confirm any claimed EV discount is a still-funded state/local rebate, not the dead federal credit.
+- [ ] If a pre-2025-10-01 acquisition only: Time of Sale report copy retained (required at tax filing)
 - [ ] Battery warranty registered to buyer at delivery (new EV) OR SoH report obtained (used EV) per `ev_buyer_playbook.md` § 6
 - [ ] NACS vs CCS1 port confirmed; adapter present if CCS1 vehicle
 - [ ] L1 OEM charge cable included (factory accessory)

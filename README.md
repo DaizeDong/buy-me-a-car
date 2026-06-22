@@ -4,7 +4,8 @@
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-orange?style=flat)](https://docs.anthropic.com/en/docs/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![All 50 States](https://img.shields.io/badge/Tax%20Data-50%20States%20%2B%20DC-green?style=flat)](skills/orchestrator/references/state_fees.md)
+[![Tax Data](https://img.shields.io/badge/Tax%20Data-50%20States%20%2B%20DC%20%C2%B7%2034%20web--verified-green?style=flat)](skills/orchestrator/references/state_fees.md)
+[![Languages](https://img.shields.io/badge/Languages-EN%20%2F%20CN%20%2F%20ES-blue?style=flat)](#languages)
 [![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.2%20alpha-purple?style=flat)](ROADMAP.md)
 
 [English](README.md) | [中文版](README_CN.md)
@@ -37,7 +38,7 @@ help me buy a used compact SUV this week, budget $25k OTD, under 60k miles, near
 
 What runs automatically:
 
-1. Confirms 9 criteria + buyer-type router (cash / financing / trade-in / EV / pickup)
+1. Confirms 9 criteria + buyer-type router (cash / financing / trade-in / EV / pickup / private-party)
 2. Parallel subagents scrape **9 sites** (Carfax, CarMax, Carvana, Cars.com, AutoTrader, Edmunds, TrueCar, CarGurus, Enterprise) and dedupe by VIN
 3. Submits lead forms to top 30 candidates via Playwright MCP (anti-bot aware)
 4. **15-min cron** monitors Gmail; triages dealer replies into 4 buckets (real / OOO / CRM / spam)
@@ -73,24 +74,25 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Triggers**: `buy me a car`, `find me a car`, `帮我找车`, `买车`
 - **Example**: `help me buy a 2022-2024 Outback Premium under 60k miles within 50mi of <ZIP>, budget $32k OTD`
 - **Output**: phase-by-phase artifacts under a `car_buying_<YEAR>/` working dir.
+- **6 buyer paths**: cash / financing / trade-in / EV / pickup, plus **private-party** — seller is a private individual (FSBO), not a dealer. No OTD stack and no F&I office; buyer pays tax + title + registration at the DMV. The work shifts to title transfer, state tax basis (purchase price vs book value vs Illinois-style fixed table), curbstoner detection, and payment/escrow safety (cashier's check at the seller's bank; pay any lien off directly to the lienholder). See `skills/orchestrator/references/private_party_playbook.md`.
 
 ### otd-calculator
 - **Use when**: convert sale price → OTD, or reverse-engineer max sale from target OTD.
 - **Triggers**: `compute OTD`, `OTD math`, `算 OTD`, `算总价`
 - **Example**: `compute OTD for $30k sale in NJ with $499 doc fee`
-- **Output**: itemized OTD (tax / doc / title / reg / DMV) for all 50 states + DC.
+- **Output**: itemized OTD (tax / doc / title / reg / DMV) for all 50 states + DC (every state at fee-detail depth; 34 web-verified).
 
 ### state-fee-lookup
 - **Use when**: pull the 6-field summary (rate / local / doc cap / title / reg / trade credit) for any state.
 - **Triggers**: `doc fee in NJ`, `state 税率`, `trade-in credit`
 - **Example**: `what's TX doc fee cap and EV reg surcharge`
-- **Output**: state summary + "Does NOT have" leak-detection list (catches NJ tire fee on a CT quote, etc.).
+- **Output**: state summary + "Does NOT have" leak-detection list (catches NJ tire fee on a CT quote, etc.). Backing data: 50 states + DC, every state at fee-detail depth (30 full + 21 stub), 34 web-verified.
 
 ### cpo-eligibility
 - **Use when**: verify factory CPO eligibility + embedded $ value before paying the CPO premium.
 - **Triggers**: `is this car CPO`, `Subaru CPO`, `Honda Certified`, `CPO 资格`
 - **Example**: `check CPO on 2021 Kia Telluride @ 55k miles`
-- **Output**: eligibility verdict (8-brand matrix), embedded $1-3k value, fake-CPO red flags.
+- **Output**: eligibility verdict (16-brand matrix across 12 programs: 8 mainstream + Stellantis SPOTiCAR [Ram/Jeep/Chrysler/Dodge/Fiat, 5 brands in one program] + luxury Lexus/Genesis/Acura), embedded $1-3k value, fake-CPO red flags.
 
 ### carfax-pdf-review
 - **Use when**: dealer sent you CARFAX / service-record / F&I-proposal PDFs.
@@ -117,10 +119,10 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Output**: 8-page HTML + headless-Chrome PDF (EN or CN), covering market avg / OTD / CPO embedded value / dealer anchor analysis.
 
 ### ev-buyer-helper
-- **Use when**: buyer is going EV — federal §30D POS transfer, §25E used, §45W lease, state stack.
+- **Use when**: buyer is going EV — state/local rebate stack, charging (NACS/CCS1), used-EV battery diligence. NOTE: the federal §30D ($7,500 new) / §25E ($4,000 used) / §45W (lease pass-through) credits were TERMINATED for vehicles acquired after 2025-09-30 (OBBBA, Public Law 119-21); they are historical only and not counted in net-price math.
 - **Triggers**: `EV federal credit`, `$7,500 POS`, `电车补贴`
-- **Example**: `is the Ioniq 5 SEL eligible for $7,500 POS in NJ`
-- **Output**: net price after credits + dealer IRS-reg verification + NACS/CCS1 adapter guidance.
+- **Example**: `what EV rebates still apply in NJ for an Ioniq 5 SEL in 2026`
+- **Output**: net price after any state/local rebate (no federal credit) + NACS/CCS1 adapter guidance + used-EV SoH diligence.
 
 ### payment-method-decider
 - **Use when**: choose close-day instrument — cashier's check / credit card / wire / lease cap reduction.
@@ -215,6 +217,17 @@ What Phase 3 produces: a 9-site capability matrix (top) + VIN-deduped candidate 
 
 ---
 
+## Languages
+
+Three languages, two surfaces — keep them separate:
+
+- **Buyer-facing chat + `criteria.md` + dossier**: English, 中文, or Español. Triggers fire in all three (`buy me a car` / `帮我买车` / `ayudame a comprar un carro`). The dossier ships an EN and a CN print template; Spanish support is buyer-facing chat + an explanatory ES glossary for load-bearing terms (OTD, doc fee, ADM, CPO, NACS, GAP, MSRP), with regional `carro / coche / auto` mirroring.
+- **Dealer-facing email**: **always English + plain ASCII**, regardless of the buyer's chat language. Dealer CRM clients mangle non-ASCII, and an English OTD ask threads cleanly with the dealer's own quote. The buyer reads the deal in their language; the dealer reads the ask in English. See _Language and Audience Separation_ in `skills/orchestrator/SKILL.md`.
+
+> ES glosses are working translations pending native-speaker sign-off before production use.
+
+---
+
 ## Self-check
 
 Verify the install:
@@ -233,7 +246,7 @@ Any failure → open an issue with the traceback. Most failures are Python deps 
 
 ## Limitations
 
-- **Single-author alpha** — workflow based on one real purchase cycle + 5 stress-test scenarios. Not multi-market validated.
+- **Single-author alpha** — workflow based on one real purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
 - **Data drifts** — state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
 - **Anti-bot fragile** — CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
 - **Not tax / legal / financial advice** — verify with licensed professionals before signing.
@@ -242,7 +255,7 @@ Any failure → open an issue with the traceback. Most failures are Python deps 
 
 ## Roadmap · Contributing · License
 
-[ROADMAP.md](ROADMAP.md) tracks v0.3.0 / v1.0.0 plans (multi-author data, adversarial dealer tests, 50-state fill-in, more brand CPO). Pick one → open issue → PR.
+[ROADMAP.md](ROADMAP.md) tracks v0.3.0 / v1.0.0 plans (multi-author data, adversarial dealer tests, EV-credit reinstatement watch, remaining luxury-brand CPO). Pick one → open issue → PR.
 
 MIT — fork it, ship it, save someone money.
 

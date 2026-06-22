@@ -1,6 +1,6 @@
 ---
 name: Payment Method Decider
-description: Use to choose the right payment method (cashier's check, debit, credit card, financing, lease) for a car purchase given buyer's specific situation (card rewards, dealer POS limits, financing pre-approval, captive vs CU). Triggers include "cash or CC for car", "Visa for $30k purchase", "crypto cashback card rewards", "dealer POS limit", "Chase Sapphire car purchase", "支付方式", "买车用刷卡还是支票".
+description: Use to choose the right payment method (cashier's check, debit, credit card, financing, lease) for a car purchase given buyer's specific situation (card rewards, dealer POS limits, financing pre-approval, captive vs CU). Triggers include "cash or CC for car", "Visa for $30k purchase", "crypto cashback card rewards", "dealer POS limit", "Chase Sapphire car purchase", "支付方式", "买车用刷卡还是支票", and Spanish phrases "metodo de pago para el carro", "pago el carro con tarjeta o con cheque de caja".
 ---
 
 # Payment Method Decider
@@ -132,11 +132,16 @@ Buyer: $700/mo max, $5k down, OTD ceiling $42k, 60mo @ 5.49% APR.
 
 ## Lease Cash / Lease Cap Cost Reduction
 
-Some manufacturers offer $1,000-3,000 lease cash that flows through ONLY as cap cost reduction (not as down payment, not as rebate to buyer).
+Some manufacturers offer $1,000-3,000 lease cash that flows through ONLY as cap cost reduction (not as down payment, not as rebate to buyer). This OEM lease cash is ordinary marketing money and is still live in 2026 — verify it on the worksheet and make sure it shows as a cap cost reduction line, not pocketed by the dealer.
 
-- If lessor captures §45W $7,500 commercial credit: monthly drops ~$104 over 60mo lease, ~$208 over 36mo
-- Verify on lease worksheet: "EV lease credit" or "cap cost reduction - manufacturer"
-- Do NOT let dealer pocket the $7,500 - it must show as cap reduction line
+> **Federal §45W lease pass-through is TERMINATED (acquired after 2025-09-30, OBBBA).**
+> The old play — lessor captures the federal §45W $7,500 commercial credit and passes it
+> through as cap cost reduction (~$104/mo over 60mo, ~$208/mo over 36mo) — is **dead for
+> any 2026 lease**. There is NO federal $7,500 lease credit to capture or to watch for on
+> the worksheet. If a 2026 worksheet shows an "EV lease credit," it is OEM lease cash /
+> marketing money, NOT a federal credit; treat it as a negotiable OEM incentive and do
+> NOT count it as a federal incentive in OTD / monthly math. See the CRITICAL banner in
+> `ev-buyer-helper`. (Historical: pre-2025-10-01 acquisitions could still claim §45W.)
 
 See `../orchestrator/references/lease_playbook.md` for full lease structuring.
 
@@ -147,7 +152,7 @@ See `../orchestrator/references/lease_playbook.md` for full lease structuring.
 3. Cash buyer chasing sign-up MSR -> CC for the MSR portion, cashier's check for rest
 4. Financing buyer, manufacturer rebate available -> captive (with refi escape plan)
 5. Financing buyer, no rebate, CU pre-approved at lower APR -> CU outright
-6. Lease buyer -> follow lease_playbook.md, verify §45W pass-through
+6. Lease buyer -> follow lease_playbook.md (NOTE: federal §45W pass-through TERMINATED 2025-09-30; any "EV lease credit" in 2026 is OEM lease cash, not a federal credit)
 
 ## Cross-References
 
