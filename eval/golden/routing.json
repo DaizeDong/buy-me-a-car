@@ -10,7 +10,9 @@
         "did dealer hide add-ons",
         "看下 CARFAX",
         "审 PDF",
-        "F&I add-on detection"
+        "F&I add-on detection",
+        "revisar este CARFAX",
+        "analizar el historial del vehiculo en este PDF"
       ],
       "readme_triggers": [
         "review this CARFAX",
@@ -26,7 +28,9 @@
         "F&I add-on refusal",
         "lien payoff timing",
         "提车清单",
-        "准备签约"
+        "准备签约",
+        "lista para el dia de firma",
+        "listo para cerrar el trato"
       ],
       "readme_triggers": [
         "ready to close",
@@ -43,7 +47,9 @@
         "should I pay for CPO",
         "factory CPO vs dealer certified",
         "Subaru CPO",
-        "Honda Certified"
+        "Honda Certified",
+        "es un auto certificado por el fabricante",
+        "vale la pena pagar por la certificacion CPO"
       ],
       "readme_triggers": [
         "is this car CPO",
@@ -61,7 +67,10 @@
         "respond to OTD quote",
         "回复 dealer",
         "给 dealer 起草回信",
-        "对 dealer 报价做 counter"
+        "对 dealer 报价做 counter",
+        "responder al concesionario",
+        "redactar una contraoferta al dealer",
+        "dar seguimiento al concesionario"
       ],
       "readme_triggers": [
         "draft counter to dealer",
@@ -78,7 +87,9 @@
         "decision document",
         "make dossier for dealer",
         "生成 dossier",
-        "制作 PDF"
+        "制作 PDF",
+        "generar el dossier para el concesionario",
+        "crear el PDF de investigacion de mercado"
       ],
       "readme_triggers": [
         "build dossier",
@@ -96,7 +107,9 @@
         "EV charging at home",
         "买电车",
         "电车补贴",
-        "EV battery health"
+        "EV battery health",
+        "credito federal para vehiculo electrico",
+        "comprar un carro electrico"
       ],
       "readme_triggers": [
         "EV federal credit",
@@ -112,7 +125,9 @@
         "is this real or autoresponder",
         "看下邮箱",
         "dealer 回复了吗",
-        "spam folder check"
+        "spam folder check",
+        "revisar mi bandeja de correos del concesionario",
+        "ya respondio el dealer o es respuesta automatica"
       ],
       "readme_triggers": [
         "check my dealer inbox",
@@ -128,7 +143,9 @@
         "car insurance quote",
         "new driver insurance",
         "保险报价",
-        "ID card before pickup"
+        "ID card before pickup",
+        "contratar seguro de auto antes de recoger el carro",
+        "cotizar seguro de carro"
       ],
       "readme_triggers": [
         "set up insurance",
@@ -146,7 +163,8 @@
         "compute lease monthly",
         "money factor markup",
         "lease cash incentive",
-        "lease vs cash break-even"
+        "lease vs cash break-even",
+        "leasing o compra al contado"
       ],
       "readme_triggers": [
         "lease or buy",
@@ -168,7 +186,12 @@
         "买车",
         "选车",
         "砍价",
-        "对比经销商"
+        "对比经销商",
+        "ayudame a comprar un carro",
+        "ayudame a comprar un coche",
+        "encuentrame un auto",
+        "negociar el precio del carro",
+        "comparar concesionarios"
       ],
       "readme_triggers": [
         "buy me a car",
@@ -185,7 +208,9 @@
         "what's my OTD",
         "reverse OTD to sale price",
         "算 OTD",
-        "算总价"
+        "算总价",
+        "calcula el precio final del carro",
+        "calcula el precio total con impuestos y cargos"
       ],
       "readme_triggers": [
         "compute OTD",
@@ -203,7 +228,9 @@
         "dealer POS limit",
         "Chase Sapphire car purchase",
         "支付方式",
-        "买车用刷卡还是支票"
+        "买车用刷卡还是支票",
+        "metodo de pago para el carro",
+        "pago el carro con tarjeta o con cheque de caja"
       ],
       "readme_triggers": [
         "cash or CC for car",
@@ -220,7 +247,8 @@
         "Lemon Protector",
         "YourMechanic",
         "Pep Boys mobile inspection",
-        "提车前检车"
+        "提车前检车",
+        "agendar inspeccion pre-compra antes de comprar el auto usado"
       ],
       "readme_triggers": [
         "book PPI",
@@ -237,7 +265,10 @@
         "Reddit OTD reports",
         "搜集报价截图",
         "找证据图",
-        "找别人 dealer 给的报价"
+        "找别人 dealer 给的报价",
+        "buscar capturas de cotizaciones de otros concesionarios",
+        "encontrar pruebas de precios de dealers",
+        "encontrar el precio que otros consiguieron del concesionario"
       ],
       "readme_triggers": [
         "find quote screenshots",
@@ -253,7 +284,8 @@
         "Texas DMV fees",
         "州的税率",
         "doc fee cap",
-        "trade-in credit"
+        "trade-in credit",
+        "cual es la tasa de impuesto del estado"
       ],
       "readme_triggers": [
         "doc fee in NJ",
@@ -270,7 +302,9 @@
         "trade-in tax credit",
         "lien payoff",
         "评估置换车",
-        "卖给 dealer 还是私卖"
+        "卖给 dealer 还是私卖",
+        "evaluar mi carro a cuenta",
+        "lo entrego al dealer o lo vendo por mi cuenta"
       ],
       "readme_triggers": [
         "valuate my trade",

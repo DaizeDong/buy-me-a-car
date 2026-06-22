@@ -1,6 +1,6 @@
 ---
 name: Quote Evidence Collector
-description: Use when the buyer wants to FIND online dealer quote screenshots (XHS / Reddit / Facebook / Carfax) to use as cross-bid anchors for negotiation, without engaging the full 9-phase pipeline. Triggers include "find quote screenshots", "find dealer evidence", "scrape XHS for quotes", "Reddit OTD reports", "搜集报价截图", "找证据图", "找别人 dealer 给的报价".
+description: Use when the buyer wants to FIND online dealer quote screenshots (XHS / Reddit / Facebook / Carfax) to use as cross-bid anchors for negotiation, without engaging the full 9-phase pipeline. Triggers include "find quote screenshots", "find dealer evidence", "scrape XHS for quotes", "Reddit OTD reports", "搜集报价截图", "找证据图", "找别人 dealer 给的报价", and Spanish phrases "buscar capturas de cotizaciones de otros concesionarios", "encontrar pruebas de precios de dealers", "encontrar el precio que otros consiguieron del concesionario".
 ---
 
 # Quote Evidence Collector
@@ -32,6 +32,7 @@ every source.
 | NJ / NY / CA | XHS (search_result + state keyword) | Reddit r/{Make}{Model} | Chinese-American buyer community concentrated in tri-state + CA; they routinely post dealer worksheets. |
 | TX / FL / IL / GA / WA | Reddit r/{Make}{Model} + r/{State}Cars | XHS (generic only) | English-language buyer forums dominate; XHS has thin regional coverage. |
 | Boomer-heavy makes (Ford F-150, RAM 1500, classic Mustang) | Facebook owner groups | Reddit | Owner FB groups are where pickup buyers post window stickers. |
+| Spanish-dominant buyer (US Hispanic/Latino) | ES-community: US-Latino FB buy/sell groups (VA / Houston / LA / CA — verified IDs in `deal_data_sources.md` §ES) + Reddit ES (`comprar carro` queries) | Reddit r/{Make}{Model} (English) + aggregators | ES tier is a THIN supplement only: FB groups are FSBO marketplaces (regional private-party floor, not dealer worksheets) and large ES subs (r/mexico, r/espanol) carry MX-domestic prices that DON'T map to US OTD. Always cross-check against the English + aggregator tiers; never let an ES datapoint stand alone. Re-verify each FB group's latest-post date in Playwright before citing (FB hides member counts). |
 | Other states | Reddit r/{Make}{Model} + r/{State}Cars | Aggregator screenshots (CarGurus, Edmunds) | Default fallback. |
 
 Always run TWO parallel XHS searches when buyer's state is known: generic

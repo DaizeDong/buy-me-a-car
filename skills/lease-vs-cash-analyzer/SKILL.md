@@ -1,6 +1,6 @@
 ---
 name: Lease vs Cash Analyzer
-description: Use to compute lease structure (cap cost / money factor / residual / acquisition / disposition), compare lease total cost vs cash purchase, decide lease vs buy given buyer's ownership horizon, and check captive lender early-buyout policy. Triggers include "lease or buy", "lease 数学", "compute lease monthly", "money factor markup", "lease cash incentive", "lease vs cash break-even".
+description: Use to compute lease structure (cap cost / money factor / residual / acquisition / disposition), compare lease total cost vs cash purchase, decide lease vs buy given buyer's ownership horizon, and check captive lender early-buyout policy. Triggers include "lease or buy", "lease 数学", "compute lease monthly", "money factor markup", "lease cash incentive", "lease vs cash break-even", and Spanish phrase "leasing o compra al contado".
 ---
 
 # Lease vs Cash Analyzer

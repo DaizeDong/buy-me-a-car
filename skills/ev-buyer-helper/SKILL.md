@@ -1,6 +1,6 @@
 ---
 name: EV Buyer Helper
-description: Use when the buyer is purchasing an EV (battery electric or plug-in hybrid) and needs federal $7,500 credit mechanics, state EV rebates, NACS adapter info, home charging guidance, used-EV battery State-of-Health rules, or any EV-specific dealer behavior knowledge. Triggers include "EV federal credit", "$7,500 POS transfer", "Ioniq 5 incentives", "NACS adapter", "EV charging at home", "买电车", "电车补贴", "EV battery health".
+description: Use when the buyer is purchasing an EV (battery electric or plug-in hybrid) and needs federal $7,500 credit mechanics, state EV rebates, NACS adapter info, home charging guidance, used-EV battery State-of-Health rules, or any EV-specific dealer behavior knowledge. Triggers include "EV federal credit", "$7,500 POS transfer", "Ioniq 5 incentives", "NACS adapter", "EV charging at home", "买电车", "电车补贴", "EV battery health", and Spanish phrases "credito federal para vehiculo electrico", "comprar un carro electrico".
 ---
 
 # EV Buyer Helper

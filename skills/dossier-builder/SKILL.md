@@ -1,6 +1,6 @@
 ---
 name: Decision Dossier Builder
-description: Use to generate a printed market-research dossier (8-page HTML + PDF) the buyer brings to the dealer at test drive, summarizing buyer profile, regional comps, target OTD, and cross-bid anchors. Triggers include "build dossier", "generate market research PDF", "dealer dossier", "decision document", "make dossier for dealer", "生成 dossier", "制作 PDF".
+description: Use to generate a printed market-research dossier (8-page HTML + PDF) the buyer brings to the dealer at test drive, summarizing buyer profile, regional comps, target OTD, and cross-bid anchors. Triggers include "build dossier", "generate market research PDF", "dealer dossier", "decision document", "make dossier for dealer", "生成 dossier", "制作 PDF", and Spanish phrases "generar el dossier para el concesionario", "crear el PDF de investigacion de mercado".
 ---
 
 # Decision Dossier Builder
@@ -43,6 +43,14 @@ templates, and YAML schema to the orchestrator's `scripts/` and `assets/`.
      --template ../orchestrator/assets/dossier_template_cn.html \
      --output dossier_cn.html \
      --to-pdf dossier_cn.pdf
+   ```
+4. (Optional) Spanish (US) template:
+   ```
+   python ../orchestrator/scripts/generate_dossier.py \
+     --config my_dossier.yaml \
+     --template ../orchestrator/assets/dossier_template_es.html \
+     --output dossier_es.html \
+     --to-pdf dossier_es.pdf
    ```
 
 ## Required YAML Fields
@@ -90,10 +98,17 @@ From `../orchestrator/scripts/generate_dossier.py`:
 
 - EN (default): `../orchestrator/assets/dossier_template.html`
 - CN: `../orchestrator/assets/dossier_template_cn.html` (CJK glyph support)
+- ES (US): `../orchestrator/assets/dossier_template_es.html` (US-market Spanish)
 
-The CN template is field-for-field equivalent; same YAML config drives both.
-Useful when buyer is Chinese-American and wants to share with parents /
-spouse before signing.
+The CN and ES templates are field-for-field equivalent (identical `{{KEY}}`
+placeholder set); the same YAML config drives all three. CN is useful when the
+buyer is Chinese-American and wants to share with parents / spouse before
+signing; ES when the buyer or a co-signer is more comfortable in Spanish, or
+for a Spanish-speaking dealer. The ES template uses verified US-Latino
+automotive-finance terminology (precio final / OTD, cargo por documentacion =
+doc fee, vehiculo a cuenta = trade-in, cheque de caja = cashier's check,
+vehiculo usado certificado = CPO, titulo de salvamento = salvage title);
+pending a native-speaker / Codex review pass before high-stakes use.
 
 ## Common Errors and Fixes
 
@@ -126,6 +141,7 @@ copy.
 - `../orchestrator/scripts/generate_dossier.py` - the renderer
 - `../orchestrator/assets/dossier_template.html` - EN template
 - `../orchestrator/assets/dossier_template_cn.html` - CN template
+- `../orchestrator/assets/dossier_template_es.html` - ES (US) template
 - `../orchestrator/assets/dossier_config_template.yaml` - YAML template
   starter (copy and fill)
 - `../orchestrator/SKILL.md` Phase 8 - dossier-prep phase in the master flow
