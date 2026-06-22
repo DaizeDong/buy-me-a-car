@@ -5,7 +5,7 @@
 
 Comprehensive lease mechanics for buyers considering leasing as an alternative to financing or cash purchase. Covers core math, captive-lender rules, EV-specific lease arbitrage, lease assumption, and mileage tactics.
 
-This file is the source of truth for any "should I lease?" question; for the `cash → lease conversion` trick on the rebate side, see `payment_methods.md`. For EV-specific lease arbitrage of the $7,500 commercial credit, also cross-reference `ev_buyer_playbook.md` § 1.
+This file is the source of truth for any "should I lease?" question; for the `cash → lease conversion` trick on the rebate side, see `payment_methods.md`. **NOTE: the EV-specific lease arbitrage of the $7,500 §45W commercial credit is DEAD — §45W is TERMINATED for vehicles acquired after 2025-09-30 (OBBBA / P.L. 119-21). See § 8 and `ev_buyer_playbook.md` for the terminated-credit details; do not count any §45W pass-through in current lease math.**
 
 ## 1. Core Lease Math — Field Definitions
 
@@ -197,13 +197,26 @@ Quick decision: under what conditions does leasing beat buying?
 
 If buyer keeps the bought CR-V for 8-10 years total, buy clearly wins. If buyer turns over every 3 years, lease wins by $3-5k cumulatively.
 
-## 8. EV Lease Structure — Federal Commercial Vehicle Credit Pass-Through
+## 8. EV Lease Structure — Federal Commercial Vehicle Credit Pass-Through — TERMINATED 2025-09-30 (HISTORICAL)
 
-The Inflation Reduction Act § 30D (purchase) requires income caps, MSRP caps, and domestic assembly. The § 45W (commercial vehicle credit) does NOT — and lessor captives qualify for the full $7,500 on lease deals because the captive is the legal owner. **This is the EV lease trick.**
+> ## ⚠️ CRITICAL — THE §45W LEASE LOOPHOLE IS CLOSED (as of 2026-06)
+>
+> OBBBA (Public Law 119-21, signed 2025-07-04) **terminated §45W** for any vehicle **acquired
+> after 2025-09-30**, on the same date as §30D/§25E. Lessor captives can **no longer** capture a
+> $7,500 commercial credit on a current EV lease, so the historical "lease to capture the credit
+> you can't get on purchase" arbitrage **no longer exists**.
+>
+> **For any current (2026) EV lease: do NOT count a §45W pass-through in Cap Cost reduction,
+> conversion math, or any net-cost calculation.** Any lease cash an OEM offers today is ordinary
+> manufacturer lease cash (§ 5), not a federal credit. Source: IRS Clean Vehicle Credit Fact Sheet
+> (2025-05) + OBBBA (P.L. 119-21). The mechanics below are retained as **HISTORICAL** reference
+> for pre-cutoff (on-or-before 2025-09-30) lease acquisitions only.
 
-Many ineligible-for-§30D vehicles (foreign-assembled EVs, MSRP > $80k SUVs, high-income buyers) ARE eligible if leased. The captive captures the $7,500 and chooses how much to pass through to the lessee as Cap Cost reduction.
+Historically (while §45W was live): the Inflation Reduction Act § 30D (purchase) required income caps, MSRP caps, and domestic assembly. The § 45W (commercial vehicle credit) did NOT — and lessor captives qualified for the full $7,500 on lease deals because the captive was the legal owner. **This was the EV lease trick (now dead).**
 
-**Pass-through rate varies by OEM** (refresh quarterly):
+Many ineligible-for-§30D vehicles (foreign-assembled EVs, MSRP > $80k SUVs, high-income buyers) WERE eligible if leased. The captive captured the $7,500 and chose how much to pass through to the lessee as Cap Cost reduction.
+
+**Pass-through rate by OEM (HISTORICAL — all $0 for vehicles acquired after 2025-09-30):**
 
 | OEM / Captive | Pass-through 2024-2026 | Notes |
 |---|---|---|
@@ -217,11 +230,11 @@ Many ineligible-for-§30D vehicles (foreign-assembled EVs, MSRP > $80k SUVs, hig
 | **BMW / Mercedes / Audi** | $3,500 - $5,000 typical (less aggressive — premium brand captives keep more credit) | iX / EQS / Q4 e-tron leases — luxury captives capture more |
 | **Stellantis Capital** (Wagoneer S / Charger Daytona EV) | $7,500 typical | Aggressive — Stellantis pushing EV adoption |
 
-**Practical implication**: For an ineligible-for-§30D buyer (foreign EV, high income, MSRP > caps), leasing then buying out (per § 5) is often the only way to capture the $7,500 credit. Run the conversion math on every EV lease vs purchase decision.
+**Practical implication (HISTORICAL):** While §45W was live, for an ineligible-for-§30D buyer (foreign EV, high income, MSRP > caps), leasing then buying out (per § 5) was often the only way to capture the $7,500 credit. **This no longer applies — §45W is terminated, so there is no federal credit to capture via lease for any current purchase. Do not run §45W conversion math on a 2026 EV lease.** (The cash-to-lease conversion in § 5 still works for ordinary OEM *lease cash*, just not for a federal credit.)
 
-**Lease-only restriction on some leases**: A handful of captive lease deals have non-purchase clauses (lease MUST be returned at end, no buyout) — Tesla is the notable example. For these, the conversion trick doesn't work. Confirm buyout-allowed BEFORE signing if the conversion play is the goal.
+**Lease-only restriction on some leases**: A handful of captive lease deals have non-purchase clauses (lease MUST be returned at end, no buyout) — Tesla is the notable example. (This mattered for the now-dead §45W conversion play; still worth confirming buyout-allowed if any lease-cash conversion is the goal.)
 
-Cross-reference `ev_buyer_playbook.md` § 1 (Federal Credits) for the underlying § 30D vs § 45W rules.
+Cross-reference `ev_buyer_playbook.md` (Federal Credits) for the underlying § 30D vs § 45W rules — **all now terminated as of 2025-09-30.**
 
 ## 9. Lease Assumption (Transfer to Another Party)
 
@@ -287,7 +300,7 @@ Phase 1 lease-specific sub-questions (in addition to financing 9-field set):
 2. **Term preference** — 24 / 27 / 36 / 39 / 48 mo.
 3. **Plan after lease** — keep (buyout) / return (walk-away) / re-lease / unsure.
 4. **Down payment posture** — § 11 default is $0 down beyond drive-off; ask if buyer wants Cap Cost reduction (mostly NO) or MSDs (limited captives).
-5. **Conversion-eligible?** — if EV, ineligible-for-§30D direct purchase, $7,500 lease pass-through applies (per § 8). Always confirm at Phase 1 for EVs.
+5. ~~**Conversion-eligible?** — if EV, ineligible-for-§30D direct purchase, $7,500 lease pass-through applies (per § 8).~~ **HISTORICAL — §45W terminated 2025-09-30; no federal $7,500 lease pass-through on any current EV. Do not ask or factor this for 2026 purchases.**
 6. **Pre-purchase miles?** — if estimated annual > allowance, recommend pre-purchase (per § 10).
 
 Save to `criteria.md` as a sub-section under the Financing block.
@@ -299,7 +312,7 @@ Phase 6 lease-specific counter framework (in addition to standard OTD ask):
 3. Confirm Cap Cost = MSRP - manufacturer discount - lease cash - dealer discount; reject "Cap Cost = MSRP" quotes outright (a common opening tactic).
 4. Confirm acquisition fee is the captive's standard (§ 2 table), not a dealer markup.
 5. Demand all lease incentives in writing (lease cash, loyalty, conquest, military, college grad — refresh monthly).
-6. Run conversion math for EV leases (§ 8).
+6. ~~Run conversion math for EV leases (§ 8).~~ **HISTORICAL — no §45W credit to capture on current EV leases; evaluate any EV lease on ordinary lease cash / MF / residual only.**
 
 ## 14. When Not to Lease
 
@@ -317,7 +330,7 @@ For these buyers, route back to financing or cash purchase per Phase 1 Buyer-Typ
 ## 15. References and Cross-Links
 
 - `payment_methods.md` — Lease conversion (cash-to-lease) inline trick; Captive-vs-CU rebate playbook.
-- `ev_buyer_playbook.md` — Federal §30D / §25E / §45W rules; lease-then-buyout EV mechanics for ineligible buyers.
+- `ev_buyer_playbook.md` — Federal §30D / §25E / §45W rules (**all TERMINATED for vehicles acquired after 2025-09-30 per OBBBA — historical only**); state EV rebates (still live); lease-then-buyout EV mechanics (historical, §45W-dependent).
 - `state_fees.md` — State-specific lease tax handling; doc cap; trade-in credit (does NOT apply to leases in most states).
 - `negotiation_playbook.md` — OTD math (cash) — does not include lease math; this file is the source of truth.
 - `outreach_strategy.md` — Lease-specific first-touch email language; cross-bid leverage when both lease + purchase incentives exist.
@@ -333,8 +346,8 @@ For these buyers, route back to financing or cash purchase per Phase 1 Buyer-Typ
 - **MSD (Multiple Security Deposit)** — refundable deposits that lower MF, BMW pioneered.
 - **Lease cash** — manufacturer rebate that flows to lessee as Cap Cost reduction.
 - **Buy-rate MF** — captive's wholesale MF; dealer can mark up 0.00040-0.00075.
-- **§ 45W** — federal commercial vehicle EV tax credit, captured by lessor.
-- **§ 30D** — federal personal EV tax credit, captured by buyer (purchase only).
+- **§ 45W** — federal commercial vehicle EV tax credit, historically captured by lessor (**TERMINATED for vehicles acquired after 2025-09-30 per OBBBA — historical only**).
+- **§ 30D** — federal personal EV tax credit, historically captured by buyer on purchase (**TERMINATED for vehicles acquired after 2025-09-30 per OBBBA — historical only**).
 - **Pull-ahead** — manufacturer waives 2-4 final lease payments if lessee signs new lease early.
 - **Walk-away** — return vehicle at lease end with no buyout.
 - **Buyout** — purchase vehicle at lease end for residual + tax.

@@ -1,6 +1,6 @@
 ---
 name: State Fee Lookup
-description: Use to look up sales tax rate, doc fee cap, title fee, registration fee, and trade-in credit eligibility for any of 50 US states + DC. Returns the fees in seconds rather than searching DMV websites. Triggers include "what's the doc fee in X", "NJ sales tax rate", "Texas DMV fees", "州的税率", "doc fee cap", "trade-in credit".
+description: Use to look up sales tax rate, doc fee cap, title fee, registration fee, and trade-in credit eligibility for any of 50 US states + DC. Returns the fees in seconds rather than searching DMV websites. Triggers include "what's the doc fee in X", "NJ sales tax rate", "Texas DMV fees", "州的税率", "doc fee cap", "trade-in credit", and Spanish phrase "cual es la tasa de impuesto del estado".
 ---
 
 # State Fee Lookup
@@ -41,22 +41,22 @@ TradeCr  : YES / NO / partial
 | HI | 4% GET | 0-0.5% | none | $5 | $45 | Yes |
 | ID | 6% | 0-3% | none | $14 | $70 | Yes |
 | IL | 6.25% | 0-4.75% | $347 | $155 | $151 | Yes |
-| IN | 7% | 0% | none | $15 | $40 | Yes |
+| IN | 7% | 0% | $251.05 | $15 | $40 | Yes |
 | IA | 6% | 0-1% | none | $25 | $100 | Yes |
 | KS | 6.5% | 0-4% | none | $10 | $40 | Yes |
 | KY | 6% | 0% | none | $9 | $65 | NO |
-| LA | 4.45% | 1-5% | $200 | $69 | $50 | Yes |
+| LA | 4.45% | 1-5% | $436 | $69 | $50 | Yes |
 | ME | 5.5% | 0% | none | $33 | $35 | Yes |
-| MD | 6% | 0% | $499 (Nov 2024) | $100 | $135 | Yes |
+| MD | 6% | 0% | $800 (eff. July 1 2024) | $499-799 | $135 | Yes |
 | MA | 6.25% | 0% | none | $75 | $60 | Yes |
 | MI | 6% | 0% | $230 | $15 | $100 | Yes (capped $9k 2025) |
-| MN | 6.5% | 0-1.5% | $125 | $11 | $100 | Yes |
+| MN | 6.5% | 0-1.5% | $350 | $11 | $100 | Yes |
 | MS | 7% (5% trucks) | 0% | none | $9 | $25 | Yes |
-| MO | 4.225% | 0-5.5% | $599 | $11 | $50 | Yes |
+| MO | 4.225% | 0-5.5% | $604.47 | $11 | $50 | Yes |
 | MT | 0% | 0% | none | $10 | $90 | N/A |
 | NE | 5.5% | 0-2% | none | $10 | $30 | Yes |
 | NV | 6.85% | 0-1.5% | none | $29 | $33 | Yes |
-| NH | 0% | 0% | none | $25 | $90 | N/A |
+| NH | 0% | 0% | $27 | $25 | $90 | N/A |
 | NJ | 6.625% | 0% | $799 | $85 | $70 | Yes |
 | NM | 4% excise | 0% | none | $5 | $35 | Yes |
 | NY | 4% | 4-4.875% | $175 | $50 | $100 | Yes |
@@ -64,24 +64,29 @@ TradeCr  : YES / NO / partial
 | ND | 5% | 0-3% | none | $5 | $90 | Yes |
 | OH | 5.75% | 0.25-2.25% | $250 | $15 | $31 | Yes |
 | OK | 4.5% (excise 3.25%) | 0-7% | none | $11 | $96 | Partial |
-| OR | 0% | 0% | none | $122 | $100 | N/A |
+| OR | 0% | 0% | $250 | $122 | $100 | N/A |
 | PA | 6% (8% Philly, 7% Allegheny) | varies by ZIP | none | $58 | $39 | Yes |
 | RI | 7% | 0% | $250 | $52 | $30 | Yes |
 | SC | 5% IMF cap $500 | 0% | none | $15 | $40 | Yes |
 | SD | 4.5% excise | 0-2% | none | $10 | $75 | Yes |
 | TN | 7% | 1.5-2.75% | none | $11 | $24 | Yes |
-| TX | 6.25% | 0% | $150 | $33 | $50 (+$200 EV) | Yes |
+| TX | 6.25% | 0% | $225 | $33 | $50 (+$200 EV) | Yes |
 | UT | 4.85% | 1-3% | none | $6 | $44 | Yes |
 | VT | 6% | 0% | none | $35 | $70 | Yes |
 | VA | 4.15% min $75 | 0-1% | $599 | $15 | $41 | NO |
 | WA | 6.5% +MVET | 0.5-3.5% | $200 | $15 | $80 | Yes |
-| WV | 6% privilege | 0% | $199 | $15 | $30 | Yes |
+| WV | 6% privilege | 0% | $575 | $15 | $30 | Yes |
 | WI | 5% | 0-0.5% | none | $164 | $75 | Yes |
 | WY | 4% | 0-2% | none | $15 | $30 | Yes |
 
-## 22 states with detail stubs (one-liner each)
+## Quirk one-liners (22 high-traffic states)
 
-These have ZIP-level or quirk-level breakdowns in `../orchestrator/references/state_fees.md`:
+All 50 states + DC are covered at fee-detail depth in the backing data
+(`data/state_fees.json`, rendered to `../orchestrator/references/state_fees.md`;
+30 full + 21 stub, 34 web-verified). The 22 states below get an extra
+ZIP-level / quirk one-liner here because they are the high-traffic
+registering states; the rest are looked up directly from the all-state
+table above plus the backing data:
 
 - **NJ** - flat 6.625%, $799 doc cap, no local stacking
 - **NY** - 4% + 4-4.875% local, $175 doc cap (2nd strongest US), MCTD $50 NYC
@@ -103,7 +108,7 @@ These have ZIP-level or quirk-level breakdowns in `../orchestrator/references/st
 - **VA** - 4.15% SUT min $75, $599 doc cap, NO trade credit
 - **WA** - 6.5% + MVET 0.3% + 0.5-3.5% local, $200 doc cap
 - **DC** - 6-9% excise by weight class on first $40k MSRP, weight-tiered
-- **MD** - 6% flat, $499 doc cap (raised Nov 2024 from $300)
+- **MD** - 6% flat, $800 doc cap (eff. July 1 2024, raised from $500; now HIGHER than VA's $599 — not a low-doc state)
 - **PA-by-ZIP** - Bryn Mawr 19010 / KoP 19406 / West Chester 19380 all flat 6%
 
 ## Cross-state titling shortcuts
@@ -118,7 +123,7 @@ Tax is paid based on **buyer's residence state**, not dealer state. Common patte
 | NJ | CT | NJ 6.625% | CT $499-699 |
 | PA | NJ | PA 6/7/8% | NJ <=$799 cap |
 | PA | DE | PA 6/7/8% | DE typ $299-499 (sweet spot) |
-| PA | MD | PA 6/7/8% | MD <=$499 cap |
+| PA | MD | PA 6/7/8% | MD <=$800 cap (no advantage) |
 | CA | NV | CA 8.75-9.5% | NV $499-799 |
 | CA | OR | CA 8.75-9.5% | OR ~$115 |
 | CA | AZ | CA 8.75-9.5% | AZ $499-799 |
@@ -134,7 +139,7 @@ Dealer CRM templates frequently leak fees from OTHER states. Use these absence l
 
 - **NJ should NOT have**: NY MCTD, CA smog, RI $250 doc cap text, per-battery fee, environmental impact fee, NY $175 doc cap
 - **NY should NOT have**: NJ supplemental titling, NJ $799 doc, CT luxury 7.75%, RI $250 doc cap, FL $77 title
-- **PA should NOT have**: NJ supplemental titling, NJ $799 doc, NY $175 doc cap, CT luxury 7.75%, RI $250 cap, MD $499 cap, CA smog
+- **PA should NOT have**: NJ supplemental titling, NJ $799 doc, NY $175 doc cap, CT luxury 7.75%, RI $250 cap, CA smog
 - **CT should NOT have**: per-tire/battery, NJ supplemental titling, NY MCTD, RI $250 doc cap
 - **CA should NOT have**: trade-in credit on tax (CA explicitly disallows), NJ doc fees, OR-style zero-tax
 - **NH should NOT have**: ANY sales tax line (zero sales tax state)

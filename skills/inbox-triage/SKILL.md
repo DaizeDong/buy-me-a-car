@@ -1,6 +1,6 @@
 ---
 name: Dealer Inbox Triage
-description: Use to triage incoming Gmail dealer replies — classify each as real reply / autoresponder (OOO) / CRM template / spam / promotions / autopiloted-marketing — and decide what action each needs. Triggers include "check my dealer inbox", "triage these emails", "is this real or autoresponder", "看下邮箱", "dealer 回复了吗", "spam folder check".
+description: Use to triage incoming Gmail dealer replies — classify each as real reply / autoresponder (OOO) / CRM template / spam / promotions / autopiloted-marketing — and decide what action each needs. Triggers include "check my dealer inbox", "triage these emails", "is this real or autoresponder", "看下邮箱", "dealer 回复了吗", "spam folder check", and Spanish phrases "revisar mi bandeja de correos del concesionario", "ya respondio el dealer o es respuesta automatica".
 ---
 
 # Dealer Inbox Triage
@@ -27,6 +27,20 @@ Every dealer-domain email lands in exactly ONE bucket. Decide in order:
 specific VIN/stock number the buyer asked about, an OTD figure, an availability
 confirmation, a counter-offer number). Sender is a named salesperson, not a generic
 `sales@`, `info@`, or `noreply@` alias.
+
+**Spanish / bilingual dealer mail**: a reply written in Spanish or mixed Spanish+English
+is still a **bucket-1 real reply**, NOT spam — many US dealers staff bilingual reps and
+will answer in the buyer's apparent language or their own. Language is never a spam
+signal; judge by the bucket-1 content signals above (human prose, buyer-specific
+numbers, named sender). When handing off:
+
+- **Translate the substance for the buyer**: surface the actionable content in English —
+  OTD/price figures, VIN/stock confirmation, availability, any counter-offer or
+  condition the rep stated. Give the buyer the meaning, not a word-for-word gloss.
+- **Outbound counter stays in English**: the draft handed to
+  `../dealer-reply-drafter/SKILL.md` is composed in English regardless of the inbound
+  language (per the buyer's drafting preference). Do not mirror Spanish in the reply
+  unless the buyer explicitly asks.
 
 **Action**: hand off to `../dealer-reply-drafter/SKILL.md` to compose a ~10-line counter.
 Apply Gmail label `Triage/RealReply`. Do NOT archive the inbound; keep it in INBOX so
