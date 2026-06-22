@@ -4,15 +4,19 @@ Snapshot of where `buy-me-a-car` stands and where it goes next.
 
 ---
 
-## What shipped (0.2.0)
+## What shipped (through 0.2.2)
 
-- Multi-skill plugin restructure: one orchestrator + 14 narrow sub-skills.
-- 15 skills total covering the full 9-phase pipeline (research -> outreach
+- Multi-skill plugin restructure: one orchestrator + 15 narrow sub-skills.
+- 16 skills total covering the full 9-phase pipeline (research -> outreach
   -> negotiate -> close) and single-task entry points (OTD math, state fee
   lookup, dealer reply drafting, CARFAX/PDF review, inbox triage, close-day
   checklist, quote-evidence collection, trade-in valuation, EV federal
   credit, payment method, lease vs cash, PPI booking, dossier generation,
-  CPO eligibility).
+  CPO eligibility, insurance shopping).
+- Phase 3 inventory hardening: Playwright-first multi-site scraping (real
+  browser bypasses the 403/DataDome/Akamai blocks that headless fetch hits),
+  per-site extraction recipes + pagination guide, and a buyer-facing Site
+  Capability Matrix on top of the VIN-deduped candidate list.
 - 22 US states + DC covered at fee-detail depth.
 - 8 brand CPO programs (Subaru, Toyota, Honda, Mazda, Hyundai, Kia, Ford,
   GM).

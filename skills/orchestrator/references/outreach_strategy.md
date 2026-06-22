@@ -73,13 +73,15 @@ Per submission, capture in `tracker.md`:
 
 This forms the audit trail for which dealers responded vs not. After 24-48 hours, dealers who have not replied are dropped from active monitoring.
 
-## Subagent Dispatch (Phase 2 Research)
+## Subagent Dispatch (Phase 3 Inventory)
 
 For each site, dispatch one subagent in parallel with a prompt like:
 
 > Search Carfax for {Year-Range} {Make} {Model} {Trim} within {Radius} of {ZIP}, max {Mileage} mi, budget {OTD Max}. Return top 15 candidates with VIN, miles, asking price, dealer name, dealer location, deal rating, direct listing URL. Save output to `report_carfax.md`. Note any listings flagged "Great Deal" or "Good Price" at the top.
 
 Run all subagents in a single message (parallel) — they are independent and gain ~5-10x wall clock improvement from concurrency.
+
+**Scraping method + pagination (mandatory read):** these inventory SRPs return 403/DataDome/Akamai to headless `WebFetch` for every site except CarGurus — use **Playwright-first** fallback and **paginate to exhaustion** (loop-until-dry), not page-1-only. The full per-site extraction recipe (JSON-LD / embedded state / DOM+VIN-regex) and pagination method (URL param vs in-app click vs infinite scroll, plus anti-bot pacing) live in `phases.md#phase-3--inventory`. Do not re-derive here.
 
 After subagents return, merge their outputs into `master_comparison.md`. The file has two sections: a **Site Capability Matrix** on top (one role-tagged row per site — see `phases.md#phase-3--inventory` for the fixed columns + role taxonomy) and, below it, the **VIN-deduplicated candidate list** with columns: site, year/trim, miles, price, dealer, location, deal-rating, VIN, URL, notes.
 
