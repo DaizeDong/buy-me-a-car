@@ -47,7 +47,7 @@ States vary on whether sales tax applies to the doc fee (most do), whether trade
 | KY    | 6%           | 0%                | None        | $499-799        | $9        | No |
 | LA    | 4.45%        | 1-5%              | $200        | $200 (capped)   | $68.50    | Yes |
 | ME    | 5.5%         | 0%                | None        | $499            | $33       | Yes |
-| MD    | 6%           | 0%                | $300 (raised Nov 2024 from $200) | $300 (capped) | $50      | Yes (see MD detail stub) |
+| MD    | 6%           | 0%                | $800 (raised eff. July 1 2024 from $500) | $499-799 | $50      | Yes (see MD detail stub) |
 | MA    | 6.25%        | 0%                | None        | $499-799        | $75       | Yes |
 | MI    | 6%           | 0%                | $230        | $230 (capped low) | $15     | Yes BUT capped at first $9k (2025; rises $1k/yr to uncapped 2029) — see MI detail stub |
 | MN    | 6.5%         | 0-1.5%            | $125        | $125 (capped low) | $11     | Yes |
@@ -142,7 +142,7 @@ Common cross-state buying patterns and their tax implications:
 | NJ          | PA           | NJ 6.625% | PA no cap (typ $499-999) | PA dealer should not charge PA tax |
 | PA (19010 Montgomery County, flat 6%) | NJ (Cherry Hill / Marlton) | PA 6% (paid at PennDOT, not collected by NJ dealer) | NJ ≤ $799 (legal cap) | NJ dealer should NOT charge NJ 6.625%. Net advantage: lower-capped NJ doc fee vs PA's uncapped doc. |
 | PA (19010) | DE (Wilmington / Newark) | PA 6% (paid at PennDOT) | DE typically $299-499 (DE has no statutory cap but DE dealers run low) | DE has no state sales tax; the DE 4.25% "document fee" applies to DE residents only. PA buyer pays only PA 6% at PennDOT. **DE = doc-fee sweet spot for PA buyers**: DE doc commonly $200-500 cheaper than equivalent PA dealer. |
-| PA (19010) | MD (edge of Philly metro) | PA 6% (paid at PennDOT) | MD ≤ $499 (legal cap as of Nov 2024) | MD dealer should NOT charge MD 6% tax. Strongest doc protection in the PA radius. |
+| PA (19010) | MD (edge of Philly metro) | PA 6% (paid at PennDOT) | MD ≤ $800 (legal cap eff. July 1 2024) | MD dealer should NOT charge MD 6% tax. No doc advantage — MD's $800 cap is high (above PA's typical $499-999 low end). |
 | CA          | NV           | CA combined (typ 8.75-9.5%) | NV $499-799 | NV dealer often shifts to CA tax |
 | TX          | OK           | TX 6.25%  | OK $499-799      | Save on doc fee, pay TX tax |
 | FL          | GA (Atlanta) | FL 6%     | GA $499-799      | GA TAVT 6.6% does NOT apply to out-of-state buyers |
@@ -259,7 +259,7 @@ Quick-reference stubs for the NJ tri-state core. The "Does NOT have" subsection 
 - **Title fee**: $58. **Registration**: $45/year typical for passenger vehicles (annual, not biennial).
 - **Trade-in tax credit**: Yes — trade-in value is subtracted from sales price BEFORE 6% (or 7% / 8%) tax applies.
 - **Has**: Public Transportation Assistance Fund tire fee $1/tire on NEW tires sold (not normally a line on used vehicle OTD); $5 lien fee if financed (auto loan recorded against title); $26 lien recording add-on at PennDOT.
-- **Does NOT have**: NJ-style supplemental titling fee, CT luxury 7.75% tier, NY $175 doc cap, RI $250 doc cap, MD $499 doc cap, environmental impact fee, per-battery fee, CA-style smog fee. Any of these appearing on a PA-buyer quote is a state-template leak — see SKILL.md gotcha D8.
+- **Does NOT have**: NJ-style supplemental titling fee, CT luxury 7.75% tier, NY $175 doc cap, RI $250 doc cap, environmental impact fee, per-battery fee, CA-style smog fee. Any of these appearing on a PA-buyer quote is a state-template leak — see SKILL.md gotcha D8.
 
 ## New England States — Detail Stubs
 
@@ -323,7 +323,7 @@ Quick-reference stubs for CT, MA, RI, NH, ME, VT. Full breakdowns (registration 
 - **License + Emissions inspection ("LE")**: $20 for emissions-test counties (Cook, DuPage, Kane, Lake, Will, McHenry, Madison, Monroe, St. Clair). Other counties exempt.
 - **Trade-in tax credit**: **YES BUT CAPPED at first $10,000 of trade allowance** (Illinois Vehicle Code; was uncapped pre-2020, capped 2020-2024 per Rivian-vs-Ford SB-690 lobbying compromise, **kept at $10k cap** through 2025+ — verify current legislation). A $12,000 trade allowance in IL only gets credit on $10,000 × combined rate. A $5,800 trade (the buyer's Ram) gets full credit ($5,800 × 7.5% = $435 tax savings in the buyer's Illinois county).
 - **Has**: state Use Tax separately if buying from out-of-state dealer (IL Form RUT-25); county-level tax stacking per ZIP (5+ rate tiers in IL); plate transfer option ($26) vs new plate ($151 included in reg); LE/emissions inspection $20 in non-exempt counties.
-- **Does NOT have**: NJ-style supplemental titling fee, NY MCTD fee, CT $50k luxury tier, RI $250 doc cap (IL's cap is $347.26), MD $499 cap, TX $200/yr EV reg premium, PA's uncapped doc tier, per-tire fee on retail used dealer sales, battery fee, CA-style smog fee, NC HUT, OK excise tax separate from sales tax. Any of these appearing on an IL-buyer quote is a state-template leak — demand full re-quote per gotcha D8.
+- **Does NOT have**: NJ-style supplemental titling fee, NY MCTD fee, CT $50k luxury tier, RI $250 doc cap (IL's cap is $347.26), TX $200/yr EV reg premium, PA's uncapped doc tier, per-tire fee on retail used dealer sales, battery fee, CA-style smog fee, NC HUT, OK excise tax separate from sales tax. Any of these appearing on an IL-buyer quote is a state-template leak — demand full re-quote per gotcha D8.
 
 ### IL Worked OTD Example (no trade, Naperville 7.5%)
 
@@ -586,7 +586,7 @@ If buyer trades $12k in 2027 instead, cap = $11k → tax savings $660 (better bu
 - **Title fee**: $15 (new title). **Registration**: $35-46/yr by weight class (passenger sedan typical $40.75/yr).
 - **Trade-in tax credit**: **NO. VA does NOT grant trade-in tax credit on the 4.15% SUT.** This is the VA quirk — unique among DC-area neighbors (DC = yes, MD = yes, VA = no). A $10,000 trade in VA saves $0 in tax; same trade in MD saves $600. VA buyers should NOT structure deals as "trade reduces taxable price" — full sale price is taxed regardless of trade.
 - **Has**: $64.50/yr Hybrid + EV registration fee; $40.75/yr personal property tax assessed by city/county (Fairfax, Arlington, Loudoun rates vary 3.5-4.57% of NADA value/year — separate from purchase SUT, but a recurring cost VA buyers must plan for); inspection $20/yr.
-- **Does NOT have**: NO trade-in tax credit (the structural quirk); no NY MCTD; no NJ supplemental titling; no DC excise weight scaling; no MD doc cap $300 (VA's is $599 — higher than MD); no NC HUT (VA has SUT, different mechanism); no GA TAVT; no IL emissions $20; no FL surtax ceiling; no MI trade-in cap (because VA has no trade credit at all); no PA Philly local stacking.
+- **Does NOT have**: NO trade-in tax credit (the structural quirk); no NY MCTD; no NJ supplemental titling; no DC excise weight scaling; VA's $599 doc cap is LOWER than MD's $800 cap (VA = doc-fee sweet spot in the corridor, not MD); no NC HUT (VA has SUT, different mechanism); no GA TAVT; no IL emissions $20; no FL surtax ceiling; no MI trade-in cap (because VA has no trade credit at all); no PA Philly local stacking.
 
 #### VA Worked OTD Example (Arlington 22203, DC commuter, no trade)
 
@@ -671,7 +671,7 @@ Tax savings: $7,000 × 9.2% = $644
 - **Title fee**: $26 standard / by weight class. **Registration**: $72/yr biennial (paid every 2 years = $144 total for 2-year period; passenger).
 - **Trade-in tax credit**: **YES** — sale price minus trade is the excise base.
 - **Has**: $26 lien recording; $25 reflective plate fee; $100 EV charging infrastructure fee; emissions inspection biennial ($35).
-- **Does NOT have**: no traditional sales tax (DC's excise structure is unique among US jurisdictions — closest analog is GA TAVT but DC scales by weight); no county stacking (DC = single jurisdiction, no sub-jurisdiction layering); no MD $300 doc cap (DC has no cap); no VA "no-trade-credit" rule; no NY MCTD; no NJ supplemental titling; no NC HUT; no FL surtax ceiling; no MI trade-in cap; no CA luxury tier; no IL emissions $20.
+- **Does NOT have**: no traditional sales tax (DC's excise structure is unique among US jurisdictions — closest analog is GA TAVT but DC scales by weight); no county stacking (DC = single jurisdiction, no sub-jurisdiction layering); no MD $800 doc cap (DC has no cap); no VA "no-trade-credit" rule; no NY MCTD; no NJ supplemental titling; no NC HUT; no FL surtax ceiling; no MI trade-in cap; no CA luxury tier; no IL emissions $20.
 
 #### DC Worked OTD Example (Class II 4,200 lb Honda CR-V, $32,000 MSRP, no trade)
 
@@ -708,7 +708,7 @@ Tax savings       = $9,000 × ~8.5% blended = ~$765
 ### MD — Maryland
 
 - **Sales tax**: 6% flat state, **no local stacking** (MD is one of the cleanest tax structures — same 6% statewide for vehicles, parallel to MI).
-- **Doc fee cap**: **$300 (statutory cap, MD Transportation § 15-311.1 raised from $200 in Nov 2024).** Treat any MD doc above $300 as flat illegal leak. **MD has the second-strongest doc-fee protection in the DC corridor** (DC no cap, VA $599, MD $300, PA no cap).
+- **Doc fee cap**: **$800 (statutory cap, MD Transportation § 15-311.1, effective July 1 2024 — raised from $500).** Cap history: $200 → $300 (2014) → $500 (2020) → $800 (2024). Treat any MD doc above $800 as flat illegal leak. **MD doc protection is now WEAK — its $800 cap is HIGHER than VA's $599 cap**, inverting the old "MD = low-doc sweet spot" claim. In the DC corridor MD now has the highest statutory doc cap (DC no cap, MD $800, VA $599); VA is the doc-fee sweet spot, not MD.
 - **Title fee**: $50 (titling tax separately, not a fee). **Registration**: **$135 every 2 years** (biennial — passenger 3,700 lbs+; smaller cars $108 biennial). This is high vs typical $35-50/yr.
 - **Trade-in tax credit**: **YES** — sale price minus trade is the taxable base.
 - **Has**: $20 lien recording; $14 title-search fee; biennial vehicle safety inspection at sale only ($65-100 at certified station — required before title transfer for used cars sold by dealers; no annual recurring inspection like VA); $100 EV registration surcharge.
@@ -716,33 +716,33 @@ Tax savings       = $9,000 × ~8.5% blended = ~$765
 
 #### MD Worked OTD Example (Montgomery County 20850, DC commuter, no trade)
 
-Sales $31,000, doc $300 (MD cap), MD 6%:
+Sales $31,000, doc $800 (MD cap), MD 6%:
 
 ```
-Taxable = $31,000 + $300 = $31,300
-Tax     = $31,300 × 0.06 = $1,878.00
+Taxable = $31,000 + $800 = $31,800
+Tax     = $31,800 × 0.06 = $1,908.00
 Title   = $50
 Lien    = $20
 Reg (biennial annualized) = $67.50/yr ($135/2yr)
 VEIP    = $14
-OTD     = $31,000 + $300 + $1,878 + $50 + $20 + $67.50 + $14 = $33,329.50
+OTD     = $31,000 + $800 + $1,908 + $50 + $20 + $67.50 + $14 = $33,859.50
 ```
 
 #### MD Worked OTD Example (Baltimore County 21204, $10,000 trade)
 
-Sales $34,000, doc $300, trade $10,000, MD 6%:
+Sales $34,000, doc $800, trade $10,000, MD 6%:
 
 ```
 Net sale          = $34,000 - $10,000 = $24,000
-Taxable           = $24,000 + $300 = $24,300
-Tax               = $24,300 × 0.06 = $1,458.00
+Taxable           = $24,000 + $800 = $24,800
+Tax               = $24,800 × 0.06 = $1,488.00
 Title             = $50
 Reg (biennial)    = $135 (paid in full at registration)
 VEIP              = $14
-OTD before trade  = $34,000 + $300 + $1,458 + $50 + $135 + $14 = $35,957
+OTD before trade  = $34,000 + $800 + $1,488 + $50 + $135 + $14 = $36,487
 Trade applied     = -$10,000
-Cash OTD          = $25,957
-Tax savings       = $10,000 × 6% = $600 (vs $0 in VA — the DC-corridor structural MD advantage)
+Cash OTD          = $26,487
+Tax savings       = $10,000 × 6% = $600 (vs $0 in VA — the DC-corridor structural MD trade-credit advantage)
 ```
 
 ### Cross-State Titling Rows — High-Pop States + DC Corridor
@@ -765,15 +765,15 @@ Tax savings       = $10,000 × 6% = $600 (vs $0 in VA — the DC-corridor struct
 | MI (Detroit Wayne) | OH (Toledo Lucas) | MI 6% (paid at MI SOS) | OH $250 cap | OH doc $20 cheaper than MI $230 cap. Tax same. Net: $20 advantage. |
 | MI (Grand Rapids Kent) | IN (South Bend St. Joseph) | MI 6% | IN typ $279-399 | IN doc $49-169 MORE than MI cap. Net disadvantage. |
 | VA (Arlington 22203, DC commuter) | DC (Georgetown) | VA 4.15% SUT, NO trade credit | DC no cap (typ $599-899) | DC dealer should NOT charge DC excise to VA buyer. VA SUT applies at VA DMV titling. DC doc typ $200-300 MORE than VA $599 cap. Trade-in: if buyer has trade, MD/DC sales would grant credit but VA registration does NOT — buyer pays full SUT regardless of dealer state. **VA buyers with trades: this is the structural disadvantage; consider relocating before purchase if trade is large.** |
-| VA (Fairfax 22030) | MD (Bethesda Montgomery) | VA 4.15% SUT, NO trade credit | MD $300 cap | MD dealer should NOT charge MD 6%. VA SUT applies. MD doc $299 LESS than VA $599 cap — **MD = doc-fee sweet spot for VA buyers** (parallel to DE for PA buyers). Trade credit lost at VA DMV regardless of MD origin. |
+| VA (Fairfax 22030) | MD (Bethesda Montgomery) | VA 4.15% SUT, NO trade credit | MD $800 cap | MD dealer should NOT charge MD 6%. VA SUT applies. MD's $800 cap is $201 HIGHER than VA's $599 cap — **no doc advantage crossing to MD; MD is now the high-doc state in this pair.** Trade credit lost at VA DMV regardless of MD origin. |
 | VA (Loudoun 20176) | WV (Charles Town Jefferson) | VA 4.15% SUT, NO trade credit | WV $199 cap | WV doc $400 LESS than VA $599 cap — even bigger doc savings than MD. WV dealer should NOT charge WV 6%. |
 | VA (Norfolk 23508) | NC (Raleigh Wake) | VA 4.15% SUT | NC $129 cap | NC doc $470 LESS than VA $599 cap — best doc-fee cross-state from VA. NC dealer should NOT charge NC HUT to VA buyer. |
 | DC (Capitol Hill 20003) | VA (Arlington) | DC excise by weight class | VA $599 cap | VA dealer should NOT charge VA 4.15%. DC excise applies at DC DMV. VA doc cheaper than DC's uncapped. **VA = doc-fee sweet spot for DC buyers** (parallel to DE for PA, MD for VA). |
-| DC (Adams Morgan 20009) | MD (Silver Spring Montgomery) | DC excise | MD $300 cap | MD dealer should NOT charge MD 6%. DC excise applies. **MD doc $300 = lowest in DC corridor** — strongest doc protection. Net major advantage. |
-| MD (Bethesda Montgomery) | VA (Tysons Corner Fairfax) | MD 6% (paid at MD MVA) | VA $599 cap | VA dealer should NOT charge VA 4.15%. MD 6% applies at MD MVA. VA doc $299 MORE than MD $300 cap. Net disadvantage on doc; tax depends on net trade-credit-adjusted comparison. |
-| MD (Silver Spring Montgomery) | DC (Georgetown) | MD 6% | DC no cap | DC doc typically MORE than MD cap. No advantage. |
-| MD (Baltimore County) | PA (border Harrisburg/York 17XXX) | MD 6% | PA no cap (typ $499-999) | PA doc typically $200-700 MORE than MD $300 cap. No advantage. |
-| MD (Cecil County 219XX) | DE (Wilmington/Newark) | MD 6% | DE no cap (typ $299-499) | DE has no state sales tax but 4.25% doc fee for DE residents only — does NOT apply to MD buyer. MD 6% at MD MVA. DE doc $300-200 LESS than MD $300 cap effectively (or similar). **DE = doc-fee parity zone for MD buyers.** |
+| DC (Adams Morgan 20009) | MD (Silver Spring Montgomery) | DC excise | MD $800 cap | MD dealer should NOT charge MD 6%. DC excise applies. **MD's $800 cap is the highest in the DC corridor** — weak doc protection. For doc savings a DC buyer should cross to VA ($599 cap), not MD. |
+| MD (Bethesda Montgomery) | VA (Tysons Corner Fairfax) | MD 6% (paid at MD MVA) | VA $599 cap | VA dealer should NOT charge VA 4.15%. MD 6% applies at MD MVA. VA's $599 cap is $201 LESS than MD's $800 cap — **doc advantage crossing to VA**; tax depends on net trade-credit-adjusted comparison. |
+| MD (Silver Spring Montgomery) | DC (Georgetown) | MD 6% | DC no cap | DC is uncapped (typ $599-899), comparable to MD's $800 cap. No reliable doc advantage either way. |
+| MD (Baltimore County) | PA (border Harrisburg/York 17XXX) | MD 6% | PA no cap (typ $499-999) | PA doc ($499-999) is comparable to MD's $800 cap — PA low end is cheaper, high end pricier. No reliable doc advantage. |
+| MD (Cecil County 219XX) | DE (Wilmington/Newark) | MD 6% | DE no cap (typ $299-499) | DE has no state sales tax but 4.25% doc fee for DE residents only — does NOT apply to MD buyer. MD 6% at MD MVA. DE doc ($299-499) is $300-500 LESS than MD's $800 cap. **DE = doc-fee savings zone for MD buyers.** |
 | WA (Seattle King 10.55%) | OR (Portland Multnomah) | WA 10.55% (paid at WA DOL) | OR typ $115 (CAT applies for new) | OR has NO state sales tax. OR dealer should NOT charge anything tax-side to WA buyer (but per WA-OR reciprocity rules, WA tax IS due at WA DOL titling — buyers attempting to register OR-purchased cars in WA cannot escape WA 10.55%). **WA→OR is a magnet for residency arbitrage (buying + registering in OR if buyer maintains OR address) but NOT for WA-residents who try to register in OR — WA DOL audits cross-border title transfers.** Doc: OR $115 vs WA $200 cap = $85 OR doc savings; minimal. |
 | WA (Spokane 9.2%) | ID (Coeur d'Alene Kootenai) | WA 9.2% | ID no cap (typ $299-499) | ID dealer should NOT charge ID 6%. WA tax applies. ID doc $99-299 MORE than WA $200 cap. Net disadvantage on doc. |
 
@@ -781,9 +781,9 @@ Tax savings       = $10,000 × 6% = $600 (vs $0 in VA — the DC-corridor struct
 
 The DC + VA + MD commuter corridor has 3 distinct doc-fee zones:
 
-- **MD $300 cap** — strongest doc protection (parallels NY $175, IL $347, TX $150)
-- **VA $599 cap** — moderate
-- **DC no cap** — weakest but small dealer count limits impact
+- **VA $599 cap** — strongest doc protection in the corridor
+- **MD $800 cap** — weak (raised to $800 eff. July 1 2024; now the HIGHEST statutory cap in the corridor, above VA)
+- **DC no cap** — uncapped but small dealer count limits impact
 
 For a buyer with trade-in optionality across the corridor, the math:
 
@@ -801,7 +801,7 @@ Phase 1 buyer-type router should surface the trade-vs-no-trade DC-corridor split
 
 ## State-Specific Quirks
 
-- **MD doc fee cap $300** (raised from $200 in November 2024 — second-strongest doc protection in DC corridor)
+- **MD doc fee cap $800** (effective July 1 2024; cap history $200 → $300 [2014] → $500 [2020] → $800 [2024] per MD Transportation § 15-311.1 — now the HIGHEST statutory doc cap in the DC corridor, above VA's $599; the old "MD = low-doc sweet spot" framing is obsolete)
 - **FL has no state income tax + no doc fee cap** — FL is a destination state for retirees/out-of-state buyers but FL dealers charge among the highest doc fees in the US ($999-1,499 typical, no statutory ceiling)
 - **FL surtax ceiling on first $5,000** — county discretionary surtax (0.5-2%) only applies to first $5k of price, so total surtax is capped at ~$100 per vehicle regardless of sale price
 - **FL first-time registration fee $225** — out-of-state buyers transferring to FL hit this one-time fee at first FL title issuance

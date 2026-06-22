@@ -66,7 +66,7 @@ If state does NOT grant credit, drop the `Trade` term from the taxable base.
 | MI | 6% | $230 | $15 | $100 | Yes capped 9k (2025) |
 | GA | 6.6% TAVT one-time | none | $18 | $20 | Yes (on TAVT) |
 | WA | 8-10% (combined) | $200 | $15 | $80 | Yes |
-| MD | 6% | $499 | $100 | $135 | Yes |
+| MD | 6% | $800 | $100 | $135 | Yes |
 | VA | 4.15% min $75 | $599 | $15 | $41 | NO |
 
 Full 50-state + DC data: `../orchestrator/references/state_fees.md`.
@@ -117,7 +117,7 @@ OTD     = 32000 + 150 + 2009.38 + 33 + 50 + 200 = 34442.38
 - **GA TAVT**: 6.6% one-time title ad valorem tax in lieu of sales+ad valorem. Trade reduces TAVT base.
 - **NC HUT**: 3% Highway Use Tax in lieu of sales tax; doc capped at $129.
 - **NH/OR/MT/DE no sales tax**: any sales-tax line on a quote to these buyers is a template leak - demand re-quote.
-- **MD doc cap**: raised to $499 Nov 2024 (was $300 before; older references will mislead).
+- **MD doc cap**: $800 effective July 1 2024 (cap history $200 -> $300 -> $500 -> $800; older references citing $300/$499/$500 will mislead). MD's $800 cap is now HIGHER than VA's $599 - MD is no longer a low-doc state.
 
 ## Python helper
 

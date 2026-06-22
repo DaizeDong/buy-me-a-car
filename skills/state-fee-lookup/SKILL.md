@@ -47,7 +47,7 @@ TradeCr  : YES / NO / partial
 | KY | 6% | 0% | none | $9 | $65 | NO |
 | LA | 4.45% | 1-5% | $200 | $69 | $50 | Yes |
 | ME | 5.5% | 0% | none | $33 | $35 | Yes |
-| MD | 6% | 0% | $499 (Nov 2024) | $100 | $135 | Yes |
+| MD | 6% | 0% | $800 (eff. July 1 2024) | $499-799 | $135 | Yes |
 | MA | 6.25% | 0% | none | $75 | $60 | Yes |
 | MI | 6% | 0% | $230 | $15 | $100 | Yes (capped $9k 2025) |
 | MN | 6.5% | 0-1.5% | $125 | $11 | $100 | Yes |
@@ -103,7 +103,7 @@ These have ZIP-level or quirk-level breakdowns in `../orchestrator/references/st
 - **VA** - 4.15% SUT min $75, $599 doc cap, NO trade credit
 - **WA** - 6.5% + MVET 0.3% + 0.5-3.5% local, $200 doc cap
 - **DC** - 6-9% excise by weight class on first $40k MSRP, weight-tiered
-- **MD** - 6% flat, $499 doc cap (raised Nov 2024 from $300)
+- **MD** - 6% flat, $800 doc cap (eff. July 1 2024, raised from $500; now HIGHER than VA's $599 — not a low-doc state)
 - **PA-by-ZIP** - Bryn Mawr 19010 / KoP 19406 / West Chester 19380 all flat 6%
 
 ## Cross-state titling shortcuts
@@ -118,7 +118,7 @@ Tax is paid based on **buyer's residence state**, not dealer state. Common patte
 | NJ | CT | NJ 6.625% | CT $499-699 |
 | PA | NJ | PA 6/7/8% | NJ <=$799 cap |
 | PA | DE | PA 6/7/8% | DE typ $299-499 (sweet spot) |
-| PA | MD | PA 6/7/8% | MD <=$499 cap |
+| PA | MD | PA 6/7/8% | MD <=$800 cap (no advantage) |
 | CA | NV | CA 8.75-9.5% | NV $499-799 |
 | CA | OR | CA 8.75-9.5% | OR ~$115 |
 | CA | AZ | CA 8.75-9.5% | AZ $499-799 |
@@ -134,7 +134,7 @@ Dealer CRM templates frequently leak fees from OTHER states. Use these absence l
 
 - **NJ should NOT have**: NY MCTD, CA smog, RI $250 doc cap text, per-battery fee, environmental impact fee, NY $175 doc cap
 - **NY should NOT have**: NJ supplemental titling, NJ $799 doc, CT luxury 7.75%, RI $250 doc cap, FL $77 title
-- **PA should NOT have**: NJ supplemental titling, NJ $799 doc, NY $175 doc cap, CT luxury 7.75%, RI $250 cap, MD $499 cap, CA smog
+- **PA should NOT have**: NJ supplemental titling, NJ $799 doc, NY $175 doc cap, CT luxury 7.75%, RI $250 cap, CA smog
 - **CT should NOT have**: per-tire/battery, NJ supplemental titling, NY MCTD, RI $250 doc cap
 - **CA should NOT have**: trade-in credit on tax (CA explicitly disallows), NJ doc fees, OR-style zero-tax
 - **NH should NOT have**: ANY sales tax line (zero sales tax state)
