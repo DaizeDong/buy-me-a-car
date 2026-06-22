@@ -119,10 +119,10 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 - **产出**：8 页 HTML + headless-Chrome PDF（中英），含市场均价 / OTD / CPO 嵌入价值 / dealer 内部 anchor 分析。
 
 ### ev-buyer-helper
-- **何时用**：买电车 —— 联邦 §30D POS、§25E 二手、§45W 租赁、州级补贴叠加。
+- **何时用**：买电车 —— 州级/地方 rebate 叠加、充电（NACS/CCS1）、二手电车电池尽调。注意：联邦 §30D（$7,500 新）/ §25E（$4,000 二手）/ §45W（租赁穿透）三项抵免已对 2025-09-30 之后购车 **全部终止**（OBBBA，公法 119-21），仅作历史参考、不计入净价。
 - **触发**：`EV 补贴`、`$7,500 POS`、`电车 credit`
-- **示例**：`Ioniq 5 SEL 在 NJ 能不能拿 $7,500 POS`
-- **产出**：补贴后净价 + dealer IRS 注册核实 + NACS/CCS1 转接头指引。
+- **示例**：`Ioniq 5 SEL 在 NJ 2026 年还有哪些 EV rebate 可拿`
+- **产出**：扣除州/地方 rebate 后的净价（无联邦抵免）+ NACS/CCS1 转接头指引 + 二手电车 SoH 尽调。
 
 ### payment-method-decider
 - **何时用**：选 close-day 工具 —— cashier's check / 信用卡 / wire / lease cap reduction。

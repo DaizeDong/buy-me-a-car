@@ -425,8 +425,8 @@ Commercial vehicles are passenger-deficient utility vehicles built for fleet, co
 | **Mercedes-Benz Sprinter** (also Freightliner branded) | Class 2-3 van | Most luxurious commercial van; "wedding shuttles", "tour buses", high-end upfit market; gas 2.0L turbo I4 or diesel 3.0L V6 (V6 now retired in some markets); legendary durability 400k+ mi reported |
 | **RAM ProMaster** | Class 2-3 van | Italian-made (Fiat Ducato platform); FWD layout = unique cargo floor height; lowest entry price in segment; gas 3.6L V6 only since 2024 |
 | **Chevrolet Express / GMC Savana** | Class 2-3 van | Holdovers from 2003 era — solid axle rear, body-on-frame; outdated cab but bombproof for fleet; gas 4.3L V6 / 6.6L V8 / 2.8L Duramax I4 diesel |
-| **Ford E-Transit (electric)** | Class 2 BEV van | Electric Transit; 126 mi range; commercial-only purchase incentive ($7,500 § 45W per unit) |
-| **Mercedes eSprinter (electric)** | Class 2 BEV van | Same as E-Transit, 71 kWh battery; § 45W eligible |
+| **Ford E-Transit (electric)** | Class 2 BEV van | Electric Transit; 126 mi range; **§45W $7,500 commercial credit TERMINATED for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05) — no longer claimable on a 2026 purchase, do NOT enter in OTD math; state/local rebates only** |
+| **Mercedes eSprinter (electric)** | Class 2 BEV van | Same as E-Transit, 71 kWh battery; **§45W TERMINATED 2025-09-30 — no longer eligible for any 2026 acquisition** |
 
 #### 2.2 Section 179 + Bonus Depreciation — Tax Strategy
 

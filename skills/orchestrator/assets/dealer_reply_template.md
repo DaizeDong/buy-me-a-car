@@ -19,7 +19,7 @@ Every outbound dealer email must conform to the voice rules below. These are not
 |---|---|---|---|
 | Cash buyer | "I am a cash buyer in {CITY} {STATE}, ready to close this week with a cashier's check." | "OTD all-in (sale + tax + doc + title + reg)" | "Above ${WALK} OTD I walk to my other anchors." |
 | Financing buyer | "I have a pre-approval from {LENDER} at {APR}% / {TERM}mo, ${DOWN} cash down." | "Effective OTD cap from monthly + down is ${EFFECTIVE}." | "Above ${WALK} OTD or ${MAX_MONTHLY}/mo I walk." |
-| EV buyer (POS credit) | "I am taking the federal $7,500 at point of sale. I need IRS Energy Credits Online dealer registration ID on letterhead before deposit." | "Net OTD post-credit (after $7,500 POS transfer)" | "Above ${WALK} net post-credit OTD I walk." |
+| EV buyer (state rebate) | "I am an EV buyer in {CITY} {STATE}, closing this week. NOTE: the federal $7,500 / $4,000 / §45W EV credits were terminated for vehicles acquired after 2025-09-30 (OBBBA, Public Law 119-21); do not quote them in the OTD. Confirm whether {STATE} rebate {PROGRAM} is still funded and how it applies." | "Net OTD after any state/local rebate (no federal credit)" | "Above ${WALK} net OTD I walk." |
 
 Once a variant is chosen, every dealer email in that cycle uses the same opening profile line, the same OTD framing label, and the same walk-away framing.
 

@@ -15,7 +15,7 @@ Narrow sub-skill: buyer has a locked OTD in writing and is heading to the dealer
 - Buyer is signing today or tomorrow and needs a sub-checklist by buyer type
 - Buyer wants the F&I add-on refusal script to read verbatim at the F&I desk
 - Buyer has a trade with active lien and needs the payoff workflow
-- Buyer is an EV buyer and needs the Section 30D POS credit transfer day-of mechanics
+- Buyer is an EV buyer and needs day-of EV mechanics (state rebate paperwork, battery/SoH, charging — NOTE: federal §30D POS credit transfer is TERMINATED 2025-09-30, historical only)
 - Buyer is buying a pickup and needs the truck-specific PPI quick checklist
 
 ## When NOT To Use
@@ -102,25 +102,38 @@ On-site:
 
 Post-close monitoring (calendar reminders at Day 5 / 10 / 14 / 21): payoff initiated, lien-holder received, release filed at DMV, release confirmation in hand. If not released by Day 30, escalate per `../orchestrator/references/trade_in.md` section 5.
 
-### EV buyer (Section 30D POS credit transfer)
+### EV buyer
 
-Pre-arrival (cross-ref `../orchestrator/references/ev_buyer_playbook.md` section 1):
-- [ ] Dealer is IRS Energy Credits Online registered (verify ID on dealer letterhead BEFORE deposit)
-- [ ] Form 8936 ready for signing
-- [ ] MAGI under threshold confirmed ($150k single / $300k joint for new; $75k / $150k for used)
+> **⚠️ Federal §30D POS credit transfer is TERMINATED 2025-09-30 (OBBBA / Public Law
+> 119-21).** For any 2026 purchase there is **NO federal $7,500 §30D credit** — no IRS
+> ECO registration check, no Form 8936, no Time of Sale report, no $7,500 line item to
+> verify at close. Do NOT expect or insert a federal credit line in the signed agreement.
+> The §30D items below are retained as **HISTORICAL** (pre-2025-10-01 acquisitions only).
+> The only live close-day EV incentive layer is **state/local rebates** — see the bottom
+> of this checklist and the CRITICAL banner in `ev-buyer-helper`.
+
+Pre-arrival (LIVE in 2026, cross-ref `../orchestrator/references/ev_buyer_playbook.md`):
 - [ ] Battery warranty docs reviewed (new EV) OR SoH report obtained (used EV) per section 6
 - [ ] NACS vs CCS1 port confirmed; adapter ordered if needed
+- [ ] State EV rebate eligibility + paperwork confirmed (MSRP/income caps per state; this is the only live incentive)
 
-On-site (day-of mechanics):
-- [ ] $7,500 reduction shown as separate line item on signed agreement (NOT bundled into sale price)
-- [ ] Time of Sale report copy retained (required at tax filing the following year)
+Pre-arrival (HISTORICAL — pre-2025-10-01 acquisitions only; §30D terminated 2025-09-30, do NOT use for 2026):
+- [ ] ~~Dealer is IRS Energy Credits Online registered~~ (N/A — §30D terminated)
+- [ ] ~~Form 8936 ready for signing~~ (N/A — §30D terminated)
+- [ ] ~~MAGI under threshold confirmed ($150k single / $300k joint for new; $75k / $150k for used)~~ (N/A — §30D/§25E terminated)
+
+On-site (LIVE in 2026):
 - [ ] Battery warranty registered to buyer at delivery (new EV)
 - [ ] No EV Prep / Battery Conditioning / Charge Cable / EV Delivery Setup ADM line items per gotcha D9 + `../orchestrator/references/ev_buyer_playbook.md` section 8
 - [ ] L1 OEM charge cable included in delivery (factory accessory, NOT a separate purchase)
 
+On-site (HISTORICAL — pre-2025-10-01 acquisitions only; do NOT apply to a 2026 close):
+- [ ] ~~$7,500 reduction shown as separate line item on signed agreement~~ (N/A — §30D terminated; no federal credit line should appear)
+- [ ] ~~Time of Sale report copy retained~~ (N/A — §30D terminated)
+
 Post-close:
 - [ ] Home L2 install scheduled (Qmerit / Treehouse / ChargePoint) if not already
-- [ ] State EV rebate application submitted (verify state DOE / clean-energy office deadline)
+- [ ] State EV rebate application submitted (verify state DOE / clean-energy office deadline — the only live incentive)
 
 ### Pickup-truck buyer
 
@@ -281,7 +294,7 @@ Pre-empts most close-day F&I friction. Full template in `../orchestrator/assets/
 |---|---|
 | Full Phase 9 detail (all 5 buyer types) | `../orchestrator/references/phases.md#phase-9--close` |
 | Lien payoff full workflow | `../orchestrator/references/trade_in.md` section 4a-4d |
-| EV Section 30D POS credit mechanics | `../orchestrator/references/ev_buyer_playbook.md` section 1 |
+| EV federal credit status (§30D/§25E/§45W all TERMINATED 2025-09-30 — historical) + live state rebates | `../orchestrator/references/ev_buyer_playbook.md` section 1; `ev-buyer-helper` CRITICAL banner |
 | Pickup-specific PPI items | `../orchestrator/references/vertical_playbooks.md#part-1--pickup-truck-specifics` section 4 |
 | State-fee leak detection ("Does NOT have") | `../orchestrator/references/state_fees.md` section Tri-State / New England detail stubs (gotcha D8) |
 | F&I hard-no full text + reframe | `../orchestrator/assets/dealer_reply_template.md` section Close-Day F&I Hard-No |

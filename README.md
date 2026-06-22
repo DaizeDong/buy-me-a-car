@@ -119,10 +119,10 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Output**: 8-page HTML + headless-Chrome PDF (EN or CN), covering market avg / OTD / CPO embedded value / dealer anchor analysis.
 
 ### ev-buyer-helper
-- **Use when**: buyer is going EV — federal §30D POS transfer, §25E used, §45W lease, state stack.
+- **Use when**: buyer is going EV — state/local rebate stack, charging (NACS/CCS1), used-EV battery diligence. NOTE: the federal §30D ($7,500 new) / §25E ($4,000 used) / §45W (lease pass-through) credits were TERMINATED for vehicles acquired after 2025-09-30 (OBBBA, Public Law 119-21); they are historical only and not counted in net-price math.
 - **Triggers**: `EV federal credit`, `$7,500 POS`, `电车补贴`
-- **Example**: `is the Ioniq 5 SEL eligible for $7,500 POS in NJ`
-- **Output**: net price after credits + dealer IRS-reg verification + NACS/CCS1 adapter guidance.
+- **Example**: `what EV rebates still apply in NJ for an Ioniq 5 SEL in 2026`
+- **Output**: net price after any state/local rebate (no federal credit) + NACS/CCS1 adapter guidance + used-EV SoH diligence.
 
 ### payment-method-decider
 - **Use when**: choose close-day instrument — cashier's check / credit card / wire / lease cap reduction.
