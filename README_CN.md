@@ -12,6 +12,24 @@
 
 ---
 
+## ⭐ 先读这个 —— 设计理念
+
+经销商赢，靠的是控制框架：把一笔交易拆成 sale price、税、fee、贷款，让每一项看起来都很小；按自己的节奏刷收件箱；赌你冷启动走进大堂。这个 plugin 把这些优势逐条反转。整套设计都源自五条铁律，每条都来自一次具体的丢钱事故：
+
+1. **只谈 OTD** —— 绝不分开 sale price / tax / fee 单独谈，只盯 out-the-door 总价。拆分交易就是每次丢 $1k 还浑然不觉的根源。
+2. **纯 ASCII 邮件** —— 禁用 markdown、em-dash、智能引号。Dealer 客户端会把它们当字面乱码显示，邮件糙就显得买家糙。
+3. **3-anchor 反砍** —— 每封回信必含 (a) dealer 自家内部价差、(b) 区域市场 comp、(c) 你已锁的竞品 OTD。三个 anchor 让对方无从争辩。
+4. **15 分钟 cron 扫信** —— Gmail 由 cron 自动轮询，绝不让人工反复刷。先回复的买家握有筹码。
+5. **walk-away 阈值** —— 超预算或对方拒绝合理还价 → 礼貌走人。在多个 dealer 间维持选项，胜过抢一单平庸成交。
+
+下游的一切 —— 并行抓取、OTD 计算器、dossier —— 都是为了让这五条铁律执行起来成本极低。完整规则见 [`SKILL.md`](skills/orchestrator/SKILL.md)。
+
+## 它是什么（不是什么）
+
+**它是**一个买家侧谈判驾驶舱：1 个 orchestrator 跑 9-phase 流程（research → outreach → negotiate → close），外加 15 个窄触发子 skill，可独立调用处理单项任务（OTD 数学、州费查询、CARFAX 审阅、lease-vs-cash、置换估值等）。它带着真实数据：50 州 + DC 的费项明细、16 品牌 CPO 资格、6 条买家路径（含 private-party）。
+
+**它不是**价格预言机、不是 dealer 侧 CRM、也不是税务 / 法律 / 财务建议。它不会自动发送任何有约束力的东西 —— 邮件以 Gmail draft 形式保存，由你审阅后再发。它是单作者 alpha（见 [局限](#局限)）。
+
 ## 安装
 
 ```
@@ -26,7 +44,17 @@ git clone https://github.com/DaizeDong/buy-me-a-car.git ~/.claude/plugins/buy-me
 
 Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`审 CARFAX` 等任意触发短语时自动激活。
 
----
+安装后跑这几条验证骨架：
+
+```bash
+ls skills/   # 应看到 16 个目录
+python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
+python skills/orchestrator/scripts/generate_dossier.py \
+  --config skills/orchestrator/assets/dossier_config_template.yaml \
+  --output /tmp/test.html
+```
+
+任一步失败 → 开 issue 贴 traceback。多半是 Python 依赖（PyYAML / Jinja2）或 Chrome headless 路径问题。
 
 ## 60 秒导览
 
@@ -49,8 +77,6 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 
 效果：相比冷启动走入 dealer 大堂，通常省 **$5-9k**。
 
----
-
 ## Skill 一览
 
 总计 16 个：1 个宽触发 orchestrator + 15 个窄触发子 skill。子 skill 都能独立调用，orchestrator 在 9-phase 流程内部路由它们。
@@ -62,8 +88,6 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 | **谈判** | [dealer-reply-drafter](#dealer-reply-drafter) · [dossier-builder](#dossier-builder) |
 | **决策 + 核查** | [lease-vs-cash-analyzer](#lease-vs-cash-analyzer) · [payment-method-decider](#payment-method-decider) · [ev-buyer-helper](#ev-buyer-helper) · [cpo-eligibility](#cpo-eligibility) · [carfax-pdf-review](#carfax-pdf-review) |
 | **提车** | [insurance-shopper](#insurance-shopper) · [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
-
----
 
 ## 每个 skill 怎么用
 
@@ -166,23 +190,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 - **示例**：`给我明天 cash + 置换买家的提车清单`
 - **产出**：到店前 / 现场 / 离店后 checklist + 逐字 F&I 拒绝话术。
 
----
-
-## 五条铁律
-
-不可妥协。每条都源自某次具体丢钱事故：
-
-1. **只谈 OTD** —— 绝不分开 sale price / tax / fee 单独谈，只盯 out-the-door 总价。
-2. **纯 ASCII 邮件** —— 禁用 markdown、em-dash、智能引号。Dealer 客户端会把它们当字面字符显示。
-3. **3-anchor 反砍** —— 每封回信必含 (a) dealer 自家内部价差、(b) 区域市场 comp、(c) 你已锁的竞品 OTD。
-4. **15 分钟 cron 扫信** —— Gmail 由 cron 自动轮询，绝不让人工反复刷。
-5. **walk-away 阈值** —— 超预算或对方拒绝合理还价 → 礼貌走人。维持选项胜过抢一单。
-
-完整规则见 [`SKILL.md`](skills/orchestrator/SKILL.md)。
-
----
-
-## 触发冲突路由
+### 触发冲突路由
 
 一句话能匹配多个 skill 时，**最窄、最具体**的触发胜出：
 
@@ -207,44 +215,11 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 
 歧义时显式点名 skill：`用 dealer-reply-drafter 起草这封`。不确定调哪个？喊 `orchestrator`，它会在内部路由。
 
----
-
 ## 输出示例
 
 ![站点能力矩阵 + 候选去重](./examples/market_cn.png)
 
 Phase 3 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键差异 + 推荐顺序，下半是按 VIN 去重的候选清单含 Deal Tag。两张都是 Markdown 表格 → Claude 渲染。
-
----
-
-## 语言
-
-### 语言与受众分离
-
-三种语言、两个面向，必须分开：
-
-- **面向买家（chat + `criteria.md` + dossier）**：English / 中文 / Español 都行。触发短语三语都能激活（`buy me a car` / `帮我买车` / `ayudame a comprar un carro`）。dossier 有 EN 和 CN 两套打印模板；西语为买家侧 chat 支持 + 对 load-bearing 术语（OTD、doc fee、ADM、CPO、NACS、GAP、MSRP）的解释性 ES glossary，并按地区做 `carro / coche / auto` 镜像。
-- **面向 dealer 的邮件**：**无论买家用什么语言聊，发给 dealer 的件一律 English + 纯 ASCII**。dealer 的 CRM 客户端会把非 ASCII 字符渲染错乱，而英文 OTD ask 能和 dealer 自己的报价同线程对齐。买家用母语读这单生意，dealer 读到的 ask 是英文。详见 `skills/orchestrator/SKILL.md` 的 _Language and Audience Separation_ 段。
-
-> ES gloss 均为待母语者签字的 working translation，生产使用前需复核。
-
----
-
-## 自检
-
-安装后跑这几条，验证骨架是否齐全：
-
-```bash
-ls skills/   # 应看到 16 个目录
-python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
-python skills/orchestrator/scripts/generate_dossier.py \
-  --config skills/orchestrator/assets/dossier_config_template.yaml \
-  --output /tmp/test.html
-```
-
-任一步失败 → 开 issue 贴 traceback。多半是 Python 依赖（PyYAML / Jinja2）或 Chrome headless 路径问题。
-
----
 
 ## 局限
 
@@ -253,12 +228,21 @@ python skills/orchestrator/scripts/generate_dossier.py \
 - **anti-bot 不稳定** —— CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar 依赖 Playwright MCP，网站改版可能让 subagent 整组失败。
 - **非税务 / 法律 / 财务建议** —— 所有计算仅供谈判参考，过户、贷款、保险请咨询持牌专业人士。
 
----
+## 语言
+
+三种语言、两个面向，必须分开：
+
+- **面向买家（chat + `criteria.md` + dossier）**：English / 中文 / Español 都行。触发短语三语都能激活（`buy me a car` / `帮我买车` / `ayudame a comprar un carro`）。dossier 有 EN 和 CN 两套打印模板；西语为买家侧 chat 支持 + 对 load-bearing 术语（OTD、doc fee、ADM、CPO、NACS、GAP、MSRP）的解释性 ES glossary，并按地区做 `carro / coche / auto` 镜像。
+- **面向 dealer 的邮件**：**无论买家用什么语言聊，发给 dealer 的件一律 English + 纯 ASCII**。dealer 的 CRM 客户端会把非 ASCII 字符渲染错乱，而英文 OTD ask 能和 dealer 自己的报价同线程对齐。买家用母语读这单生意，dealer 读到的 ask 是英文。详见 `skills/orchestrator/SKILL.md` 的 _Language and Audience Separation_ 段。
+
+> ES gloss 均为待母语者签字的 working translation，生产使用前需复核。
+
+本仓库提供两种语言的文档：English (`README.md`，权威版) · 中文 (`README_CN.md`)。
 
 ## Roadmap · 贡献 · License
 
-[ROADMAP.md](ROADMAP.md) 记录 v0.3.0 / v1.0.0 计划（多作者数据、对抗性 dealer 测试、EV 抵免恢复跟踪、剩余豪华品牌 CPO）。挑一个 → 开 issue → PR。
+[ROADMAP.md](ROADMAP.md) 记录 v0.3.0 / v1.0.0 计划（多作者数据、对抗性 dealer 测试、EV 抵免恢复跟踪、剩余豪华品牌 CPO）。挑一个 → 开 issue → PR。变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-MIT —— Fork it, ship it, save someone money.
+MIT —— Fork it, ship it, save someone money. 见 [LICENSE](LICENSE)。
 
 _last_verified: 2026-05-18_

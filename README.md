@@ -12,6 +12,24 @@
 
 ---
 
+## ⭐ Read this first — the design philosophy
+
+A dealership wins because it controls the frame: it splits the deal into sale price, tax, fees, and financing so each looks small, refreshes its inbox on its own schedule, and counts on you walking in cold. This plugin inverts every one of those advantages. The whole design follows from five iron rules, each born from a specific dollar-loss incident:
+
+1. **OTD only** — never negotiate sale price / tax / fee separately, only the total out-the-door number. Splitting the deal is how you lose track of $1k at a time.
+2. **Plain ASCII emails** — no markdown, em-dash, or smart quotes. Dealer mail clients render them as literal garbage characters, and a sloppy email reads like a sloppy buyer.
+3. **3-anchor counters** — every reply cites (a) the dealer's own internal price spread, (b) a regional market comp, and (c) your locked competitor OTD. Three anchors leave nothing to argue with.
+4. **15-min cron sweep** — Gmail is polled automatically; a human never manually refreshes. The buyer who replies first holds the leverage.
+5. **Walk-away threshold** — over budget or counter rejected = a polite walk. Preserving optionality across many dealers beats grabbing one mediocre deal.
+
+Everything downstream — the parallel scrape, the OTD calculator, the dossier — exists to make those five rules cheap to follow. The full rule set lives in [`SKILL.md`](skills/orchestrator/SKILL.md).
+
+## What it is (and isn't)
+
+**It is** a buyer-side negotiation cockpit: 1 orchestrator that runs a 9-phase pipeline (research → outreach → negotiate → close) plus 15 narrow sub-skills you can call standalone for single tasks (OTD math, state-fee lookup, CARFAX review, lease-vs-cash, trade-in valuation, and more). It carries real data — 50 states + DC of fee detail, 16-brand CPO eligibility, 6 buyer paths including private-party.
+
+**It isn't** a price-prediction oracle, a dealer-side CRM, or tax / legal / financial advice. It does not auto-send anything binding — emails are saved as Gmail drafts for you to review and send. It is single-author alpha (see [Limitations](#limitations)).
+
 ## Install
 
 ```
@@ -26,7 +44,17 @@ git clone https://github.com/DaizeDong/buy-me-a-car.git ~/.claude/plugins/buy-me
 
 Skills auto-activate on phrases like `help me buy a car`, `draft a reply to dealer`, `compute OTD`, `review CARFAX`, etc.
 
----
+Verify the install:
+
+```bash
+ls skills/   # should show 16 directories
+python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
+python skills/orchestrator/scripts/generate_dossier.py \
+  --config skills/orchestrator/assets/dossier_config_template.yaml \
+  --output /tmp/test.html
+```
+
+Any failure → open an issue with the traceback. Most failures are Python deps (`PyYAML`, `Jinja2`) or Chrome headless path.
 
 ## 60-second tour
 
@@ -49,8 +77,6 @@ What runs automatically:
 
 Output: typically **$5-9k saved** vs walking in cold.
 
----
-
 ## Skills at a glance
 
 16 skills total: 1 broad orchestrator + 15 narrow-trigger sub-skills. Sub-skills work standalone; the orchestrator routes to them inside the 9-phase pipeline.
@@ -62,8 +88,6 @@ Output: typically **$5-9k saved** vs walking in cold.
 | **Negotiate** | [dealer-reply-drafter](#dealer-reply-drafter) · [dossier-builder](#dossier-builder) |
 | **Decide & verify** | [lease-vs-cash-analyzer](#lease-vs-cash-analyzer) · [payment-method-decider](#payment-method-decider) · [ev-buyer-helper](#ev-buyer-helper) · [cpo-eligibility](#cpo-eligibility) · [carfax-pdf-review](#carfax-pdf-review) |
 | **Close** | [insurance-shopper](#insurance-shopper) · [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
-
----
 
 ## How to invoke each skill
 
@@ -166,23 +190,7 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Example**: `give me the close-day checklist for tomorrow cash buyer with trade-in`
 - **Output**: pre / on-site / post checklists + verbatim F&I scripts.
 
----
-
-## Five iron rules
-
-Non-negotiable. Each one comes from a specific dollar-loss incident:
-
-1. **OTD only** — never negotiate sale price / tax / fee separately, only the total out-the-door number.
-2. **Plain ASCII emails** — no markdown, em-dash, smart quotes. Dealer mail clients render them as literal characters.
-3. **3-anchor counters** — every reply cites (a) dealer's own internal price spread, (b) regional market comp, (c) your locked competitor OTD.
-4. **15-min cron sweep** — Gmail polled automatically; never let a human manually refresh.
-5. **Walk-away threshold** — over budget or counter rejected = polite walk. Preserving optionality beats grabbing one deal.
-
-Full rule set in [`SKILL.md`](skills/orchestrator/SKILL.md).
-
----
-
-## Trigger routing
+### Trigger routing
 
 When a query could activate multiple skills, the **most narrow + specific** trigger wins:
 
@@ -207,15 +215,18 @@ When a query could activate multiple skills, the **most narrow + specific** trig
 
 If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this`. Unsure which one? Call `orchestrator` — it routes internally.
 
----
-
 ## Example output
 
 ![market matrix + dedup](./examples/market_en.png)
 
 What Phase 3 produces: a 9-site capability matrix (top) + VIN-deduped candidate list with deal tags (bottom), auto-rendered as Markdown tables.
 
----
+## Limitations
+
+- **Single-author alpha** — workflow based on one real purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
+- **Data drifts** — state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
+- **Anti-bot fragile** — CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
+- **Not tax / legal / financial advice** — verify with licensed professionals before signing.
 
 ## Languages
 
@@ -226,37 +237,12 @@ Three languages, two surfaces — keep them separate:
 
 > ES glosses are working translations pending native-speaker sign-off before production use.
 
----
-
-## Self-check
-
-Verify the install:
-
-```bash
-ls skills/   # should show 16 directories
-python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
-python skills/orchestrator/scripts/generate_dossier.py \
-  --config skills/orchestrator/assets/dossier_config_template.yaml \
-  --output /tmp/test.html
-```
-
-Any failure → open an issue with the traceback. Most failures are Python deps (`PyYAML`, `Jinja2`) or Chrome headless path.
-
----
-
-## Limitations
-
-- **Single-author alpha** — workflow based on one real purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
-- **Data drifts** — state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
-- **Anti-bot fragile** — CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
-- **Not tax / legal / financial advice** — verify with licensed professionals before signing.
-
----
+This repo ships docs in two languages: English (`README.md`, authoritative) · 中文 (`README_CN.md`).
 
 ## Roadmap · Contributing · License
 
-[ROADMAP.md](ROADMAP.md) tracks v0.3.0 / v1.0.0 plans (multi-author data, adversarial dealer tests, EV-credit reinstatement watch, remaining luxury-brand CPO). Pick one → open issue → PR.
+[ROADMAP.md](ROADMAP.md) tracks v0.3.0 / v1.0.0 plans (multi-author data, adversarial dealer tests, EV-credit reinstatement watch, remaining luxury-brand CPO). Pick one → open issue → PR. Changes are logged in [CHANGELOG.md](CHANGELOG.md).
 
-MIT — fork it, ship it, save someone money.
+MIT — fork it, ship it, save someone money. See [LICENSE](LICENSE).
 
 _last_verified: 2026-05-18_
