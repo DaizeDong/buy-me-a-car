@@ -1,5 +1,7 @@
 # Roadmap
 
+Current: **v0.2.2**
+
 Snapshot of where `buy-me-a-car` stands and where it goes next.
 
 ---
