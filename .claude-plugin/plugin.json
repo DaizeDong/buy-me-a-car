@@ -1,7 +1,7 @@
 {
   "name": "buy-me-a-car",
   "version": "0.2.2",
-  "description": "Multi-skill plugin for car purchases (new + used + EV). Orchestrator runs the full 9-phase pipeline (research -> outreach -> negotiate -> close). 15 narrow sub-skills handle single tasks: dealer reply drafting, OTD math, state fee lookup, CPO eligibility, CARFAX/PDF review, inbox triage, close-day checklist, quote-evidence collection, trade-in valuation, EV federal credit, payment method, lease vs cash, PPI booking, dossier generation, and insurance shopping. Covers 22 US states + DC at fee-detail depth; 12 brand CPO programs (incl. Stellantis SPOTiCAR, Lexus, Genesis, Acura); 6 buyer paths (cash / finance / lease / trade / EV / private-party).",
+  "description": "Multi-skill plugin for car purchases (new + used + EV). Orchestrator runs the full 9-phase pipeline (research -> outreach -> negotiate -> close). 15 narrow sub-skills handle single tasks: dealer reply drafting, OTD math, state fee lookup, CPO eligibility, CARFAX/PDF review, inbox triage, close-day checklist, quote-evidence collection, trade-in valuation, EV federal credit, payment method, lease vs cash, PPI booking, dossier generation, and insurance shopping. Covers all 50 US states + DC (30 at full fee-detail depth, 21 stub); 12 brand CPO programs (incl. Stellantis SPOTiCAR, Lexus, Genesis, Acura); 6 buyer paths (cash / finance / lease / trade / EV / private-party).",
   "author": {
     "name": "DaizeDong"
   },
