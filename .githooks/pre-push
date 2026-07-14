@@ -1,6 +1,11 @@
 #!/bin/sh
-# pii_guard pre-push -- the local backstop: tree + EVERY commit reachable from any ref (blobs,
-# messages, author/committer identity).
+# PER-REPO pre-push -- the strict local backstop: tree + EVERY commit reachable from any ref
+# (blobs, messages, author/committer identity).
+#
+# Full history is the right scope HERE and only here: this is a repo we own and have already cleaned,
+# so it stays green, and a regression anywhere in it is a real finding. The machine-wide hook cannot
+# do this -- it also runs in forks, whose upstream history holds thousands of other people's
+# mailboxes -- so it checks the push range instead.
 #
 # This is the boundary the 2026-07 leaks crossed. Each was "fixed" by editing the file, so the tree
 # was clean at push time and the commit that introduced the PII went to GitHub anyway. A guard that
@@ -9,8 +14,8 @@
 # It is also where an agent fools itself: `pytest -q && git push` reports the PUSH's exit code, so a
 # failing test still ships. A hook cannot be masked that way.
 #
-# Output is captured, not piped -- see the note in pre-commit. A verdict that a caller's `| head`
-# can destroy is not a verdict. Belt and braces: the same guard runs in CI (.github/workflows/
+# Output is captured, not piped -- see the note in pre-commit. A verdict a caller's `| head` can
+# destroy is not a verdict. Belt and braces: the same scan runs in CI (.github/workflows/
 # pii-guard.yml), which no local shell quirk and no --no-verify can reach.
 GUARD="$(git rev-parse --show-toplevel)/tools/pii_guard.py"
 [ -f "$GUARD" ] || exit 0
