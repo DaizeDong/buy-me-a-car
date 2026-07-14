@@ -235,7 +235,7 @@ After populating the 7-field template, send to dealer:
 ### Cross-References
 
 - Gotcha V1 (`SKILL.md`): CARFAX 1-owner is necessary but not sufficient — service records reveal maintenance
-- Gotcha V2 (`SKILL.md`): require dealer-provided full CARFAX PDF or live URL — verbal "clean" has real failure rate; <Dealer C> incident hid an earlier date minor damage event with front + left + right impact zones
+- Gotcha V2 (`SKILL.md`): require dealer-provided full CARFAX PDF or live URL — verbal "clean" has real failure rate; a real incident hid a prior minor damage event with front + left + right impact zones behind a written "clean" claim
 - `references/ppi_booking.md` — mobile PPI scope expansion when severity is Moderate or higher
 - `references/negotiation_playbook.md` — accident-finding negotiation lever sizing ($500-$3,500 per the severity table above)
 

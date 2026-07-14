@@ -112,7 +112,7 @@ CarMax + Carvana are the two **own-inventory** pools (not mirrored on the aggreg
 
 ### After all subagents return
 
-Generate `master_comparison.md` with TWO sections, in this order. This is the buyer-facing market-scan artifact shown in the README "Example output" (`examples/market_en.png` / `market_cn.png`).
+Generate `master_comparison.md` with TWO sections, in this order. This is the buyer-facing market-scan artifact illustrated in the README "Example output" section.
 
 **Who synthesizes it:** the **orchestrator** (main reasoning loop), NOT a subagent and NOT a script. It is a reasoning step over the merged `report_<site>.md` / structured returns: (1) union all candidates, (2) **dedup by VIN** (fall back to year+trim+miles+price signature when VIN is hidden), (3) when the SAME VIN appears on multiple sites at different prices, keep a one-line cross-site price-spread note — that spread is real negotiation intel (cite the lowest; e.g. the 2026 CX-5 run found one VIN at CarGurus $26,683 / AutoTrader $26,598 / TrueCar $27,682), (4) build the two sections below. No `generate_*` script exists for this; do not invent one.
 

@@ -640,7 +640,7 @@ Treatment when sibling-store overlap found:
 - **Do NOT cite the sibling quote as a competitor.** Citing Penske-Honda-of-Old-Bridge against Penske-Honda-of-East-Brunswick to a Penske rep is comedy — they share an internal pricing dashboard. The dealer will laugh and price will not move.
 - **Replace the duplicate with a true cross-group anchor.** Phase 4 outreach should target 3-4 different parent groups in radius, not 3-4 stores from the same group. If radius is sibling-store-saturated (common in FL, TX, CA metro areas with Penske / AutoNation / Asbury density), expand radius or accept fewer truly-independent anchors.
 
-Real-world pattern: buyer in FL gets 4 quotes for a 2023 Camry XLE — <Dealer A>, <Dealer B>, <Dealer C>, <Dealer D>. First two are both AutoNation (same regional GM). Phase 6 buyer cites the Pinellas Park $32,400 OTD to Clearwater rep, expecting a $200-500 drop. Clearwater rep replies "that's our sister store, our system shows the same floor — best I can do is match $32,400." The two AutoNation quotes are 1 anchor, not 2. Real cross-bid leverage comes from <Dealer D> (independent) and <Dealer C> (an independent dealer group). With D11, buyer routes outreach correctly from the start.
+Real-world pattern: a buyer gets 4 quotes for a 2023 Camry XLE from <Dealer A>, <Dealer B>, <Dealer C>, and <Dealer D>. Two of them (<Dealer A> and <Dealer B>) turn out to be owned by the same regional dealer group (same GM, one shared inventory system). Phase 6 buyer cites <Dealer A>'s $32,400 OTD to <Dealer B>'s rep, expecting a $200-500 drop. The rep replies "that's our sister store, our system shows the same floor — best I can do is match $32,400." The two same-group quotes are 1 anchor, not 2. Real cross-bid leverage comes from the two independents (<Dealer C> and <Dealer D>). With D11, buyer routes outreach correctly from the start.
 
 ### S. Data Sourcing & Sources
 
@@ -664,7 +664,7 @@ Real-world pattern: buyer in FL gets 4 quotes for a 2023 Camry XLE — <Dealer A
 
 **V1. CARFAX 1-owner is necessary but not sufficient.** Service records reveal whether the 1 owner actually maintained the car. Missing CVT fluid service at 60k is a $300-400 inherited cost.
 
-**V2. Require dealer-provided full CARFAX PDF or live URL before accepting OTD or scheduling PPI.** Verbal "clean carfax, 1-owner" has a real failure rate. Real incident: <Dealer C> claim in writing turned out to hide a an earlier date minor damage event with front + left + right impact zones. Buyer revised target down by $1.5-2k AND requested body-shop docs + EyeSight recalibration + structural report. Never accept OTD on verbal CARFAX summary.
+**V2. Require dealer-provided full CARFAX PDF or live URL before accepting OTD or scheduling PPI.** Verbal "clean carfax, 1-owner" has a real failure rate. Real incident: a dealer's written "clean CARFAX" claim turned out to hide a prior minor damage event with front + left + right impact zones. Buyer revised target down by $1.5-2k AND requested body-shop docs + EyeSight recalibration + structural report. Never accept OTD on verbal CARFAX summary.
 
 ### P. PPI & Test Drive
 
