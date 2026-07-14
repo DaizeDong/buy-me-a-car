@@ -1,0 +1,25 @@
+# .pii-allow -- real-world identifiers this repo is ALLOWED to contain.
+#
+# One literal per line, each with a reason. An allowlist entry has to be argued for and shows up in
+# the diff -- unlike quietly widening a regex, which is how a guard rots into a rubber stamp.
+#
+# Legitimate: a third-party CORPORATE sender address that a parser/filter must literally match.
+# NEVER legitimate: the operator's own data. If it is theirs, it does not belong in a public repo.
+
+carfax@event.carfax.com               # Gmail filter must literally exclude Carfax submission receipts
+carfax@no-reply.carfax.com            # same, Carfax marketing stream
+no-reply@accounts.google.com          # Gmail filter must literally exclude Google security notices
+sales@dealer-domain.edealerhub.com    # the eDealerHub CRM auto-mail sender pattern the triage table keys on
+
+# Public corporate/vendor phone lines. These ARE the reference's content -- the buyer literally calls
+# them. Third-party business numbers, published by the businesses themselves; not personal data.
+800-868-7000                          # Subaru Motors Finance lease-cash line (payment_methods.md)
+516-983-3800                          # Lemon Protector PPI shop, published line (ppi_booking.md)
+718-229-7594                          # Lemon Protector PPI shop, published line (ppi_booking.md)
+844-997-3624                          # YourMechanic national PPI booking line (ppi_booking.md)
+
+# PA tax-rate example ZIPs in the state-fee table. Reference data about a state's flat rate, not a
+# residence -- the table names three of them side by side.
+19010                                 # Bryn Mawr PA, flat-6% example row (state-fee-lookup)
+19406                                 # King of Prussia PA, same table
+19380                                 # West Chester PA, same table
