@@ -15,16 +15,41 @@
 # and the commit sails through -- while the findings are still on screen, so it LOOKS like it blocked.
 # A gate whose verdict the caller's pager can destroy is not a gate. So: capture the output, record
 # the exit code with nothing in between, and decide from the code alone.
-GUARD="$(git rev-parse --show-toplevel)/tools/pii_guard.py"
+ROOT="$(git rev-parse --show-toplevel)"
+GUARD="$ROOT/tools/pii_guard.py"
+BOUNDARY="$ROOT/tools/data_boundary.py"
 [ -f "$GUARD" ] || exit 0          # guard not vendored into this repo yet: do not block
 PY=$(command -v python || command -v python3 || command -v py) || exit 0
 
 out=$("$PY" "$GUARD" --tree 2>&1)
 rc=$?
+if [ "$rc" -ne 0 ]; then
+  printf '%s\n' "$out"
+  echo ""
+  echo "pre-commit BLOCKED by pii_guard. Do not reach for --no-verify:"
+  echo "right now the fix is an edit; after this commit it is a history rewrite."
+  exit 1
+fi
+
+# The DATA BOUNDARY -- the primary control, of which pii_guard is only the backstop.
+#
+# pii_guard reads what you are about to publish and looks for things that SMELL private. That
+# accepts the premise that real data is flowing toward the exit at all, and it is why the 2026-07
+# audit found real-run output from a private account in public repos: a ticker with
+# an entry price contains no email, no phone, no ZIP. Nothing to smell. The scanner was clean and
+# the repo was full of somebody's life.
+#
+# So this check asks the structural question instead: is any DATA-class path in the index? A public
+# skill repo is an UNINITIALIZED TOOL -- real-run output lives in the private companion config, and
+# an agent writing this repo has nothing real within reach to copy. No manifest -> exits 0, so this
+# is a no-op in repos that have not declared their classes yet.
+[ -f "$BOUNDARY" ] || exit 0
+out=$("$PY" "$BOUNDARY" 2>&1)
+rc=$?
 [ "$rc" -eq 0 ] && exit 0
 
 printf '%s\n' "$out"
 echo ""
-echo "pre-commit BLOCKED by pii_guard. Do not reach for --no-verify:"
-echo "right now the fix is an edit; after this commit it is a history rewrite."
+echo "pre-commit BLOCKED by data_boundary. The fix is never to git-add it anyway:"
+echo "move the file to the private store and let tools/datadir.py resolve it."
 exit 1
