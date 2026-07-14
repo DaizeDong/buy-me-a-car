@@ -62,10 +62,9 @@ canonical fixtures for verifying skill state.
 
 ## Caveats
 
-- These are **synthetic** scenarios. The skill has not been validated
-  end-to-end against a real-world
-  purchase yet. The author has used the skill on a single real
-  purchase only.
+- These are **synthetic** scenarios. The skill has not been broadly
+  validated end-to-end across multiple real purchases yet. The author
+  has used the skill on a single real purchase only.
 - State fee data drifts over time. Fee numbers in the fixtures trace to
   `data/state_fees.json`; that file's per-record `verified` flag matters.
   In scenarios 06-07 the NY and NJ records are seed values

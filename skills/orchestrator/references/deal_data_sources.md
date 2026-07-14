@@ -376,12 +376,12 @@ For image-heavy social posts (Instagram lease ads, dealer flyers) where text ext
 
 - **What**: Dealer DMS-pulled live inventory with discount math shown
 - **Best dealers (in-state example)**:
-  - <Dealer name> (suburb): aggressive on Internet Price
-  - <In-state dealer A>: moderate, sometimes hidden ("Call Now")
-  - <In-state dealer B>: aggressive with explicit dealer-specific discount
+  - <In-state dealer A>: aggressive on Internet Price
+  - <In-state dealer B>: moderate, sometimes hidden ("Call Now")
+  - <In-state dealer C>: aggressive with explicit dealer-specific discount
   - <In-state dealer D>: moderate
   - <In-state dealer E>: often hides ("Please Call")
-  - <In-state dealer> (suburb): moderate
+  - <In-state dealer F>: moderate
 - **Use for**: Cross-bid anchors in counter-offers ("<In-state dealer> has same trim at $X internet price")
 - **Firecrawl query pattern**: `"{year} {make} {model} {trim}" site:{dealer-domain}.com`
 - **Caveat**: "Internet Price" sometimes excludes doc fee + tax + reg, sometimes includes manufacturer rebates assuming financing. Always verify components.

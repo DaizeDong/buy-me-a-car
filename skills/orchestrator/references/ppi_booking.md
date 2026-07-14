@@ -46,7 +46,7 @@ When the buyer has 2-4 dealers in final consideration and a same-week close, boo
 3. **Same email + phone** across all bookings so service can quickly link them.
 4. **Cancel within 24 hours** of scheduled time to avoid no-show fees. Call service phone, reference confirmation number.
 
-**Real cycle example**: an example set of 4 in-radius dealer bookings:
+**Example parallel-booking cycle** (4 in-radius dealers, staggered slots the night before PPI day):
 - 9 AM <Dealer A> (2024 Limited)
 - 10 AM <Dealer B> (2023 Touring)
 - 11 AM <Dealer C> (2023 Touring)

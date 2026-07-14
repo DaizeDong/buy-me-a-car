@@ -183,7 +183,7 @@ newer_than:25m
 
 Many dealer CRM platforms send emails with HTML body only (no `multipart/alternative` with plaintext). The Gmail API's `messageFormat: FULL_CONTENT` returns `plaintextBody` only when a plaintext part exists. For HTML-only messages, `plaintextBody` is empty or null and only the snippet (first ~200 chars) is available.
 
-**Real incident**: A Subaru dealer rep sent a substantive reply with the full OTD breakdown (sales, tax, doc, fees, total) inline in the body. Gmail API returned `plaintextBody: ""` because the email was HTML-only. The agent only saw the snippet ("[buyer name], a brief note confirming one of the two matching vehicles had sold, another was available, and title and registration would be handled directly") which cut off before the actual numbers. The agent wrote a follow-up asking for numbers the rep had already sent.
+**Real incident**: A Subaru dealer rep sent a substantive reply with the full OTD breakdown (sales, tax, doc, fees, total) inline in the body. Gmail API returned `plaintextBody: ""` because the email was HTML-only. The agent only saw the snippet (a brief note confirming one of the two matching vehicles had sold, another was still available, and that title/registration would be handled directly) which cut off before the actual numbers. The agent wrote a follow-up asking for numbers the rep had already sent.
 
 **Fix protocol**: After fetching a thread, check if the latest dealer message has `plaintextBody`. If empty:
 

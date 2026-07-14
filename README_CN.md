@@ -217,13 +217,28 @@ python skills/orchestrator/scripts/generate_dossier.py \
 
 ## 输出示例
 
-![站点能力矩阵 + 候选去重](./examples/market_cn.png)
+Phase 3 自动生成两张 Markdown 表格。一张是站点能力矩阵（哪些源产出了可用的
+库存/价格，并排成分层）：
 
-Phase 3 自动生成的两张表：上半是 9 个站点的能力矩阵 + 关键差异 + 推荐顺序，下半是按 VIN 去重的候选清单含 Deal Tag。两张都是 Markdown 表格 → Claude 渲染。
+| 站点 | 库存 | 价格 | 反爬 | Tier |
+|---|---|---|---|---|
+| AutoTrader | 广 | 标价 + 部分 OTD | 中 | 1 |
+| CarGurus | 广 | 标价 + deal 评级 | 中 | 1 |
+| Cars.com | 广 | 仅标价 | 低 | 2 |
+| Edmunds | 中 | 标价 + 区域均价 | 低 | 2 |
+| Dealer 站点 | 窄 | internet price | 高 | 3 |
+
+另一张是按 VIN 去重的候选清单含 Deal Tag（下方数据均为合成示例，非真实搜索）：
+
+| # | 车辆 | 区域 | 要价 | 里程 | Deal Tag |
+|---|---|---|---|---|---|
+| 1 | 2023 Compact SUV Premium | Centerville | $28,900 | 22,140 | Great |
+| 2 | 2022 Compact SUV Limited | Fairview | $27,450 | 31,020 | Good |
+| 3 | 2023 Compact SUV Premium | Oakdale | $30,100 | 18,600 | Fair |
 
 ## 局限
 
-- **单作者 alpha** —— 工作流基于一次真实购车 + 8 个 worked example 情景（见 `examples/`），未经多市场对抗验证。
+- **单作者 alpha** —— 工作流基于一次购车流程 + 8 个 worked example 情景（见 `examples/`），未经多市场对抗验证。
 - **数据会漂移** —— 州费、CPO 条款、EV 补贴最后核对 2026-05-18，半年内可能有州法修订。
 - **anti-bot 不稳定** —— CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar 依赖 Playwright MCP，网站改版可能让 subagent 整组失败。
 - **非税务 / 法律 / 财务建议** —— 所有计算仅供谈判参考，过户、贷款、保险请咨询持牌专业人士。

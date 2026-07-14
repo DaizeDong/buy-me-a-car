@@ -217,13 +217,29 @@ If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this
 
 ## Example output
 
-![market matrix + dedup](./examples/market_en.png)
+Phase 3 renders two Markdown tables. A site-capability matrix (which sources
+yielded usable inventory/pricing, ranked into tiers):
 
-What Phase 3 produces: a 9-site capability matrix (top) + VIN-deduped candidate list with deal tags (bottom), auto-rendered as Markdown tables.
+| Site | Inventory | Pricing | Anti-bot | Tier |
+|---|---|---|---|---|
+| AutoTrader | broad | list + some OTD | medium | 1 |
+| CarGurus | broad | list + deal rating | medium | 1 |
+| Cars.com | broad | list only | low | 2 |
+| Edmunds | medium | list + regional avg | low | 2 |
+| Dealer sites | narrow | internet price | high | 3 |
+
+...and a VIN-deduped candidate list with deal tags (all values below are
+synthetic illustrations, not a real search):
+
+| # | Vehicle | Area | Ask | Miles | Deal tag |
+|---|---|---|---|---|---|
+| 1 | 2023 Compact SUV Premium | Centerville | $28,900 | 22,140 | Great |
+| 2 | 2022 Compact SUV Limited | Fairview | $27,450 | 31,020 | Good |
+| 3 | 2023 Compact SUV Premium | Oakdale | $30,100 | 18,600 | Fair |
 
 ## Limitations
 
-- **Single-author alpha** — workflow based on one real purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
+- **Single-author alpha** — workflow based on a single purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
 - **Data drifts** — state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
 - **Anti-bot fragile** — CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
 - **Not tax / legal / financial advice** — verify with licensed professionals before signing.
