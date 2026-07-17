@@ -2,7 +2,7 @@
 
 > **purpose**: The reusable skeleton for a per-state detail stub at full (CT/CA/TX/MD) depth, to be
 > dropped into `references/state_fees.md`. Use this so every new state stub carries the same sections,
-> the same "Does NOT have" leak-list discipline, and — non-negotiable — a `verified:` line.
+> the same "Does NOT have" leak-list discipline, and, non-negotiable, a `verified:` line.
 >
 > **authority rule**: The structured numbers (tax rate, doc cap, title, reg, trade-credit posture,
 > EV surcharge) are owned by `data/state_fees.json`. A stub must MATCH that JSON, never contradict it.
@@ -52,7 +52,7 @@ Title      = $<N>
 Reg        = $<N>
 <other line items>
 Cash OTD   = $<OTD>
-Tax savings on trade = $<T × rate> (<or $0 if no trade credit — call it out>)
+Tax savings on trade = $<T × rate> (<or $0 if no trade credit, call it out>)
 ```
 
 verified: <YYYY-MM-DD> | source: <statute cite | DMV URL | both> | by: <author/agent>
@@ -69,7 +69,7 @@ Every stub ends with exactly one line of this shape, as the last line of the stu
 verified: YYYY-MM-DD | source: <statute cite or stable URL> | by: <author>
 ```
 
-- `verified:` date is the date you web-confirmed the numbers against the cited source — NOT the date
+- `verified:` date is the date you web-confirmed the numbers against the cited source, NOT the date
   you copied them from the summary table.
 - `source:` must be authoritative: a state statute citation (e.g. `MD Transportation § 15-311.1`),
   a `.gov` DMV/DOR URL, or both. A secondary source (blog, dealer site) is not sufficient on its own

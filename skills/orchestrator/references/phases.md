@@ -4,15 +4,15 @@ This file is the combined reference for phases 3 through 9 of the 9-phase orches
 
 ## Table of contents
 
-- [Phase 3 — Inventory](#phase-3--inventory)
-- [Phase 4 — Outreach](#phase-4--outreach)
-- [Phase 5 — Cron](#phase-5--cron)
-- [Phase 6 — Negotiation](#phase-6--negotiation)
-- [Phase 7 — PDF](#phase-7--pdf)
-- [Phase 8 — Dossier](#phase-8--dossier)
-- [Phase 9 — Close](#phase-9--close)
+- [Phase 3, Inventory](#phase-3--inventory)
+- [Phase 4, Outreach](#phase-4--outreach)
+- [Phase 5, Cron](#phase-5--cron)
+- [Phase 6, Negotiation](#phase-6--negotiation)
+- [Phase 7, PDF](#phase-7--pdf)
+- [Phase 8, Dossier](#phase-8--dossier)
+- [Phase 9, Close](#phase-9--close)
 
-## Phase 3 — Inventory
+## Phase 3, Inventory
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
@@ -26,12 +26,12 @@ If `criteria.md` indicates NEW car (no mileage history, current MY, or buyer ans
 
 - **SKIP CARFAX-as-history-source.** A never-titled vehicle has no CARFAX worth reading. See gotcha V2 and `pdf_review_checklist.md`.
 - **Require the Monroney window sticker PDF** and **dealer PDI (Pre-Delivery Inspection) checklist** instead.
-- **Capture a Delivery Mode column per listing** — one of:
+- **Capture a Delivery Mode column per listing**, one of:
   - `in-stock` (dealer lot, 0-7 day delivery)
   - `in-transit` (allocation from port, 1-3 weeks)
   - `dealer-trade` (sister-store lot, 3-10 days, 1-2wk cross-state)
   - `factory-order` (8-16 weeks, last resort, blows tight timelines)
-- **SKIP no-haggle chains and rental returns** (CarMax / Carvana / EchoPark / Enterprise / Hertz) — they do not stock new-MY OEM inventory.
+- **SKIP no-haggle chains and rental returns** (CarMax / Carvana / EchoPark / Enterprise / Hertz), they do not stock new-MY OEM inventory.
 - **Apply new-car miles bands as a sort modifier**:
   - 0-20 mi = normal delivery
   - 20-100 mi = test-drive only (flag for PDI confirm)
@@ -47,23 +47,23 @@ If USED car: keep the CARFAX-centric workflow below as-is.
 | Carfax | Primary aggregator, best dedup, native "Send Email" works. **Used-only history; for new MY, treat Carfax as inventory listing source only, ignore history section.** |
 | CarMax | No-haggle single chain. **SKIP for new-MY inventory.** |
 | Carvana | Online-only, OTD returned directly. **SKIP for new-MY inventory.** |
-| Cars.com / AutoTrader / Edmunds / TrueCar / CarGurus | Anti-bot 403s — use Playwright MCP |
+| Cars.com / AutoTrader / Edmunds / TrueCar / CarGurus | Anti-bot 403s, use Playwright MCP |
 | Enterprise / Hertz | Rental returns, no-haggle, 12mo/12k warranty. **SKIP for new-MY inventory.** |
 | EchoPark | No-haggle chain. **SKIP for new-MY inventory.** |
 | Toyota.com SmartPath / OEM-brand national inventory locators | **New-car only.** Native VIN-level Monroney PDF access, per-dealer SmartPath pages. |
 
 Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, price, dealer, deal tags, link, **Delivery Mode for new cars**).
 
-### Subagent scraping method — Playwright-first for anti-bot inventory sites
+### Subagent scraping method, Playwright-first for anti-bot inventory sites
 
-**Verified 2026-06-21 (used CX-5, SF Bay Area run).** Every major inventory site EXCEPT CarGurus returns HTTP 403 / DataDome / Akamai to a headless `WebFetch` from a subagent — but the **real Playwright MCP browser bypasses the block on all of them** (local IP is less flagged than cloud; a real Chromium clears the JS / anti-bot checks). Consequences for dispatch:
+**Verified 2026-06-21 (used CX-5, SF Bay Area run).** Every major inventory site EXCEPT CarGurus returns HTTP 403 / DataDome / Akamai to a headless `WebFetch` from a subagent, but the **real Playwright MCP browser bypasses the block on all of them** (local IP is less flagged than cloud; a real Chromium clears the JS / anti-bot checks). Consequences for dispatch:
 
-- **Per-site order:** try `WebFetch` ONCE (cheap; CarGurus and most dealer sites work). On 403 / empty body / captcha, switch to **Playwright MCP** (`browser_navigate` -> `browser_evaluate`). Do NOT spend multiple WebFetch retries — one failure means switch.
-- **Playwright is a single shared browser, so the Playwright-fallback passes must run SEQUENTIALLY.** Either (a) keep the WebFetch-first attempts parallel across subagents and serialize only the Playwright fallbacks, or (b) collapse all anti-bot sites into ONE "browser-harvest" subagent that visits each in turn. Never fan out parallel subagents that each drive Playwright — they collide on the one browser.
+- **Per-site order:** try `WebFetch` ONCE (cheap; CarGurus and most dealer sites work). On 403 / empty body / captcha, switch to **Playwright MCP** (`browser_navigate` -> `browser_evaluate`). Do NOT spend multiple WebFetch retries, one failure means switch.
+- **Playwright is a single shared browser, so the Playwright-fallback passes must run SEQUENTIALLY.** Either (a) keep the WebFetch-first attempts parallel across subagents and serialize only the Playwright fallbacks, or (b) collapse all anti-bot sites into ONE "browser-harvest" subagent that visits each in turn. Never fan out parallel subagents that each drive Playwright, they collide on the one browser.
 - **Extraction priority (fastest reliable first):**
-  1. **JSON-LD** — `script[type="application/ld+json"]` objects with `@type` Car / Vehicle / Product. Cleanest structured VIN + price + mileage + name. (TrueCar, Carvana.)
-  2. **Embedded JS state** — the site's hydration store. (Carfax: `window.__MOBX_STATE__.SearchRequestStore.results.listings`.)
-  3. **DOM cards + VIN regex** — parse rendered listing-card text; pull VINs with the make's WMI prefix regex (Mazda: `/JM3[A-Z0-9]{14}/g`) over `document.documentElement.innerHTML`. (AutoTrader, Edmunds, CarMax, Cars.com.)
+  1. **JSON-LD**, `script[type="application/ld+json"]` objects with `@type` Car / Vehicle / Product. Cleanest structured VIN + price + mileage + name. (TrueCar, Carvana.)
+  2. **Embedded JS state**, the site's hydration store. (Carfax: `window.__MOBX_STATE__.SearchRequestStore.results.listings`.)
+  3. **DOM cards + VIN regex**, parse rendered listing-card text; pull VINs with the make's WMI prefix regex (Mazda: `/JM3[A-Z0-9]{14}/g`) over `document.documentElement.innerHTML`. (AutoTrader, Edmunds, CarMax, Cars.com.)
 
 #### Per-site scraping recipe (verified 2026-06-21, Mazda CX-5 / SF)
 
@@ -71,12 +71,12 @@ Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, pri
 |---|---|---|---|---|---|
 | CarGurus | often ✅ | ✅ | DOM cards / page body | VIN, price, miles, city, Great/Good/Fair Deal | only site that survives headless; include ZIP in URL |
 | Carfax | ❌ 403 (DataDome) | ✅ | `window.__MOBX_STATE__.SearchRequestStore.results.listings` | VIN, year, trim, `mileage.value`, currentPrice, drivetype, cpoData (`id===1` = real CPO), oneOwner, accidents, badge, dealer.label, dealer.phone | native Send-Email lead per VDP; `mileage` is `{label,value}`; dealer name is `.label` not `.name` |
-| Cars.com | ❌ timeout | ✅ | web-components: `a[href*="/vehicledetail/"]` + card innerText | year/trim/price/miles/Deal/dealer | lazy-loads on scroll (~7 above fold — scroll to load rest); VIN hidden until VDP |
+| Cars.com | ❌ timeout | ✅ | web-components: `a[href*="/vehicledetail/"]` + card innerText | year/trim/price/miles/Deal/dealer | lazy-loads on scroll (~7 above fold, scroll to load rest); VIN hidden until VDP |
 | AutoTrader | ❌ 403 | ✅ | DOM cards `[data-cmp="inventoryListing"]` + VIN regex on HTML | year/trim/miles/price/Deal/"Dealer Fees Included" | `__NEXT_DATA__` is shell only (listings load via XHR); VIN in HTML, not a per-card attr |
 | Edmunds | ❌ Akamai 403 | ✅ | DOM card text + VIN regex | year/trim/price/Deal/miles/dealer | no embedded-state globals; Wayback also recovers avg-paid |
-| TrueCar | ❌ JS error | ✅ | **JSON-LD** (`@type: Car`) | name (year+trim), price, mileage, VIN | cleanest of all — ~29 structured cars in one parse |
+| TrueCar | ❌ JS error | ✅ | **JSON-LD** (`@type: Car`) | name (year+trim), price, mileage, VIN | cleanest of all, ~29 structured cars in one parse |
 | CarMax | ❌ 403 | ✅ | DOM cards (Angular SPA) + VIN regex | year/trim/miles/price/**store location** | no-haggle (price = price); inter-store transfer; surfaces Serramonte/Fremont/etc. |
-| Carvana | ❌ 403 | ✅ | JSON-LD + DOM cards | name, all-in price, VIN, factory-upgrades, shipping | online-only all-in price (use as anchor); URL year filter loose — filter client-side |
+| Carvana | ❌ 403 | ✅ | JSON-LD + DOM cards | name, all-in price, VIN, factory-upgrades, shipping | online-only all-in price (use as anchor); URL year filter loose, filter client-side |
 
 Reusable `browser_evaluate` snippets (run after `browser_navigate`):
 - **VINs:** `[...new Set((document.documentElement.innerHTML.match(/JM3[A-Z0-9]{14}/g)||[]))]` (swap the WMI prefix per make).
@@ -85,15 +85,15 @@ Reusable `browser_evaluate` snippets (run after `browser_navigate`):
 
 See `deal_data_sources.md` for the deal/pricing-source (non-inventory) scraping matrix and the login-site (XHS/FB/Reddit) browser workflow.
 
-#### Maximize coverage — paginate EVERY site (do not stop at page 1)
+#### Maximize coverage, paginate EVERY site (do not stop at page 1)
 
-**The single biggest under-collection bug: pulling only page 1.** Each site's SRP shows ~10-30 listings per page; the headline count (e.g. "197 results") is the **all-years / all-trims / all-mileage** total, NOT the in-criteria count. Always paginate to exhaustion, then dedup. (Worked example: a Mazda CX-5 SF run showed CarGurus 218 / AutoTrader 197 / TrueCar 709 headline, but the **in-criteria** set — filtered year + mileage + drivetrain + budget — was only ~22-30 per aggregator and ~65 unique across ALL sites after VIN dedup. Page-1-only would have surfaced ~20 and looked falsely thin.)
+**The single biggest under-collection bug: pulling only page 1.** Each site's SRP shows ~10-30 listings per page; the headline count (e.g. "197 results") is the **all-years / all-trims / all-mileage** total, NOT the in-criteria count. Always paginate to exhaustion, then dedup. (Worked example: a Mazda CX-5 SF run showed CarGurus 218 / AutoTrader 197 / TrueCar 709 headline, but the **in-criteria** set, filtered year + mileage + drivetrain + budget, was only ~22-30 per aggregator and ~65 unique across ALL sites after VIN dedup. Page-1-only would have surfaced ~20 and looked falsely thin.)
 
 Rules:
 - **Loop-until-dry:** keep advancing pages until **2 consecutive pages add 0 new VINs**, then stop. Do not assume a fixed page count.
-- **Dedup globally by VIN** across all sites as you go (fall back to year+trim+miles+price when VIN is hidden). The aggregators are dealer-fed and overlap heavily — the same VIN recurs on 3-5 sites.
-- **Pace to avoid anti-bot:** wait **4-6 s between page navigations** (8 s for TrueCar). Rapid pagination trips a hard block — TrueCar and CarMax return "Access to this page has been denied" after a few fast hits. One denied page does not mean the site is down; slow down and resume.
-- **Push filters into the URL** (year, mileage, drivetrain, price) so each page is mostly in-criteria — far fewer pages to walk than filtering client-side from the unfiltered SRP.
+- **Dedup globally by VIN** across all sites as you go (fall back to year+trim+miles+price when VIN is hidden). The aggregators are dealer-fed and overlap heavily, the same VIN recurs on 3-5 sites.
+- **Pace to avoid anti-bot:** wait **4-6 s between page navigations** (8 s for TrueCar). Rapid pagination trips a hard block, TrueCar and CarMax return "Access to this page has been denied" after a few fast hits. One denied page does not mean the site is down; slow down and resume.
+- **Push filters into the URL** (year, mileage, drivetrain, price) so each page is mostly in-criteria, far fewer pages to walk than filtering client-side from the unfiltered SRP.
 
 #### Per-site pagination method (verified 2026-06-21)
 
@@ -103,22 +103,22 @@ Rules:
 | AutoTrader | `&firstRecord=N` (offset, step 25) | 25 | converges fast once year/mileage filtered |
 | Cars.com | `&page=N` (+ `&page_size=20`) | 20 | scroll each page to render the web-components |
 | CarGurus | **scroll** (lazy-load) on `/Cars/l-…` URL | grows on scroll | or `inventorylisting…action&offset=N`; always include `zip`+`minYear`+`maxYear`+`maxMileage` |
-| TrueCar | `&page=N` (URL) | ~30 (JSON-LD) | **rate-limits on fast nav — pace 8 s**; JSON-LD reflects only the current page |
-| Carfax | **in-app click only** — `?page=N` is IGNORED (re-serves page 1) | 24 | click the pagination control, then re-read `__MOBX_STATE__`; or accept page-1 + tight filters (it mirrors the other aggregators anyway) |
-| CarMax | **infinite scroll** (Angular) or API `/cars/api/search/run` | grows on scroll | no-haggle own inventory — unique pool, worth the scroll |
-| Carvana | **infinite scroll** (React); JSON-LD covers only initial ~21 | grows on scroll | online-only own inventory — unique pool |
+| TrueCar | `&page=N` (URL) | ~30 (JSON-LD) | **rate-limits on fast nav, pace 8 s**; JSON-LD reflects only the current page |
+| Carfax | **in-app click only**, `?page=N` is IGNORED (re-serves page 1) | 24 | click the pagination control, then re-read `__MOBX_STATE__`; or accept page-1 + tight filters (it mirrors the other aggregators anyway) |
+| CarMax | **infinite scroll** (Angular) or API `/cars/api/search/run` | grows on scroll | no-haggle own inventory, unique pool, worth the scroll |
+| Carvana | **infinite scroll** (React); JSON-LD covers only initial ~21 | grows on scroll | online-only own inventory, unique pool |
 
-CarMax + Carvana are the two **own-inventory** pools (not mirrored on the aggregators) — always scroll both to depth. The six aggregators (Carfax/CarGurus/Cars.com/AutoTrader/Edmunds/TrueCar) mostly recirculate the same dealer feed, so once two of them go dry on new VINs, the marginal unique yield from the rest is small.
+CarMax + Carvana are the two **own-inventory** pools (not mirrored on the aggregators), always scroll both to depth. The six aggregators (Carfax/CarGurus/Cars.com/AutoTrader/Edmunds/TrueCar) mostly recirculate the same dealer feed, so once two of them go dry on new VINs, the marginal unique yield from the rest is small.
 
 ### After all subagents return
 
 Generate `master_comparison.md` with TWO sections, in this order. This is the buyer-facing market-scan artifact illustrated in the README "Example output" section.
 
-**Who synthesizes it:** the **orchestrator** (main reasoning loop), NOT a subagent and NOT a script. It is a reasoning step over the merged `report_<site>.md` / structured returns: (1) union all candidates, (2) **dedup by VIN** (fall back to year+trim+miles+price signature when VIN is hidden), (3) when the SAME VIN appears on multiple sites at different prices, keep a one-line cross-site price-spread note — that spread is real negotiation intel (cite the lowest; e.g. the 2026 CX-5 run found one VIN at CarGurus $26,683 / AutoTrader $26,598 / TrueCar $27,682), (4) build the two sections below. No `generate_*` script exists for this; do not invent one.
+**Who synthesizes it:** the **orchestrator** (main reasoning loop), NOT a subagent and NOT a script. It is a reasoning step over the merged `report_<site>.md` / structured returns: (1) union all candidates, (2) **dedup by VIN** (fall back to year+trim+miles+price signature when VIN is hidden), (3) when the SAME VIN appears on multiple sites at different prices, keep a one-line cross-site price-spread note, that spread is real negotiation intel (cite the lowest; e.g. the 2026 CX-5 run found one VIN at CarGurus $26,683 / AutoTrader $26,598 / TrueCar $27,682), (4) build the two sections below. No `generate_*` script exists for this; do not invent one.
 
 #### Section 1 (top): Site Capability Matrix
 
-One row per site dispatched, so the buyer sees at a glance which source to trust for what. Do NOT skip this section because it feels redundant with the candidate list — it is the part buyers reuse across the whole cycle to decide where to re-search and which quote to treat as an anchor. Fixed columns:
+One row per site dispatched, so the buyer sees at a glance which source to trust for what. Do NOT skip this section because it feels redundant with the candidate list, it is the part buyers reuse across the whole cycle to decide where to re-search and which quote to treat as an anchor. Fixed columns:
 
 | Column | Content |
 |---|---|
@@ -126,40 +126,40 @@ One row per site dispatched, so the buyer sees at a glance which source to trust
 | Listings (radius) | Count this site's subagent returned inside the buyer's ZIP + radius (`0` if blocked / none) |
 | Price posture | Relative to the Phase 2 baseline: `below-market` / `at-market` / `above-market` / `fixed-no-haggle` |
 | Price tier | Typical deal quality this site surfaces for THIS search (e.g. "GREAT/GOOD deal flags", "MSRP-anchored", "rental-fleet flat") |
-| Key differentiator | One line — pull from the per-site notes in the dispatch table above (best dedup / native email / anti-bot / OTD-direct / rental-warranty / OEM-Monroney) |
+| Key differentiator | One line, pull from the per-site notes in the dispatch table above (best dedup / native email / anti-bot / OTD-direct / rental-warranty / OEM-Monroney) |
 | Buyer role | One role tag from the taxonomy below |
 
 **Buyer-role taxonomy** (this is the categorization the matrix exists to deliver):
 
 | Role tag | Meaning | Default sites |
 |---|---|---|
-| `Primary #N` | Main search source — dispatch first, native email + best dedup; rank `#1`, `#2`... | Carfax (`#1` used), OEM SmartPath / national locator (`#1` new), CarGurus |
+| `Primary #N` | Main search source, dispatch first, native email + best dedup; rank `#1`, `#2`... | Carfax (`#1` used), OEM SmartPath / national locator (`#1` new), CarGurus |
 | `Secondary #N` | Supplementary supply behind the primaries | Cars.com, AutoTrader |
 | `Negotiation lever` | No-haggle but returns a hard OTD number usable as a cross-bid anchor | Carvana |
 | `Research-only` | Market-data / TMV reference, not an inventory source to email | Edmunds, TrueCar |
-| `Plan B fallback` | Real inventory but no-haggle / fleet — use only if the primaries run thin | CarMax, EchoPark, Enterprise, Hertz |
-| `Skip` | Excluded for this buyer type — always append the reason in parentheses | new-MY → CarMax / Carvana / EchoPark / Enterprise / Hertz per the router gate |
+| `Plan B fallback` | Real inventory but no-haggle / fleet, use only if the primaries run thin | CarMax, EchoPark, Enterprise, Hertz |
+| `Skip` | Excluded for this buyer type, always append the reason in parentheses | new-MY → CarMax / Carvana / EchoPark / Enterprise / Hertz per the router gate |
 
 Role-assignment rules:
 
 - Honor the **new-vs-used router gate** above first. For a NEW-MY search, the no-haggle / rental sites (CarMax, Carvana, EchoPark, Enterprise, Hertz) are `Skip (no new-MY inventory)` and OEM SmartPath / national locator becomes `Primary #1`.
-- A site that returned **0 listings or was anti-bot-blocked** still gets a row — mark `Listings (radius) = 0` and either keep its role with a `(blocked, retry via Playwright)` note or downgrade to `Plan B fallback`. Never silently drop a dispatched site; the buyer needs to know it was checked.
+- A site that returned **0 listings or was anti-bot-blocked** still gets a row, mark `Listings (radius) = 0` and either keep its role with a `(blocked, retry via Playwright)` note or downgrade to `Plan B fallback`. Never silently drop a dispatched site; the buyer needs to know it was checked.
 - Rank the `Primary` / `Secondary` numbers by listings-in-radius x price posture, not by brand prestige.
 
 #### Section 2 (bottom): VIN-deduplicated candidate list
 
-Generate the candidate table deduplicated by VIN. See `references/outreach_strategy.md` for the column set + dedup + ranking logic (including the **New-Car ADM Detection and Filtering** section that fires on positive `Internet Price − MSRP` deltas — gotcha D9).
+Generate the candidate table deduplicated by VIN. See `references/outreach_strategy.md` for the column set + dedup + ranking logic (including the **New-Car ADM Detection and Filtering** section that fires on positive `Internet Price − MSRP` deltas, gotcha D9).
 
 ### Cross-references
 
-- `references/outreach_strategy.md` — dedup + ranking + ADM detection
-- `references/pdf_review_checklist.md` — V2 CARFAX requirement; new-car Monroney/PDI handling
-- `references/vertical_playbooks.md#part-2--heavy--commercial--luxury` — luxury-specific inventory sources (ultra-luxury allocation-driven, route to brand specialist for exotics)
-- `references/ev_buyer_playbook.md` — EV-specific inventory considerations (SoH for used EV, NACS vs CCS1 port)
-- `references/vertical_playbooks.md#part-1--pickup-truck-specifics` — pickup-specific listing red flags (ex-plow, ex-fleet, factory tow package)
+- `references/outreach_strategy.md`, dedup + ranking + ADM detection
+- `references/pdf_review_checklist.md`, V2 CARFAX requirement; new-car Monroney/PDI handling
+- `references/vertical_playbooks.md#part-2--heavy--commercial--luxury`, luxury-specific inventory sources (ultra-luxury allocation-driven, route to brand specialist for exotics)
+- `references/ev_buyer_playbook.md`, EV-specific inventory considerations (SoH for used EV, NACS vs CCS1 port)
+- `references/vertical_playbooks.md#part-1--pickup-truck-specifics`, pickup-specific listing red flags (ex-plow, ex-fleet, factory tow package)
 - Gotcha D9 (ADM kill list), V2 (CARFAX PDF requirement)
 
-## Phase 4 — Outreach
+## Phase 4, Outreach
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
@@ -181,10 +181,10 @@ Per dealer row in `tracker.md`:
 
 - Dealer name + address + phone
 - Sales rep name (if known from listing or lead-form auto-assignment)
-- VIN (used) or stock number + Delivery Mode (new — see Phase 3 detail)
+- VIN (used) or stock number + Delivery Mode (new, see Phase 3 detail)
 - Submission timestamp (dealer-local time)
 - Anti-bot result (lead form success / Carfax confirmation / direct-email-only fallback)
-- Channel used (lead form / direct email / SMS / phone — see `outreach_strategy.md` § multi-channel)
+- Channel used (lead form / direct email / SMS / phone, see `outreach_strategy.md` § multi-channel)
 
 Track in `tracker.md` using `assets/tracker_template.md` as the skeleton.
 
@@ -208,14 +208,14 @@ Before treating two dealer OTD quotes as "independent cross-bids", check the par
 
 ### Cross-references
 
-- `references/outreach_strategy.md` — multi-channel strategy (form / email / call / SMS), anti-bot handling, dedup
-- `references/email_format_rules.md` — ASCII substitution table, draft hygiene
-- `assets/tracker_template.md` — tracker skeleton
-- `assets/dealer_reply_template.md` — first-touch + OTD ask templates
-- SKILL.md § Outbound Email SOP — full step-by-step ordered procedure
+- `references/outreach_strategy.md`, multi-channel strategy (form / email / call / SMS), anti-bot handling, dedup
+- `references/email_format_rules.md`, ASCII substitution table, draft hygiene
+- `assets/tracker_template.md`, tracker skeleton
+- `assets/dealer_reply_template.md`, first-touch + OTD ask templates
+- SKILL.md § Outbound Email SOP, full step-by-step ordered procedure
 - Gotchas E1-E5 (email + drafting hygiene), D5 (used/new mixing), D11 (dealer group), N1 (transparent anchor citation)
 
-## Phase 5 — Cron
+## Phase 5, Cron
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
@@ -225,21 +225,21 @@ Before treating two dealer OTD quotes as "independent cross-bids", check the par
 
 ### Three scheduled crons (not one)
 
-Set up THREE scheduled CronCreate jobs. The 15-min main cron alone reliably misses spam, promotions, and overnight backlog — those three failure modes are mechanically closed by the two auxiliary sweeps.
+Set up THREE scheduled CronCreate jobs. The 15-min main cron alone reliably misses spam, promotions, and overnight backlog, those three failure modes are mechanically closed by the two auxiliary sweeps.
 
-#### 1. Main inbox cron — `*/15 * * * *` (every 15 minutes)
+#### 1. Main inbox cron, `*/15 * * * *` (every 15 minutes)
 
 - Searches inbox tab for dealer replies in the past ~20 minutes
 - Skips Carfax confirmations (`from:CARFAX@event.carfax.com`), templated marketing autoresponders, and OOO autoresponders
 - For each real reply: read thread, draft response, save Gmail draft, log to tracker
 
-#### 2. Spam + Promotions sweep — `0 */6 * * *` (every 6 hours)
+#### 2. Spam + Promotions sweep, `0 */6 * * *` (every 6 hours)
 
 - Runs `in:spam newer_than:24h` AND `category:promotions newer_than:24h` over the same dealer-name + make + OTD keyword set
 - Catches CRM-template dealer mail that lands outside the Primary Inbox tab (eDealerHub / VinSolutions / eLead are recurring offenders)
 - On match, advises buyer to apply Gmail "Not Spam" / "Move to Primary" rule and processes the reply normally
 
-#### 3. Morning catch-up sweep — `0 7 * * *` (7 AM ET daily; adjust to buyer's stated wake time)
+#### 3. Morning catch-up sweep, `0 7 * * *` (7 AM ET daily; adjust to buyer's stated wake time)
 
 - Runs `newer_than:12h is:unread` over the full keyword set
 - Recovers overnight backlog the 15-min main cron can't see because the Claude harness's CronCreate doesn't fire when the Claude session is closed
@@ -265,11 +265,11 @@ Reply templates: `assets/dealer_reply_template.md`.
 
 ### Cross-references
 
-- `references/cron_monitoring.md` — full prompt templates, search patterns, OOO detection
-- `assets/dealer_reply_template.md` — reply templates (first-touch / counter / walk-away / OOO-safe)
+- `references/cron_monitoring.md`, full prompt templates, search patterns, OOO detection
+- `assets/dealer_reply_template.md`, reply templates (first-touch / counter / walk-away / OOO-safe)
 - Gotchas I1-I5 (inbox + cron monitoring), H1-H2 (session hygiene)
 
-## Phase 6 — Negotiation
+## Phase 6, Negotiation
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
@@ -291,15 +291,15 @@ Required line items on every dealer OTD:
 - State sales tax (NJ 6.625%, NY 8.875%, PA 6%; full state-by-state in `references/state_fees.md`)
 - Doc fee (NJ legal cap $799; state-by-state caps in `state_fees.md`)
 - Title + registration fees
-- Add-ons (refuse paint protection / nitrogen / etching — see gotcha P3 close-day F&I hard-no script + `negotiation_playbook.md` § Add-On Refusal)
+- Add-ons (refuse paint protection / nitrogen / etching, see gotcha P3 close-day F&I hard-no script + `negotiation_playbook.md` § Add-On Refusal)
 
-If any line item appears that does NOT exist in the buyer's REGISTERING state (gotcha D8), demand a full re-quote — not just deletion of the leaking line.
+If any line item appears that does NOT exist in the buyer's REGISTERING state (gotcha D8), demand a full re-quote, not just deletion of the leaking line.
 
 ### Anchoring techniques
 
 - **Internal anchor**: compare dealer's own concurrent inventory (e.g., base trim $25k → Limited should not be $5k over; fair spread is $2-3k trim + $1-1.5k mileage)
 - **Market-comp anchor**: cite CarGurus "Good Deal" thresholds, Edmunds TMV, recent Reddit/XHS reports (REAL-tagged only per Critical Rule #7)
-- **Cross-dealer anchor**: once 2+ written OTDs exist, cite by dollar amount in counters (see gotcha N1 — "My locked benchmarks are X at $X,XXX and Y at $X,XXX")
+- **Cross-dealer anchor**: once 2+ written OTDs exist, cite by dollar amount in counters (see gotcha N1, "My locked benchmarks are X at $X,XXX and Y at $X,XXX")
 
 ### ADM kill list (gotcha D9)
 
@@ -307,7 +307,7 @@ When a dealer quote contains any Additional Dealer Markup line on NEW MY invento
 
 ### Escalation when dealer delays ("let me check with my manager")
 
-See `references/negotiation_playbook.md` § Escalation Ladder When Dealer Delays — T+24h polite reminder, T+48h firm walk-away signal citing locked competitor anchor, T+72h silent walk-away with tracker COLD-log entry. 4 special cases: OOO autoresponder mid-cycle, opening-move "let me check" on same-day reply (not a delay yet), buyer-side timeline compression, multi-rep parallel push.
+See `references/negotiation_playbook.md` § Escalation Ladder When Dealer Delays, T+24h polite reminder, T+48h firm walk-away signal citing locked competitor anchor, T+72h silent walk-away with tracker COLD-log entry. 4 special cases: OOO autoresponder mid-cycle, opening-move "let me check" on same-day reply (not a delay yet), buyer-side timeline compression, multi-rep parallel push.
 
 ### Bait-and-switch protocol (gotcha D10)
 
@@ -316,24 +316,24 @@ When a dealer claims the original VIN-X is "just sold" and pivots to VIN-Y at hi
 ### Buyer-type specific Phase 6 notes
 
 - **Financing buyer**: binding-constraint OTD computed at Phase 1 (cash_down + financed_cap_from_monthly). Re-verify at every Phase 6 counter that effective OTD cap still holds against the proposed counter. See `references/payment_methods.md` § financing.
-- **Lease buyer**: anchor on Money Factor markup buy-rate, not OTD — see `references/lease_playbook.md` § MF markup + paste-ready buy-rate counter language.
-- **Trade buyer**: SEPARATE the trade negotiation from the new-car negotiation (gotcha — see `references/trade_in.md` § 8 separate-the-negotiation). Lock new-car OTD first, then evaluate trade allowance independently against KBB Instant Cash Offer.
-- **EV buyer**: federal §30D $7,500 / §25E $4,000 / §45W lease pass-through credits are **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05) — do NOT enter them in OTD / net-price math for any 2026 purchase. Only still-funded state/local rebates remain live. See `references/ev_buyer_playbook.md` § 1 (historical mechanics + state rebate matrix) and `references/lease_playbook.md` § 8.
-- **Pickup buyer**: verify factory tow package via VIN decode before Phase 6 OTD lock — see `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 7.
+- **Lease buyer**: anchor on Money Factor markup buy-rate, not OTD, see `references/lease_playbook.md` § MF markup + paste-ready buy-rate counter language.
+- **Trade buyer**: SEPARATE the trade negotiation from the new-car negotiation (gotcha, see `references/trade_in.md` § 8 separate-the-negotiation). Lock new-car OTD first, then evaluate trade allowance independently against KBB Instant Cash Offer.
+- **EV buyer**: federal §30D $7,500 / §25E $4,000 / §45W lease pass-through credits are **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05), do NOT enter them in OTD / net-price math for any 2026 purchase. Only still-funded state/local rebates remain live. See `references/ev_buyer_playbook.md` § 1 (historical mechanics + state rebate matrix) and `references/lease_playbook.md` § 8.
+- **Pickup buyer**: verify factory tow package via VIN decode before Phase 6 OTD lock, see `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 7.
 - **Heavy-duty / commercial / luxury**: see `references/vertical_playbooks.md#part-2--heavy--commercial--luxury` § 3 luxury pricing dynamics (sticker rarely budges MSRP - 4-7% on volume; lease incentives MORE aggressive).
-- **CPO buyer**: embedded value calculation per brand — see Subaru/Honda/Toyota/Hyundai/Kia/Ford/GM/Mazda CPO references.
+- **CPO buyer**: embedded value calculation per brand, see Subaru/Honda/Toyota/Hyundai/Kia/Ford/GM/Mazda CPO references.
 
 ### Cross-references
 
-- `references/negotiation_playbook.md` — full math, walk-away lines, cash leverage, Escalation Ladder, Sequential Dealer Pricing Disclosure
-- `references/state_fees.md` — all-state tax/doc/reg detail + cross-state titling + gotcha D8 "Does NOT have" leak lists
-- `references/payment_methods.md` — Captive-vs-credit-union rebate playbook, financing decision matrix
-- `references/lease_playbook.md` — lease-specific Phase 6 framework (MF buy-rate counter, captive markup ceilings, EV §45W — NOTE §45W lease pass-through TERMINATED for vehicles acquired after 2025-09-30 per OBBBA; historical only)
-- `references/trade_in.md` § 4 + § 8 — separate-the-negotiation, lien payoff workflow
-- `assets/dealer_reply_template.md` — counter / walk-away / add-on refusal / ADM removal templates
+- `references/negotiation_playbook.md`, full math, walk-away lines, cash leverage, Escalation Ladder, Sequential Dealer Pricing Disclosure
+- `references/state_fees.md`, all-state tax/doc/reg detail + cross-state titling + gotcha D8 "Does NOT have" leak lists
+- `references/payment_methods.md`, Captive-vs-credit-union rebate playbook, financing decision matrix
+- `references/lease_playbook.md`, lease-specific Phase 6 framework (MF buy-rate counter, captive markup ceilings, EV §45W, NOTE §45W lease pass-through TERMINATED for vehicles acquired after 2025-09-30 per OBBBA; historical only)
+- `references/trade_in.md` § 4 + § 8, separate-the-negotiation, lien payoff workflow
+- `assets/dealer_reply_template.md`, counter / walk-away / add-on refusal / ADM removal templates
 - Gotchas D5 (used/new mixing), D8 (state-template leak), D9 (ADM kill list), D10 (bait-and-switch), D11 (dealer group), N1 (transparent anchors), N2 (parallel drop-X asks), P3 (close-day F&I hard-no)
 
-## Phase 7 — PDF
+## Phase 7, PDF
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
@@ -355,26 +355,26 @@ For every dealer-attached PDF, open with Read tool and extract:
 
 See `references/pdf_review_checklist.md` for:
 
-- 4 PDF types covered (CARFAX, service records, OTD proposal, PPI report — PPI partial)
+- 4 PDF types covered (CARFAX, service records, OTD proposal, PPI report, PPI partial)
 - OTD Proposal Add-On Anti-Pattern Detection (12-line F&I add-on kill list + Protection Package bundle detection + math-check + paste-ready buyer challenge language)
 - CARFAX Accident Detail Extraction Template (7-field structured: date / severity / impact zones / repair facility / photos / structural flag / airbag flag / post-accident inspection)
 - ADAS recal by-brand table (10 brands, Subaru EyeSight / Honda Sensing / Toyota Safety Sense / Hyundai SmartSense / Ford Co-Pilot360 / GM Driver Assistance + SuperCruise / Mazda i-Activsense / Nissan ProPILOT / Tesla Autopilot/FSD / VW Audi Travel Assist) with recal costs $250-$1,500
-- Service Record Gap Detection — Per-Brand Expected Service Table (Subaru / Toyota / Honda / Ford / Mazda) with 30k/60k/90k/120k expected services + cost-if-missed + per-brand red flags
+- Service Record Gap Detection, Per-Brand Expected Service Table (Subaru / Toyota / Honda / Ford / Mazda) with 30k/60k/90k/120k expected services + cost-if-missed + per-brand red flags
 
 ### Cross-references
 
-- `references/pdf_review_checklist.md` — full PDF review checklist (all 4 PDF types)
-- `references/negotiation_playbook.md` — using PDF findings as Phase 6 negotiation lever (inherited-cost quantification)
+- `references/pdf_review_checklist.md`, full PDF review checklist (all 4 PDF types)
+- `references/negotiation_playbook.md`, using PDF findings as Phase 6 negotiation lever (inherited-cost quantification)
 - Gotchas V1 (CARFAX 1-owner necessary but not sufficient), V2 (require dealer-provided full CARFAX PDF or live URL, not verbal), D7 (proposal.pdf hides OTD numbers)
 - Critical Rule #4 (Read the actual CARFAX PDF/URL yourself)
 
-## Phase 8 — Dossier
+## Phase 8, Dossier
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
 **When this runs**: AFTER Phase 6 has narrowed to 2-4 final candidates with locked OTDs. BEFORE Phase 9 test drive + close.
 
-**Purpose**: Produce a 7-10 page HTML+PDF dossier that the buyer brings to the dealer if helpful — comparison tables, OTD ladders, candidate side-by-side, walk-away ceilings, decision matrix. The buyer reads it before going on-site so the in-person visit is verification-only, not analysis.
+**Purpose**: Produce a 7-10 page HTML+PDF dossier that the buyer brings to the dealer if helpful, comparison tables, OTD ladders, candidate side-by-side, walk-away ceilings, decision matrix. The buyer reads it before going on-site so the in-person visit is verification-only, not analysis.
 
 ### Generation pipeline
 
@@ -391,20 +391,20 @@ For Chinese-speaking dealers / Chinese-speaking buyer: `--template assets/dossie
 
 The `generate_dossier.py` script validates these fields and fails fast if any are missing or `{{KEY}}` placeholders remain unresolved:
 
-- `BUYER_ADDRESS` — buyer city + state for tax/registration display
-- `DATE` — dossier generation date
-- `YEAR` / `MAKE_MODEL` — vehicle identity block
-- `TARGET_OTD` — buyer's target OTD (load-bearing for ladder display)
-- `STATE` / `TAX_RATE` — registering-state context for OTD breakdown
-- `>=2 COMP_VEH` rows — at minimum two comparison candidates (single-candidate dossier is structurally weak)
+- `BUYER_ADDRESS`, buyer city + state for tax/registration display
+- `DATE`, dossier generation date
+- `YEAR` / `MAKE_MODEL`, vehicle identity block
+- `TARGET_OTD`, buyer's target OTD (load-bearing for ladder display)
+- `STATE` / `TAX_RATE`, registering-state context for OTD breakdown
+- `>=2 COMP_VEH` rows, at minimum two comparison candidates (single-candidate dossier is structurally weak)
 
 Use `--allow-missing` to opt out of strict validation (back-compat only).
 
 ### Template architecture
 
-- `assets/dossier_template.html` — English template (default)
-- `assets/dossier_template_cn.html` — Chinese template
-- `assets/dossier_config_template.yaml` — 84-placeholder skeleton (83 in CN due to one EN-only field)
+- `assets/dossier_template.html`, English template (default)
+- `assets/dossier_template_cn.html`, Chinese template
+- `assets/dossier_config_template.yaml`, 84-placeholder skeleton (83 in CN due to one EN-only field)
 
 Placeholders are documented inline in `assets/dossier_config_template.yaml`.
 
@@ -418,12 +418,12 @@ Placeholders are documented inline in `assets/dossier_config_template.yaml`.
 
 ### Cross-references
 
-- `assets/dossier_template.html` / `dossier_template_cn.html` — print-ready 8-page templates
-- `assets/dossier_config_template.yaml` — placeholder skeleton
-- `scripts/generate_dossier.py` — generator with Chromium auto-detect, field validator, placeholder validator
-- `scripts/html_to_pdf.sh` — Chrome headless HTML to PDF (lower-level helper)
+- `assets/dossier_template.html` / `dossier_template_cn.html`, print-ready 8-page templates
+- `assets/dossier_config_template.yaml`, placeholder skeleton
+- `scripts/generate_dossier.py`, generator with Chromium auto-detect, field validator, placeholder validator
+- `scripts/html_to_pdf.sh`, Chrome headless HTML to PDF (lower-level helper)
 
-## Phase 9 — Close
+## Phase 9, Close
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
@@ -463,7 +463,7 @@ The close checklist branches by buyer type. Use the relevant sub-checklist below
 - [ ] OTD breakdown in writing matches counter-locked numbers (no shell-game per `trade_in.md` § 8 if trade also present)
 - [ ] All line items verified against `state_fees.md` registering-state "Does NOT have" list (per gotcha D8)
 - [ ] Sale price + doc + tax + title + reg verified; no padded add-ons (paint protection / nitrogen / etching)
-- [ ] PPI complete (mobile inspector preferred — `references/ppi_booking.md`)
+- [ ] PPI complete (mobile inspector preferred, `references/ppi_booking.md`)
 - [ ] Insurance binder issued before drive-off
 - [ ] Plate transfer vs new-plate decision made (saves $25-150 in most states)
 - [ ] Temp permit issued at close; permanent title in mail 4-8 weeks
@@ -492,7 +492,7 @@ The close checklist branches by buyer type. Use the relevant sub-checklist below
 
 #### EV buyer close-day sub-checklist
 
-- [ ] Federal §30D $7,500 POS credit is **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05) — do NOT expect a $7,500 line item or POS transfer on any 2026 purchase; if a dealer quotes one, it is wrong. (HISTORICAL: for a pre-2025-10-01 acquisition the buyer signed Form 8936 and the $7,500 reduction showed as a separate line per `references/ev_buyer_playbook.md` § 1.) Confirm any claimed EV discount is a still-funded state/local rebate, not the dead federal credit.
+- [ ] Federal §30D $7,500 POS credit is **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05), do NOT expect a $7,500 line item or POS transfer on any 2026 purchase; if a dealer quotes one, it is wrong. (HISTORICAL: for a pre-2025-10-01 acquisition the buyer signed Form 8936 and the $7,500 reduction showed as a separate line per `references/ev_buyer_playbook.md` § 1.) Confirm any claimed EV discount is a still-funded state/local rebate, not the dead federal credit.
 - [ ] If a pre-2025-10-01 acquisition only: Time of Sale report copy retained (required at tax filing)
 - [ ] Battery warranty registered to buyer at delivery (new EV) OR SoH report obtained (used EV) per `ev_buyer_playbook.md` § 6
 - [ ] NACS vs CCS1 port confirmed; adapter present if CCS1 vehicle
@@ -525,4 +525,4 @@ The close checklist branches by buyer type. Use the relevant sub-checklist below
 
 ### F&I close-day hard-no
 
-Gotcha P3 is mandatory reading at Phase 9. F&I add-ons are the highest-frequency margin-recovery surface — GAP / VSC / tire-and-wheel / paint / fabric / key / nitrogen / dent / ding can add $3-7k if buyer doesn't say no. Paste-ready hard-no script in SKILL.md gotcha P3 + `assets/dealer_reply_template.md` § Close-Day F&I Hard-No.
+Gotcha P3 is mandatory reading at Phase 9. F&I add-ons are the highest-frequency margin-recovery surface, GAP / VSC / tire-and-wheel / paint / fabric / key / nitrogen / dent / ding can add $3-7k if buyer doesn't say no. Paste-ready hard-no script in SKILL.md gotcha P3 + `assets/dealer_reply_template.md` § Close-Day F&I Hard-No.

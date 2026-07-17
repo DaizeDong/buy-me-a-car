@@ -1,6 +1,6 @@
 ---
 name: Carfax & PDF Review
-description: Use to analyze a dealer-attached PDF — CARFAX vehicle history report, service records, or OTD proposal — and extract accident detail, service gaps, F&I add-on hidden costs. Triggers include "review this CARFAX", "analyze service records", "what's in this proposal PDF", "did dealer hide add-ons", "看下 CARFAX", "审 PDF", "F&I add-on detection", and Spanish phrases "revisar este CARFAX", "analizar el historial del vehiculo en este PDF".
+description: Use to analyze a dealer-attached PDF, CARFAX vehicle history report, service records, or OTD proposal, and extract accident detail, service gaps, F&I add-on hidden costs. Triggers include "review this CARFAX", "analyze service records", "what's in this proposal PDF", "did dealer hide add-ons", "看下 CARFAX", "审 PDF", "F&I add-on detection", and Spanish phrases "revisar este CARFAX", "analizar el historial del vehiculo en este PDF".
 ---
 
 # Carfax & PDF Review

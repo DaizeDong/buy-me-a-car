@@ -108,7 +108,7 @@ table above plus the backing data:
 - **VA** - 4.15% SUT min $75, $599 doc cap, NO trade credit
 - **WA** - 6.5% + MVET 0.3% + 0.5-3.5% local, $200 doc cap
 - **DC** - 6-9% excise by weight class on first $40k MSRP, weight-tiered
-- **MD** - 6% flat, $800 doc cap (eff. July 1 2024, raised from $500; now HIGHER than VA's $599 — not a low-doc state)
+- **MD** - 6% flat, $800 doc cap (eff. July 1 2024, raised from $500; now HIGHER than VA's $599, not a low-doc state)
 - **PA-by-ZIP** - Bryn Mawr 19010 / KoP 19406 / West Chester 19380 all flat 6%
 
 ## Cross-state titling shortcuts
@@ -150,7 +150,7 @@ Any of the above appearing on a quote is grounds to demand a full re-quote.
 
 ## Worked examples
 
-### NJ — example county
+### NJ, example county
 ```
 RateBase : 6.625%
 RateLocal: 0%  (NJ has no local-rate stacking on motor vehicles)

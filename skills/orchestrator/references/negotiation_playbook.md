@@ -45,15 +45,15 @@ The most common starting state of any negotiation cycle: the buyer has ONE deale
 
 Use these 5 elements, in this order, in a ~10 line counter:
 
-1. **Regional anchor — 1 real Edmunds/CarGurus citation by name.** One named-source data point with city/region scope (e.g., "Edmunds Hartford CT 2023 Outback average list $26,151"). Stronger than "national average." Must be REAL-tagged per Critical Rule #7; cite source by name so dealer can verify or refute.
+1. **Regional anchor, 1 real Edmunds/CarGurus citation by name.** One named-source data point with city/region scope (e.g., "Edmunds Hartford CT 2023 Outback average list $26,151"). Stronger than "national average." Must be REAL-tagged per Critical Rule #7; cite source by name so dealer can verify or refute.
 
-2. **Named single-comp listing — another dealer's same-trim listing.** One specific competing listing by dealer name + ask price (e.g., "Hoffman Honda has a comparable 2023 Outback Limited at $27,900 ask"). This is a public listing, not a written OTD, so it does not violate Critical Rule #7. Stronger than the regional aggregate alone because it has a name.
+2. **Named single-comp listing, another dealer's same-trim listing.** One specific competing listing by dealer name + ask price (e.g., "Hoffman Honda has a comparable 2023 Outback Limited at $27,900 ask"). This is a public listing, not a written OTD, so it does not violate Critical Rule #7. Stronger than the regional aggregate alone because it has a name.
 
-3. **In-flight signal — preserve Critical Rule #7.** Reference the cross-bid effort transparently WITHOUT naming dealers or inventing numbers: e.g., "I am actively cross-bidding written OTDs with 2-3 more dealers in the region this week; I expect responses by Wednesday." This is true (you do have outreach in flight) and primes the dealer for a tighter close window without fabricating data.
+3. **In-flight signal, preserve Critical Rule #7.** Reference the cross-bid effort transparently WITHOUT naming dealers or inventing numbers: e.g., "I am actively cross-bidding written OTDs with 2-3 more dealers in the region this week; I expect responses by Wednesday." This is true (you do have outreach in flight) and primes the dealer for a tighter close window without fabricating data.
 
-4. **Soft ceiling at round 1 — range, not precise number.** State the walk-away as a RANGE (e.g., "low-$30k OTD, hard cap") rather than the exact dollar number. Preserves commitment-device value while denying the dealer a precise +$250/+$400 fishing target. Reserve precise-number disclosure for round 2-3 once the ZOPA is mapped.
+4. **Soft ceiling at round 1, range, not precise number.** State the walk-away as a RANGE (e.g., "low-$30k OTD, hard cap") rather than the exact dollar number. Preserves commitment-device value while denying the dealer a precise +$250/+$400 fishing target. Reserve precise-number disclosure for round 2-3 once the ZOPA is mapped.
 
-5. **Close-window deadline — specific, near, plausible.** Name a close date that is short enough to apply pressure but credible given cash/funding posture (e.g., "I can close Thursday or Friday with a cashier's check pending PPI"). Avoid vague "this month."
+5. **Close-window deadline, specific, near, plausible.** Name a close date that is short enough to apply pressure but credible given cash/funding posture (e.g., "I can close Thursday or Friday with a cashier's check pending PPI"). Avoid vague "this month."
 
 ### Worked example (CT cold open, used 2023 Outback Limited)
 
@@ -69,7 +69,7 @@ Dealer's opening: $28,990 sale / $31,560 OTD with an NJ-tire-fee leak on a CT qu
 
 ## OTD Math (State-Parameterized)
 
-Generic formula — works for any registering state. Pull `StateRate` (combined state + local), `Doc`, `Title`, `Reg`, `Other` line-items from `references/state_fees.md` for the specific state and ZIP.
+Generic formula, works for any registering state. Pull `StateRate` (combined state + local), `Doc`, `Title`, `Reg`, `Other` line-items from `references/state_fees.md` for the specific state and ZIP.
 
 ```
 OTD = (Sale + Doc) × (1 + StateRate) + Title + Reg + Other
@@ -80,7 +80,7 @@ Where:
 - **Doc** = dealer doc fee (subject to state cap if any; see state_fees.md)
 - **StateRate** = combined sales-tax rate at registering ZIP (state + county + city + special-district)
 - **Title + Reg** = state-fixed (or weight/value-formulated)
-- **Other** = state-specific add-ons that are LEGITIMATE for the registering state (NY MCTD, TX EV reg premium, CA smog/TIF, etc. — see state_fees.md "Has" lists). Line items appearing on a quote but NOT in the registering state's "Has" list are state-template leaks (gotcha D8).
+- **Other** = state-specific add-ons that are LEGITIMATE for the registering state (NY MCTD, TX EV reg premium, CA smog/TIF, etc., see state_fees.md "Has" lists). Line items appearing on a quote but NOT in the registering state's "Has" list are state-template leaks (gotcha D8).
 
 To reverse-engineer the maximum sales price for a target OTD:
 
@@ -90,7 +90,7 @@ Sale = (TargetOTD - Title - Reg - Other) / (1 + StateRate) - Doc
 
 If trade-in applies AND state grants trade-in tax credit (state_fees.md "Trade-In Tax Credit" column), Sale tax base becomes `(Sale + Doc - Trade)`; see § Trade-In Tax Credit Math in state_fees.md and `references/trade_in.md` § 3 for the per-state matrix.
 
-### Worked example 1 — NJ (example county, no local stacking)
+### Worked example 1, NJ (example county, no local stacking)
 
 StateRate = 6.625% flat; Doc cap = $799; Title = $85; Reg = $70; Other = $0.
 
@@ -110,9 +110,9 @@ Sale = ($30,000 - $85 - $70 - $0) / 1.06625 - $499
      = $27,492.55
 ```
 
-### Worked example 2 — CT (Hartford, no local stacking, watch luxury tier)
+### Worked example 2, CT (Hartford, no local stacking, watch luxury tier)
 
-StateRate = 6.35% standard (7.75% if Sale > $50,000); Doc cap = none, $499-699 typical; Title = $25; Reg ≈ $120 (2-year passenger); Other = $0 (no per-tire, no battery fee — see CT "Does NOT have" list).
+StateRate = 6.35% standard (7.75% if Sale > $50,000); Doc cap = none, $499-699 typical; Title = $25; Reg ≈ $120 (2-year passenger); Other = $0 (no per-tire, no battery fee, see CT "Does NOT have" list).
 
 Sale $25,000, Doc $599:
 ```
@@ -122,9 +122,9 @@ OTD = ($25,000 + $599) × 1.0635 + $25 + $120 + $0
     = $27,369.71
 ```
 
-If a CT quote contains an NJ-style $7.50 tire fee or NJ supplemental titling, demand full re-quote per gotcha D8 — these are not legitimate CT line-items.
+If a CT quote contains an NJ-style $7.50 tire fee or NJ supplemental titling, demand full re-quote per gotcha D8, these are not legitimate CT line-items.
 
-### Worked example 3 — CA (Alameda County, ZIP-stacked combined rate, low doc cap)
+### Worked example 3, CA (Alameda County, ZIP-stacked combined rate, low doc cap)
 
 StateRate = 9.25% combined (CA 7.25% + Alameda 2.00%); Doc cap = $85 (Vehicle Code § 4456.5, capped low); Title = $25; Reg ≈ $250 (VLF + base + TIF + county components on a ~$25k value vehicle); Other = $0-25 (smog transfer ≈ $9; tire fee ≈ $1.75/tire).
 
@@ -136,11 +136,11 @@ OTD = ($25,000 + $85) × 1.0925 + $25 + $250 + $0
     = $27,680.36
 ```
 
-Notes for CA: (a) CA does NOT grant state-level trade-in tax credit (sales tax applies to gross sale; see state_fees.md All-State Summary CA row and § Trade-In Tax Credit Math). (b) Pull the buyer's ZIP-specific combined rate from state_fees.md CA stub — Alameda 9.25%, LA 9.5%, SF 8.625%, Santa Clara 9.125%, Sacramento 8.75%, Solano 7.375% (lowest in state), San Diego/Orange 7.75%.
+Notes for CA: (a) CA does NOT grant state-level trade-in tax credit (sales tax applies to gross sale; see state_fees.md All-State Summary CA row and § Trade-In Tax Credit Math). (b) Pull the buyer's ZIP-specific combined rate from state_fees.md CA stub, Alameda 9.25%, LA 9.5%, SF 8.625%, Santa Clara 9.125%, Sacramento 8.75%, Solano 7.375% (lowest in state), San Diego/Orange 7.75%.
 
-### Worked example 4 — TX (state-only, no local stacking, EV reg premium)
+### Worked example 4, TX (state-only, no local stacking, EV reg premium)
 
-StateRate = 6.25% flat (TX is state-only — NO local stacking, unique among large states; see TX detail stub in state_fees.md); Doc cap = $150 (statutory, TX Occ Code § 2301); Title = $33; Reg ≈ $67 (~$56.50 base + ~$11 county). Other = +$200/yr if BEV (TX Transp Code § 502.360, SB 505 effective Sept 2023; BEV only, hybrid exempt).
+StateRate = 6.25% flat (TX is state-only, NO local stacking, unique among large states; see TX detail stub in state_fees.md); Doc cap = $150 (statutory, TX Occ Code § 2301); Title = $33; Reg ≈ $67 (~$56.50 base + ~$11 county). Other = +$200/yr if BEV (TX Transp Code § 502.360, SB 505 effective Sept 2023; BEV only, hybrid exempt).
 
 Sale $25,000, Doc $150, ICE vehicle:
 ```
@@ -157,7 +157,7 @@ OTD = ($25,000 + $150) × 1.0625 + $33 + $67 + $200
     = $27,021.88
 ```
 
-The federal §30D $7,500 New Clean Vehicle Credit is **TERMINATED** for any vehicle acquired after 2025-09-30 (OBBBA / Public Law 119-21; see IRS FAQ Fact Sheet 2025-05). For any 2026 purchase there is NO federal $7,500 credit — do NOT subtract it from net cash or OTD. The BEV case net cash out-of-pocket is the full OTD ($27,021.88), unless a still-funded **state/local rebate** applies (see `ev_buyer_playbook.md` state EV rebate matrix, the only live federal/state incentive layer). HISTORICAL: for a vehicle acquired on or before 2025-09-30 the §30D credit was a buyer-side POS or tax-filing credit ($27,021.88 − $7,500 = $19,521.88); that window is now closed.
+The federal §30D $7,500 New Clean Vehicle Credit is **TERMINATED** for any vehicle acquired after 2025-09-30 (OBBBA / Public Law 119-21; see IRS FAQ Fact Sheet 2025-05). For any 2026 purchase there is NO federal $7,500 credit, do NOT subtract it from net cash or OTD. The BEV case net cash out-of-pocket is the full OTD ($27,021.88), unless a still-funded **state/local rebate** applies (see `ev_buyer_playbook.md` state EV rebate matrix, the only live federal/state incentive layer). HISTORICAL: for a vehicle acquired on or before 2025-09-30 the §30D credit was a buyer-side POS or tax-filing credit ($27,021.88 − $7,500 = $19,521.88); that window is now closed.
 
 ### Quick state-rate lookup (most-common registering states)
 
@@ -250,7 +250,7 @@ Use this explicitly in opening message and any counter:
 
 > I am a cash buyer in {City} {State}, ready to close this week pending PPI. No trade, no financing.
 
-Dealers should price this at ~$500-1,000 of value vs a typical financed-with-trade customer. Don't expect them to advertise this discount — but use it as a reason for them to meet your number.
+Dealers should price this at ~$500-1,000 of value vs a typical financed-with-trade customer. Don't expect them to advertise this discount, but use it as a reason for them to meet your number.
 
 ## CPO Embedded Value Math
 
@@ -301,13 +301,13 @@ Each disclosure increases urgency without committing to walk.
 
 ## Escalation Ladder When Dealer Delays ("Let Me Check With My Manager" Tactic)
 
-A common stall tactic: dealer rep says "let me check with my manager" or "I'll get back to you tomorrow" repeatedly across multiple touches. The intent is to burn the buyer's clock — pre-approval letters expire (typically 30 days), insurance binders expire, other anchor dealers go cold, and the buyer becomes positionally weaker the longer the cycle drags. Without an escalation ladder, the dealer controls cadence and the buyer loses leverage by attrition.
+A common stall tactic: dealer rep says "let me check with my manager" or "I'll get back to you tomorrow" repeatedly across multiple touches. The intent is to burn the buyer's clock, pre-approval letters expire (typically 30 days), insurance binders expire, other anchor dealers go cold, and the buyer becomes positionally weaker the longer the cycle drags. Without an escalation ladder, the dealer controls cadence and the buyer loses leverage by attrition.
 
-Codified ladder — start the clock at the first "let me check" without a same-day reply:
+Codified ladder, start the clock at the first "let me check" without a same-day reply:
 
-### T+24h — Polite reminder with explicit EOD-tomorrow deadline
+### T+24h, Polite reminder with explicit EOD-tomorrow deadline
 
-Reply in the existing thread (do NOT start a new thread — breaks the dealer's CRM context and re-starts the cadence). Keep it ~6 lines, plain ASCII.
+Reply in the existing thread (do NOT start a new thread, breaks the dealer's CRM context and re-starts the cadence). Keep it ~6 lines, plain ASCII.
 
 ```
 Hi {REP_NAME},
@@ -323,7 +323,7 @@ Thanks,
 {BUYER_NAME}
 ```
 
-### T+48h — Firm walk-away signal with the locked competitor anchor
+### T+48h, Firm walk-away signal with the locked competitor anchor
 
 If no response by T+48h, escalate. Cite the locked competitor OTD by dollar amount (per gotcha N1 anchor-disclosure rule). This is the last realistic chance for the delaying dealer to win.
 
@@ -342,9 +342,9 @@ Thanks,
 {BUYER_NAME}
 ```
 
-### T+72h — Silent walk-away + tracker log
+### T+72h, Silent walk-away + tracker log
 
-If still no response, do NOT send another follow-up — additional pings past T+72h signal desperation and reduce leverage on the next outreach cycle (dealers remember). Log the dealer as cold in `dealer_outreach_tracker.md`:
+If still no response, do NOT send another follow-up, additional pings past T+72h signal desperation and reduce leverage on the next outreach cycle (dealers remember). Log the dealer as cold in `dealer_outreach_tracker.md`:
 
 ```
 [timestamp] | {Dealer} | {Rep} | COLD | last_contact_attempt=T+48h |
@@ -352,7 +352,7 @@ If still no response, do NOT send another follow-up — additional pings past T+
   initiates contact OR inventory situation changes materially
 ```
 
-Do NOT delete the dealer from the tracker — they may re-engage in 1-2 weeks with a "are you still looking?" ping, at which point the cold-warm transition reopens. Keep the row for that future signal.
+Do NOT delete the dealer from the tracker, they may re-engage in 1-2 weeks with a "are you still looking?" ping, at which point the cold-warm transition reopens. Keep the row for that future signal.
 
 ### Special cases
 

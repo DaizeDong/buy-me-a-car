@@ -75,7 +75,7 @@ PLACEHOLDER_PATTERN = re.compile(r"\{\{\s*([A-Za-z0-9_.]+)\s*\}\}")
 
 
 # Fields that must be present and non-empty for a dossier to be dealer-actionable.
-# Distinct from "any {{KEY}} not filled" — these are dossier-correctness invariants.
+# Distinct from "any {{KEY}} not filled", these are dossier-correctness invariants.
 LOAD_BEARING_KEYS = [
     "BUYER_NAME",
     "BUYER_ADDRESS",   # zip-bearing, sets registering-state context
@@ -254,7 +254,7 @@ def _chrome_candidates():
     ]
     if localappdata:
         paths.append(Path(localappdata) / "Google/Chrome/Application/chrome.exe")
-    # Microsoft Edge (system + user) — both Program Files and (x86)
+    # Microsoft Edge (system + user), both Program Files and (x86)
     paths += [
         Path(programfiles) / "Microsoft/Edge/Application/msedge.exe",
         Path(programfiles_x86) / "Microsoft/Edge/Application/msedge.exe",

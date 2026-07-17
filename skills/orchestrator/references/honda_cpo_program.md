@@ -29,7 +29,7 @@ A 2018 Honda is no longer Honda True Certified eligible (>6 years). Honda True U
 
 ### Two tiers of Honda CPO
 
-Honda has TWO CPO tiers — easy to confuse:
+Honda has TWO CPO tiers, easy to confuse:
 
 | Tier | Name | Age | Mileage | Coverage |
 |---|---|---|---|---|
@@ -58,7 +58,7 @@ When the scenario is 2020-2023 CR-V <50k mi (the CR-V example), the CR-V is squa
 
 The 7yr/100k starts from the original in-service date, NOT the CPO purchase date. So a 2022 Honda that went into service in 2022 has CPO coverage through 2029 (7 years) or 100,000 mi, whichever comes first.
 
-### Honda True Certified+ (premium tier — 4 yr / 48k mi cars)
+### Honda True Certified+ (premium tier, 4 yr / 48k mi cars)
 
 Adds to the standard tier:
 | Coverage | Term |
@@ -67,7 +67,7 @@ Adds to the standard tier:
 | 90-day SiriusXM trial | included |
 | Honda True Certified+ branding for resale | typical +$300-$500 resale premium |
 
-For the 2022 CR-V scenario, expect Honda True Certified+ (the premium tier — 4 yr old + 28k mi qualifies).
+For the 2022 CR-V scenario, expect Honda True Certified+ (the premium tier, 4 yr old + 28k mi qualifies).
 
 ---
 
@@ -90,11 +90,11 @@ Compare Honda CPO to third-party extended powertrain warranties:
 
 ## What Honda CPO Does NOT Cover
 
-- Wear items (tires, brake pads, wiper blades, batteries — typical)
+- Wear items (tires, brake pads, wiper blades, batteries, typical)
 - Accident damage (not warranty work)
 - Cosmetic items (paint chips, interior wear, scratched alloys)
 - Items modified or altered by aftermarket parts (tunes, lifts, non-Honda audio)
-- Routine maintenance (oil changes, filter services — separate program: HondaCare Sentinel)
+- Routine maintenance (oil changes, filter services, separate program: HondaCare Sentinel)
 - Pre-existing conditions documented at time of CPO inspection
 
 ---
@@ -132,12 +132,12 @@ If the dealer charges separately for CPO enrollment ($800-$1,200), it's usually 
 
 A 2018 Honda or any Honda with 90k+ mi is ineligible for Honda True Certified. Options:
 
-1. **Honda Care VSC (Vehicle Service Contract)** — separate program (Honda's extended warranty), available at any age/mileage. Plans 5/60k, 6/80k, 7/100k from time of purchase.
+1. **Honda Care VSC (Vehicle Service Contract)**, separate program (Honda's extended warranty), available at any age/mileage. Plans 5/60k, 6/80k, 7/100k from time of purchase.
    Typical Bay Area Honda dealer Honda Care VSC pricing for a 7-year/100k-mile B2B plan on an out-of-CPO 2018 Honda (~70-80k mi at purchase):
    - Powertrain only: approximately $1,800 to $2,400
    - Comprehensive B2B: approximately $2,800 to $3,500
-2. **Third-party extended warranty** — buy elsewhere (CARCHEX / Endurance / Olive)
-3. **Self-insure** — accept warranty risk; Hondas are statistically reliable, so this is a defensible choice for 2018+ CR-V / Civic / Accord with clean maintenance history
+2. **Third-party extended warranty**, buy elsewhere (CARCHEX / Endurance / Olive)
+3. **Self-insure**, accept warranty risk; Hondas are statistically reliable, so this is a defensible choice for 2018+ CR-V / Civic / Accord with clean maintenance history
 
 These are dealer-marked-up. Third-party equivalents may be cheaper but verify the third-party's claim payment reputation.
 
@@ -163,7 +163,7 @@ Without these in hand, "CPO" claims are unverified and the buyer may be paying C
 ## Honda CR-V Specific Notes
 
 - 2017-2022 5th gen CR-V is the most common CR-V on Bay Area lots
-- 2023-current 6th gen CR-V has different EX-L feature set (different infotainment, new platform) — verify trim matches buyer's expectation
+- 2023-current 6th gen CR-V has different EX-L feature set (different infotainment, new platform), verify trim matches buyer's expectation
 - CR-V Hybrid (2020+) is CPO-eligible but premium ~$2,000-$3,000 over non-hybrid same trim
 - AWD adds ~$1,500-$2,000 over FWD same trim, year, miles
 - Honda CR-V Sport / Sport Touring trims have CPO eligibility but check that Honda Sensing 2.0 / Sensing 360 features match (Sport Touring on 2023+ has Sensing 360 which is a meaningful upgrade)
@@ -172,17 +172,17 @@ Without these in hand, "CPO" claims are unverified and the buyer may be paying C
 
 ## Related Honda Programs
 
-- **Honda Care VSC** — Honda's separately-sold extended warranty. Different from CPO.
-- **Honda Owner Loyalty Bonus** — for return Honda customers; typically $500-$1,500 off MSRP on new
-- **Honda College Graduate Program** — $500 off new (selected models)
-- **Honda Military Appreciation** — $500 off new
-- **HondaCare Sentinel** — separate prepaid maintenance plan (oil changes, tire rotations)
+- **Honda Care VSC**, Honda's separately-sold extended warranty. Different from CPO.
+- **Honda Owner Loyalty Bonus**, for return Honda customers; typically $500-$1,500 off MSRP on new
+- **Honda College Graduate Program**, $500 off new (selected models)
+- **Honda Military Appreciation**, $500 off new
+- **HondaCare Sentinel**, separate prepaid maintenance plan (oil changes, tire rotations)
 
 Most of these apply to NEW Honda purchases. Used Honda True Certified is its own thing, layered on top of the standard sale.
 
 ---
 
-## Honda CPO vs Subaru CPO — Quick Comparison
+## Honda CPO vs Subaru CPO, Quick Comparison
 
 | Feature | Honda True Certified | Subaru CPO |
 |---|---|---|

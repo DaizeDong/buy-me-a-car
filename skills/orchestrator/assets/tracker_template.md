@@ -69,7 +69,7 @@
 
 ## Reply Log (Chronological)
 
-### {YYYY-MM-DD HH:MM UTC} — {Dealer Name} ({STATUS})
+### {YYYY-MM-DD HH:MM UTC}, {Dealer Name} ({STATUS})
 
 **Dealer:** {NAME / EMAIL / PHONE}
 **Vehicle:** {YEAR TRIM, VIN, MILES}

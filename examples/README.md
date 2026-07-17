@@ -18,9 +18,9 @@ handles the cases.
 
 Each `0X_<name>.md` file has two sections:
 
-- **Scenario** — the buyer profile, the target, the constraints, and the
+- **Scenario**, the buyer profile, the target, the constraints, and the
   ask. Standalone-readable.
-- **Outcome** — which sub-skills fired in what order, what artifacts the
+- **Outcome**, which sub-skills fired in what order, what artifacts the
   workflow produced, which gotchas / Critical Rules fired, and what the
   scenario surfaced as a reference-file or SKILL.md delta.
 
@@ -29,7 +29,7 @@ and counterparty names are stand-ins.
 
 ## Recommended reading order
 
-Read in numeric order — each one stacks one new structural axis on top
+Read in numeric order, each one stacks one new structural axis on top
 of the last.
 
 | # | Scenario | New axis | Sub-skills stressed |
@@ -44,7 +44,7 @@ of the last.
 | 08 | CPO Grand Cherokee Stellantis TX cash | + Stellantis SPOTiCAR CPO + age-sensitive embedded value + TX $225 doc-cap truth | `cpo-eligibility` (Stellantis branch), `state-fee-lookup` (TX), `otd-calculator`, `dealer-reply-drafter` (CPO-premium counter) |
 
 If you only have time for one, read 01 to see the clean baseline path.
-If you only have time for two, read 01 + 03 — those two cover the most
+If you only have time for two, read 01 + 03, those two cover the most
 common buyer types. For the path-coverage regression fixtures, read
 06 (lease), 07 (private-party), and 08 (Stellantis CPO).
 

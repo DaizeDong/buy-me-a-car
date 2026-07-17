@@ -15,7 +15,7 @@ Narrow sub-skill: buyer has a locked OTD in writing and is heading to the dealer
 - Buyer is signing today or tomorrow and needs a sub-checklist by buyer type
 - Buyer wants the F&I add-on refusal script to read verbatim at the F&I desk
 - Buyer has a trade with active lien and needs the payoff workflow
-- Buyer is an EV buyer and needs day-of EV mechanics (state rebate paperwork, battery/SoH, charging — NOTE: federal §30D POS credit transfer is TERMINATED 2025-09-30, historical only)
+- Buyer is an EV buyer and needs day-of EV mechanics (state rebate paperwork, battery/SoH, charging, NOTE: federal §30D POS credit transfer is TERMINATED 2025-09-30, historical only)
 - Buyer is buying a pickup and needs the truck-specific PPI quick checklist
 
 ## When NOT To Use
@@ -105,11 +105,11 @@ Post-close monitoring (calendar reminders at Day 5 / 10 / 14 / 21): payoff initi
 ### EV buyer
 
 > **⚠️ Federal §30D POS credit transfer is TERMINATED 2025-09-30 (OBBBA / Public Law
-> 119-21).** For any 2026 purchase there is **NO federal $7,500 §30D credit** — no IRS
+> 119-21).** For any 2026 purchase there is **NO federal $7,500 §30D credit**, no IRS
 > ECO registration check, no Form 8936, no Time of Sale report, no $7,500 line item to
 > verify at close. Do NOT expect or insert a federal credit line in the signed agreement.
 > The §30D items below are retained as **HISTORICAL** (pre-2025-10-01 acquisitions only).
-> The only live close-day EV incentive layer is **state/local rebates** — see the bottom
+> The only live close-day EV incentive layer is **state/local rebates**, see the bottom
 > of this checklist and the CRITICAL banner in `ev-buyer-helper`.
 
 Pre-arrival (LIVE in 2026, cross-ref `../orchestrator/references/ev_buyer_playbook.md`):
@@ -117,23 +117,23 @@ Pre-arrival (LIVE in 2026, cross-ref `../orchestrator/references/ev_buyer_playbo
 - [ ] NACS vs CCS1 port confirmed; adapter ordered if needed
 - [ ] State EV rebate eligibility + paperwork confirmed (MSRP/income caps per state; this is the only live incentive)
 
-Pre-arrival (HISTORICAL — pre-2025-10-01 acquisitions only; §30D terminated 2025-09-30, do NOT use for 2026):
-- [ ] ~~Dealer is IRS Energy Credits Online registered~~ (N/A — §30D terminated)
-- [ ] ~~Form 8936 ready for signing~~ (N/A — §30D terminated)
-- [ ] ~~MAGI under threshold confirmed ($150k single / $300k joint for new; $75k / $150k for used)~~ (N/A — §30D/§25E terminated)
+Pre-arrival (HISTORICAL, pre-2025-10-01 acquisitions only; §30D terminated 2025-09-30, do NOT use for 2026):
+- [ ] ~~Dealer is IRS Energy Credits Online registered~~ (N/A, §30D terminated)
+- [ ] ~~Form 8936 ready for signing~~ (N/A, §30D terminated)
+- [ ] ~~MAGI under threshold confirmed ($150k single / $300k joint for new; $75k / $150k for used)~~ (N/A, §30D/§25E terminated)
 
 On-site (LIVE in 2026):
 - [ ] Battery warranty registered to buyer at delivery (new EV)
 - [ ] No EV Prep / Battery Conditioning / Charge Cable / EV Delivery Setup ADM line items per gotcha D9 + `../orchestrator/references/ev_buyer_playbook.md` section 8
 - [ ] L1 OEM charge cable included in delivery (factory accessory, NOT a separate purchase)
 
-On-site (HISTORICAL — pre-2025-10-01 acquisitions only; do NOT apply to a 2026 close):
-- [ ] ~~$7,500 reduction shown as separate line item on signed agreement~~ (N/A — §30D terminated; no federal credit line should appear)
-- [ ] ~~Time of Sale report copy retained~~ (N/A — §30D terminated)
+On-site (HISTORICAL, pre-2025-10-01 acquisitions only; do NOT apply to a 2026 close):
+- [ ] ~~$7,500 reduction shown as separate line item on signed agreement~~ (N/A, §30D terminated; no federal credit line should appear)
+- [ ] ~~Time of Sale report copy retained~~ (N/A, §30D terminated)
 
 Post-close:
 - [ ] Home L2 install scheduled (Qmerit / Treehouse / ChargePoint) if not already
-- [ ] State EV rebate application submitted (verify state DOE / clean-energy office deadline — the only live incentive)
+- [ ] State EV rebate application submitted (verify state DOE / clean-energy office deadline, the only live incentive)
 
 ### Pickup-truck buyer
 
@@ -187,7 +187,7 @@ not agreed to.
 **Spoken-only carve-out.** The two scripts above are the dealer-facing baseline:
 English + ASCII, fine to print and hand across the desk or paste into email. A buyer
 who is more fluent in Spanish or Chinese may instead *say the refusal out loud* in
-their own language — spoken words are the agent-to-buyer surface, not a dealer
+their own language, spoken words are the agent-to-buyer surface, not a dealer
 artifact. The hard rule still holds for everything WRITTEN or EMAILED to the dealer:
 English + ASCII only (Critical Rule #1). Do NOT print these translations, do NOT
 paste them into a Gmail draft, do NOT hand them to F&I as a document. Read aloud only.
@@ -198,7 +198,7 @@ Load-bearing F&I terms below were checked against real US-Spanish-market usage, 
 literal-translated. Still: have a native speaker or Codex review the phrasing before a
 buyer relies on it at the desk.
 
-> Translation status: DRAFT — pending Codex / native-speaker review.
+> Translation status: DRAFT, pending Codex / native-speaker review.
 
 **Add-on name glossary (US Spanish market, verified usage):**
 
@@ -218,13 +218,13 @@ buyer relies on it at the desk.
 | nitrogen (tire fill) | nitrogeno (en las llantas) | |
 | dent / ding (PDR) | reparacion de abolladuras sin pintura | |
 
-> Regional vocabulary note (say what the buyer says): the word for "car" varies —
+> Regional vocabulary note (say what the buyer says): the word for "car" varies ,
 > **carro** (Mexico / Central America / Caribbean), **coche** (Spain / Southern Cone),
 > **auto** (neutral, understood everywhere). Mirror the buyer's own word; the scripts
 > below use the neutral **vehiculo** to stay region-safe. Technical product names
 > (seguro GAP, garantia extendida, doc fee, OTD) stay fixed regardless of region.
 
-**Spanish (ES) — hard-no, spoken:**
+**Spanish (ES), hard-no, spoken:**
 
 ```
 Segun mi acuerdo firmado con fecha {DATE} con {GM_OR_SALES_MGR_NAME},
@@ -240,7 +240,7 @@ el acuerdo original.
 {BUYER_NAME}
 ```
 
-**Spanish (ES) — if F&I pushes anyway (reframe), spoken:**
+**Spanish (ES), if F&I pushes anyway (reframe), spoken:**
 
 ```
 Mi acuerdo esta fijado por el OTD, no por el pago mensual. Agregar
@@ -254,7 +254,7 @@ cosa es un trato nuevo que yo no he aceptado.
 {BUYER_NAME}
 ```
 
-**Chinese (ZH) — hard-no, spoken:**
+**Chinese (ZH), hard-no, spoken:**
 
 ```
 根据我在 {DATE} 与 {GM_OR_SALES_MGR_NAME} 签署的协议,
@@ -267,7 +267,7 @@ cosa es un trato nuevo que yo no he aceptado.
 {BUYER_NAME}
 ```
 
-**Chinese (ZH) — if F&I pushes anyway (reframe), spoken:**
+**Chinese (ZH), if F&I pushes anyway (reframe), spoken:**
 
 ```
 我的协议锁的是 OTD 总价,不是月供。每月加 $18、分 72 期就是
@@ -294,7 +294,7 @@ Pre-empts most close-day F&I friction. Full template in `../orchestrator/assets/
 |---|---|
 | Full Phase 9 detail (all 5 buyer types) | `../orchestrator/references/phases.md#phase-9--close` |
 | Lien payoff full workflow | `../orchestrator/references/trade_in.md` section 4a-4d |
-| EV federal credit status (§30D/§25E/§45W all TERMINATED 2025-09-30 — historical) + live state rebates | `../orchestrator/references/ev_buyer_playbook.md` section 1; `ev-buyer-helper` CRITICAL banner |
+| EV federal credit status (§30D/§25E/§45W all TERMINATED 2025-09-30, historical) + live state rebates | `../orchestrator/references/ev_buyer_playbook.md` section 1; `ev-buyer-helper` CRITICAL banner |
 | Pickup-specific PPI items | `../orchestrator/references/vertical_playbooks.md#part-1--pickup-truck-specifics` section 4 |
 | State-fee leak detection ("Does NOT have") | `../orchestrator/references/state_fees.md` section Tri-State / New England detail stubs (gotcha D8) |
 | F&I hard-no full text + reframe | `../orchestrator/assets/dealer_reply_template.md` section Close-Day F&I Hard-No |

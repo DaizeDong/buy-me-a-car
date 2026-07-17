@@ -5,7 +5,7 @@
 
 GM Certified Pre-Owned covers Chevrolet, GMC, and Buick used vehicles. Cadillac CPO is structurally a separate luxury tier (different coverage levels, different inspection, dedicated CT Certified Pre-Owned program) and is deferred to `cadillac_cpo_program.md` (P3.5 deliverable).
 
-GM CPO is structurally a single-tier mainstream program with moderate powertrain coverage (6yr/100k) — shorter than Hyundai/Kia (10/100k) and TCUV (7/100k) but with a strong limited B2B extension and dedicated tiers for Duramax diesel (Silverado HD / Sierra HD) and EV models (Bolt EV / Bolt EUV / Hummer EV / Lyriq EV).
+GM CPO is structurally a single-tier mainstream program with moderate powertrain coverage (6yr/100k), shorter than Hyundai/Kia (10/100k) and TCUV (7/100k) but with a strong limited B2B extension and dedicated tiers for Duramax diesel (Silverado HD / Sierra HD) and EV models (Bolt EV / Bolt EUV / Hummer EV / Lyriq EV).
 
 This file mirrors the structure of the prior CPO reference files.
 
@@ -25,13 +25,13 @@ Per GM Certified Pre-Owned at gmcertified.com:
 
 A 2022 Chevrolet Equinox LT with 41,000 mi sold by a Chevrolet dealer in 2026 is fully eligible (4 yr / 41k mi).
 
-A 2020 GMC Sierra 1500 with 72,000 mi in 2026 is at the eligibility edge: 6 yr from in-service if early-2020 build, under 75k mi — eligible.
+A 2020 GMC Sierra 1500 with 72,000 mi in 2026 is at the eligibility edge: 6 yr from in-service if early-2020 build, under 75k mi, eligible.
 
 A 2019 GM vehicle in 2026 is generally NOT GM CPO eligible (>6 years from in-service).
 
 ### Single-tier program (Cadillac is separate)
 
-GM CPO for Chevy / GMC / Buick is a single tier. Cadillac has its own CPO program with different terms (extends to ~$2,000+ embedded value, longer B2B, Cadillac-specific concierge) — see `cadillac_cpo_program.md`.
+GM CPO for Chevy / GMC / Buick is a single tier. Cadillac has its own CPO program with different terms (extends to ~$2,000+ embedded value, longer B2B, Cadillac-specific concierge), see `cadillac_cpo_program.md`.
 
 ---
 
@@ -59,7 +59,7 @@ The 6yr/100k powertrain coverage starts from the **original in-service date**, N
 | Coverage | Term |
 |----------|------|
 | Standard 6/100k powertrain | Applies |
-| **Duramax Diesel coverage** | **5 years / 100,000 miles from in-service** — diesel-specific tier including fuel injectors, high-pressure fuel pump (Bosch CP4 on 2017-2021; updated pump on 2022+), turbo, DEF system, EGR cooler, particulate filter |
+| **Duramax Diesel coverage** | **5 years / 100,000 miles from in-service**, diesel-specific tier including fuel injectors, high-pressure fuel pump (Bosch CP4 on 2017-2021; updated pump on 2022+), turbo, DEF system, EGR cooler, particulate filter |
 
 Note: Duramax-specific coverage is **5/100k**, shorter than Ford PowerStroke's 7/100k diesel tier on Gold Certified. This is a structural disadvantage for GM HD diesel CPO vs Ford F-250/F-350 Gold.
 
@@ -74,11 +74,11 @@ EV models get standard 6/100k powertrain PLUS separate HV battery component cove
 | Drive motor / inverter / onboard charger | Covered under HV battery component line |
 | Public-charging hardware (CCS port) | Covered under B2B |
 
-Note: GM matches the federal floor (8/100k) for the HV battery — shorter than Hyundai/Kia EV CPO (10/100k). In CA-emission states, the 10/150k applies for the HV pack but this is regulatory, not GM-program-specific.
+Note: GM matches the federal floor (8/100k) for the HV battery, shorter than Hyundai/Kia EV CPO (10/100k). In CA-emission states, the 10/150k applies for the HV pack but this is regulatory, not GM-program-specific.
 
 ### Bolt EV Recall Note (2017-2022)
 
-The 2017-2022 Bolt EV / Bolt EUV had a major LG Chem battery recall. Any 2017-2022 Bolt sold as GM CPO MUST have the recall remedy documented (battery module replacement OR software-update + diagnostic confirmation). Verify the recall remedy at CPO close — see `ev_buyer_playbook.md` § Bolt-specific section for protocol.
+The 2017-2022 Bolt EV / Bolt EUV had a major LG Chem battery recall. Any 2017-2022 Bolt sold as GM CPO MUST have the recall remedy documented (battery module replacement OR software-update + diagnostic confirmation). Verify the recall remedy at CPO close, see `ev_buyer_playbook.md` § Bolt-specific section for protocol.
 
 ---
 
@@ -115,7 +115,7 @@ So buyer often nets **+$500 to +$1,200 of value** (ICE) or **+$1,500 to +$2,500*
 
 ---
 
-## CPO vs Non-CPO Math (worked example — Silverado Duramax)
+## CPO vs Non-CPO Math (worked example, Silverado Duramax)
 
 For a 2022 Silverado 2500HD LT Duramax 4WD 52k mi:
 
@@ -126,7 +126,7 @@ For a 2022 Silverado 2500HD LT Duramax 4WD 52k mi:
 | Non-CPO same VIN at $53,490 + third-party 6/100k powertrain only $2,200 (no diesel-specific) | $55,690 effective with diesel risk uncovered ($4,500-$10,000 expected-value exposure on CP4 / injectors) |
 | Non-CPO same VIN at $53,490 + self-insure | $53,490 net cost, accept ~$6,000-$10,000 expected-value risk on diesel-specific components |
 
-For Duramax diesel HD pickups, GM CPO is hard to beat with self-insure math — the CP4 fuel pump risk on 2017-2021 Duramax is particularly load-bearing.
+For Duramax diesel HD pickups, GM CPO is hard to beat with self-insure math, the CP4 fuel pump risk on 2017-2021 Duramax is particularly load-bearing.
 
 ---
 
@@ -140,7 +140,7 @@ Dealers can enroll a qualifying car for **~$500-$800 internal cost** (172-point 
 
 **Phase 6 negotiation play for Duramax**: When a non-CPO Duramax 2500HD/3500HD is priced within $2,000 of a CPO same-model same-mileage comp, ask the non-CPO dealer to enroll CPO at their cost. The diesel-specific component coverage delta (CP4 fuel pump on 2017-2021 specifically) makes this the highest-leverage margin give on GM HD diesel pickup negotiations.
 
-**Phase 6 negotiation play for Bolt EV (2017-2022)**: Always verify the LG Chem battery recall remedy was performed before considering CPO. If the recall remedy is NOT documented, CPO is suspect — walk or demand documentation. See `ev_buyer_playbook.md` § Bolt recall protocol.
+**Phase 6 negotiation play for Bolt EV (2017-2022)**: Always verify the LG Chem battery recall remedy was performed before considering CPO. If the recall remedy is NOT documented, CPO is suspect, walk or demand documentation. See `ev_buyer_playbook.md` § Bolt recall protocol.
 
 ---
 
@@ -148,13 +148,13 @@ Dealers can enroll a qualifying car for **~$500-$800 internal cost** (172-point 
 
 A 2019 GM vehicle or any GM with 80k+ mi is ineligible for GM CPO. Options:
 
-1. **GM Protection Plan (GMPP)** — GM's separately-sold extended warranty. Tiers: Major Guard (top, comprehensive), Smart Care (mid), Powertrain (entry). Available 5/60k through 8/125k from time of purchase. Duramax-specific tiers available.
+1. **GM Protection Plan (GMPP)**, GM's separately-sold extended warranty. Tiers: Major Guard (top, comprehensive), Smart Care (mid), Powertrain (entry). Available 5/60k through 8/125k from time of purchase. Duramax-specific tiers available.
    Typical GM dealer GMPP pricing for an out-of-CPO 2018 Silverado 1500 (~85k mi at purchase):
    - Major Guard comprehensive: approximately $2,800-$3,800
    - Powertrain only: approximately $1,700-$2,400
    - Duramax-specific rider (HD only): +$700-$1,200
-2. **Third-party extended warranty** — buy elsewhere. For Duramax, verify the plan explicitly covers CP4 fuel pump (or its replacement on 2022+), injectors, turbo, DPF.
-3. **Self-insure** — GM reliability is bimodal: 5.3L / 6.2L L8X V8 NA models are statistically reliable; 2.7L Tri-Power Turbo (2019+) has lower mileage track record; Duramax CP4 era (2017-2021) has notable failure risk. Self-insure is defensible for L83/L84/L8X V8 on 1500-series with clean maintenance.
+2. **Third-party extended warranty**, buy elsewhere. For Duramax, verify the plan explicitly covers CP4 fuel pump (or its replacement on 2022+), injectors, turbo, DPF.
+3. **Self-insure**, GM reliability is bimodal: 5.3L / 6.2L L8X V8 NA models are statistically reliable; 2.7L Tri-Power Turbo (2019+) has lower mileage track record; Duramax CP4 era (2017-2021) has notable failure risk. Self-insure is defensible for L83/L84/L8X V8 on 1500-series with clean maintenance.
 
 For out-of-CPO ICE GM, expect price to be ~$1,200 lower than a comparable CPO. For Duramax out-of-CPO, expect ~$2,500-$4,000 lower.
 
@@ -192,26 +192,26 @@ Confirm CPO status before signing:
 
 ### Suburban / Tahoe (5th gen 2021+) / Yukon / Yukon XL (5th gen 2021+) / Escalade (5th gen 2021+)
 - Full-size SUVs; 5.3L / 6.2L V8 / 3.0L Duramax diesel (Tahoe/Yukon/Suburban/Escalade)
-- Escalade is Cadillac — separate Cadillac CPO program (deferred to P3.5)
+- Escalade is Cadillac, separate Cadillac CPO program (deferred to P3.5)
 
 ### Equinox (3rd gen 2018-2024 / 4th gen 2025+) / Traverse (2nd gen 2018-2023 / 3rd gen 2024+) / Blazer (3rd gen 2019+)
 - Mid-size crossovers; standard CPO coverage
-- Equinox EV (2024+) is BEV variant — gets EV CPO line
-- Blazer EV (2024+) is BEV variant — gets EV CPO line
+- Equinox EV (2024+) is BEV variant, gets EV CPO line
+- Blazer EV (2024+) is BEV variant, gets EV CPO line
 
 ### Bolt EV / Bolt EUV (2017-2023)
 - Compact EV / subcompact crossover EV
-- 2017-2022 had LG Chem battery recall — verify recall remedy before CPO acceptance
-- 2023 redesigned pack — fewer recall issues
+- 2017-2022 had LG Chem battery recall, verify recall remedy before CPO acceptance
+- 2023 redesigned pack, fewer recall issues
 - Bolt production ended 2023; 2025+ Bolt returns on Ultium platform (new generation)
 
-### Hummer EV (2022+) / Lyriq EV (Cadillac, 2023+) — Ultium platform
+### Hummer EV (2022+) / Lyriq EV (Cadillac, 2023+), Ultium platform
 - Hummer EV: 3-motor or 2-motor configurations; massive battery pack (~205 kWh)
-- Lyriq: Cadillac luxury EV — separate Cadillac CPO (deferred to P3.5)
+- Lyriq: Cadillac luxury EV, separate Cadillac CPO (deferred to P3.5)
 - See `ev_buyer_playbook.md` for Ultium-specific SoH and NACS adapter notes
 
 ### Buick lineup
-- Enclave (3-row SUV) / Encore GX / Envista — all standard CPO ICE
+- Enclave (3-row SUV) / Encore GX / Envista, all standard CPO ICE
 - Buick is being phased out at the corporate strategy level; expect declining new-vehicle inventory through 2027
 
 ### Camaro / Corvette (2014-2024 / 2020+ C8 Corvette)
@@ -222,18 +222,18 @@ Confirm CPO status before signing:
 
 ## Related GM Programs
 
-- **GM Protection Plan (GMPP)** — GM's separately-sold extended warranty. Different from CPO.
-- **GM Family First / Friends & Family** — employee/family discount program
-- **GM Military / First Responder / Educator** — $500-$1,000 off new
-- **OnStar / Connected Services** — subscription-based connectivity
-- **SuperCruise** — hands-free highway driving (requires active OnStar subscription)
-- **GM Card** — Mastercard with auto purchase rewards
+- **GM Protection Plan (GMPP)**, GM's separately-sold extended warranty. Different from CPO.
+- **GM Family First / Friends & Family**, employee/family discount program
+- **GM Military / First Responder / Educator**, $500-$1,000 off new
+- **OnStar / Connected Services**, subscription-based connectivity
+- **SuperCruise**, hands-free highway driving (requires active OnStar subscription)
+- **GM Card**, Mastercard with auto purchase rewards
 
 Most of these apply to NEW GM purchases. Used GM CPO is its own thing.
 
 ---
 
-## GM CPO vs Other CPO Programs — Quick Comparison
+## GM CPO vs Other CPO Programs, Quick Comparison
 
 | Feature | GM CPO (Chevy / GMC / Buick) | Ford Gold | Toyota TCUV | Hyundai CPO | Kia CPO |
 |---|---|---|---|---|---|
@@ -242,7 +242,7 @@ Most of these apply to NEW GM purchases. Used GM CPO is its own thing.
 | Inspection | 172-point | 172-point | 160-point | 173-point | 165-point |
 | Powertrain extension | **6 yr / 100k from in-service** | 7 yr / 100k | 7 yr / 100k | 10 yr / 100k | 10 yr / 100k |
 | Limited B2B post-factory | 12 mo / 12k (from CPO date) | 12 mo / 12k (from CPO date) | 1 yr / 12k | 1 yr / 12k | 1 yr / 12k |
-| **Diesel-specific coverage** | **Yes — 5/100k diesel (Duramax)** | **Yes — 7/100k diesel (PowerStroke)** | n/a | n/a | n/a |
+| **Diesel-specific coverage** | **Yes, 5/100k diesel (Duramax)** | **Yes, 7/100k diesel (PowerStroke)** | n/a | n/a | n/a |
 | EV HV battery coverage | 8 yr / 100k (10/150k in CA-emission states) | 8 yr / 100k | n/a | 10 yr / 100k | 10 yr / 100k |
 | Deductible | $0 | $100/visit | $0 | $0 | $50 B2B / $0 powertrain |
 | Included maintenance | **2 visits (oil + tire rotation)** | None | Limited (regional) | None | None |
@@ -251,4 +251,4 @@ Most of these apply to NEW GM purchases. Used GM CPO is its own thing.
 | Embedded value (EV) | $2,000-$3,200 | $2,000-$3,500 | n/a | $3,000-$4,500 | $2,800-$4,200 |
 | Market premium typical | $800-$1,500 | $1,000-$1,800 | $1,000-$2,000 | $800-$1,500 | $700-$1,500 |
 
-**Key structural differences**: GM CPO's powertrain term (6/100k) is the SHORTEST among major non-luxury programs. The 2-visit included maintenance is a unique feature (no other listed program includes scheduled maintenance under CPO). The Duramax diesel coverage at 5/100k is shorter than Ford PowerStroke 7/100k. For Bolt EV buyers, the LG Chem recall remedy verification is the unique CPO-validity gate. For Silverado / Sierra 1500 ICE buyers, GM CPO is competitive with Ford Gold but shorter on powertrain term — favoring Ford Gold on equivalent buyer profiles.
+**Key structural differences**: GM CPO's powertrain term (6/100k) is the SHORTEST among major non-luxury programs. The 2-visit included maintenance is a unique feature (no other listed program includes scheduled maintenance under CPO). The Duramax diesel coverage at 5/100k is shorter than Ford PowerStroke 7/100k. For Bolt EV buyers, the LG Chem recall remedy verification is the unique CPO-validity gate. For Silverado / Sierra 1500 ICE buyers, GM CPO is competitive with Ford Gold but shorter on powertrain term, favoring Ford Gold on equivalent buyer profiles.

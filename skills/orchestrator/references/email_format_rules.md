@@ -41,9 +41,9 @@ If the buyer's `criteria.md` is in Chinese or another language, translate buyer-
 |---------|-------|
 | ASCII hyphen `-` | For bullet lists, ranges ($2,300-3,450), dashes |
 | Plain numbered lists `1. text` | Standard ASCII |
-| Colon `:` for list-introducing phrases | "Mileage: at 73,000 mi" not "Mileage — at 73,000 mi" |
-| Period + new sentence | Use to replace em-dash breaks: "Got it. Thanks." not "Got it — thanks." |
-| Comma for soft pauses | "Got the quote, thanks." instead of "Got the quote — thanks." |
+| Colon `:` for list-introducing phrases | "Mileage: at 73,000 mi" not "Mileage, at 73,000 mi" |
+| Period + new sentence | Use to replace em-dash breaks: "Got it. Thanks." not "Got it, thanks." |
+| Comma for soft pauses | "Got the quote, thanks." instead of "Got the quote, thanks." |
 | Straight quotes `"` `'` | Standard ASCII |
 | Blank lines for section separation | Instead of `---` or `***` |
 | Plain text URLs | `https://example.com` written out, not `[Example](url)` |
