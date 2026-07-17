@@ -1,16 +1,16 @@
 # Non-State Data Source Ledger
 
-> **purpose**: Single audit trail for every *non-state* hard number the skill quotes as fact —
+> **purpose**: Single audit trail for every *non-state* hard number the skill quotes as fact ,
 > CPO program limits, IRS / federal credit figures, manufacturer warranty terms, fee thresholds,
 > etc. State-level tax / doc-cap / title / reg numbers live in `data/state_fees.json` (structured)
 > and are audited separately by `scripts/check_freshness.py`; do NOT duplicate state rows here.
 >
 > **scope rule**: if a number is a *claim about the world that can go stale* (a dollar cap, a
 > mileage limit, a rate, a date threshold) and it is **not** state-specific, it belongs here.
-> Soft heuristics ("launch-year discount is typically $500-1,500") do NOT belong here — only
+> Soft heuristics ("launch-year discount is typically $500-1,500") do NOT belong here, only
 > verifiable, citeable figures.
 >
-> **Round 1 (this commit)**: schema + table headers only — NO data rows. Populate in Round 2.
+> **Round 1 (this commit)**: schema + table headers only, NO data rows. Populate in Round 2.
 > **Round 2**: fill the Brand / CPO and Federal-Credit tables row by row, each with a real
 > statute citation or source URL and a `verified_date`. A row with no source MUST NOT be added.
 
@@ -25,7 +25,7 @@ Every row in every table below uses the same three load-bearing columns:
 | **verified_date** | ISO `YYYY-MM-DD` the value was last web-confirmed against the cited source |
 
 Conventions:
-- One fact per row. Do not pack a range and a cap into one row — split them.
+- One fact per row. Do not pack a range and a cap into one row, split them.
 - `value` must be self-describing out of context (e.g. `7yr/100k mi from original in-service date`, not just `100k`).
 - If a figure is CPI-indexed or scheduled to change, note the next change in `value` (e.g. `$9,000 (2025; +$1k/yr to uncapped 2029)`).
 - A fact that becomes stale stays in the table; bump its `verified_date` and `value` on re-confirm rather than deleting history-bearing context.
@@ -36,7 +36,7 @@ Conventions:
 ## 1. Brand CPO Programs (non-state)
 
 Coverage terms, age/mileage eligibility caps, and deductible figures per OEM CPO program.
-Cross-reference the per-brand reference files (`*_cpo_program.md`) — this table is the
+Cross-reference the per-brand reference files (`*_cpo_program.md`), this table is the
 quick-audit ledger of the *hard numbers* in those files.
 
 | brand / program | fact | value | statute \| URL | verified_date |
@@ -99,13 +99,13 @@ quick-audit ledger of the *hard numbers* in those files.
 | Acura Care VSC (separate) | list price range | $1,500-$3,500+ (varies by model/mileage/deductible); exclusionary coverage | https://www.consumeraffairs.com/automotive/acura-extended-warranty.html | 2026-06-22 |
 | Acura Care Certified Additional Coverage | max B2B extension | up to 9 yr / 150,000 mi | https://www.consumeraffairs.com/automotive/acura-extended-warranty.html | 2026-06-22 |
 
-### UNVERIFIED CPO rows (flagged — do NOT quote as fact in a live deal until confirmed)
+### UNVERIFIED CPO rows (flagged, do NOT quote as fact in a live deal until confirmed)
 
 | brand / program | fact | status | note |
 |---|---|---|---|
 | Stellantis SPOTiCAR | canonical OEM "MSRP value of CPO" dollar figure | UNVERIFIED | Stellantis does not publish one; embedded-value ranges above are derived from Mopar/FlexCare quotes, not an OEM list price |
 | Stellantis SPOTiCAR | CPO market premium (asking-price delta vs non-CPO same VIN) | UNVERIFIED | no reliable Stellantis-specific hard number found; use embedded-value range as anchor |
-| Stellantis SPOTiCAR | exact rental allowance for Ram brand specifically | UNVERIFIED (conflicting) | $45/$225 (KBB Stellantis) vs $35/$175 (Ram-brand pages) — confirm per VIN/brand at close |
+| Stellantis SPOTiCAR | exact rental allowance for Ram brand specifically | UNVERIFIED (conflicting) | $45/$225 (KBB Stellantis) vs $35/$175 (Ram-brand pages), confirm per VIN/brand at close |
 | Lexus L/Certified | dedicated L/Certified hybrid-component term | UNVERIFIED | not confirmed on OEM page; federal/CA hybrid-battery warranty (8yr/100k base, 10yr/150k CA) applies separately on in-service date |
 | Lexus L/Certified | fixed market premium over non-CPO same-VIN | UNVERIFIED | no citeable pin (anecdotally ~$1,000-$2,500); negotiation variable, not a ledger fact |
 | Genesis CPO | CPO market price premium (CPO vs same-VIN non-CPO) | UNVERIFIED | KBB editorial says negotiate "below ~$1,000"; no published national program figure |
@@ -121,14 +121,14 @@ quick-audit ledger of the *hard numbers* in those files.
 ## 2. Federal & IRS Figures (credits, deductions, thresholds)
 
 EV/clean-vehicle credits, MSRP caps, income (MAGI) limits, and any other federal dollar
-thresholds the skill cites. These change by tax year — pin the year in `value`.
+thresholds the skill cites. These change by tax year, pin the year in `value`.
 
 | program | fact | value | statute \| URL | verified_date |
 |---|---|---|---|---|
 | <!-- e.g. Clean Vehicle Credit (new) | max credit | $7,500 (2025 tax year) | IRC §30D / irs.gov/... | YYYY-MM-DD --> | | | |
 | <!-- e.g. Used Clean Vehicle Credit | sale-price cap | $25,000 (2025) | IRC §25E / irs.gov/... | YYYY-MM-DD --> | | | |
 
-> R1: headers only. R2: populate from the EV buyer playbook (`ev_buyer_playbook.md`) — new-credit
+> R1: headers only. R2: populate from the EV buyer playbook (`ev_buyer_playbook.md`), new-credit
 > amount, used-credit amount, MSRP caps (car vs SUV/truck), MAGI limits (single / HoH / MFJ),
 > point-of-sale transfer rules, and any sunset dates.
 
@@ -143,7 +143,7 @@ regulatory limits, manufacturer base-warranty terms (bumper-to-bumper / powertra
 | <!-- e.g. New-car base warranty (Hyundai) | powertrain | 10yr/100k mi | hyundaiusa.com/... | YYYY-MM-DD --> | | | |
 
 > R1: headers only. R2: populate only as the skill begins quoting specific non-state figures
-> elsewhere; keep this table lean — promote a fact here only when it is actually cited as ground truth.
+> elsewhere; keep this table lean, promote a fact here only when it is actually cited as ground truth.
 
 ---
 
@@ -152,5 +152,5 @@ regulatory limits, manufacturer base-warranty terms (bumper-to-bumper / powertra
 - Audited alongside the state dataset on the annual refresh cadence (see `data/state_fees.json` `_meta`
   and `scripts/check_freshness.py`).
 - When you add or re-verify a row, set `verified_date` to the date you confirmed it against the cited
-  source — not the date you copied it from another doc.
+  source, not the date you copied it from another doc.
 - If you cannot find a primary source for a number, do not add it; flag it for verification instead.

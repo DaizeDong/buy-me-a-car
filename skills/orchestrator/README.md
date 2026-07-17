@@ -22,7 +22,7 @@ Trigger: `help me buy a car` / `帮我找车` / `买车` / `find me an SUV` / `n
 
 - **22 states** at depth (NJ/NY/PA/CT/MA/RI/NH/ME/VT/CA/TX/IL/FL/OH/NC/GA/MI/VA/WA/DC/MD + 50-state base)
 - **8 CPO programs** (Subaru/Honda/Toyota/Hyundai/Kia/Ford/GM/Mazda)
-- **5 buyer paths** (cash / finance / lease / trade / EV — note: federal §30D/§25E/§45W EV credits terminated 2025-09-30 per OBBBA; EV path is now state-rebate + charging/SoH diligence only)
+- **5 buyer paths** (cash / finance / lease / trade / EV, note: federal §30D/§25E/§45W EV credits terminated 2025-09-30 per OBBBA; EV path is now state-rebate + charging/SoH diligence only)
 - **6 vehicle classes** including pickup, heavy-duty, commercial, luxury
 - **14 anti-patterns** auto-detected at Phase 1
 - **English** (dealer-facing); **Chinese / other** (buyer-facing)
@@ -44,10 +44,10 @@ Skill: <runs P2-P9 with subagents + cron, drafts emails, you paperclip
 1. Plain ASCII in every outbound email
 2. Market data before any OTD estimate
 3. Written OTD before any in-person visit
-4. Read the actual CARFAX PDF — don't trust verbal "clean 1-owner"
+4. Read the actual CARFAX PDF, don't trust verbal "clean 1-owner"
 5. Never mix used-car and new-car anchors in same email
 6. Verify tracker history against Gmail before acting on it
-7. Cite only REAL-tagged baseline rows to dealers — synthesized data is internal only
+7. Cite only REAL-tagged baseline rows to dealers, synthesized data is internal only
 
 ## Self-test
 
@@ -60,4 +60,4 @@ python scripts/skill_smoke_test.py
 
 ## Limits
 
-Built from one author's NJ 2026-05 buying cycle + 5 synthetic stress tests. State fees, CPO terms, EV credits change — re-verify annually (`last_verified: 2026-05-18`). Not tax, legal, or financial advice. Test on low-stakes scenarios first.
+Built from one author's NJ 2026-05 buying cycle + 5 synthetic stress tests. State fees, CPO terms, EV credits change, re-verify annually (`last_verified: 2026-05-18`). Not tax, legal, or financial advice. Test on low-stakes scenarios first.

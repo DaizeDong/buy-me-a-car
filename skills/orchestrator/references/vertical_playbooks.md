@@ -2,9 +2,9 @@
 
 > **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
 
-This file combines two niche buyer-type playbooks that extend the mainstream-light-vehicle workflow. **Part 1 — Pickup Truck Specifics** covers 1/2-ton and mid-size pickups (F-150, Ram 1500, Silverado/Sierra 1500, Tundra, Tacoma, Ranger, Frontier, Colorado/Canyon) — tow rating, payload, factory vs aftermarket distinction, pickup-specific PPI items, and dealer tactics. **Part 2 — Heavy / Commercial / Luxury** covers HD pickups (F-250+, 2500+, 3500+), commercial vans / box trucks / fleet vehicles, and the luxury European / Japanese / American luxury brands (BMW / MB / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln / Porsche).
+This file combines two niche buyer-type playbooks that extend the mainstream-light-vehicle workflow. **Part 1, Pickup Truck Specifics** covers 1/2-ton and mid-size pickups (F-150, Ram 1500, Silverado/Sierra 1500, Tundra, Tacoma, Ranger, Frontier, Colorado/Canyon), tow rating, payload, factory vs aftermarket distinction, pickup-specific PPI items, and dealer tactics. **Part 2, Heavy / Commercial / Luxury** covers HD pickups (F-250+, 2500+, 3500+), commercial vans / box trucks / fleet vehicles, and the luxury European / Japanese / American luxury brands (BMW / MB / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln / Porsche).
 
-## Part 1 — Pickup Truck Specifics
+## Part 1, Pickup Truck Specifics
 
 ## Pickup Truck Specifics
 
@@ -23,7 +23,7 @@ Loaded when buyer's vehicle target is any 1500-class or mid-size pickup (Phase 1
 
 ---
 
-### 1. Tow Rating Dependency Table — DO NOT trust the listing
+### 1. Tow Rating Dependency Table, DO NOT trust the listing
 
 Pickup tow ratings vary wildly within the SAME nameplate based on **engine × axle ratio × cab config × bed length × tow package**. A "2022 F-150 with tow package" can mean anywhere from 8,000 lb to 14,000 lb depending on the actual configuration. Buyers are routinely sold the wrong truck because the dealer's listing only says "tow package" without the configuration detail.
 
@@ -95,7 +95,7 @@ If a listing claims "tow package" but the VIN decode shows std tow only, the buy
 - A truck advertised at "12,000 lb tow" that actually does 9,500 lb has a value drop of $1,500-$3,000
 - Counter: "VIN decode shows std tow option 535, not Max Tow 53A. Listing says 'tow package' which is technically true but misleading on capacity. I'm asking for a $2,000 sale-price reduction to compensate."
 
-This is a frequent pickup-listing mismatch — surface it in Phase 6 routinely on any pickup-trade.
+This is a frequent pickup-listing mismatch, surface it in Phase 6 routinely on any pickup-trade.
 
 ---
 
@@ -106,9 +106,9 @@ A truck with **only an aftermarket hitch** is functionally a "no tow package" tr
 | Equipment | Factory Max Tow Includes | Factory Std Tow | Aftermarket Hitch Only |
 |---|---|---|---|
 | Hitch receiver (welded to frame) | Yes Class IV/V | Yes Class III/IV | Bolt-on or weld-on; quality varies |
-| 7-pin OEM trailer connector wired | Yes | Yes | Sometimes wired aftermarket — voltage/ground can be flaky |
+| 7-pin OEM trailer connector wired | Yes | Yes | Sometimes wired aftermarket, voltage/ground can be flaky |
 | 4-pin trailer connector | Yes | Yes | Sometimes |
-| Integrated Trailer Brake Controller (dash) | Yes (Ford from 2009+; GM 2015+; Ram 2019+) | No (or optional add-on) | No — must add aftermarket Tekonsha/Curt under-dash |
+| Integrated Trailer Brake Controller (dash) | Yes (Ford from 2009+; GM 2015+; Ram 2019+) | No (or optional add-on) | No, must add aftermarket Tekonsha/Curt under-dash |
 | Trailer sway control software | Yes (integrated with stability control) | Maybe (varies) | No |
 | Heavier rear axle gearing (3.55+ Ford / 3.92 Ram / 3.42 GM) | Yes | Maybe | No (whatever came with the truck) |
 | Transmission cooler (auxiliary or upgraded) | Yes | Yes (smaller) | No |
@@ -164,16 +164,16 @@ Standard sedan PPI (CARFAX + service records + brake/tire/fluids) misses pickup-
 #### Frame inspection
 
 - Rear frame rust around spare-tire well (water collects)
-- Rear cross-member rust (especially Toyota Tacoma 2005-2010 — class-action) and (Ford F-150 1997-2003 — separate class-action). **2015-2024 trucks generally OK** but inspect anyway in rust-belt states (IL, OH, PA, MI, NY, NJ, NE).
-- Frame cracks around hitch mount points — sign of regular over-tow use
+- Rear cross-member rust (especially Toyota Tacoma 2005-2010, class-action) and (Ford F-150 1997-2003, separate class-action). **2015-2024 trucks generally OK** but inspect anyway in rust-belt states (IL, OH, PA, MI, NY, NJ, NE).
+- Frame cracks around hitch mount points, sign of regular over-tow use
 - Hidden surface rust under bedliner (drop-in liners hold moisture)
 - Frame paint condition (factory paint = original; recent paint = damage repair)
 - Body-mount bushings (12 mounts on F-150; cracked/missing rubber = corrosion access to frame and body misalignment)
 
 #### Suspension under-load test
 
-- Eyeball spring sag with truck on level ground — rear should sit 0-1" higher than front (raked stance); equal or rear-sagging = worn springs
-- Bump-stop wear pattern — visible rubber contact marks = regular bottoming-out from over-tow or off-road
+- Eyeball spring sag with truck on level ground, rear should sit 0-1" higher than front (raked stance); equal or rear-sagging = worn springs
+- Bump-stop wear pattern, visible rubber contact marks = regular bottoming-out from over-tow or off-road
 - Shock dust boots intact (torn boots = early shock failure)
 - Sway bar end-link rubber bushings (worn = clunk on washboard roads)
 - Rear leaf-spring stack alignment (off-center = previous accident or curb-hit)
@@ -181,28 +181,28 @@ Standard sedan PPI (CARFAX + service records + brake/tire/fluids) misses pickup-
 
 #### Hitch + Towing wear pattern
 
-- **Hitch receiver wear** — regular tow use leaves chrome wear inside the receiver; sliding pattern indicates frequent insertion/removal
-- **Tongue weight ball wear** — flattened ball top = regular heavy tow; gouged = improper coupler match
-- **Hitch pin hole wear** — elongation = regular use
-- **7-pin connector wear** — corroded pins = exposure; bent pins = forced connection; replacement (new chrome) = damage repair
-- **Trailer brake controller test** — must function in gain test (dash knob 1-10); LED indicator goes from amber-no-trailer to green-trailer-connected; aftermarket Tekonsha installs often have wrong wire splice
+- **Hitch receiver wear**, regular tow use leaves chrome wear inside the receiver; sliding pattern indicates frequent insertion/removal
+- **Tongue weight ball wear**, flattened ball top = regular heavy tow; gouged = improper coupler match
+- **Hitch pin hole wear**, elongation = regular use
+- **7-pin connector wear**, corroded pins = exposure; bent pins = forced connection; replacement (new chrome) = damage repair
+- **Trailer brake controller test**, must function in gain test (dash knob 1-10); LED indicator goes from amber-no-trailer to green-trailer-connected; aftermarket Tekonsha installs often have wrong wire splice
 
 #### Transmission cooler
 
-- Front of radiator stack — look for separate auxiliary cooler with 2-3 lines running to transmission
+- Front of radiator stack, look for separate auxiliary cooler with 2-3 lines running to transmission
 - Inspect cooler fins for road-debris damage
 - No fluid weeping at cooler joints
-- Transmission fluid color from dipstick (or via service records if sealed) — clean amber/red = OK; dark brown = overdue change; metallic-grey = internal damage
+- Transmission fluid color from dipstick (or via service records if sealed), clean amber/red = OK; dark brown = overdue change; metallic-grey = internal damage
 
 #### Differential (rear)
 
-- Rear axle fluid color via fill-plug inspection — clean amber = OK; metallic = bearing wear
+- Rear axle fluid color via fill-plug inspection, clean amber = OK; metallic = bearing wear
 - 4x4 trucks: front axle fluid same check
-- Pinion-yoke wear (touch test) — loose = U-joint or pinion bearing failure
+- Pinion-yoke wear (touch test), loose = U-joint or pinion bearing failure
 
 #### Exhaust
 
-- **V8 trucks**: exhaust manifold cracks (Ford 5.0L, Chevy 5.3L/6.2L, Ram 5.7L Hemi prone after 100k mi with work-truck stress) — listen for ticking on cold start
+- **V8 trucks**: exhaust manifold cracks (Ford 5.0L, Chevy 5.3L/6.2L, Ram 5.7L Hemi prone after 100k mi with work-truck stress), listen for ticking on cold start
 - **Hemi 5.7L specifically**: lifter tick (MDS lifter failure) audible cold; cylinder deactivation = wear pattern check
 - **EcoBoost 3.5L specifically**: turbo seal leak (smoke on cold start = turbo seal); intercooler condensation collection (causes misfires); spark plug condition critical
 - Cat health (passes IL emissions in DuPage County)
@@ -225,9 +225,9 @@ Standard sedan PPI (CARFAX + service records + brake/tire/fluids) misses pickup-
 
 #### Drivetrain heat indicators
 
-- Transfer case (4x4 trucks) — heat marks on case
-- Transmission pan — heat marks or fluid weeping
-- Engine oil pan — heat marks (overheating history)
+- Transfer case (4x4 trucks), heat marks on case
+- Transmission pan, heat marks or fluid weeping
+- Engine oil pan, heat marks (overheating history)
 
 #### Plow-truck flags
 
@@ -237,7 +237,7 @@ If truck has plow brackets installed or hooks at front bumper:
 - Front suspension wear (plows beat front springs)
 - Cooling system upgrade signs (plow trucks add coolers)
 - Premium-rate insurance flag (some insurers raise rates for ex-plow vehicles)
-- Highly negotiable — ex-plow trucks usually $1,500-$3,000 below clean comp
+- Highly negotiable, ex-plow trucks usually $1,500-$3,000 below clean comp
 
 ---
 
@@ -267,7 +267,7 @@ Trucks depreciate differently from sedans:
 | Tundra (Toyota truck premium) | n/a | 65-70% (Japanese-truck retention) |
 | Tacoma (mid-size) | n/a | 70-75% (legendary retention) |
 
-**Tacoma is the depreciation exception** — holds value better than any other US truck due to legendary durability rep. Tundra second. Domestic full-size (F-150, Silverado, Ram) cluster around 55-60% year-3.
+**Tacoma is the depreciation exception**, holds value better than any other US truck due to legendary durability rep. Tundra second. Domestic full-size (F-150, Silverado, Ram) cluster around 55-60% year-3.
 
 #### Trim premium (used)
 
@@ -305,7 +305,7 @@ Common on Ram and F-150 in rural/red-state markets. Issues:
 - 33" tires = -1 mpg, -500 lb tow
 - Negotiate to restore stock wheels/tires OR get a $1,000-$2,000 price reduction
 
-#### "Pickup truck premium" — current market context
+#### "Pickup truck premium", current market context
 
 2022-2024 used pickup pricing was elevated (~10-15% over historical norm) due to 2021-2022 chip shortage. By 2026 the premium has compressed but used full-size pickups still trade at 5-10% above pre-2021 historical norm. Build this into baseline target.
 
@@ -341,13 +341,13 @@ Before sending an OTD counter on a used pickup:
 
 ### Cross-References
 
-- `references/pdf_review_checklist.md` — CARFAX patterns; pickup-specific is additive to sedan checklist
-- `references/trade_in.md` — pickup as trade-in (lien handling + Hemi/EcoBoost specific resale)
-- `references/state_fees.md` — IL/PA/TX/OH/MI rust-belt states have higher frame-rust risk for cross-state purchases
-- SKILL.md Phase 3 — pickup inventory dispatch should add tow-config column
-- SKILL.md Phase 9 — pickup-specific close-day walk-around checklist (factory tow option verification at delivery, integrated TBC functional test)
+- `references/pdf_review_checklist.md`, CARFAX patterns; pickup-specific is additive to sedan checklist
+- `references/trade_in.md`, pickup as trade-in (lien handling + Hemi/EcoBoost specific resale)
+- `references/state_fees.md`, IL/PA/TX/OH/MI rust-belt states have higher frame-rust risk for cross-state purchases
+- SKILL.md Phase 3, pickup inventory dispatch should add tow-config column
+- SKILL.md Phase 9, pickup-specific close-day walk-around checklist (factory tow option verification at delivery, integrated TBC functional test)
 
-## Part 2 — Heavy / Commercial / Luxury
+## Part 2, Heavy / Commercial / Luxury
 
 ## Heavy-Duty / Commercial / Luxury Axes
 
@@ -355,7 +355,7 @@ Before sending an OTD counter on a used pickup:
 
 Buyer-type extensions beyond the core mainstream-light-vehicle workflow. Covers heavy-duty pickups (HD trucks), commercial vehicles (cargo vans / box / fleet), and luxury (BMW / MB / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln). Each axis has structurally different negotiation, financing, lease, and ownership patterns that the standard SKILL.md flow does not handle out-of-the-box.
 
-Cross-references: Part 1 above (1/2-ton pickups — F-150, RAM 1500, Silverado 1500, Tundra, Tacoma), `lease_playbook.md` (luxury lease arbitrage), `ev_buyer_playbook.md` (Cadillac LYRIQ, Lincoln Star EVs, electric Sprinter).
+Cross-references: Part 1 above (1/2-ton pickups, F-150, RAM 1500, Silverado 1500, Tundra, Tacoma), `lease_playbook.md` (luxury lease arbitrage), `ev_buyer_playbook.md` (Cadillac LYRIQ, Lincoln Star EVs, electric Sprinter).
 
 ### 1. Heavy-Duty Pickups (F-250 / F-350 / RAM 2500 / RAM 3500 / GM 2500HD / 3500HD)
 
@@ -365,16 +365,16 @@ HD pickups are 3/4-ton (250 / 2500 class) and 1-ton (350 / 3500 class) trucks de
 
 | Field | Why load-bearing |
 |---|---|
-| **GCWR (Gross Combined Weight Rating)** | Total weight of truck + trailer + cargo + passengers. Federal CDL trigger at 26,001 lbs GCWR; below that, no CDL needed. Many F-450 / RAM 3500 dually combos exceed 26,000 GCWR with a loaded fifth-wheel — CDL required. |
+| **GCWR (Gross Combined Weight Rating)** | Total weight of truck + trailer + cargo + passengers. Federal CDL trigger at 26,001 lbs GCWR; below that, no CDL needed. Many F-450 / RAM 3500 dually combos exceed 26,000 GCWR with a loaded fifth-wheel, CDL required. |
 | **Tow rating (5th-wheel / gooseneck vs conventional)** | 5th-wheel and gooseneck tow ratings are dramatically higher than conventional bumper-pull (e.g., F-350 SRW conventional 16,500 lbs vs 5th-wheel 24,800 lbs vs gooseneck 32,500 lbs). Buyer's trailer type determines which rating matters. |
 | **Engine (gas vs diesel)** | Diesel: Ford PowerStroke 6.7L, Ram Cummins 6.7L I6, GM Duramax 6.6L V8. Gas: Ford 7.3L "Godzilla" V8, Ram 6.4L Hemi V8, GM 6.6L Gas V8. Diesel: $9k-$11k premium, 22-28 MPG towing-loaded, $90k+ engine repairs at high mileage. Gas: $0 premium, 14-18 MPG loaded, $25k engine. |
 | **Axle ratio** | 3.55, 3.73, 4.10, 4.30 (Ford / GM) or 3.42 / 3.92 / 4.10 (Ram). Lower numerical = better fuel economy, lower tow. Higher = more tow capacity, worse MPG. |
 | **Cab configuration** | Regular cab (work truck, cheapest), Extended/SuperCab (4-door but rear suicide-style, less back room), Crew Cab (full 4-door, most common for retail). |
 | **Bed length** | 6.5 ft (standard, fits most setups) vs 8 ft (heavy-duty work, dually pairing). |
-| **Dually (DRW) vs SRW** | DRW = Dual Rear Wheel, 4 rear tires, only on 1-ton (350/3500). Higher payload (5,000-7,500 lbs vs SRW 3,500-4,500). Required for gooseneck-fifth-wheel combos over 25k lbs. Wider rear track — limits parking / urban use. |
+| **Dually (DRW) vs SRW** | DRW = Dual Rear Wheel, 4 rear tires, only on 1-ton (350/3500). Higher payload (5,000-7,500 lbs vs SRW 3,500-4,500). Required for gooseneck-fifth-wheel combos over 25k lbs. Wider rear track, limits parking / urban use. |
 | **Trim (Tradesman/XL vs King Ranch/Platinum/Limited/Longhorn)** | XL/Work Truck: vinyl floors, manual everything, $50-$65k. Lariat/SLT: leather, navigation, $65-$80k. King Ranch / Platinum / Limited / Longhorn: $80-$110k. Dual-tank diesel King Ranch is the volume HD trim across all 3 makes. |
 
-#### 1.2 EPA emissions warnings — CRITICAL
+#### 1.2 EPA emissions warnings, CRITICAL
 
 **DELETED EMISSIONS / EGR / DPF SYSTEMS ON DIESEL TRUCKS ARE FEDERALLY ILLEGAL** under the Clean Air Act § 203. EPA pursues violators aggressively as of 2023-2026.
 
@@ -389,7 +389,7 @@ Used-HD-diesel buyer MUST check at Phase 7 / PPI:
 1. Visual check of DEF tank (still present, not bypassed).
 2. Visual check of DPF (still present in exhaust line).
 3. OBD-II scan for cleared / deleted ECU codes (delete tunes leave fingerprints).
-4. Smoke output under load — black smoke = no DPF, likely deleted.
+4. Smoke output under load, black smoke = no DPF, likely deleted.
 
 If deleted, walk regardless of price discount. Re-installing OEM emissions on a deleted truck costs $8,000-$15,000 plus parts wait-list (6+ months for some PowerStroke parts). Insurance also drops coverage on emissions-modified trucks.
 
@@ -402,7 +402,7 @@ Heavy-duty trucks can register as **personal** or **commercial**. Mechanics:
 | **Personal** | Standard reg + fuel-type fees | Cannot use commercially (cannot rent, cannot deduct as business expense on Schedule C, may not pull commercial trailers in some states). |
 | **Commercial** | Higher reg (state-specific; $200-$1,200/yr); subject to weight tax (some states); commercial plates required | Allows business use, mileage deductions, IFTA fuel tax (interstate-commerce), commercial insurance. Some states require DOT number even for non-CDL trucks if commercial-registered. |
 
-**Heads-up for Phase 1**: Buyer says "I'll use my truck for my landscaping business" — commercial registration may be legally required. Defer to CPA or commercial insurance broker if buyer is registering for business use.
+**Heads-up for Phase 1**: Buyer says "I'll use my truck for my landscaping business", commercial registration may be legally required. Defer to CPA or commercial insurance broker if buyer is registering for business use.
 
 #### 1.4 HD pickup Phase 9 close-day items (in addition to standard pickup checklist)
 
@@ -424,11 +424,11 @@ Commercial vehicles are passenger-deficient utility vehicles built for fleet, co
 | **Ford Transit** (Cargo, Crew, Passenger) | Class 1-3 van | Most popular US commercial van; cargo conversions for trades, plumbers, electricians; 130/148/164 inch wheelbases; gas 3.5L EcoBoost or 3.5L PFI; AWD optional |
 | **Mercedes-Benz Sprinter** (also Freightliner branded) | Class 2-3 van | Most luxurious commercial van; "wedding shuttles", "tour buses", high-end upfit market; gas 2.0L turbo I4 or diesel 3.0L V6 (V6 now retired in some markets); legendary durability 400k+ mi reported |
 | **RAM ProMaster** | Class 2-3 van | Italian-made (Fiat Ducato platform); FWD layout = unique cargo floor height; lowest entry price in segment; gas 3.6L V6 only since 2024 |
-| **Chevrolet Express / GMC Savana** | Class 2-3 van | Holdovers from 2003 era — solid axle rear, body-on-frame; outdated cab but bombproof for fleet; gas 4.3L V6 / 6.6L V8 / 2.8L Duramax I4 diesel |
-| **Ford E-Transit (electric)** | Class 2 BEV van | Electric Transit; 126 mi range; **§45W $7,500 commercial credit TERMINATED for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05) — no longer claimable on a 2026 purchase, do NOT enter in OTD math; state/local rebates only** |
-| **Mercedes eSprinter (electric)** | Class 2 BEV van | Same as E-Transit, 71 kWh battery; **§45W TERMINATED 2025-09-30 — no longer eligible for any 2026 acquisition** |
+| **Chevrolet Express / GMC Savana** | Class 2-3 van | Holdovers from 2003 era, solid axle rear, body-on-frame; outdated cab but bombproof for fleet; gas 4.3L V6 / 6.6L V8 / 2.8L Duramax I4 diesel |
+| **Ford E-Transit (electric)** | Class 2 BEV van | Electric Transit; 126 mi range; **§45W $7,500 commercial credit TERMINATED for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05), no longer claimable on a 2026 purchase, do NOT enter in OTD math; state/local rebates only** |
+| **Mercedes eSprinter (electric)** | Class 2 BEV van | Same as E-Transit, 71 kWh battery; **§45W TERMINATED 2025-09-30, no longer eligible for any 2026 acquisition** |
 
-#### 2.2 Section 179 + Bonus Depreciation — Tax Strategy
+#### 2.2 Section 179 + Bonus Depreciation, Tax Strategy
 
 The IRS § 179 deduction allows businesses to deduct the full purchase price of qualifying vehicles in the year of purchase, up to a vehicle limit:
 
@@ -438,7 +438,7 @@ The IRS § 179 deduction allows businesses to deduct the full purchase price of 
 | 2025 | $30,500 (passenger) / $1.21M (heavy van) | 40% additional |
 | 2026 | $30,500 (passenger) / TBD (heavy van) | 20% additional (phasing out) |
 
-**Heavy van exception**: Vehicles over 6,000 lbs GVWR (Ford Transit 250/350 HD, Sprinter 2500/3500, ProMaster 2500/3500) qualify for FULL § 179 deduction without the $30,500 cap — up to the annual aggregate limit (~$1.2M).
+**Heavy van exception**: Vehicles over 6,000 lbs GVWR (Ford Transit 250/350 HD, Sprinter 2500/3500, ProMaster 2500/3500) qualify for FULL § 179 deduction without the $30,500 cap, up to the annual aggregate limit (~$1.2M).
 
 **Buyer strategy at Phase 1**: If buyer is purchasing commercially, run the tax-deduction math at Phase 2 baseline. A $60k Transit 350 HD bought December 31 with § 179 + bonus can save $25k-$33k in same-year taxes (35% marginal bracket business).
 
@@ -454,14 +454,14 @@ Commercial vans are often delivered "white cargo" (empty cargo space) and custom
 
 **Manufacturer upfitter programs**: Ford QVM (Qualified Vehicle Modifier), Mercedes MasterUpfitter, RAM ProMaster Authorized Upfitter. Buyer can specify upfit at order time; dealer coordinates with upfitter; total rolled into financing.
 
-#### 2.4 Fleet pricing — separate negotiation
+#### 2.4 Fleet pricing, separate negotiation
 
 Commercial dealers run a "fleet" desk distinct from retail. Fleet pricing is:
 
-- **Volume-discount based** — fleet of 5+ units negotiates as a single deal; 2-4% off retail invoice typical.
-- **Manufacturer-direct rebates** — Ford FCSD (Fleet, Commercial, Service Department), GM Onstar Business, Mercedes Pro: $500-$2,500/unit cash on order.
-- **Financing terms** — TFS Business / Ford Credit Commercial / GM Commercial Credit offer non-recourse business financing; rates 50-100bps above personal auto.
-- **Less negotiation back-and-forth** — fleet desks are volume-focused; one round of negotiation typical (vs 3-5 rounds retail).
+- **Volume-discount based**, fleet of 5+ units negotiates as a single deal; 2-4% off retail invoice typical.
+- **Manufacturer-direct rebates**, Ford FCSD (Fleet, Commercial, Service Department), GM Onstar Business, Mercedes Pro: $500-$2,500/unit cash on order.
+- **Financing terms**, TFS Business / Ford Credit Commercial / GM Commercial Credit offer non-recourse business financing; rates 50-100bps above personal auto.
+- **Less negotiation back-and-forth**, fleet desks are volume-focused; one round of negotiation typical (vs 3-5 rounds retail).
 
 Phase 4 outreach for commercial buyer: contact dealer's fleet manager directly (NOT internet sales). Email subject "Fleet quote, [N] units [Model], [Use Case]". Get fleet pricing in writing.
 
@@ -474,9 +474,9 @@ Defer to CPA. Document at Phase 1 if commercial use confirmed.
 
 ### 3. Luxury Cars
 
-Luxury covers BMW / Mercedes-Benz / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln. Volvo and Jaguar / Land Rover are luxury-adjacent (volume too small to address separately here — apply general luxury rules with Volvo skewing toward Honda-tier financing and JLR / Range Rover toward MB-tier).
+Luxury covers BMW / Mercedes-Benz / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln. Volvo and Jaguar / Land Rover are luxury-adjacent (volume too small to address separately here, apply general luxury rules with Volvo skewing toward Honda-tier financing and JLR / Range Rover toward MB-tier).
 
-#### 3.1 Lease penetration — luxury default
+#### 3.1 Lease penetration, luxury default
 
 | Brand | Lease share of US sales | Implication |
 |---|---|---|
@@ -502,7 +502,7 @@ Luxury OEMs include scheduled maintenance for the first 3-4 years on most new ca
 |---|---|---|
 | **BMW** | BMW Ultimate Care: 3 yr / 36k mi covers brake fluid, micro filter, oil/filter, wiper inserts. Optional "Ultimate Care+" extends to 6 yr / 60k mi for ~$1,800 | 4 yr included |
 | **Mercedes-Benz** | First service free (10k mi or 1 yr); subsequent services discounted via "Star Service" plans pre-paid at signing | Unlimited mileage roadside 4 yr |
-| **Audi** | Audi Care: 5 yr / 50k mi pre-paid for $750-$1,200 (NOT included by default; sales tactic to add at signing — buyer should compare to cash-pay) | 4 yr |
+| **Audi** | Audi Care: 5 yr / 50k mi pre-paid for $750-$1,200 (NOT included by default; sales tactic to add at signing, buyer should compare to cash-pay) | 4 yr |
 | **Lexus** | Lexus Plus: 2 yr / 20k mi free; "Lexus Service Tradition" loaner | 4 yr |
 | **Genesis** | Genesis Connected Services: 3 yr / 36k mi maintenance + valet pickup | 5 yr included |
 | **Acura** | None on most; "AcuraCare" extended service optional add-on | Roadside 4 yr included |
@@ -510,7 +510,7 @@ Luxury OEMs include scheduled maintenance for the first 3-4 years on most new ca
 | **Cadillac** | 5 yr / 75k mi free maintenance "Premium Care Maintenance" | 6 yr roadside |
 | **Lincoln** | "Lincoln Way" first 4 services free | 4 yr roadside |
 
-**Tactic**: Cadillac (5 yr / 75k mi) and Genesis (3 yr / 36k mi + valet) are the most generous included maintenance among luxury brands. BMW / Mercedes / Audi require buyer to pay or add a plan. Compute the value at Phase 1 — Cadillac Premium Care saves $1,800-$3,000 over the included period; that's a hidden incentive equal to BMW / MB cash discount.
+**Tactic**: Cadillac (5 yr / 75k mi) and Genesis (3 yr / 36k mi + valet) are the most generous included maintenance among luxury brands. BMW / Mercedes / Audi require buyer to pay or add a plan. Compute the value at Phase 1, Cadillac Premium Care saves $1,800-$3,000 over the included period; that's a hidden incentive equal to BMW / MB cash discount.
 
 #### 3.3 Performance trim premium
 
@@ -525,21 +525,21 @@ Luxury performance variants (AMG, M, RS, F-Sport / TRD, S-Line, Type S, NISMO) c
 | **Cadillac V / V-Series** (CT4-V, CT5-V, CT5-V Blackwing) | $50k-$95k Blackwing | $15k-$30k over base |
 | **Genesis Sport / Sport+** (G70 Sport, G80 Sport, GV70 Sport, GV80 Sport) | $5k-$15k premium | Modest |
 
-**Implication**: Phase 6 negotiation on performance variants is structurally tougher — these run lower discount, lower allocation, dealer-side margin is fatter. Buyer should expect MSRP - 2-4% discount typical (vs MSRP - 6-10% on base luxury cars). Performance trims often have ADM (Additional Dealer Markup) on top of MSRP — see gotcha D9.
+**Implication**: Phase 6 negotiation on performance variants is structurally tougher, these run lower discount, lower allocation, dealer-side margin is fatter. Buyer should expect MSRP - 2-4% discount typical (vs MSRP - 6-10% on base luxury cars). Performance trims often have ADM (Additional Dealer Markup) on top of MSRP, see gotcha D9.
 
 #### 3.4 Exclusive concierge networks
 
 Luxury brands operate parallel customer experience programs:
 
-- **BMW Genius** — dedicated product specialists at each dealer; one-on-one delivery + tech walkthrough; 90-day post-delivery follow-up calls. Standard on most BMWs.
-- **Mercedes Concierge** — VIP white-glove pickup-and-delivery for service; loaner is same-class or up; 24/7 roadside hotline.
-- **Lexus PLUS** — service loaner and valet pickup standard at all dealers; 2-yr free maintenance.
-- **Audi DTL (Driver Tech Library)** — virtual tech support post-purchase.
-- **Cadillac Concierge** — service pickup-and-delivery available, included on V models.
+- **BMW Genius**, dedicated product specialists at each dealer; one-on-one delivery + tech walkthrough; 90-day post-delivery follow-up calls. Standard on most BMWs.
+- **Mercedes Concierge**, VIP white-glove pickup-and-delivery for service; loaner is same-class or up; 24/7 roadside hotline.
+- **Lexus PLUS**, service loaner and valet pickup standard at all dealers; 2-yr free maintenance.
+- **Audi DTL (Driver Tech Library)**, virtual tech support post-purchase.
+- **Cadillac Concierge**, service pickup-and-delivery available, included on V models.
 
 **Buyer-side value**: $500-$1,500/yr equivalent value in service convenience. Cadillac and Lexus offer the most under standard pricing; BMW / MB / Audi tend to include only on top trims or via service plan upgrades.
 
-#### 3.5 Depreciation patterns — luxury 1st-3yr cliff then plateau
+#### 3.5 Depreciation patterns, luxury 1st-3yr cliff then plateau
 
 Luxury cars depreciate steeply in years 1-3 (40-50% loss) then plateau (3-5% per year after).
 
@@ -555,12 +555,12 @@ Luxury cars depreciate steeply in years 1-3 (40-50% loss) then plateau (3-5% per
 | **Cadillac** | 42-52% | 30-38% |
 | **Lincoln** | 42-52% | 30-38% |
 | **Genesis** | 45-55% | 35-45% (improving) |
-| **Range Rover / Land Rover** | 38-48% | 25-32% (weakest mainstream luxury — known issues compound depreciation) |
+| **Range Rover / Land Rover** | 38-48% | 25-32% (weakest mainstream luxury, known issues compound depreciation) |
 | **Maserati** | 30-40% | 20-28% (sub-luxury depreciation cliff) |
 
-**Practical implication**: Used 3-year-old luxury cars at 40-50% off MSRP are the value sweet spot — the buyer captures the steep first-cliff loss from the original lessee. This is why luxury CPO is critical.
+**Practical implication**: Used 3-year-old luxury cars at 40-50% off MSRP are the value sweet spot, the buyer captures the steep first-cliff loss from the original lessee. This is why luxury CPO is critical.
 
-#### 3.6 CPO — critical for luxury used
+#### 3.6 CPO, critical for luxury used
 
 Luxury CPO programs are structurally more important than mainstream CPO:
 
@@ -584,23 +584,23 @@ Luxury CPO programs are structurally more important than mainstream CPO:
 - Warranty registered to buyer's name in the brand's CRM (BMW account, MBO account).
 - Vehicle eligible (under brand's age/mileage thresholds when certified).
 
-The fake-CPO label is the most common dealer trap on used luxury — see gotcha (m) in SKILL.md heads-up block.
+The fake-CPO label is the most common dealer trap on used luxury, see gotcha (m) in SKILL.md heads-up block.
 
-#### 3.7 Pricing dynamics — luxury negotiation
+#### 3.7 Pricing dynamics, luxury negotiation
 
 Luxury dealers operate differently from mainstream:
 
-- **Sticker rarely budges much** — dealers see MSRP - 4-7% on most volume luxury vehicles, MSRP - 0-3% on performance variants and limited allocations.
-- **Lease incentives are MORE aggressive than purchase incentives** — captive lease cash $2,500-$7,500 typical on volume luxury (BMW 3-series, MB GLC, Audi Q5); purchase cash often $500-$2,000. The captive prefers to retain customer for next lease (60-65% lease share = future customer).
-- **First-time-buyer programs** — College Grad ($500-$1,500), Military ($500-$1,500), Loyalty / Conquest ($500-$2,000). These stack with lease cash.
-- **MSDs (Multiple Security Deposits)** — BMW / Mercedes / Audi all offer; can drop effective MF by 0.00040-0.00080 (~ 1% APR equivalent). See `lease_playbook.md` § 6.
-- **Service plan negotiation** — Audi Care ($750-$1,200), BMW Ultimate Care+ ($1,800), MB Star Service plans — all are negotiable at signing; never pay sticker on a service plan.
+- **Sticker rarely budges much**, dealers see MSRP - 4-7% on most volume luxury vehicles, MSRP - 0-3% on performance variants and limited allocations.
+- **Lease incentives are MORE aggressive than purchase incentives**, captive lease cash $2,500-$7,500 typical on volume luxury (BMW 3-series, MB GLC, Audi Q5); purchase cash often $500-$2,000. The captive prefers to retain customer for next lease (60-65% lease share = future customer).
+- **First-time-buyer programs**, College Grad ($500-$1,500), Military ($500-$1,500), Loyalty / Conquest ($500-$2,000). These stack with lease cash.
+- **MSDs (Multiple Security Deposits)**, BMW / Mercedes / Audi all offer; can drop effective MF by 0.00040-0.00080 (~ 1% APR equivalent). See `lease_playbook.md` § 6.
+- **Service plan negotiation**, Audi Care ($750-$1,200), BMW Ultimate Care+ ($1,800), MB Star Service plans, all are negotiable at signing; never pay sticker on a service plan.
 
 **Phase 6 luxury counter approach**: Focus on lease incentive stack + MSDs + loyalty stack, NOT on sticker discount. The path to lower OTD on luxury is through captive lease incentives, not through direct sticker discount.
 
 #### 3.8 Entry-luxury / "halo" models with high markup
 
-Mercedes CLA / GLA, Audi A3 / Q3, BMW 2-Series / X1, Lexus IS / NX / UX, Acura ILX / RDX, Infiniti Q50 / QX50, Cadillac CT4 / XT4, Lincoln Corsair / Nautilus, Genesis G70 / GV70 — these are designed as "first luxury car" hooks with high invoice-to-MSRP margin to feed the captive's future lease pipeline.
+Mercedes CLA / GLA, Audi A3 / Q3, BMW 2-Series / X1, Lexus IS / NX / UX, Acura ILX / RDX, Infiniti Q50 / QX50, Cadillac CT4 / XT4, Lincoln Corsair / Nautilus, Genesis G70 / GV70, these are designed as "first luxury car" hooks with high invoice-to-MSRP margin to feed the captive's future lease pipeline.
 
 - Dealer margin: 8-12% on these (vs 4-6% on volume models)
 - Lease cash on entry-luxury: aggressive ($2,000-$3,500)
@@ -609,17 +609,17 @@ Mercedes CLA / GLA, Audi A3 / Q3, BMW 2-Series / X1, Lexus IS / NX / UX, Acura I
 
 Phase 6 counter for entry-luxury: aggressive cross-bid (4+ dealers); MSRP - 8% target reasonable.
 
-### 4. Sub-Axes — Ultra-Luxury / Exotic / High-End Performance
+### 4. Sub-Axes, Ultra-Luxury / Exotic / High-End Performance
 
 These tiers require separate playbooks not covered here in depth. Documented for routing only.
 
 #### 4.1 Ultra-luxury (>$200k MSRP segment)
 
-- **Porsche** (911, Cayenne S/Turbo, Panamera Turbo, Taycan) — base Porsche near luxury (Macan / 718 = pure luxury); top-trim Porsches (Cayenne Turbo GT, Taycan Turbo GT, 911 Turbo S, 911 GT3 RS) are ultra-luxury. Demand >> supply on allocations; ADM common.
-- **Maserati** (Quattroporte, Levante, Granturismo) — heavy depreciation; mostly used market.
-- **Bentley** (Continental, Bentayga, Flying Spur) — ultra-luxury entry $250k+; lease 60-70% of sales.
-- **Rolls-Royce** (Ghost, Phantom, Cullinan, Spectre) — $400k-$600k+; bespoke / commission model.
-- **Aston Martin** (DB12, DBX, Vantage) — $190k-$285k; treated as luxury+.
+- **Porsche** (911, Cayenne S/Turbo, Panamera Turbo, Taycan), base Porsche near luxury (Macan / 718 = pure luxury); top-trim Porsches (Cayenne Turbo GT, Taycan Turbo GT, 911 Turbo S, 911 GT3 RS) are ultra-luxury. Demand >> supply on allocations; ADM common.
+- **Maserati** (Quattroporte, Levante, Granturismo), heavy depreciation; mostly used market.
+- **Bentley** (Continental, Bentayga, Flying Spur), ultra-luxury entry $250k+; lease 60-70% of sales.
+- **Rolls-Royce** (Ghost, Phantom, Cullinan, Spectre), $400k-$600k+; bespoke / commission model.
+- **Aston Martin** (DB12, DBX, Vantage), $190k-$285k; treated as luxury+.
 - **McLaren** (most are exotic, GT4 is GT-touring on lease).
 - **Lamborghini Urus** (only Lamborghini SUV; $230k-$300k+ MSRP, $400k+ with options).
 
@@ -627,21 +627,21 @@ These tiers require separate playbooks not covered here in depth. Documented for
 
 #### 4.2 Exotic (out of scope)
 
-- Ferrari (all models) — not sold via standard dealer process; allocation by relationship; cannot order one without prior Ferrari ownership for many models.
-- Lamborghini (Huracán, Revuelto) — limited dealer network; allocation by relationship.
-- McLaren (720S, P1) — limited.
+- Ferrari (all models), not sold via standard dealer process; allocation by relationship; cannot order one without prior Ferrari ownership for many models.
+- Lamborghini (Huracán, Revuelto), limited dealer network; allocation by relationship.
+- McLaren (720S, P1), limited.
 
 For these, the standard skill workflow does NOT apply. Buyer should engage a marque specialist / brand ambassador. Do NOT attempt to cross-bid Ferrari dealers.
 
 #### 4.3 High-end performance (gray area)
 
-- Corvette (Stingray, Z06, ZR1, E-Ray) — $70k-$160k MSRP; often ADM'd; allocation-driven on Z06 / ZR1.
-- Nissan GT-R (R35 last MY 2024) — out of production; used market only.
-- Ford Mustang Dark Horse / GT500 — performance variants, sometimes ADM.
-- Camaro ZL1 / SS / SS 1LE — discontinued 2024; used market.
-- Cadillac CT5-V Blackwing / CT4-V Blackwing — performance V variants; limited allocation.
-- Dodge Challenger Hellcat / Demon / SRT — discontinued 2024 ICE; used market only.
-- Toyota GR Corolla / GR86 / Supra — performance Toyota; volume-limited, often near MSRP.
+- Corvette (Stingray, Z06, ZR1, E-Ray), $70k-$160k MSRP; often ADM'd; allocation-driven on Z06 / ZR1.
+- Nissan GT-R (R35 last MY 2024), out of production; used market only.
+- Ford Mustang Dark Horse / GT500, performance variants, sometimes ADM.
+- Camaro ZL1 / SS / SS 1LE, discontinued 2024; used market.
+- Cadillac CT5-V Blackwing / CT4-V Blackwing, performance V variants; limited allocation.
+- Dodge Challenger Hellcat / Demon / SRT, discontinued 2024 ICE; used market only.
+- Toyota GR Corolla / GR86 / Supra, performance Toyota; volume-limited, often near MSRP.
 
 **Skill workflow modifications**: Cross-bid 2-3 dealers max in radius (limited allocation = less to bid against); accept MSRP-clean = win; ADM-laden = walk to next allocation. Patience often wins (allocations refresh quarterly).
 
@@ -654,7 +654,7 @@ When buyer's Phase 1 input includes:
 - **Luxury car**: surface lease-vs-purchase default + service plan included status (Cadillac / Genesis vs BMW / MB / Audi) + fake-CPO label warning if used.
 - **Ultra-luxury / exotic**: surface allocation-not-negotiation context + flag that ADM is structural in this tier + suggest brand specialist not standard workflow.
 
-### 6. Quick Reference — Phase 9 Close-Day Routing
+### 6. Quick Reference, Phase 9 Close-Day Routing
 
 | Buyer type | Add to standard cash/financing/trade close-day sub-checklist |
 |---|---|
@@ -666,11 +666,11 @@ When buyer's Phase 1 input includes:
 
 ### 7. References and Cross-Links
 
-- Part 1 above — light-duty pickups (F-150, RAM 1500, Silverado 1500, Tundra, Tacoma).
-- `lease_playbook.md` — luxury lease arbitrage details, MSDs, MF markup.
-- `ev_buyer_playbook.md` — Cadillac LYRIQ, Lincoln Star EVs, electric Sprinter, electric F-150 Lightning HD use case.
-- `negotiation_playbook.md` — counter math (general).
-- `outreach_strategy.md` — Phase 4 fleet-desk routing for commercial buyers.
-- `state_fees.md` — state-specific commercial / HD plate fee math.
+- Part 1 above, light-duty pickups (F-150, RAM 1500, Silverado 1500, Tundra, Tacoma).
+- `lease_playbook.md`, luxury lease arbitrage details, MSDs, MF markup.
+- `ev_buyer_playbook.md`, Cadillac LYRIQ, Lincoln Star EVs, electric Sprinter, electric F-150 Lightning HD use case.
+- `negotiation_playbook.md`, counter math (general).
+- `outreach_strategy.md`, Phase 4 fleet-desk routing for commercial buyers.
+- `state_fees.md`, state-specific commercial / HD plate fee math.
 
 last_verified: 2026-05-18

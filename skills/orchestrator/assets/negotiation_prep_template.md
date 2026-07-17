@@ -37,12 +37,12 @@ State this in negotiation: "Your own {Trim A} at ${PRICE_A} implies the fair pri
 ## Test Drive Checklist
 
 ### Outside (5-min walk-around)
-- [ ] Paint uniform (no resprays — look at reflection for color mismatch)
-- [ ] Panel gaps even (doors, hood, trunk — uneven = prior accident)
-- [ ] Glass date codes (front + 4 windows — original or replaced)
+- [ ] Paint uniform (no resprays, look at reflection for color mismatch)
+- [ ] Panel gaps even (doors, hood, trunk, uneven = prior accident)
+- [ ] Glass date codes (front + 4 windows, original or replaced)
 - [ ] Tire brand + tread depth + DOT date (4 should match if maintained)
 - [ ] Headlights/taillights clear (no moisture, no cracks)
-- [ ] Bumpers aligned (rear bumper especially — common collision spot)
+- [ ] Bumpers aligned (rear bumper especially, common collision spot)
 
 ### Inside
 - [ ] Steering wheel wear vs odometer reading (excessive wear vs miles = rolled odo possible)
@@ -50,7 +50,7 @@ State this in negotiation: "Your own {Trim A} at ${PRICE_A} implies the fair pri
 - [ ] Pedal rubber wear
 - [ ] Center touchscreen all functions
 - [ ] All buttons work (heated seats, ventilated, lock, windows, mirrors, sunroof)
-- [ ] No interior odor (smoke, mildew, pet — leverage point)
+- [ ] No interior odor (smoke, mildew, pet, leverage point)
 
 ### Engine Bay
 - [ ] Oil dipstick: clean / not black / at correct level
@@ -62,14 +62,14 @@ State this in negotiation: "Your own {Trim A} at ${PRICE_A} implies the fair pri
 ### On the Road (15-20 min route)
 - [ ] Cold start without unusual noise (no piston slap, no timing chain rattle)
 - [ ] Smooth idle, no shaking
-- [ ] CVT smooth at all speeds (Subaru) — listen for whining
-- [ ] 60mph cruise — no vibration, steering doesn't pull
-- [ ] Hard brake — straight stop, no pulsation
-- [ ] Pothole test — no clunking from suspension
+- [ ] CVT smooth at all speeds (Subaru), listen for whining
+- [ ] 60mph cruise, no vibration, steering doesn't pull
+- [ ] Hard brake, straight stop, no pulsation
+- [ ] Pothole test, no clunking from suspension
 - [ ] Reverse + camera functioning
 - [ ] Adaptive cruise / Eyesight functioning (Subaru)
-- [ ] AC max cold for 5 min — cold air at all vents
-- [ ] Heat max hot for 2 min — warm air at all vents
+- [ ] AC max cold for 5 min, cold air at all vents
+- [ ] Heat max hot for 2 min, warm air at all vents
 - [ ] Listen for any post-shutdown extended cooling fan (overheat sign)
 
 ---
@@ -105,7 +105,7 @@ If not happy:
 
 | Drive | CARFAX | Dealer response | Action |
 |-------|--------|-----------------|--------|
-| Perfect | Clean | Accepts ${TARGET_OTD} | LOCK — sign and PPI |
+| Perfect | Clean | Accepts ${TARGET_OTD} | LOCK, sign and PPI |
 | Perfect | Clean | Counters within ${TOLERANCE} | Accept |
 | Perfect | Clean | Holds at ${ASK_OTD} | Walk to backup; revisit in 24h |
 | Perfect | Minor issues | Discounts ${MIN_DISCOUNT} | Consider, get PPI confirmation |
@@ -130,7 +130,7 @@ Action: Text / call {primary dealer} same day with polite walk-away. Email backu
 
 1. **Do not appear too interested.** Even if you love the car, maintain "I have options."
 2. **Do not anchor first.** Let the dealer name their best price before you state your target.
-3. **Get everything in writing.** Final OTD, fees, PPI date, plate transfer details — email or paper.
+3. **Get everything in writing.** Final OTD, fees, PPI date, plate transfer details, email or paper.
 4. **Take a moment before signing.** Read every line of the bill of sale. No add-ons that weren't agreed.
 5. **PPI is non-negotiable.** $150-200 to protect a $20-30k+ purchase. Always.
 6. **Plate transfer paperwork.** Bring current registration + insurance card. New plates need ~2-3 weeks.

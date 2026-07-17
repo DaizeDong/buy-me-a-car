@@ -132,11 +132,11 @@ Buyer: $700/mo max, $5k down, OTD ceiling $42k, 60mo @ 5.49% APR.
 
 ## Lease Cash / Lease Cap Cost Reduction
 
-Some manufacturers offer $1,000-3,000 lease cash that flows through ONLY as cap cost reduction (not as down payment, not as rebate to buyer). This OEM lease cash is ordinary marketing money and is still live in 2026 — verify it on the worksheet and make sure it shows as a cap cost reduction line, not pocketed by the dealer.
+Some manufacturers offer $1,000-3,000 lease cash that flows through ONLY as cap cost reduction (not as down payment, not as rebate to buyer). This OEM lease cash is ordinary marketing money and is still live in 2026, verify it on the worksheet and make sure it shows as a cap cost reduction line, not pocketed by the dealer.
 
 > **Federal §45W lease pass-through is TERMINATED (acquired after 2025-09-30, OBBBA).**
-> The old play — lessor captures the federal §45W $7,500 commercial credit and passes it
-> through as cap cost reduction (~$104/mo over 60mo, ~$208/mo over 36mo) — is **dead for
+> The old play, lessor captures the federal §45W $7,500 commercial credit and passes it
+> through as cap cost reduction (~$104/mo over 60mo, ~$208/mo over 36mo), is **dead for
 > any 2026 lease**. There is NO federal $7,500 lease credit to capture or to watch for on
 > the worksheet. If a 2026 worksheet shows an "EV lease credit," it is OEM lease cash /
 > marketing money, NOT a federal credit; treat it as a negotiable OEM incentive and do

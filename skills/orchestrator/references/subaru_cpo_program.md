@@ -48,11 +48,11 @@ CPO is functionally a $2,000-2,500 embedded value when the dealer enrolls it as 
 
 ## What CPO Does NOT Cover
 
-- Wear items (tires, brake pads, wiper blades, batteries — typical)
+- Wear items (tires, brake pads, wiper blades, batteries, typical)
 - Accident damage (not warranty work)
 - Cosmetic items (paint chips, interior wear)
 - Items "modified" or "altered" by aftermarket parts
-- Routine maintenance (oil changes, fluid services — separate program: Subaru Added Security)
+- Routine maintenance (oil changes, fluid services, separate program: Subaru Added Security)
 
 ## CPO vs Non-CPO Math
 
@@ -80,9 +80,9 @@ If the dealer charges separately for CPO enrollment ($1,000-1,500), it's usually
 
 A 2019 Subaru is ineligible. Options:
 
-1. **Subaru Added Security (SAS) Maintenance Plan** — separate program (Subaru's extended warranty), available at any age/mileage threshold. Plans like 60-month/65,000-mile coverage.
-2. **Third-party extended warranty** — buy elsewhere
-3. **Self-insure** — accept warranty risk
+1. **Subaru Added Security (SAS) Maintenance Plan**, separate program (Subaru's extended warranty), available at any age/mileage threshold. Plans like 60-month/65,000-mile coverage.
+2. **Third-party extended warranty**, buy elsewhere
+3. **Self-insure**, accept warranty risk
 
 Typical NJ Subaru dealer SAS pricing for a 60-month / 65,000-mile plan on an out-of-CPO 2019 Outback Limited (~50k mi at purchase):
 - Powertrain only: approximately $2,500 to $2,900
@@ -105,10 +105,10 @@ Without these in hand, "CPO" claims are unverified.
 
 ## Related Subaru Programs
 
-- **Subaru Added Security (SAS)** — Subaru's separately-sold extended warranty. Different from CPO.
-- **Subaru Loyalty Discount** — for return Subaru customers; typically $500-1,000 off MSRP on new
-- **Subaru College Graduate** — $500 off
-- **Subaru Military Discount** — $500 off
-- **Subaru Owner Loyalty Bonus Cash** — varies, region-specific incentive
+- **Subaru Added Security (SAS)**, Subaru's separately-sold extended warranty. Different from CPO.
+- **Subaru Loyalty Discount**, for return Subaru customers; typically $500-1,000 off MSRP on new
+- **Subaru College Graduate**, $500 off
+- **Subaru Military Discount**, $500 off
+- **Subaru Owner Loyalty Bonus Cash**, varies, region-specific incentive
 
 Most of these apply to NEW Subaru purchases, not used. Used Subaru CPO is its own thing.

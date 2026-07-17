@@ -12,23 +12,23 @@
 
 ---
 
-## ⭐ Read this first — the design philosophy
+## ⭐ Read this first, the design philosophy
 
 A dealership wins because it controls the frame: it splits the deal into sale price, tax, fees, and financing so each looks small, refreshes its inbox on its own schedule, and counts on you walking in cold. This plugin inverts every one of those advantages. The whole design follows from five iron rules, each born from a specific dollar-loss incident:
 
-1. **OTD only** — never negotiate sale price / tax / fee separately, only the total out-the-door number. Splitting the deal is how you lose track of $1k at a time.
-2. **Plain ASCII emails** — no markdown, em-dash, or smart quotes. Dealer mail clients render them as literal garbage characters, and a sloppy email reads like a sloppy buyer.
-3. **3-anchor counters** — every reply cites (a) the dealer's own internal price spread, (b) a regional market comp, and (c) your locked competitor OTD. Three anchors leave nothing to argue with.
-4. **15-min cron sweep** — Gmail is polled automatically; a human never manually refreshes. The buyer who replies first holds the leverage.
-5. **Walk-away threshold** — over budget or counter rejected = a polite walk. Preserving optionality across many dealers beats grabbing one mediocre deal.
+1. **OTD only**, never negotiate sale price / tax / fee separately, only the total out-the-door number. Splitting the deal is how you lose track of $1k at a time.
+2. **Plain ASCII emails**, no markdown, em-dash, or smart quotes. Dealer mail clients render them as literal garbage characters, and a sloppy email reads like a sloppy buyer.
+3. **3-anchor counters**, every reply cites (a) the dealer's own internal price spread, (b) a regional market comp, and (c) your locked competitor OTD. Three anchors leave nothing to argue with.
+4. **15-min cron sweep**, Gmail is polled automatically; a human never manually refreshes. The buyer who replies first holds the leverage.
+5. **Walk-away threshold**, over budget or counter rejected = a polite walk. Preserving optionality across many dealers beats grabbing one mediocre deal.
 
-Everything downstream — the parallel scrape, the OTD calculator, the dossier — exists to make those five rules cheap to follow. The full rule set lives in [`SKILL.md`](skills/orchestrator/SKILL.md).
+Everything downstream, the parallel scrape, the OTD calculator, the dossier, exists to make those five rules cheap to follow. The full rule set lives in [`SKILL.md`](skills/orchestrator/SKILL.md).
 
 ## What it is (and isn't)
 
-**It is** a buyer-side negotiation cockpit: 1 orchestrator that runs a 9-phase pipeline (research → outreach → negotiate → close) plus 15 narrow sub-skills you can call standalone for single tasks (OTD math, state-fee lookup, CARFAX review, lease-vs-cash, trade-in valuation, and more). It carries real data — 50 states + DC of fee detail, 16-brand CPO eligibility, 6 buyer paths including private-party.
+**It is** a buyer-side negotiation cockpit: 1 orchestrator that runs a 9-phase pipeline (research → outreach → negotiate → close) plus 15 narrow sub-skills you can call standalone for single tasks (OTD math, state-fee lookup, CARFAX review, lease-vs-cash, trade-in valuation, and more). It carries real data, 50 states + DC of fee detail, 16-brand CPO eligibility, 6 buyer paths including private-party.
 
-**It isn't** a price-prediction oracle, a dealer-side CRM, or tax / legal / financial advice. It does not auto-send anything binding — emails are saved as Gmail drafts for you to review and send. It is single-author alpha (see [Limitations](#limitations)).
+**It isn't** a price-prediction oracle, a dealer-side CRM, or tax / legal / financial advice. It does not auto-send anything binding, emails are saved as Gmail drafts for you to review and send. It is single-author alpha (see [Limitations](#limitations)).
 
 ## Install
 
@@ -98,7 +98,7 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Triggers**: `buy me a car`, `find me a car`, `帮我找车`, `买车`
 - **Example**: `help me buy a 2022-2024 Outback Premium under 60k miles within 50mi of <ZIP>, budget $32k OTD`
 - **Output**: phase-by-phase artifacts under a `car_buying_<YEAR>/` working dir.
-- **6 buyer paths**: cash / financing / trade-in / EV / pickup, plus **private-party** — seller is a private individual (FSBO), not a dealer. No OTD stack and no F&I office; buyer pays tax + title + registration at the DMV. The work shifts to title transfer, state tax basis (purchase price vs book value vs Illinois-style fixed table), curbstoner detection, and payment/escrow safety (cashier's check at the seller's bank; pay any lien off directly to the lienholder). See `skills/orchestrator/references/private_party_playbook.md`.
+- **6 buyer paths**: cash / financing / trade-in / EV / pickup, plus **private-party**, seller is a private individual (FSBO), not a dealer. No OTD stack and no F&I office; buyer pays tax + title + registration at the DMV. The work shifts to title transfer, state tax basis (purchase price vs book value vs Illinois-style fixed table), curbstoner detection, and payment/escrow safety (cashier's check at the seller's bank; pay any lien off directly to the lienholder). See `skills/orchestrator/references/private_party_playbook.md`.
 
 ### otd-calculator
 - **Use when**: convert sale price → OTD, or reverse-engineer max sale from target OTD.
@@ -125,13 +125,13 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Output**: structured red-flag report (accidents, service gaps with $ ranges, 12 challengeable F&I add-ons).
 
 ### dealer-reply-drafter
-- **Use when**: draft ONE outbound reply — counter / follow-up / walk-away.
+- **Use when**: draft ONE outbound reply, counter / follow-up / walk-away.
 - **Triggers**: `draft counter to dealer`, `回复 dealer`, `对 dealer 报价做 counter`
 - **Example**: `draft a counter to this Honda dealer's $33k OTD, target $30.75k`
 - **Output**: Gmail draft (saved, not sent), ~10 lines, plain ASCII, 3 asks + 1 anchor + 1 walk-away.
 
 ### inbox-triage
-- **Use when**: dealer inbox piling up — separate real replies from CRM noise.
+- **Use when**: dealer inbox piling up, separate real replies from CRM noise.
 - **Triggers**: `check my dealer inbox`, `看下邮箱`, `dealer 回复了吗`
 - **Example**: `triage today's dealer inbox`
 - **Output**: per-bucket counts (real / OOO / CRM / spam), Gmail labels applied, handoff list to dealer-reply-drafter.
@@ -143,25 +143,25 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Output**: 8-page HTML + headless-Chrome PDF (EN or CN), covering market avg / OTD / CPO embedded value / dealer anchor analysis.
 
 ### ev-buyer-helper
-- **Use when**: buyer is going EV — state/local rebate stack, charging (NACS/CCS1), used-EV battery diligence. NOTE: the federal §30D ($7,500 new) / §25E ($4,000 used) / §45W (lease pass-through) credits were TERMINATED for vehicles acquired after 2025-09-30 (OBBBA, Public Law 119-21); they are historical only and not counted in net-price math.
+- **Use when**: buyer is going EV, state/local rebate stack, charging (NACS/CCS1), used-EV battery diligence. NOTE: the federal §30D ($7,500 new) / §25E ($4,000 used) / §45W (lease pass-through) credits were TERMINATED for vehicles acquired after 2025-09-30 (OBBBA, Public Law 119-21); they are historical only and not counted in net-price math.
 - **Triggers**: `EV federal credit`, `$7,500 POS`, `电车补贴`
 - **Example**: `what EV rebates still apply in NJ for an Ioniq 5 SEL in 2026`
 - **Output**: net price after any state/local rebate (no federal credit) + NACS/CCS1 adapter guidance + used-EV SoH diligence.
 
 ### payment-method-decider
-- **Use when**: choose close-day instrument — cashier's check / credit card / wire / lease cap reduction.
+- **Use when**: choose close-day instrument, cashier's check / credit card / wire / lease cap reduction.
 - **Triggers**: `cash or CC for car`, `支付方式`, `Visa for $30k car`
 - **Example**: `should I put $30k on my 3% cashback Visa or cashier's check`
 - **Output**: method recommendation with CC-rewards-vs-surcharge break-even math.
 
 ### lease-vs-cash-analyzer
-- **Use when**: dealer offered a lease — verify MF / residual / acquisition / disposition.
+- **Use when**: dealer offered a lease, verify MF / residual / acquisition / disposition.
 - **Triggers**: `lease or buy`, `money factor markup`, `租还是买`
 - **Example**: `is this Ioniq 5 SEL lease quote at $575/mo honest`
 - **Output**: monthly breakdown + LEASE / BUY / BREAK-EVEN verdict by ownership horizon.
 
 ### trade-in-valuator
-- **Use when**: trading in — 4-anchor valuation + lien payoff workflow.
+- **Use when**: trading in, 4-anchor valuation + lien payoff workflow.
 - **Triggers**: `valuate my trade`, `评估置换车`, `trade-in tax credit`
 - **Example**: `what's my 2017 Civic worth as trade in NJ`
 - **Output**: 4-anchor table (KBB Instant / Trade-in / Private / Wholesale) + TRADE vs SEPARATE-SELL decision.
@@ -173,19 +173,19 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 - **Output**: REAL-tagged compressed `_FINAL_*.jpg` (1300px, 100-300 KB) ready for manual paperclip.
 
 ### insurance-shopper
-- **Use when**: setting up auto insurance before close day — new driver, cash buyer, or cross-state move.
+- **Use when**: setting up auto insurance before close day, new driver, cash buyer, or cross-state move.
 - **Triggers**: `set up insurance`, `car insurance quote`, `new driver insurance`, `上保`, `保险报价`
 - **Example**: `set up insurance for a new SUV in <your state>, first-time driver`
 - **Output**: 3-carrier quote comparison (NJM / Geico / Progressive), 6-month total, recommended coverage spec, bind sequence.
 
 ### ppi-scheduler
-- **Use when**: ready to book pre-purchase inspection — mobile-PPI services by region.
+- **Use when**: ready to book pre-purchase inspection, mobile-PPI services by region.
 - **Triggers**: `book PPI`, `提车前检车`, `mobile inspector`
 - **Example**: `book a mobile PPI tomorrow for a 2022 Outback at a local dealer`
 - **Output**: bookings (ID + cancel deadline) + post-inspection PROCEED / COUNTER / WALK matrix.
 
 ### close-day-checklist
-- **Use when**: tomorrow is close day — buyer-type checklists + F&I add-on hard-no script.
+- **Use when**: tomorrow is close day, buyer-type checklists + F&I add-on hard-no script.
 - **Triggers**: `ready to close`, `F&I add-on refusal`, `提车清单`
 - **Example**: `give me the close-day checklist for tomorrow cash buyer with trade-in`
 - **Output**: pre / on-site / post checklists + verbatim F&I scripts.
@@ -213,7 +213,7 @@ When a query could activate multiple skills, the **most narrow + specific** trig
 | "set up insurance" | `insurance-shopper` | `close-day-checklist` |
 | "ready to close" | `close-day-checklist` | `orchestrator` |
 
-If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this`. Unsure which one? Call `orchestrator` — it routes internally.
+If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this`. Unsure which one? Call `orchestrator`, it routes internally.
 
 ## Example output
 
@@ -239,14 +239,14 @@ synthetic illustrations, not a real search):
 
 ## Limitations
 
-- **Single-author alpha** — workflow based on a single purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
-- **Data drifts** — state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
-- **Anti-bot fragile** — CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
-- **Not tax / legal / financial advice** — verify with licensed professionals before signing.
+- **Single-author alpha**, workflow based on a single purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
+- **Data drifts**, state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
+- **Anti-bot fragile**, CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
+- **Not tax / legal / financial advice**, verify with licensed professionals before signing.
 
 ## Languages
 
-Three languages, two surfaces — keep them separate:
+Three languages, two surfaces, keep them separate:
 
 - **Buyer-facing chat + `criteria.md` + dossier**: English, 中文, or Español. Triggers fire in all three (`buy me a car` / `帮我买车` / `ayudame a comprar un carro`). The dossier ships an EN and a CN print template; Spanish support is buyer-facing chat + an explanatory ES glossary for load-bearing terms (OTD, doc fee, ADM, CPO, NACS, GAP, MSRP), with regional `carro / coche / auto` mirroring.
 - **Dealer-facing email**: **always English + plain ASCII**, regardless of the buyer's chat language. Dealer CRM clients mangle non-ASCII, and an English OTD ask threads cleanly with the dealer's own quote. The buyer reads the deal in their language; the dealer reads the ask in English. See _Language and Audience Separation_ in `skills/orchestrator/SKILL.md`.
@@ -259,6 +259,6 @@ This repo ships docs in two languages: English (`README.md`, authoritative) · �
 
 [ROADMAP.md](ROADMAP.md) tracks v0.3.0 / v1.0.0 plans (multi-author data, adversarial dealer tests, EV-credit reinstatement watch, remaining luxury-brand CPO). Pick one → open issue → PR. Changes are logged in [CHANGELOG.md](CHANGELOG.md).
 
-MIT — fork it, ship it, save someone money. See [LICENSE](LICENSE).
+MIT, fork it, ship it, save someone money. See [LICENSE](LICENSE).
 
 _last_verified: 2026-05-18_

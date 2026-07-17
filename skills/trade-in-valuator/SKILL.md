@@ -68,13 +68,13 @@ discount**, while transferable remaining warranty is a buyer premium lever.
   no longer holds meaningful EV-only range gets discounted toward an equivalent
   hybrid/ICE.
 
-> **§ 25E is TERMINATED (2025-09-30) — and was always a separate transaction.**
+> **§ 25E is TERMINATED (2025-09-30), and was always a separate transaction.**
 > The federal Used Clean Vehicle Credit (IRC § 25E, formerly up to $4,000) was
 > **terminated by OBBBA (Public Law 119-21) for any vehicle acquired after
-> 2025-09-30** — it is **not available for a 2026 used-EV purchase** and must NOT
+> 2025-09-30**, it is **not available for a 2026 used-EV purchase** and must NOT
 > be counted in OTD / net-price math. See the CRITICAL banner in `ev-buyer-helper`.
 > Separately (and even when it existed), § 25E attached to the buyer **purchasing**
-> a qualifying used EV, NOT to the EV being **traded away** — so it never offset a
+> a qualifying used EV, NOT to the EV being **traded away**, so it never offset a
 > trade valuation regardless. Historically its $25,000 price cap was measured
 > **before** trade-in value, so a big trade allowance did not slip a car under the
 > cap. Full mechanics + historical detail (price cap, MY≥2yr, dealer point-of-sale
@@ -194,9 +194,9 @@ desk have different incentive structures; mixing closes off negotiation.
   EV/PHEV battery-SoH trade discount + § 25E annotation**).
 - `../orchestrator/references/ev_buyer_playbook.md` -- **EV/PHEV source of
   truth**: battery health, charging/range, EV dealer tactics, and the now-terminated
-  federal credits (§ 30D $7,500 new / § 25E $4,000 used / § 45W $7,500 lease — all
+  federal credits (§ 30D $7,500 new / § 25E $4,000 used / § 45W $7,500 lease, all
   TERMINATED 2025-09-30, HISTORICAL only; state rebates are the only live incentive
-  layer — see the `ev-buyer-helper` CRITICAL banner). Use for the buyer's *acquisition*
+  layer, see the `ev-buyer-helper` CRITICAL banner). Use for the buyer's *acquisition*
   of a used EV; this skill's anchor 5 covers the *outgoing* EV trade.
 - `../orchestrator/references/state_fees.md` -- per-state Trade-In Tax Credit
   column, worked OTD examples with trade.

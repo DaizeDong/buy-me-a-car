@@ -35,7 +35,7 @@ Located in dealer email as a PDF attachment, usually titled with the VIN.
 
 ### Service Record Gaps
 
-Even on a 1-owner / no-accident car, CARFAX often shows only registration renewals and emissions checks, not actual service work. This is a gap, not a problem — many owners use independent shops that don't report to CARFAX.
+Even on a 1-owner / no-accident car, CARFAX often shows only registration renewals and emissions checks, not actual service work. This is a gap, not a problem, many owners use independent shops that don't report to CARFAX.
 
 Ask the dealer for dealership-internal service records as a follow-up. See `pdf_review_checklist.md` section "Service Records PDF" below.
 
@@ -51,24 +51,24 @@ Page 1 has the summary badges (1-Owner / Accidents / Title Brands / Mileage chec
 
 ## Dealer Service Records PDF
 
-Some dealers (especially when they sold the car originally) have full internal service history. These are gold — they reveal what was actually maintained.
+Some dealers (especially when they sold the car originally) have full internal service history. These are gold, they reveal what was actually maintained.
 
 ### Check For
 
-- **Oil change frequency** — every 5-7k miles synthetic is good
-- **CVT fluid change** — Subaru spec 60k mi for severe service, 100k for normal. Critical for XT turbo variants
-- **Spark plugs** — 60k mi typical interval (60k-100k depending on plug type)
-- **Coolant flush** — 100k mi typical
-- **Brake fluid flush** — every 2-3 years
-- **Brake pads/rotors** — wear-based, look for replacement records
-- **Tires** — replacement records, tire brand consistency
-- **Battery** — replacement records, especially for cars 4+ years old in cold climates
-- **Transmission diff fluid** — 60k mi typical for AWD
-- **Spark plugs** — 60k-100k mi typical
+- **Oil change frequency**, every 5-7k miles synthetic is good
+- **CVT fluid change**, Subaru spec 60k mi for severe service, 100k for normal. Critical for XT turbo variants
+- **Spark plugs**, 60k mi typical interval (60k-100k depending on plug type)
+- **Coolant flush**, 100k mi typical
+- **Brake fluid flush**, every 2-3 years
+- **Brake pads/rotors**, wear-based, look for replacement records
+- **Tires**, replacement records, tire brand consistency
+- **Battery**, replacement records, especially for cars 4+ years old in cold climates
+- **Transmission diff fluid**, 60k mi typical for AWD
+- **Spark plugs**, 60k-100k mi typical
 
 ### Red Flag Patterns
 
-- Battery flagged 2-3 times but never replaced (still original old battery — high failure risk)
+- Battery flagged 2-3 times but never replaced (still original old battery, high failure risk)
 - CVT fluid never serviced past 60k mi (expensive failure if not maintained)
 - Oil changes inconsistent (long gaps suggest skipped maintenance)
 - Recurring same issue (e.g., "customer states X" multiple times)
@@ -133,9 +133,9 @@ This converts the buyer's hidden risk into known cost. A vehicle with a $500 inh
 
 ## OTD Proposal Add-On Anti-Pattern Detection
 
-Dealer proposal PDFs frequently bury 3-7 F&I (Finance & Insurance) add-on lines in fine print, footnotes, or "Protection Package" bundles that obscure individual costs. Total dollar value of buried add-ons is typically **$1,500-$4,000** per deal — large enough to overshoot the buyer's walk-away ceiling silently. **Every proposal PDF MUST be scanned for these line names verbatim before any OTD is accepted.**
+Dealer proposal PDFs frequently bury 3-7 F&I (Finance & Insurance) add-on lines in fine print, footnotes, or "Protection Package" bundles that obscure individual costs. Total dollar value of buried add-ons is typically **$1,500-$4,000** per deal, large enough to overshoot the buyer's walk-away ceiling silently. **Every proposal PDF MUST be scanned for these line names verbatim before any OTD is accepted.**
 
-### Add-On Kill List — Scan Routine
+### Add-On Kill List, Scan Routine
 
 For every proposal PDF, search (Ctrl-F equivalent during Read) for each of the following line names. Flag every hit, regardless of dollar amount. The dealer cannot add ANY of these without explicit buyer consent.
 
@@ -144,21 +144,21 @@ For every proposal PDF, search (Ctrl-F equivalent during Read) for each of the f
 | **GAP Insurance** (Guaranteed Asset Protection) | $695-$995 | $200-$500 from buyer's auto-insurance carrier or credit union | Decline if cash buyer; if financing, source from CU/insurance instead |
 | **VSC / Vehicle Service Contract / Extended Warranty** (also: Platinum Coverage, Premium Care, Honda Care, Toyota Platinum VSA, Subaru Added Security) | $1,495-$3,500 | $800-$2,500 from manufacturer direct or third-party (Endurance, CARCHEX) | Defer to post-other-terms; negotiate separately; verify hybrid/EV component coverage explicitly per `references/toyota_cpo_program.md` / `ev_buyer_playbook.md` |
 | **Tire & Wheel Protection** (also: Road Hazard, T&W Coverage) | $495-$895 | $150-$300 from tire-shop direct; many credit cards include road hazard | Decline |
-| **Paint Protection / Paint Sealant** (also: Diamond Coat, Ceramic Coating, Permaplate) | $399-$899 | $0 — modern clear-coat paint does not need it; cosmetic-only | **Refuse outright** (Phase 6 add-on refusal list) |
+| **Paint Protection / Paint Sealant** (also: Diamond Coat, Ceramic Coating, Permaplate) | $399-$899 | $0, modern clear-coat paint does not need it; cosmetic-only | **Refuse outright** (Phase 6 add-on refusal list) |
 | **Fabric / Interior Protection** (also: Scotchgard, Interior Sealant, Stain Guard) | $299-$599 | $20-$50 retail can of Scotchgard | **Refuse outright** |
-| **Key Replacement** (also: Key Fob Insurance, Smart Key Coverage) | $299-$499 | $0 — most modern fobs covered under 3yr/36k B2B factory warranty | Decline |
+| **Key Replacement** (also: Key Fob Insurance, Smart Key Coverage) | $299-$499 | $0, most modern fobs covered under 3yr/36k B2B factory warranty | Decline |
 | **Theft / VIN Etching** (also: Window Etch, Anti-Theft Identification, GlassEtch) | $199-$499 | $0-$25 DIY kit; insurance discount $20-$50/yr only if itemized | **Refuse outright** |
 | **Nitrogen Tire Fill** (also: N2 Fill, Premium Air, Green Air) | $49-$199 | $5-$15 actual cost; air has been free since 1903 | **Refuse outright** |
 | **LoJack / Clifford / Compustar Alarm** | $599-$1,295 | $200-$500 retail aftermarket; insurance discount $5-$20/mo | Decline unless buyer wants stolen-vehicle recovery |
-| **Mop-and-Glo / Undercoating / Rust Proofing** | $399-$899 | $0 — modern OEM undercoating is sufficient on every 2010+ vehicle | **Refuse outright** |
-| **Dealer Prep / Vehicle Prep Fee** (also: Make-Ready, Pre-Delivery Service) | $299-$799 | $0 — already covered in MSRP / Internet Price | **Refuse outright** (this is fee theater, not a service) |
-| **EV-Specific: EV Prep / Battery Conditioning / Charge Cable / EV Delivery Setup / High-Voltage Inspection** | $495-$1,995 | $0 — covered in OEM PDI; double-billing | **Refuse outright** per gotcha D9 (ADM-equivalent on EVs); see `ev_buyer_playbook.md` § 8 |
+| **Mop-and-Glo / Undercoating / Rust Proofing** | $399-$899 | $0, modern OEM undercoating is sufficient on every 2010+ vehicle | **Refuse outright** |
+| **Dealer Prep / Vehicle Prep Fee** (also: Make-Ready, Pre-Delivery Service) | $299-$799 | $0, already covered in MSRP / Internet Price | **Refuse outright** (this is fee theater, not a service) |
+| **EV-Specific: EV Prep / Battery Conditioning / Charge Cable / EV Delivery Setup / High-Voltage Inspection** | $495-$1,995 | $0, covered in OEM PDI; double-billing | **Refuse outright** per gotcha D9 (ADM-equivalent on EVs); see `ev_buyer_playbook.md` § 8 |
 
 ### "Protection Package" Bundle Detection
 
 Dealers increasingly bundle 4-6 of the above into a single "Total Protection Package" or "Premium Protection Plan" line item for $1,995-$3,995. Bundling obscures individual line costs and removes per-line negotiation.
 
-**Action when bundle is detected**: Demand itemization in writing. "Please re-issue the OTD with each Protection Package component on its own line — GAP $X, VSC $Y, Tire & Wheel $Z, etc. I cannot accept an aggregated line." Once itemized, apply the kill list above per line.
+**Action when bundle is detected**: Demand itemization in writing. "Please re-issue the OTD with each Protection Package component on its own line, GAP $X, VSC $Y, Tire & Wheel $Z, etc. I cannot accept an aggregated line." Once itemized, apply the kill list above per line.
 
 ### Math-Check Routine
 
@@ -186,11 +186,11 @@ If buyer explicitly wants VSC or GAP (financing buyer who didn't pre-source from
 
 ### Cross-References
 
-- Gotcha D7 (`SKILL.md`): dealer-attached `proposal.pdf` hides actual OTD numbers — open the PDF or demand inline paste
-- Gotcha D9 (`SKILL.md`): ADM kill list — same pattern as add-on kill list but for new-car sale-price-side markups; both routines apply on new-car proposals (one scan upstream of MSRP for ADM, one scan downstream of subtotal for F&I add-ons)
-- `references/payment_methods.md` § Captive-vs-CU rebate playbook — GAP and VSC sourcing alternatives
-- `references/ev_buyer_playbook.md` § 8 — EV-specific dealer tactics including the EV add-on variant of this kill list
-- `references/negotiation_playbook.md` § OTD Math — state-parameterized formula for the math check above
+- Gotcha D7 (`SKILL.md`): dealer-attached `proposal.pdf` hides actual OTD numbers, open the PDF or demand inline paste
+- Gotcha D9 (`SKILL.md`): ADM kill list, same pattern as add-on kill list but for new-car sale-price-side markups; both routines apply on new-car proposals (one scan upstream of MSRP for ADM, one scan downstream of subtotal for F&I add-ons)
+- `references/payment_methods.md` § Captive-vs-CU rebate playbook, GAP and VSC sourcing alternatives
+- `references/ev_buyer_playbook.md` § 8, EV-specific dealer tactics including the EV add-on variant of this kill list
+- `references/negotiation_playbook.md` § OTD Math, state-parameterized formula for the math check above
 
 ## CARFAX Accident Detail Extraction Template
 
@@ -209,7 +209,7 @@ A single "Accident Reported" badge collapses 5-7 load-bearing sub-fields into on
 | **Airbag Deployment Flag** | Damage Summary | Yes / No / "No airbags deployed" | Yes = moderate-to-severe impact + airbag replacement done? + sensors recalibrated?; No = lower severity ceiling |
 | **Post-Accident Inspection Done?** | Cross-reference Service History entries dated within 60 days post-accident | Yes (alignment + body inspection + ADAS recal) / Partial / No / Unknown | No / Partial = ask dealer for alignment spec sheet + ADAS recal documentation; if not available, $200-$600 inherited cost |
 
-### ADAS Recalibration By Brand — Cross-Reference Table
+### ADAS Recalibration By Brand, Cross-Reference Table
 
 If accident involved front impact zone AND vehicle is equipped with forward-facing camera / radar (most 2018+ vehicles), ADAS calibration is required after windshield / bumper / camera-housing repair. Chain body shops miss this ~40-60% of the time. Recalibration not performed = $200-$600 inherited cost AND functional safety system degradation.
 
@@ -234,12 +234,12 @@ After populating the 7-field template, send to dealer:
 
 ### Cross-References
 
-- Gotcha V1 (`SKILL.md`): CARFAX 1-owner is necessary but not sufficient — service records reveal maintenance
-- Gotcha V2 (`SKILL.md`): require dealer-provided full CARFAX PDF or live URL — verbal "clean" has real failure rate; a real incident hid a prior minor damage event with front + left + right impact zones behind a written "clean" claim
-- `references/ppi_booking.md` — mobile PPI scope expansion when severity is Moderate or higher
-- `references/negotiation_playbook.md` — accident-finding negotiation lever sizing ($500-$3,500 per the severity table above)
+- Gotcha V1 (`SKILL.md`): CARFAX 1-owner is necessary but not sufficient, service records reveal maintenance
+- Gotcha V2 (`SKILL.md`): require dealer-provided full CARFAX PDF or live URL, verbal "clean" has real failure rate; a real incident hid a prior minor damage event with front + left + right impact zones behind a written "clean" claim
+- `references/ppi_booking.md`, mobile PPI scope expansion when severity is Moderate or higher
+- `references/negotiation_playbook.md`, accident-finding negotiation lever sizing ($500-$3,500 per the severity table above)
 
-## Service Record Gap Detection — Per-Brand Expected Service Table
+## Service Record Gap Detection, Per-Brand Expected Service Table
 
 Skill compares service record PDFs against expected services per brand at 30k / 60k / 90k / 120k mile bands. Missing services = inherited cost the buyer pays after close. **Quantify each gap as a dollar figure and aggregate as total inherited maintenance cost for use as Phase 6 negotiation leverage.**
 
@@ -265,20 +265,20 @@ Severe-service schedules listed (normal-service intervals extend by ~30-50%). Fo
 | 30k | Oil + filter; tire rotation; engine air filter; cabin air filter; brake inspection | $150-$300 |
 | 60k | All 30k items; brake fluid flush; coolant inspection; transmission fluid inspection (non-CVT models) | $300-$500 |
 | 90k | All 30k items; spark plugs (Iridium 120k spec but inspect at 90k); coolant flush; **Hybrid-only: hybrid battery inspection** | $250-$500 ICE / $300-$600 Hybrid |
-| 120k | All 30k items; spark plugs (replace); coolant flush if not at 90k; transmission fluid drain + fill (non-CVT); timing belt if applicable (most modern Toyotas have timing chain — verify) | $500-$900 |
+| 120k | All 30k items; spark plugs (replace); coolant flush if not at 90k; transmission fluid drain + fill (non-CVT); timing belt if applicable (most modern Toyotas have timing chain, verify) | $500-$900 |
 
-**Toyota-specific red flags**: Camry / Corolla / RAV4 ICE models have very long maintenance intervals (Iridium plugs 120k, conventional AT not CVT) so gaps are less expensive than Subaru / Honda; Hybrid models add inverter coolant flush at 100k ($150-$300) — frequently missed; Tundra / 4Runner V8 (5.7L) timing belt is replaced by timing chain in 2010+ models; pre-2010 5.7L = 90-100k timing belt $600-$1,000 inherited.
+**Toyota-specific red flags**: Camry / Corolla / RAV4 ICE models have very long maintenance intervals (Iridium plugs 120k, conventional AT not CVT) so gaps are less expensive than Subaru / Honda; Hybrid models add inverter coolant flush at 100k ($150-$300), frequently missed; Tundra / 4Runner V8 (5.7L) timing belt is replaced by timing chain in 2010+ models; pre-2010 5.7L = 90-100k timing belt $600-$1,000 inherited.
 
 #### Honda / Acura (Civic, Accord, CR-V, Pilot, Odyssey, Passport, Ridgeline, TLX, MDX, RDX)
 
 | Mileage | Required Services | Typical Cost (if missed) |
 |---|---|---|
 | 30k | Oil + filter; tire rotation; engine + cabin air filter; brake inspection | $150-$300 |
-| 60k | All 30k items; brake fluid flush; transmission fluid drain + fill (Honda CVT spec — different from drain-only on AT); rear differential fluid (AWD) | $250-$450 |
+| 60k | All 30k items; brake fluid flush; transmission fluid drain + fill (Honda CVT spec, different from drain-only on AT); rear differential fluid (AWD) | $250-$450 |
 | 90k | All 30k items; coolant inspection; spark plugs (NGK Iridium 100k typical) | $200-$400 |
 | 120k | All 30k items; spark plugs (replace if not at 90k); **2nd CVT fluid drain + fill (CVT models)**; coolant flush; valve adjustment (Honda Civic 1.5L turbo + select Accord 2.0L turbo) | $400-$800 (+$200-$400 valve adjust on turbo models) |
 
-**Honda-specific red flags**: Honda CVT requires drain + fill (NOT flush — flushing damages CVT — verify dealer did drain + fill); 1.5L turbo (Civic / CR-V / Accord) has known oil-dilution issue 2017-2019 (check oil level + smell for gas contamination); valve adjustment on 1.5T / 2.0T is real maintenance every 100k+ that many owners + dealers skip — $200-$400 inherited.
+**Honda-specific red flags**: Honda CVT requires drain + fill (NOT flush, flushing damages CVT, verify dealer did drain + fill); 1.5L turbo (Civic / CR-V / Accord) has known oil-dilution issue 2017-2019 (check oil level + smell for gas contamination); valve adjustment on 1.5T / 2.0T is real maintenance every 100k+ that many owners + dealers skip, $200-$400 inherited.
 
 #### Ford / Lincoln (F-150, Explorer, Escape, Edge, Bronco Sport, Mustang, Ranger)
 
@@ -286,21 +286,21 @@ Severe-service schedules listed (normal-service intervals extend by ~30-50%). Fo
 |---|---|---|
 | 30k | Oil + filter; tire rotation; engine + cabin air filter | $150-$300 |
 | 60k | All 30k items; brake fluid flush; transfer case fluid (4x4); rear differential fluid | $300-$500 |
-| 90k | All 30k items; **spark plugs (EcoBoost 60-100k spec — check carbon buildup)**; coolant inspection; transmission fluid drain (10R80 trans on F-150) | $400-$700 |
+| 90k | All 30k items; **spark plugs (EcoBoost 60-100k spec, check carbon buildup)**; coolant inspection; transmission fluid drain (10R80 trans on F-150) | $400-$700 |
 | 120k | All 30k items; spark plugs (replace if not at 90k); coolant flush; **2nd transmission fluid service (10R80)**; **turbo seal inspection (EcoBoost)** | $500-$1,200 (+$1,500-$3,000 if turbo seal repair needed) |
 
-**Ford-specific red flags**: EcoBoost engines (1.5L / 2.0L / 2.3L / 2.7L / 3.5L) have turbo seal failure 100-150k = $1,500-$3,000 repair; intercooler condensation buildup causes misfires (track-mode drain procedure); 5.0L V8 in F-150 / Mustang has known exhaust manifold cracks 80-120k = $500-$1,500 ($800-$1,500 on F-150 SCrew); 10R80 trans (2017+) has known shudder issues — flush + new fluid often helps; spark plug intervals are SHORTER on EcoBoost (60-80k) vs naturally aspirated (100k+).
+**Ford-specific red flags**: EcoBoost engines (1.5L / 2.0L / 2.3L / 2.7L / 3.5L) have turbo seal failure 100-150k = $1,500-$3,000 repair; intercooler condensation buildup causes misfires (track-mode drain procedure); 5.0L V8 in F-150 / Mustang has known exhaust manifold cracks 80-120k = $500-$1,500 ($800-$1,500 on F-150 SCrew); 10R80 trans (2017+) has known shudder issues, flush + new fluid often helps; spark plug intervals are SHORTER on EcoBoost (60-80k) vs naturally aspirated (100k+).
 
 #### Mazda (CX-5, CX-30, CX-50, CX-9, Mazda3, Mazda6, MX-5)
 
 | Mileage | Required Services | Typical Cost (if missed) |
 |---|---|---|
-| 30k | Oil + filter (Mazda spec is shorter — 5k mi for SkyActiv-G); tire rotation; engine + cabin air filter | $150-$300 |
+| 30k | Oil + filter (Mazda spec is shorter, 5k mi for SkyActiv-G); tire rotation; engine + cabin air filter | $150-$300 |
 | 60k | All 30k items; brake fluid flush; rear differential fluid (AWD); transfer case fluid (AWD) | $300-$500 |
 | 90k | All 30k items; coolant inspection; spark plugs (NGK Platinum 80-100k spec) | $250-$450 |
-| 120k | All 30k items; spark plugs (replace); coolant flush; transmission fluid drain + fill (Mazda 6-speed AT — verify dealer used SkyActiv ATF spec) | $400-$700 |
+| 120k | All 30k items; spark plugs (replace); coolant flush; transmission fluid drain + fill (Mazda 6-speed AT, verify dealer used SkyActiv ATF spec) | $400-$700 |
 
-**Mazda-specific red flags**: SkyActiv-G engines have known carbon buildup on intake valves (direct injection) — walnut blast at 90-120k = $400-$800 if owner / dealer never addressed; some 2014-2017 CX-5 have water-pump weep at 80-100k = $400-$700.
+**Mazda-specific red flags**: SkyActiv-G engines have known carbon buildup on intake valves (direct injection), walnut blast at 90-120k = $400-$800 if owner / dealer never addressed; some 2014-2017 CX-5 have water-pump weep at 80-100k = $400-$700.
 
 ### Gap Detection Output Format
 
@@ -331,7 +331,7 @@ Negotiation lever: ask sale price reduction of $[low] (the floor of the inherite
 
 ### Cross-References
 
-- Gotcha V1 (`SKILL.md`): CARFAX 1-owner is necessary but not sufficient — service records reveal maintenance; missing CVT fluid service at 60k is $300-$400 inherited cost
-- `references/subaru_cpo_program.md`, `references/honda_cpo_program.md`, `references/toyota_cpo_program.md` — CPO programs include some of these expected services pre-sale; CPO premium may be net-zero if it includes the missed 60k/90k major service
-- `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 4 — pickup-specific PPI items add to this list for F-150 / Silverado / Ram / Tundra / Tacoma (frame, hitch, V8 exhaust manifold, EcoBoost turbo, Hemi MDS lifters)
-- `references/negotiation_playbook.md` — inherited-cost figure feeds Phase 6 counter as a quantified anchor ("PPI + service record gaps total $X — sale price needs to drop $X to neutralize")
+- Gotcha V1 (`SKILL.md`): CARFAX 1-owner is necessary but not sufficient, service records reveal maintenance; missing CVT fluid service at 60k is $300-$400 inherited cost
+- `references/subaru_cpo_program.md`, `references/honda_cpo_program.md`, `references/toyota_cpo_program.md`, CPO programs include some of these expected services pre-sale; CPO premium may be net-zero if it includes the missed 60k/90k major service
+- `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 4, pickup-specific PPI items add to this list for F-150 / Silverado / Ram / Tundra / Tacoma (frame, hitch, V8 exhaust manifold, EcoBoost turbo, Hemi MDS lifters)
+- `references/negotiation_playbook.md`, inherited-cost figure feeds Phase 6 counter as a quantified anchor ("PPI + service record gaps total $X, sale price needs to drop $X to neutralize")

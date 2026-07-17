@@ -4,7 +4,7 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ## [0.2.2] - 2026-05-19
 ### Changed
-- docs: unify repo structure (Skill Repo Spec v1) — philosophy-first README, bilingual top block, standardized badges.
+- docs: unify repo structure (Skill Repo Spec v1), philosophy-first README, bilingual top block, standardized badges.
 
 ### Added
 - Multi-skill plugin: 1 orchestrator + 15 narrow sub-skills covering the full 9-phase pipeline (research -> outreach -> negotiate -> close).

@@ -1,7 +1,7 @@
-# eval/ — objective assertion harness
+# eval/, objective assertion harness
 
 Pure-stdlib (`unittest`) eval harness for `buy-me-a-car`. **No third-party
-dependencies** — no `pytest`, no network. Runs offline.
+dependencies**, no `pytest`, no network. Runs offline.
 
 ```bash
 bash eval/run.sh        # runs every eval/test_*.py; exits non-zero on any failure
@@ -20,14 +20,14 @@ python eval/test_data_integrity.py -v
 
 ## What is tested
 
-### `test_otd.py` — OTD calculator math
+### `test_otd.py`, OTD calculator math
 
 Imports `skills/orchestrator/scripts/otd_calculator.py` directly and asserts:
 
 - **Forward OTD to the cent** against frozen golden cases in
   `golden/otd_cases.json` (NJ, CA, TX, MD, OH, NC, NY, MI, VA, WA, FL, IL).
   Every input is sourced from `data/state_fees.json` verified values; the
-  combined tax rate is computed as `state_base_rate + local_pct/100` — the same
+  combined tax rate is computed as `state_base_rate + local_pct/100`, the same
   path the calculator and CLI use.
 - **Reverse round-trip within +/-$0.01**: `reverse_otd(forward(sale)) == sale`
   for every golden case, plus an add-ons case.
@@ -42,9 +42,9 @@ Imports `skills/orchestrator/scripts/otd_calculator.py` directly and asserts:
   (over-cap warns; at/under-cap silent; no-cap states never warn). Includes an
   explicit MD anchor: MD cap is **$800**, so a $499 doc must NOT warn.
 
-### `test_data_integrity.py` — CORE doc-cap regression net
+### `test_data_integrity.py`, CORE doc-cap regression net
 
-This is the net that catches "the next MD" — a `doc_cap` in
+This is the net that catches "the next MD", a `doc_cap` in
 `data/state_fees.json` drifting out of sync with the prose humans/agent read.
 
 Doc-fee caps are written in prose in several places:
@@ -75,20 +75,20 @@ SKILL.md tables), confirming the net actually bites.
 
 `run.sh` also discovers two test files authored alongside this harness:
 
-- `test_routing.py` — skill trigger-conflict / README routing-table assertions.
-- `test_rubric.py` — deterministic gates (ASCII-only, ask-count, walk-away,
+- `test_routing.py`, skill trigger-conflict / README routing-table assertions.
+- `test_rubric.py`, deterministic gates (ASCII-only, ask-count, walk-away,
   line-cap, leak-flag) for the non-deterministic negotiation skills; LLM-judge
   cases are opt-in via `--llm` and skipped offline by default.
 
-## Round 2 — doc_cap contradiction worklist
+## Round 2, doc_cap contradiction worklist
 
 **Status as of 2026-06-22: none.** WI-2 reconciled the entire repo to the
 verified MD cap of **$800** (effective 2024-07-01). Every doc-cap surface now
 agrees with `data/state_fees.json`:
 
-- (A) `state_fees.md` All-State Summary Table — all 51 states match JSON.
-- (B) `otd-calculator/SKILL.md` quick-rates table — MD $800; all capped states match.
-- (C) `state-fee-lookup/SKILL.md` summary table — MD $800; all capped states match.
+- (A) `state_fees.md` All-State Summary Table, all 51 states match JSON.
+- (B) `otd-calculator/SKILL.md` quick-rates table, MD $800; all capped states match.
+- (C) `state-fee-lookup/SKILL.md` summary table, MD $800; all capped states match.
 - (D) `state_fees.md` MD detail stub, cross-state rows, quirks list, and the
   "MD = low-doc sweet spot" framing have all been updated to $800 (now correctly
   described as the *highest* cap in the DC corridor, above VA's $599).
@@ -99,12 +99,12 @@ resolved across all files; the integrity test passes against the current tree.
 
 If a future verification flips any `doc_cap` in the JSON, the (A)/(B)/(C)
 hard assertions will fail until the corresponding tables are updated in lockstep
-— that is the intended behavior. Any *new* contradiction surfaced by a later
+, that is the intended behavior. Any *new* contradiction surfaced by a later
 run should be listed here for the next reconciliation round.
 
 ## Regenerating golden cases
 
-`golden/otd_cases.json` is a **frozen baseline**, not a derived value — it
+`golden/otd_cases.json` is a **frozen baseline**, not a derived value, it
 exists so a silent change in the calculator math or a JSON state value is
 caught. Regenerate it deliberately only when such a change is intended:
 

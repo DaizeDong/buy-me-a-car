@@ -20,7 +20,7 @@ Quick lookup for factory CPO eligibility, coverage terms, and embedded dollar va
 
 ## When NOT To Use
 
-- Luxury / heavy commercial brands (BMW, MB, Audi, Porsche, RAM HD, F-250+) - see `../orchestrator/references/vertical_playbooks.md#part-2--heavy--commercial--luxury`. **Exceptions: Lexus L/Certified, Genesis CPO, and Acura Precision Certified/Used ARE documented factory programs in this skill** — see their per-brand reference files below and the Luxury exceptions table.
+- Luxury / heavy commercial brands (BMW, MB, Audi, Porsche, RAM HD, F-250+) - see `../orchestrator/references/vertical_playbooks.md#part-2--heavy--commercial--luxury`. **Exceptions: Lexus L/Certified, Genesis CPO, and Acura Precision Certified/Used ARE documented factory programs in this skill**, see their per-brand reference files below and the Luxury exceptions table.
 - Closing-day paperwork verification - delegate to `close-day-checklist`
 - General OTD math - delegate to `otd-calculator`
 
@@ -68,7 +68,7 @@ These three are documented factory programs (not routed to the luxury vertical p
 | Acura - Precision Certified | 6 yr | 80k | 182 pt | 7yr / 100k powertrain + 2yr/100k limited B2B | $1.8-2.8k | $1.0-2.0k |
 | Acura - Precision Used | 10 yr | none | 112 pt | 6mo / 7.5k limited + powertrain (NOT transferable) | $0.3-0.7k | $0.3-0.7k |
 
-Lexus L/Certified has NO 7yr/100k powertrain figure by design — its benefit is a 2yr/UNLIMITED-mile comprehensive B2B extension stacking onto the factory 4yr/50k to reach up to 6yr/unlimited. Genesis CPO reinstates the 10yr/100k powertrain for the 2nd owner (non-CPO used Genesis drops to 5yr/60k). Acura is two-tier: Precision Certified (top) vs Precision Used (lower, not transferable, no mileage cap). Acura/Genesis/Lexus embedded $ are brand-specific (NOT cross-applied from Subaru/Honda/Toyota).
+Lexus L/Certified has NO 7yr/100k powertrain figure by design, its benefit is a 2yr/UNLIMITED-mile comprehensive B2B extension stacking onto the factory 4yr/50k to reach up to 6yr/unlimited. Genesis CPO reinstates the 10yr/100k powertrain for the 2nd owner (non-CPO used Genesis drops to 5yr/60k). Acura is two-tier: Precision Certified (top) vs Precision Used (lower, not transferable, no mileage cap). Acura/Genesis/Lexus embedded $ are brand-specific (NOT cross-applied from Subaru/Honda/Toyota).
 
 Numbers reflect 2026 program terms. Powertrain term measured from original in-service date, NOT CPO sale date.
 

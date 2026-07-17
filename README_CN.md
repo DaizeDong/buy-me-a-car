@@ -12,23 +12,23 @@
 
 ---
 
-## ⭐ 先读这个 —— 设计理念
+## ⭐ 先读这个, 设计理念
 
 经销商赢，靠的是控制框架：把一笔交易拆成 sale price、税、fee、贷款，让每一项看起来都很小；按自己的节奏刷收件箱；赌你冷启动走进大堂。这个 plugin 把这些优势逐条反转。整套设计都源自五条铁律，每条都来自一次具体的丢钱事故：
 
-1. **只谈 OTD** —— 绝不分开 sale price / tax / fee 单独谈，只盯 out-the-door 总价。拆分交易就是每次丢 $1k 还浑然不觉的根源。
-2. **纯 ASCII 邮件** —— 禁用 markdown、em-dash、智能引号。Dealer 客户端会把它们当字面乱码显示，邮件糙就显得买家糙。
-3. **3-anchor 反砍** —— 每封回信必含 (a) dealer 自家内部价差、(b) 区域市场 comp、(c) 你已锁的竞品 OTD。三个 anchor 让对方无从争辩。
-4. **15 分钟 cron 扫信** —— Gmail 由 cron 自动轮询，绝不让人工反复刷。先回复的买家握有筹码。
-5. **walk-away 阈值** —— 超预算或对方拒绝合理还价 → 礼貌走人。在多个 dealer 间维持选项，胜过抢一单平庸成交。
+1. **只谈 OTD**, 绝不分开 sale price / tax / fee 单独谈，只盯 out-the-door 总价。拆分交易就是每次丢 $1k 还浑然不觉的根源。
+2. **纯 ASCII 邮件**, 禁用 markdown、em-dash、智能引号。Dealer 客户端会把它们当字面乱码显示，邮件糙就显得买家糙。
+3. **3-anchor 反砍**, 每封回信必含 (a) dealer 自家内部价差、(b) 区域市场 comp、(c) 你已锁的竞品 OTD。三个 anchor 让对方无从争辩。
+4. **15 分钟 cron 扫信**, Gmail 由 cron 自动轮询，绝不让人工反复刷。先回复的买家握有筹码。
+5. **walk-away 阈值**, 超预算或对方拒绝合理还价 → 礼貌走人。在多个 dealer 间维持选项，胜过抢一单平庸成交。
 
-下游的一切 —— 并行抓取、OTD 计算器、dossier —— 都是为了让这五条铁律执行起来成本极低。完整规则见 [`SKILL.md`](skills/orchestrator/SKILL.md)。
+下游的一切, 并行抓取、OTD 计算器、dossier, 都是为了让这五条铁律执行起来成本极低。完整规则见 [`SKILL.md`](skills/orchestrator/SKILL.md)。
 
 ## 它是什么（不是什么）
 
 **它是**一个买家侧谈判驾驶舱：1 个 orchestrator 跑 9-phase 流程（research → outreach → negotiate → close），外加 15 个窄触发子 skill，可独立调用处理单项任务（OTD 数学、州费查询、CARFAX 审阅、lease-vs-cash、置换估值等）。它带着真实数据：50 州 + DC 的费项明细、16 品牌 CPO 资格、6 条买家路径（含 private-party）。
 
-**它不是**价格预言机、不是 dealer 侧 CRM、也不是税务 / 法律 / 财务建议。它不会自动发送任何有约束力的东西 —— 邮件以 Gmail draft 形式保存，由你审阅后再发。它是单作者 alpha（见 [局限](#局限)）。
+**它不是**价格预言机、不是 dealer 侧 CRM、也不是税务 / 法律 / 财务建议。它不会自动发送任何有约束力的东西, 邮件以 Gmail draft 形式保存，由你审阅后再发。它是单作者 alpha（见 [局限](#局限)）。
 
 ## 安装
 
@@ -98,7 +98,7 @@ python skills/orchestrator/scripts/generate_dossier.py \
 - **触发**：`buy me a car`、`帮我找车`、`买车`、`选车`
 - **示例**：`帮我找一辆 2022-2024 款 Outback Premium，里程 60k 以下，离 <ZIP> 50 英里内，预算 32k OTD`
 - **产出**：每个 phase 的 artifacts 输出到 `car_buying_<YEAR>/` 工作目录。
-- **6 条买家路径**：cash / financing / trade-in / EV / pickup，外加 **private-party（个人对个人）** —— 卖家是私人（FSBO）而非经销商。无 OTD 总价堆叠、无 F&I 加项；买家在 DMV 自行缴税 + 过户 + 上牌。重点转向 title 过户、各州计税基准（成交价 vs 账面值 vs 伊利诺伊式固定表）、无照倒卖（curbstoner）识别 与 支付/托管安全（在卖家开户行出 cashier's check；车带 lien 时直接付清给 lienholder）。详见 `skills/orchestrator/references/private_party_playbook.md`。
+- **6 条买家路径**：cash / financing / trade-in / EV / pickup，外加 **private-party（个人对个人）**, 卖家是私人（FSBO）而非经销商。无 OTD 总价堆叠、无 F&I 加项；买家在 DMV 自行缴税 + 过户 + 上牌。重点转向 title 过户、各州计税基准（成交价 vs 账面值 vs 伊利诺伊式固定表）、无照倒卖（curbstoner）识别 与 支付/托管安全（在卖家开户行出 cashier's check；车带 lien 时直接付清给 lienholder）。详见 `skills/orchestrator/references/private_party_playbook.md`。
 
 ### otd-calculator
 - **何时用**：sale price → OTD，或目标 OTD 反推最大 sale price。
@@ -125,7 +125,7 @@ python skills/orchestrator/scripts/generate_dossier.py \
 - **产出**：结构化红旗报告（事故、保养缺失附 $ 区间、12 类可挑战 F&I 加项）。
 
 ### dealer-reply-drafter
-- **何时用**：起一封外发邮件 —— counter / follow-up / walk-away。
+- **何时用**：起一封外发邮件, counter / follow-up / walk-away。
 - **触发**：`回复 dealer`、`起草 counter`、`对 dealer 报价 counter`
 - **示例**：`帮我对这家 Honda dealer 的 $33k OTD 起草 counter，目标 $30.75k`
 - **产出**：Gmail draft（保存不发送），~10 行，纯 ASCII，3 ask + 1 anchor + 1 walk-away。
@@ -143,25 +143,25 @@ python skills/orchestrator/scripts/generate_dossier.py \
 - **产出**：8 页 HTML + headless-Chrome PDF（中英），含市场均价 / OTD / CPO 嵌入价值 / dealer 内部 anchor 分析。
 
 ### ev-buyer-helper
-- **何时用**：买电车 —— 州级/地方 rebate 叠加、充电（NACS/CCS1）、二手电车电池尽调。注意：联邦 §30D（$7,500 新）/ §25E（$4,000 二手）/ §45W（租赁穿透）三项抵免已对 2025-09-30 之后购车 **全部终止**（OBBBA，公法 119-21），仅作历史参考、不计入净价。
+- **何时用**：买电车, 州级/地方 rebate 叠加、充电（NACS/CCS1）、二手电车电池尽调。注意：联邦 §30D（$7,500 新）/ §25E（$4,000 二手）/ §45W（租赁穿透）三项抵免已对 2025-09-30 之后购车 **全部终止**（OBBBA，公法 119-21），仅作历史参考、不计入净价。
 - **触发**：`EV 补贴`、`$7,500 POS`、`电车 credit`
 - **示例**：`Ioniq 5 SEL 在 NJ 2026 年还有哪些 EV rebate 可拿`
 - **产出**：扣除州/地方 rebate 后的净价（无联邦抵免）+ NACS/CCS1 转接头指引 + 二手电车 SoH 尽调。
 
 ### payment-method-decider
-- **何时用**：选 close-day 工具 —— cashier's check / 信用卡 / wire / lease cap reduction。
+- **何时用**：选 close-day 工具, cashier's check / 信用卡 / wire / lease cap reduction。
 - **触发**：`支付方式`、`买车用刷卡还是支票`、`Visa for $30k car`
 - **示例**：`$30k 是刷我 3% 返现 Visa 还是 cashier's check`
 - **产出**：支付方式建议 + 信用卡返现 vs 刷卡手续费的盈亏平衡数学。
 
 ### lease-vs-cash-analyzer
-- **何时用**：dealer 给了 lease 报价 —— 核实 MF / residual / acquisition / disposition。
+- **何时用**：dealer 给了 lease 报价, 核实 MF / residual / acquisition / disposition。
 - **触发**：`lease 还是 cash`、`money factor markup`、`租还是买`
 - **示例**：`这台 Ioniq 5 SEL $575/mo 的 lease 报价靠谱吗`
 - **产出**：月供拆解 + 按持有年限 LEASE / BUY / 持平的裁定。
 
 ### trade-in-valuator
-- **何时用**：要置换 —— 4-anchor 估值 + lien 还款流程。
+- **何时用**：要置换, 4-anchor 估值 + lien 还款流程。
 - **触发**：`评估置换车`、`valuate my trade`、`trade-in tax credit`
 - **示例**：`我 2017 款 Civic 在 NJ 当 trade 值多少`
 - **产出**：4-anchor 表（KBB Instant / Trade-in / Private / 批发）+ 置换 vs 单独卖的决策。
@@ -173,19 +173,19 @@ python skills/orchestrator/scripts/generate_dossier.py \
 - **产出**：REAL 标记的压缩 `_FINAL_*.jpg`（1300px，100-300 KB），可直接手动 paperclip。
 
 ### insurance-shopper
-- **何时用**：提车前上车险 —— 新司机、cash buyer、跨州移居。
+- **何时用**：提车前上车险, 新司机、cash buyer、跨州移居。
 - **触发**：`上保`、`保险报价`、`car insurance quote`、`new driver insurance`
 - **示例**：`帮我新司机在 <你所在州> 上一辆 SUV 的车险`
 - **产出**：NJM / Geico / Progressive 三家 6-month 报价对比 + 推荐 coverage + bind 步骤。
 
 ### ppi-scheduler
-- **何时用**：要约 PPI 检车 —— 按地区匹配 mobile PPI 服务商。
+- **何时用**：要约 PPI 检车, 按地区匹配 mobile PPI 服务商。
 - **触发**：`约 PPI`、`提车前检车`、`book PPI`
 - **示例**：`明天约个 mobile PPI，给一家本地 dealer 的 2022 Outback`
 - **产出**：预约（含 ID + 取消时限）+ 检后 PROCEED / COUNTER / WALK 决策矩阵。
 
 ### close-day-checklist
-- **何时用**：明天要提车 —— 按 buyer 类型的 checklist + F&I 硬拒话术。
+- **何时用**：明天要提车, 按 buyer 类型的 checklist + F&I 硬拒话术。
 - **触发**：`提车清单`、`ready to close`、`F&I 加项硬拒`
 - **示例**：`给我明天 cash + 置换买家的提车清单`
 - **产出**：到店前 / 现场 / 离店后 checklist + 逐字 F&I 拒绝话术。
@@ -238,10 +238,10 @@ Phase 3 自动生成两张 Markdown 表格。一张是站点能力矩阵（哪�
 
 ## 局限
 
-- **单作者 alpha** —— 工作流基于一次购车流程 + 8 个 worked example 情景（见 `examples/`），未经多市场对抗验证。
-- **数据会漂移** —— 州费、CPO 条款、EV 补贴最后核对 2026-05-18，半年内可能有州法修订。
-- **anti-bot 不稳定** —— CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar 依赖 Playwright MCP，网站改版可能让 subagent 整组失败。
-- **非税务 / 法律 / 财务建议** —— 所有计算仅供谈判参考，过户、贷款、保险请咨询持牌专业人士。
+- **单作者 alpha**, 工作流基于一次购车流程 + 8 个 worked example 情景（见 `examples/`），未经多市场对抗验证。
+- **数据会漂移**, 州费、CPO 条款、EV 补贴最后核对 2026-05-18，半年内可能有州法修订。
+- **anti-bot 不稳定**, CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar 依赖 Playwright MCP，网站改版可能让 subagent 整组失败。
+- **非税务 / 法律 / 财务建议**, 所有计算仅供谈判参考，过户、贷款、保险请咨询持牌专业人士。
 
 ## 语言
 
@@ -258,6 +258,6 @@ Phase 3 自动生成两张 Markdown 表格。一张是站点能力矩阵（哪�
 
 [ROADMAP.md](ROADMAP.md) 记录 v0.3.0 / v1.0.0 计划（多作者数据、对抗性 dealer 测试、EV 抵免恢复跟踪、剩余豪华品牌 CPO）。挑一个 → 开 issue → PR。变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-MIT —— Fork it, ship it, save someone money. 见 [LICENSE](LICENSE)。
+MIT, Fork it, ship it, save someone money. 见 [LICENSE](LICENSE)。
 
 _last_verified: 2026-05-18_

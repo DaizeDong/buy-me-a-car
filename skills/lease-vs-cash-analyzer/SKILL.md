@@ -18,11 +18,11 @@ policy lookup. Defers the full theory + worked tables to
 - Need to verify a dealer-quoted lease monthly is honest (MF buy-rate check)
 - Need lease-end disposition / early-buyout policy for one OEM captive
 
-> **NOTE — federal §45W lease pass-through is TERMINATED (acquired after 2025-09-30, OBBBA).**
+> **NOTE, federal §45W lease pass-through is TERMINATED (acquired after 2025-09-30, OBBBA).**
 > The "EV buyer fails §30D AGI cap, so route to §45W lease pass-through" play is **dead**
 > for any 2026 lease. Lessor captives can no longer capture the federal $7,500 commercial
 > credit, so it is not available as cap cost reduction. Any "EV lease credit" a dealer
-> advertises in 2026 is ordinary OEM lease cash / marketing money, NOT a federal credit —
+> advertises in 2026 is ordinary OEM lease cash / marketing money, NOT a federal credit ,
 > do not present it as §45W pass-through or count it as a federal incentive. See the
 > CRITICAL banner in `ev-buyer-helper`. §45W content below is HISTORICAL only.
 
@@ -75,14 +75,14 @@ front-loads ~$3,500-5,000 on a $40k vehicle.
 | > 5 yr | any | Buy always wins (lease compounding monthly never stops) |
 | any | > 15k mi/yr | Buy wins (excess-mileage penalty $0.15-0.30/mi) |
 
-## EV Lease §45W $7,500 Captured by Lessor — TERMINATED 2025-09-30 (HISTORICAL)
+## EV Lease §45W $7,500 Captured by Lessor, TERMINATED 2025-09-30 (HISTORICAL)
 
 > **No longer available.** OBBBA (Public Law 119-21) terminated the federal §45W
 > Commercial Clean Vehicle Credit for any vehicle **acquired after 2025-09-30**, on the
 > same date as §30D / §25E. A lessor can no longer capture a federal $7,500 credit on a
 > 2026 EV lease, so the lease pass-through below is **$0 of federal money** and must NOT
 > be added to cap cost math or presented to a buyer as a federal incentive. Any 2026
-> "EV lease credit" line is ordinary OEM lease cash / marketing money — treat it as a
+> "EV lease credit" line is ordinary OEM lease cash / marketing money, treat it as a
 > negotiable OEM incentive, not a federal credit. Retained below for pre-cutoff
 > (acquired on/before 2025-09-30) reference only. See the CRITICAL banner in
 > `ev-buyer-helper`.
@@ -139,13 +139,13 @@ and any "lease loyalty" lockouts the captive may apply.
 
 ## Worked Example
 
-2026 Ioniq 5 SEL, 36mo / 12k mi lease (2026 acquisition — federal §45W is $0,
+2026 Ioniq 5 SEL, 36mo / 12k mi lease (2026 acquisition, federal §45W is $0,
 TERMINATED 2025-09-30):
 
 - MSRP: $51,150
 - Residual (55%): $28,133
 - Money factor: 0.00125 (~3.0% APR equivalent)
-- Federal §45W pass-through: **$0 (TERMINATED 2025-09-30 — not available in 2026)**
+- Federal §45W pass-through: **$0 (TERMINATED 2025-09-30, not available in 2026)**
 - OEM lease cash (if advertised, ordinary marketing money, verify on worksheet): varies;
   treat as a negotiable OEM incentive, NOT a federal credit. Assume $0 for this example.
 - Acquisition fee: $650
@@ -179,7 +179,7 @@ generally wins on 36-mo TCO and clearly wins at 6+ years. Check live state rebat
   tables by OEM, region-specific MF charts, all 50-state tax mechanics
 - `../orchestrator/references/ev_buyer_playbook.md` § §45W commercial credit
   - full pass-through tables and lessor list (HISTORICAL: §45W terminated 2025-09-30;
-  see `ev-buyer-helper` CRITICAL banner — no federal lease credit on 2026 acquisitions)
+  see `ev-buyer-helper` CRITICAL banner, no federal lease credit on 2026 acquisitions)
 - `../orchestrator/references/state_fees.md` - state TTL components for the
   cash-comparison side
 - `../orchestrator/SKILL.md` Critical Rule #4 - never quote a lease monthly

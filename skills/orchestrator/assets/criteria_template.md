@@ -1,10 +1,10 @@
-# Buyer Criteria — Phase 1 Output
+# Buyer Criteria, Phase 1 Output
 
 **Buyer:** {NAME} | {EMAIL} | {PHONE} | ZIP {ZIP} ({CITY} {STATE})
 **Started:** {YYYY-MM-DD}
-**Preferred language for buyer-facing artifacts:** {English / Chinese / Spanish / other — default English if not stated}
+**Preferred language for buyer-facing artifacts:** {English / Chinese / Spanish / other, default English if not stated}
 
-> Language note: This template is English-default. If the buyer prefers a different language (Chinese / Spanish / etc.), the agent may render this file and the dossier in that language for buyer review. Dealer-facing emails are ALWAYS English-only, ASCII-only, regardless of the buyer's preferred language — see SKILL.md § Language and audience separation.
+> Language note: This template is English-default. If the buyer prefers a different language (Chinese / Spanish / etc.), the agent may render this file and the dossier in that language for buyer review. Dealer-facing emails are ALWAYS English-only, ASCII-only, regardless of the buyer's preferred language, see SKILL.md § Language and audience separation.
 
 ---
 
@@ -15,12 +15,12 @@
 | Make / model / trim | {e.g., "Subaru Outback Premium or Limited"} |
 | Year range | {e.g., "2020-2024"} |
 | Mileage cap | {e.g., "under 50,000"} |
-| Budget (OTD or sales-price — MUST be marked) | {e.g., "$25-30k **OTD** (all-in: price + tax + doc + reg + DMV)"} |
+| Budget (OTD or sales-price, MUST be marked) | {e.g., "$25-30k **OTD** (all-in: price + tax + doc + reg + DMV)"} |
 | ZIP + radius | {e.g., "within 75 mi of 06840"} |
 | Payment method (with detail) | {e.g., "Cash, cashier's check"} |
 | Timeline | {e.g., "close within 2 weeks"} |
 | Must-haves | {e.g., "AWD, CarPlay, heated seats"} |
-| **Walk-away ceiling** (single number, hard stop) | {e.g., "$30,500 OTD — above this I walk no matter what; distinct from the range upper bound"} |
+| **Walk-away ceiling** (single number, hard stop) | {e.g., "$30,500 OTD, above this I walk no matter what; distinct from the range upper bound"} |
 
 ### Walk-away ceiling note
 This number is what Phase 6 enforces as the absolute stop. Do not negotiate above it for any reason.
@@ -36,7 +36,7 @@ Surfaced by the agent before final buyer confirmation. Cap at 3 items.
 
 | # | Type | Item |
 |---|---|---|
-| 1 | (a) factual misconception / (b) supply-eating filter / (c) infeasible timeline | {one-line correction or flag, or "n/a — no items"} |
+| 1 | (a) factual misconception / (b) supply-eating filter / (c) infeasible timeline | {one-line correction or flag, or "n/a, no items"} |
 | 2 | | |
 | 3 | | |
 

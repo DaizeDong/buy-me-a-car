@@ -47,9 +47,9 @@ Output a one-line status per cycle: scanned N threads, processed X, skipped Y.
 If no new mail: "No new dealer mail this cycle".
 ```
 
-## Periodic Full Sweep (Critical — Backlog Detection)
+## Periodic Full Sweep (Critical, Backlog Detection)
 
-**Problem**: The `newer_than:25m` sliding window in the cron prompt only catches mail that arrives DURING active cron cycles. If the buyer pauses the conversation for several cycles (e.g., overnight, during a meeting), any dealer mail that arrived in those gaps is permanently missed by subsequent cron runs — the window has already moved past it.
+**Problem**: The `newer_than:25m` sliding window in the cron prompt only catches mail that arrives DURING active cron cycles. If the buyer pauses the conversation for several cycles (e.g., overnight, during a meeting), any dealer mail that arrived in those gaps is permanently missed by subsequent cron runs, the window has already moved past it.
 
 **Real incident from a prior search**: A Sales Manager at a local Honda dealer sent a substantive inventory response with 1 matching vehicle. The cron `newer_than:25m` checks every 15 minutes for 4 cycles did not flag it because the cron loop happened to be paused when the mail arrived. The buyer only caught it by asking for a full sweep.
 
@@ -64,11 +64,11 @@ newer_than:3d is:unread
 
 Cross-reference results against the tracker. Any UNREAD + IMPORTANT thread from a real sales rep email address that the tracker does not log is a backlog miss. Process immediately.
 
-## Spam + Promotions Sweep — Scheduled (Required)
+## Spam + Promotions Sweep, Scheduled (Required)
 
 Real dealer mail from CRM platforms (eDealerHub, VinSolutions, eLead) sometimes lands in SPAM, especially first-touch emails from dealers the buyer has never received mail from. Other CRM templates land in the Gmail Promotions tab due to bulk-mail headers. The default 15-min inbox-only cron query excludes both surfaces.
 
-**Mechanized fix — run a dedicated spam + promotions sweep every 6 hours** alongside the main inbox cron. Do NOT rely on agent diligence or buyer prompting; bake it in. Recommended cron:
+**Mechanized fix, run a dedicated spam + promotions sweep every 6 hours** alongside the main inbox cron. Do NOT rely on agent diligence or buyer prompting; bake it in. Recommended cron:
 
 ```
 cron: 0 */6 * * *     # every 6 hours; e.g., midnight, 6 AM, noon, 6 PM ET
@@ -108,11 +108,11 @@ For each match:
 
 **Real incident**: A Subaru dealer sales rep's first OTD-with-PDF email landed in SPAM. The follow-up 24h later landed in INBOX. The default cron only saw the follow-up; the original PDF quote was buried in spam and only surfaced when the rep asked "did you get my quote?". A scheduled 6-hour sweep catches this within at most 6 hours.
 
-## Morning Catch-Up Sweep — Scheduled (Overnight Gap Recovery)
+## Morning Catch-Up Sweep, Scheduled (Overnight Gap Recovery)
 
 The default 15-min main cron and the 6-hour spam/promotions sweep both depend on an active Claude session. The Claude harness's CronCreate only fires within active sessions; if the buyer sleeps 11 PM-7 AM, NO cron cycles fire during that window. Any dealer mail arriving overnight (a West-coast dealer working late, a CRM-scheduled auto-send at 2 AM, an Eastern dealer running midnight inventory blast) is invisible to the next-morning sliding `newer_than:25m` window.
 
-**Mechanized fix — schedule a `newer_than:12h is:unread` morning catch-up sweep at the buyer's wake time** (default 7 AM ET; ask the buyer at Phase 5 setup). This sweep runs in addition to the resumed main cron and the 6-hour spam/promotions sweep.
+**Mechanized fix, schedule a `newer_than:12h is:unread` morning catch-up sweep at the buyer's wake time** (default 7 AM ET; ask the buyer at Phase 5 setup). This sweep runs in addition to the resumed main cron and the 6-hour spam/promotions sweep.
 
 ```
 cron: 0 7 * * *      # 7 AM daily; adjust to buyer's stated wake time
@@ -146,7 +146,7 @@ replies processed, Y were already in tracker."
 
 **Cadence rationale**: A 12-hour window with `is:unread` is wider than the overnight gap (typically 7-9 hours) and ignores reads from yesterday afternoon. The `is:unread` filter avoids re-processing threads the main cron drafted yesterday evening; the 12-hour window catches the rare 6-9 PM previous-day reply if the buyer paused early.
 
-**Real incident**: In any active buying cycle, expect 1-3 dealer replies overnight per active cross-bid. Without the morning sweep, the resumed 7 AM main cron's `newer_than:25m` window only sees mail from 6:35 AM onward — 3-6 dealer threads sit silently unread until they bump with a follow-up, sometimes 24-72 hours later.
+**Real incident**: In any active buying cycle, expect 1-3 dealer replies overnight per active cross-bid. Without the morning sweep, the resumed 7 AM main cron's `newer_than:25m` window only sees mail from 6:35 AM onward, 3-6 dealer threads sit silently unread until they bump with a follow-up, sometimes 24-72 hours later.
 
 ## Gmail Search Syntax Tips
 
@@ -175,7 +175,7 @@ newer_than:25m
   -from:CARFAX@no-reply.carfax.com
 ```
 
-`-in:draft -in:sent` matters — Gmail thread search returns the buyer's own messages alongside dealer messages. Filtering them out keeps result counts honest.
+`-in:draft -in:sent` matters, Gmail thread search returns the buyer's own messages alongside dealer messages. Filtering them out keeps result counts honest.
 
 ## Gmail API Quirks (Important)
 
@@ -187,7 +187,7 @@ Many dealer CRM platforms send emails with HTML body only (no `multipart/alterna
 
 **Fix protocol**: After fetching a thread, check if the latest dealer message has `plaintextBody`. If empty:
 
-- Re-read the snippet carefully — it may already contain the key data.
+- Re-read the snippet carefully, it may already contain the key data.
 - Tell the buyer: "This message is HTML-only and the Gmail API does not return the full body. Snippet shows: [snippet]. If there are inline numbers (sales, tax, OTD) past where the snippet cuts off, please paste them so the draft reply can reference them accurately."
 - Do NOT assume the dealer "did not send numbers" just because plaintextBody is empty.
 
@@ -222,7 +222,7 @@ Not every email from a `@dealer.com` address is actionable. The cron must differ
 
 ### Out-of-Office autoresponder detection (skip + flag + suppress re-ping)
 
-OOO autoresponders look like real human replies (real sender, real signature, named rep) but are not actionable. They are a distinct skip class from the templated-marketing autoresponders above because the rep IS real and will be back — the buyer should not re-ping until the return date, and the cron should not draft counters into the void.
+OOO autoresponders look like real human replies (real sender, real signature, named rep) but are not actionable. They are a distinct skip class from the templated-marketing autoresponders above because the rep IS real and will be back, the buyer should not re-ping until the return date, and the cron should not draft counters into the void.
 
 **Keyword / regex detection** (case-insensitive substring match; match ANY one signal triggers OOO classification):
 
@@ -241,7 +241,7 @@ OOO autoresponders look like real human replies (real sender, real signature, na
 | "this is an automated response" | Generic OOO |
 | "thanks for your message I'll get back to you [on/when/after]" | OOO + return date |
 | Gmail Subject prefix `Auto reply:` or `Automatic reply:` | Outlook OOO subject prefix |
-| Gmail header `Auto-Submitted: auto-replied` (RFC 3834) | Programmatic OOO header — strongest single signal |
+| Gmail header `Auto-Submitted: auto-replied` (RFC 3834) | Programmatic OOO header, strongest single signal |
 
 **Action protocol when OOO detected:**
 
@@ -254,7 +254,7 @@ OOO autoresponders look like real human replies (real sender, real signature, na
    ```
 4. **Suppress re-ping logic.** Until `oo_return_date` passes, the cron must NOT auto-draft any new outbound to this rep, even if the buyer asks "ping the silent dealers". Surface to buyer: "{Rep} at {Dealer} is OOO until {return_date}. Not pinging. Re-evaluate after return."
 5. **On return date:** the cron's next morning sweep should re-include this rep in the active set. The buyer may want to send a fresh "checking back in" note manually.
-6. **Edge case: OOO with substantive numbers in the BODY.** Some reps configure OOO with "for [partner] coverage during my absence, here are current prices on [vehicle]: $X. Otherwise I'll respond Monday." Rare but possible. If the body contains a sales-price / OTD / stock number despite OOO header, process the numbers as actionable BUT still flag OOO and suppress re-ping to the OOO rep — route any counter to the partner if named.
+6. **Edge case: OOO with substantive numbers in the BODY.** Some reps configure OOO with "for [partner] coverage during my absence, here are current prices on [vehicle]: $X. Otherwise I'll respond Monday." Rare but possible. If the body contains a sales-price / OTD / stock number despite OOO header, process the numbers as actionable BUT still flag OOO and suppress re-ping to the OOO rep, route any counter to the partner if named.
 
 ### Process (real human or templated-with-data)
 
@@ -279,9 +279,9 @@ Common auto-mailers to filter:
 - `CARFAX@event.carfax.com` (Carfax confirmation per submission)
 - `CARFAX@no-reply.carfax.com` (Carfax marketing)
 - `no-reply@accounts.google.com` (Google security)
-- `alerts@<your-bank-alerts-domain>` (banking — e.g., chime, bofa, chase, etc.)
+- `alerts@<your-bank-alerts-domain>` (banking, e.g., chime, bofa, chase, etc.)
 - `onlinebanking@<your-bank-ealerts-domain>` (banking)
-- `noreply@<aggregator-service>.com` (banking aggregators — e.g., plaid, mx, finicity)
+- `noreply@<aggregator-service>.com` (banking aggregators, e.g., plaid, mx, finicity)
 - Various academic / professional list-server addresses
 
 Common autoresponder phrases to skip:
@@ -295,7 +295,7 @@ Common autoresponder phrases to skip:
 - "Did you receive your information" (re-engagement template)
 - "Your quote has arrived" (template tagline with no actual quote attached)
 
-Common OOO autoresponder phrases (skip + flag dealer for buyer follow-up — see Out-of-Office subsection above for full action protocol):
+Common OOO autoresponder phrases (skip + flag dealer for buyer follow-up, see Out-of-Office subsection above for full action protocol):
 
 - "out of office" / "OOO" / "out of the office" / "away from the office"
 - "on vacation" / "on holiday" / "on PTO"
@@ -304,7 +304,7 @@ Common OOO autoresponder phrases (skip + flag dealer for buyer follow-up — see
 - "for urgent matters please contact"
 - "automated reply" / "automatic reply" / "this is an automated response"
 - Subject line prefix `Auto reply:` / `Automatic reply:` / `Out of Office:`
-- Header `Auto-Submitted: auto-replied` (RFC 3834 — strongest single signal)
+- Header `Auto-Submitted: auto-replied` (RFC 3834, strongest single signal)
 
 ## Cron Lifecycle
 
@@ -322,7 +322,7 @@ If the project directory changes (e.g., files moved from home directory to `{HOM
 
 ## Coordinating with User Sends
 
-The cron job creates drafts but never sends. The user manually reviews and sends from Gmail Drafts folder. This is the right architecture — never auto-send dealer emails since:
+The cron job creates drafts but never sends. The user manually reviews and sends from Gmail Drafts folder. This is the right architecture, never auto-send dealer emails since:
 
 - An incorrect draft could damage relationships
 - User needs to verify final wording, especially OTD numbers and walk-away phrasing
@@ -332,8 +332,8 @@ The cron job creates drafts but never sends. The user manually reviews and sends
 
 Per cycle, output one of:
 
-- `No new dealer mail this cycle` — if no new threads match
-- `Scanned N threads, processed X new replies, skipped Y` — if new mail
+- `No new dealer mail this cycle`, if no new threads match
+- `Scanned N threads, processed X new replies, skipped Y`, if new mail
 - For each processed reply, mention: dealer name, key finding, draft ID
 
 ## Stopping the Loop

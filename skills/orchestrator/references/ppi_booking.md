@@ -8,7 +8,7 @@ This reference covers PPI booking when the buyer has 1-4 final candidates and a 
 
 - Immediately after dealer commits to written OTD AND CARFAX is clean AND warranty + service history check out.
 - Before transferring cashier's check.
-- Required on every used purchase regardless of CPO status — CPO 152-point is dealer self-inspection and does not replace independent PPI.
+- Required on every used purchase regardless of CPO status, CPO 152-point is dealer self-inspection and does not replace independent PPI.
 
 ## Mobile PPI vs Drop-Off PPI
 
@@ -52,7 +52,7 @@ When the buyer has 2-4 dealers in final consideration and a same-week close, boo
 - 11 AM <Dealer C> (2023 Touring)
 - 12 PM <Dealer D> (2025 Limited)
 
-Service may proactively call to confirm before dispatching — answer with "I'm finalizing tonight, will confirm by 9 AM Thursday."
+Service may proactively call to confirm before dispatching, answer with "I'm finalizing tonight, will confirm by 9 AM Thursday."
 
 ## Online Form Quirks (Lemon Protector and similar)
 
@@ -74,9 +74,9 @@ Print and hand to inspector:
 - PCV valve operation
 - Engine mounts
 
-**Transmission (CVT)** — Subaru's known wear point:
+**Transmission (CVT)**, Subaru's known wear point:
 - CVT fluid condition + level
-- Test drive 25/45/65 mph — any judder/vibration is RED FLAG
+- Test drive 25/45/65 mph, any judder/vibration is RED FLAG
 - Cold start behavior
 - TCM no DTCs
 
@@ -94,7 +94,7 @@ Print and hand to inspector:
 
 **Tires**:
 - Tread depth all 4 (≥4/32" OK)
-- DOT date codes (4 digits — within 5 years)
+- DOT date codes (4 digits, within 5 years)
 - Sidewall integrity
 - Tire matching for AWD
 
@@ -112,7 +112,7 @@ Print and hand to inspector:
 - All accessory functions
 
 **Body / Frame**:
-- Paint thickness gauge (front fenders, doors, hood — check for repaint)
+- Paint thickness gauge (front fenders, doors, hood, check for repaint)
 - Undercarriage rust (NJ/Northeast salt corrosion)
 - Frame straightness visual
 - Panel gap consistency
@@ -134,10 +134,10 @@ PPI ROI: 5-30× return on investment. Never skip.
 
 | PPI Result | Action |
 |------------|--------|
-| Clean — no significant issues | Proceed to close, cashier's check, drive home |
+| Clean, no significant issues | Proceed to close, cashier's check, drive home |
 | Minor issues ($300-1,000 total) | Counter dealer for repair-credit OR have dealer fix BEFORE delivery |
-| Major issues ($1,000+) — CVT judder, frame damage, hidden accident, oil consumption | **Walk away**, deposit refunded per hold mechanism |
-| Anything not disclosed by dealer pre-PPI | Trust score down — even if minor, reconsider |
+| Major issues ($1,000+), CVT judder, frame damage, hidden accident, oil consumption | **Walk away**, deposit refunded per hold mechanism |
+| Anything not disclosed by dealer pre-PPI | Trust score down, even if minor, reconsider |
 
 ## Cashier's Check Timing
 
