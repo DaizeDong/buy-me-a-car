@@ -121,6 +121,15 @@ def validate_config_sanity(flat_config):
     return errors
 
 
+def _strip_dashes(text):
+    """The no-dash house rule covers the rendered dossier (buyer-facing prose). dash_guard does
+    not scan .html, so normalize en/em/horizontal-bar dashes out of the final output at generation
+    time as a backstop, leaving ASCII hyphens (VINs, price ranges) untouched."""
+    for d in ("–", "—", "―"):
+        text = text.replace(" %s " % d, ", ").replace(d, ",")
+    return text
+
+
 def substitute(template, config):
     """Substitute {{KEY}} placeholders with config values."""
     flat = flatten_dict(config)
@@ -145,7 +154,7 @@ def substitute(template, config):
         return m.group(0)  # leave unchanged
 
     result = PLACEHOLDER_PATTERN.sub(repl, template)
-    return result, missing, used
+    return _strip_dashes(result), missing, used
 
 
 def main():
