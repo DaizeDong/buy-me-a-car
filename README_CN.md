@@ -47,6 +47,7 @@ Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`�
 安装后跑这几条验证骨架：
 
 ```bash
+cd ~/.claude/plugins/buy-me-a-car
 ls skills/   # 应看到 16 个目录
 python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
 python skills/orchestrator/scripts/generate_dossier.py \
