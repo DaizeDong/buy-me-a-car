@@ -47,6 +47,7 @@ Skills auto-activate on phrases like `help me buy a car`, `draft a reply to deal
 Verify the install:
 
 ```bash
+cd ~/.claude/plugins/buy-me-a-car
 ls skills/   # should show 16 directories
 python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
 python skills/orchestrator/scripts/generate_dossier.py \
