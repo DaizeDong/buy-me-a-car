@@ -1,5 +1,5 @@
 ---
-name: Insurance Shopper
+name: insurance-shopper
 description: Use when the buyer needs to set up or compare auto insurance before close day, especially for first-time drivers, cash buyers, or cross-state moves. Handles NJ/NY/PA/CT/MA state minimums, full-coverage recommendations, new-driver rate shocks, NJM/Geico/Progressive/State Farm quote sequence, and the "insurance ID card before dealer release" pre-close gate. Triggers include "set up insurance", "上保", "car insurance quote", "new driver insurance", "保险报价", "ID card before pickup", and Spanish phrases "contratar seguro de auto antes de recoger el carro", "cotizar seguro de carro".
 ---
 

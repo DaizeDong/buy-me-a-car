@@ -1,5 +1,5 @@
 ---
-name: PPI Scheduler
+name: ppi-scheduler
 description: Use to book a pre-purchase mechanical inspection (PPI) before finalizing a used-car purchase, especially when juggling 2-4 final candidates. Triggers include "book PPI", "mobile inspector NJ", "pre-purchase inspection", "Lemon Protector", "YourMechanic", "Pep Boys mobile inspection", "提车前检车", and Spanish phrase "agendar inspeccion pre-compra antes de comprar el auto usado".
 ---
 

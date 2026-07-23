@@ -1,5 +1,5 @@
 ---
-name: Buy Me a Car
+name: buy-me-a-car
 description: Use when the user wants help researching, contacting dealers about, negotiating, or finalizing a car purchase (used or new). Triggers include "buy me a car", "find me a car", "research cars", "email dealers", "compare quotes", "negotiate OTD", "buy a Subaru/Toyota/Honda/Mazda", Chinese phrases "帮我找车", "买车", "选车", "砍价", "对比经销商", and Spanish phrases "ayudame a comprar un carro", "ayudame a comprar un coche", "encuentrame un auto", "negociar el precio del carro", "comparar concesionarios". Runs end-to-end: multi-site inventory search, mass dealer outreach, Gmail reply monitoring on a cron, OTD negotiation with market-data anchors, CARFAX/service-record PDF analysis, and decision dossiers for test drives.
 ---
 

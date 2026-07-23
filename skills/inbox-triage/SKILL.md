@@ -1,5 +1,5 @@
 ---
-name: Dealer Inbox Triage
+name: inbox-triage
 description: Use to triage incoming Gmail dealer replies, classify each as real reply / autoresponder (OOO) / CRM template / spam / promotions / autopiloted-marketing, and decide what action each needs. Triggers include "check my dealer inbox", "triage these emails", "is this real or autoresponder", "看下邮箱", "dealer 回复了吗", "spam folder check", and Spanish phrases "revisar mi bandeja de correos del concesionario", "ya respondio el dealer o es respuesta automatica".
 ---
 

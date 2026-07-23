@@ -1,5 +1,5 @@
 ---
-name: EV Buyer Helper
+name: ev-buyer-helper
 description: Use when the buyer is purchasing an EV (battery electric or plug-in hybrid) and needs federal clean-vehicle credit status (federal 30D/25E/45W terminated for vehicles acquired after 2025-09-30 per OBBBA, no longer available), state EV rebates, NACS adapter info, home charging guidance, used-EV battery State-of-Health rules, or any EV-specific dealer behavior knowledge. Triggers include "EV federal credit", "is the $7,500 credit still available", "former $7,500 POS transfer", "Ioniq 5 incentives", "NACS adapter", "EV charging at home", "买电车", "电车补贴", "EV battery health", and Spanish phrases "credito federal para vehiculo electrico", "comprar un carro electrico".
 ---
 
