@@ -1,5 +1,5 @@
 ---
-name: Close Day Checklist
+name: close-day-checklist
 description: Use when buyer is ready to close (signing today/tomorrow), needs the day-of checklist for cash / financing / trade-in / EV / pickup buyers, F&I add-on refusal script, and timing of cashier's check / lien payoff / plate transfer. Triggers include "ready to close", "close day checklist", "F&I add-on refusal", "lien payoff timing", "提车清单", "准备签约", and Spanish phrases "lista para el dia de firma", "listo para cerrar el trato".
 ---
 

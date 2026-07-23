@@ -1,5 +1,5 @@
 ---
-name: OTD Calculator
+name: otd-calculator
 description: Use to compute out-the-door (OTD) cost from sale price + state + fees, or reverse-engineer a sales price ceiling from a target OTD. Handles trade-in tax credit if state grants it. Triggers include "compute OTD", "OTD math", "what's my OTD", "reverse OTD to sale price", "算 OTD", "算总价", Spanish phrases "calcula el precio final del carro", "calcula el precio total con impuestos y cargos", and any sale-price-vs-OTD disambiguation question.
 ---
 

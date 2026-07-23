@@ -1,5 +1,5 @@
 ---
-name: Quote Evidence Collector
+name: quote-evidence-collector
 description: Use when the buyer wants to FIND online dealer quote screenshots (XHS / Reddit / Facebook / Carfax) to use as cross-bid anchors for negotiation, without engaging the full 9-phase pipeline. Triggers include "find quote screenshots", "find dealer evidence", "scrape XHS for quotes", "Reddit OTD reports", "搜集报价截图", "找证据图", "找别人 dealer 给的报价", and Spanish phrases "buscar capturas de cotizaciones de otros concesionarios", "encontrar pruebas de precios de dealers", "encontrar el precio que otros consiguieron del concesionario".
 ---
 

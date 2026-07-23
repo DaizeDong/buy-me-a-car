@@ -1,5 +1,5 @@
 ---
-name: CPO Eligibility Check
+name: cpo-eligibility
 description: Use to check Certified Pre-Owned eligibility, coverage, and embedded value for a specific vehicle (VIN/year/mileage) against the brand's CPO program. Covers Subaru, Honda, Toyota, Hyundai, Kia, Ford, GM, Mazda, Stellantis (Ram/Jeep/Chrysler/Dodge/Fiat), Lexus, Genesis, Acura. Triggers include "is this car CPO eligible", "CPO program details for X", "embedded CPO value", "should I pay for CPO", "factory CPO vs dealer certified", "Subaru CPO" / "Honda Certified" etc., and Spanish phrases "es un auto certificado por el fabricante", "vale la pena pagar por la certificacion CPO".
 ---
 

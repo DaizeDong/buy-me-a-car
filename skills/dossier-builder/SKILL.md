@@ -1,5 +1,5 @@
 ---
-name: Decision Dossier Builder
+name: dossier-builder
 description: Use to generate a printed market-research dossier (8-page HTML + PDF) the buyer brings to the dealer at test drive, summarizing buyer profile, regional comps, target OTD, and cross-bid anchors. Triggers include "build dossier", "generate market research PDF", "dealer dossier", "decision document", "make dossier for dealer", "生成 dossier", "制作 PDF", and Spanish phrases "generar el dossier para el concesionario", "crear el PDF de investigacion de mercado".
 ---
 

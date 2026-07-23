@@ -1,5 +1,5 @@
 ---
-name: Dealer Reply Drafter
+name: dealer-reply-drafter
 description: Use when the user has received a dealer email reply and wants to draft a counter, follow-up, or walk-away - without engaging the full 9-phase buy-me-a-car workflow. Triggers include "draft counter to dealer", "reply to this dealer email", "follow up with dealer", "respond to OTD quote", and Chinese phrases "回复 dealer", "给 dealer 起草回信", "对 dealer 报价做 counter", and Spanish phrases "responder al concesionario", "redactar una contraoferta al dealer", "dar seguimiento al concesionario".
 ---
 

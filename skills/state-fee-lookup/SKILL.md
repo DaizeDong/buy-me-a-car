@@ -1,5 +1,5 @@
 ---
-name: State Fee Lookup
+name: state-fee-lookup
 description: Use to look up sales tax rate, doc fee cap, title fee, registration fee, and trade-in credit eligibility for any of 50 US states + DC. Returns the fees in seconds rather than searching DMV websites. Triggers include "what's the doc fee in X", "NJ sales tax rate", "Texas DMV fees", "州的税率", "doc fee cap", "trade-in credit", and Spanish phrase "cual es la tasa de impuesto del estado".
 ---
 
