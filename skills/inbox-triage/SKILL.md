@@ -34,7 +34,7 @@ will answer in the buyer's apparent language or their own. Language is never a s
 signal; judge by the bucket-1 content signals above (human prose, buyer-specific
 numbers, named sender). When handing off:
 
-- **Translate the substance for the buyer**: surface the actionable content in English ,
+- **Translate the substance for the buyer**: surface the actionable content in English, meaning
   OTD/price figures, VIN/stock confirmation, availability, any counter-offer or
   condition the rep stated. Give the buyer the meaning, not a word-for-word gloss.
 - **Outbound counter stays in English**: the draft handed to
@@ -172,8 +172,8 @@ These are defined in `../orchestrator/SKILL.md` gotcha section:
   the 7 AM morning catch-up is mandatory.
 - **gotcha I4**, CRM-wrapped emails with embedded vehicle data ARE actionable; do not
   bucket-3 them just because the wrapper is templated.
-- **gotcha I5**, Never trash a dealer's original email or the buyer's sent reply ,
-  it breaks future thread anchors. Triage only moves labels; it never deletes.
+- **gotcha I5**, Never trash a dealer's original email or the buyer's sent reply. It
+  breaks future thread anchors. Triage only moves labels; it never deletes.
 
 ## Output contract
 

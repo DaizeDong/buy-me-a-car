@@ -66,7 +66,7 @@ The buyer wants the workflow to:
 ## Skills exercised
 
 - [orchestrator](../skills/orchestrator/SKILL.md), Phases 1, 3, 6.
-- [payment-method-decider](../skills/payment-method-decider/SKILL.md) ,
+- [payment-method-decider](../skills/payment-method-decider/SKILL.md),
   Toyota's captive lender vs credit union comparator.
 - [state-fee-lookup](../skills/state-fee-lookup/SKILL.md), PA detail plus
   PA→DE / PA→NJ / PA→MD cross-state titling rows.

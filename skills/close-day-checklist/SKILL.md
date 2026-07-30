@@ -218,7 +218,7 @@ buyer relies on it at the desk.
 | nitrogen (tire fill) | nitrogeno (en las llantas) | |
 | dent / ding (PDR) | reparacion de abolladuras sin pintura | |
 
-> Regional vocabulary note (say what the buyer says): the word for "car" varies ,
+> Regional vocabulary note (say what the buyer says): the word for "car" varies by region,
 > **carro** (Mexico / Central America / Caribbean), **coche** (Spain / Southern Cone),
 > **auto** (neutral, understood everywhere). Mirror the buyer's own word; the scripts
 > below use the neutral **vehiculo** to stay region-safe. Technical product names

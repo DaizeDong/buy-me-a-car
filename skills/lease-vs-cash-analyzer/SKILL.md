@@ -22,8 +22,7 @@ policy lookup. Defers the full theory + worked tables to
 > The "EV buyer fails §30D AGI cap, so route to §45W lease pass-through" play is **dead**
 > for any 2026 lease. Lessor captives can no longer capture the federal $7,500 commercial
 > credit, so it is not available as cap cost reduction. Any "EV lease credit" a dealer
-> advertises in 2026 is ordinary OEM lease cash / marketing money, NOT a federal credit ,
-> do not present it as §45W pass-through or count it as a federal incentive. See the
+> advertises in 2026 is ordinary OEM lease cash / marketing money, NOT a federal credit. Do not present it as §45W pass-through or count it as a federal incentive. See the
 > CRITICAL banner in `ev-buyer-helper`. §45W content below is HISTORICAL only.
 
 ## When NOT To Use

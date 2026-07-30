@@ -1,6 +1,6 @@
 # Non-State Data Source Ledger
 
-> **purpose**: Single audit trail for every *non-state* hard number the skill quotes as fact ,
+> **purpose**: Single audit trail for every *non-state* hard number the skill quotes as fact,
 > CPO program limits, IRS / federal credit figures, manufacturer warranty terms, fee thresholds,
 > etc. State-level tax / doc-cap / title / reg numbers live in `data/state_fees.json` (structured)
 > and are audited separately by `scripts/check_freshness.py`; do NOT duplicate state rows here.

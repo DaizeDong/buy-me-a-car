@@ -210,8 +210,7 @@ CRITICAL pre-purchase step. Battery degradation:
 > after 2025-09-30, on the same date as §30D/§25E. Lessor captives can no longer capture
 > a $7,500 commercial credit on a current EV lease, so the historical "lease to capture
 > the credit you can't get on purchase" arbitrage no longer exists. Any remaining EV lease
-> discount in 2026 is ordinary OEM lease cash / marketing money, NOT a federal credit ,
-> do not present it to a buyer as a §45W pass-through. Retained below for reference only.
+> discount in 2026 is ordinary OEM lease cash / marketing money, NOT a federal credit. Do not present it to a buyer as a §45W pass-through. Retained below for reference only.
 
 If lessor (captive finance) captures the $7,500 commercial clean vehicle credit (§45W) and passes through:
 - Monthly drops ~$104 over 60mo (or ~$208 over 36mo lease)

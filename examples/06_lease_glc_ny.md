@@ -75,7 +75,7 @@ The buyer wants the buy-me-a-car workflow to:
 ## Skills exercised
 
 - [orchestrator](../skills/orchestrator/SKILL.md), Phases 1, 2, 6.
-- [lease-vs-cash-analyzer](../skills/lease-vs-cash-analyzer/SKILL.md) ,
+- [lease-vs-cash-analyzer](../skills/lease-vs-cash-analyzer/SKILL.md),
   five-core-field scoring, MBFS captive rules, NY lease tax mechanic,
   buy-rate MF counter (delegates to `lease_playbook.md`).
 - [state-fee-lookup](../skills/state-fee-lookup/SKILL.md), New York
