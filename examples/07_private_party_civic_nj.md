@@ -85,7 +85,7 @@ The buyer wants the buy-me-a-car workflow to:
 - [carfax-pdf-review](../skills/carfax-pdf-review/SKILL.md), run on the
   CARFAX/title history (accidents, brands, rollback, lien records) with
   the **F&I add-on detector skipped** (no F&I office exists).
-- [dealer-reply-drafter](../skills/dealer-reply-drafter/SKILL.md) ,
+- [dealer-reply-drafter](../skills/dealer-reply-drafter/SKILL.md),
   repurposed for **single-seller** messages (PPI request, payment/branch
   logistics, price counter); short and human, no dealer CRM on the other
   end.
@@ -112,7 +112,7 @@ The buyer wants the buy-me-a-car workflow to:
    state tax **6.625%** (`tax_state: 0.06625`), local **0%**
    (`tax_local_typ: "0%"`), **title $85** (`title: 85`), **reg/yr $70**
    (`reg_1yr: 70`), no EV surcharge. Fed only the tax + title + reg
-   engine; the doc-fee line ($799 NJ dealer cap) was **suppressed** ,
+   engine; the doc-fee line ($799 NJ dealer cap) was **suppressed**,
    irrelevant on a private sale.
 3. **private-party cost model**, total = sale price + NJ tax + title +
    reg, all buyer-paid at the NJ MVC. Applied the NJ private-party tax

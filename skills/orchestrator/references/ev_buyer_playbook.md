@@ -316,7 +316,7 @@ Some dealers will quote tight pricing on a vehicle that doesn't physically exist
 Before sending a counter on an EV:
 
 > NOTE: Federal §30D/§25E/§45W are TERMINATED for vehicles acquired after 2025-09-30. The
-> three federal-credit checklist items below are HISTORICAL (pre-cutoff acquisitions only) ,
+> three federal-credit checklist items below are HISTORICAL (pre-cutoff acquisitions only),
 > skip them for any current 2026 purchase and do not gate the counter on them.
 
 - [ ] ~~Dealer IRS Energy Credits Online registration verified~~ (HISTORICAL, no live federal credit to transfer)

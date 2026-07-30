@@ -78,7 +78,7 @@ The buyer wants the workflow to:
 - [orchestrator](../skills/orchestrator/SKILL.md), Phases 1, 3, 6, 9.
 - [trade-in-valuator](../skills/trade-in-valuator/SKILL.md), four-anchor
   valuation for a high-mileage Ram + lien payoff workflow (§ 4a-4d).
-- [payment-method-decider](../skills/payment-method-decider/SKILL.md) ,
+- [payment-method-decider](../skills/payment-method-decider/SKILL.md),
   credit-union vs Ford's captive financing arm comparator.
 - [state-fee-lookup](../skills/state-fee-lookup/SKILL.md), Illinois
   detail stub (ZIP-disambiguated county rates, $347.26 doc cap, $155

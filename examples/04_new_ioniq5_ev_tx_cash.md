@@ -99,12 +99,12 @@ The buyer wants the workflow to:
   used-EV SoH thresholds, EV-specific dealer tactics.
 - [state-fee-lookup](../skills/state-fee-lookup/SKILL.md), Texas detail
   stub (6.25% state-only, $150 doc cap, $33 title, $200/yr EV premium).
-- [lease-vs-cash-analyzer](../skills/lease-vs-cash-analyzer/SKILL.md) ,
+- [lease-vs-cash-analyzer](../skills/lease-vs-cash-analyzer/SKILL.md),
   Section 45W commercial-credit gap on the cash path (HISTORICAL; §45W terminated
   2025-09-30, gap no longer exists).
 - [otd-calculator](../skills/otd-calculator/SKILL.md), gross + net
   post-credit math (HISTORICAL; in 2026 net OTD equals gross OTD, no federal credit).
-- [dealer-reply-drafter](../skills/dealer-reply-drafter/SKILL.md) ,
+- [dealer-reply-drafter](../skills/dealer-reply-drafter/SKILL.md),
   counter with the EV-specific ADM kill list.
 
 ---
@@ -160,7 +160,7 @@ The buyer wants the workflow to:
   Hyundai PDI covers battery conditioning, charge cable, and delivery
   setup. The competitor in our radius at MSRP-or-below confirms this is
   not market." Sub-rule applied: single ask, single round, no coupling.
-- **§30D dealer registration gate** (HISTORICAL, no longer fires in 2026) ,
+- **§30D dealer registration gate** (HISTORICAL, no longer fires in 2026),
   originally flagged before deposit; if the dealer could not produce an IRS Energy
   Credits Online registration ID in writing, walk to one of the 15+ alternate
   dealers in radius. With §30D terminated, there is no POS transfer and thus no

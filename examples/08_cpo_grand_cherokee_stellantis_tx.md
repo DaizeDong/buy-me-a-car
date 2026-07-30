@@ -44,7 +44,7 @@ The buyer wants the buy-me-a-car workflow to:
    **original in-service date**, not the CPO purchase date. Do NOT
    cross-apply the Subaru ($2,000-$2,500) or Honda ($1,200-$1,800)
    embedded value.
-3. Verify the **in-service date** and compute remaining powertrain term ,
+3. Verify the **in-service date** and compute remaining powertrain term,
    the load-bearing check on Stellantis CPO. A 2021 unit certified in
    2026 may have far less powertrain coverage left than the "7yr/100k"
    label implies.
@@ -86,7 +86,7 @@ The buyer wants the buy-me-a-car workflow to:
   (6.25% state, **$225 doc cap**, $33 title, $51 reg).
 - [otd-calculator](../skills/otd-calculator/SKILL.md), TX OTD with the
   real doc-cap value.
-- [dealer-reply-drafter](../skills/dealer-reply-drafter/SKILL.md) ,
+- [dealer-reply-drafter](../skills/dealer-reply-drafter/SKILL.md),
   counter anchoring on the Stellantis embedded-value range against a
   dealer CPO premium.
 

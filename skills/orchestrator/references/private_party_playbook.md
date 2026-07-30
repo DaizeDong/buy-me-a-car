@@ -103,7 +103,7 @@ buyer within **30 days**. The 2026 chart is **Form RUT-5**.
 - **Motorcycle / ATV → flat $25.**
 - **No trade-in deduction** on this tax. Local (Cook County / Chicago) private-party use taxes may
   stack on top and have their own age-based amounts.
-- Because Table A is age-based, the declared price is largely irrelevant for sub-$15k older cars ,
+- Because Table A is age-based, the declared price is largely irrelevant for sub-$15k older cars,
   do **not** model Illinois as "rate × price" the way you would NJ/CA.
 - Sources:
   [IL DoR Private Party Vehicle Use Tax](https://tax.illinois.gov/research/taxinformation/sales/vehicle.html),
@@ -116,7 +116,7 @@ buyer within **30 days**. The 2026 chart is **Form RUT-5**.
    proof. Backstop = book value if declared price looks artificially low (CA, NJ, and most others).
 2. **Book-value / fair-market states:** the DMV defaults to a guidebook value (NADA/KBB/Black Book)
    and the buyer must affirmatively prove a lower real price to be taxed on it. Always check whether
-   the target state assesses private sales on **NADA book value rather than the actual sale price** ,
+   the target state assesses private sales on **NADA book value rather than the actual sale price**,
    several do, and a low real price won't help unless documented.
 3. **Fixed-schedule states (Illinois archetype):** tax is read off an age/value table; the actual
    price barely matters for older/cheaper cars.

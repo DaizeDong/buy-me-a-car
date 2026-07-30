@@ -54,7 +54,7 @@ The buyer wants the workflow to:
   state-specific trade-tax-credit field, no ACV-vs-trade-allowance
   distinction.
 - California has the highest combined sales tax rates in the U.S. (Alameda
-  9.25%, LA 9.5%) and California **does grant a trade-in tax credit** ,
+  9.25%, LA 9.5%) and California **does grant a trade-in tax credit**,
   this is the load-bearing fact that drives ~$1,100 of OTD math.
 - High-supply state: California has thousands of CR-V listings within 80
   miles. Phase 3 filtering must be aggressive (AWD-only, sub-50k miles,
