@@ -147,7 +147,7 @@ Cap at 3 items surfaced. If none apply, say so explicitly ("No heads-up items, f
 | **ID set** | "Driver's license (current), Social Security card OR passport, recent utility bill for proof of residence, marriage certificate if name-change since DL issued" | Captives + state DMV both require multiple ID forms; missing items force a re-trip. |
 | **Captive vs CU vs cash funding instrument** (if not pure cash) | "Credit-union pre-approval letter (in hand), $X cap, expires May 1; cashier's check issued from the credit union to dealer in dealer name" | Funding instrument determines whether dealer F&I needs to wait on a wire (24-72 hr captive) vs accepts an instant cashier's check (same-day). |
 
-Add this mini-table as a section in `criteria.md` BELOW the Heads-up block. **At Phase 9 close-day kickoff, the agent's first action is to re-read this section from `criteria.md` and confirm each line with the buyer.** Any change since P1 (carrier switched, branch closed for holiday, plate decision flipped) cascades into close-day execution and must be caught BEFORE the buyer drives to the dealer.
+Add this mini-table as a section in `criteria.md` BELOW the Heads-up block. **Phase 9 re-reads and re-confirms it with the buyer before they drive anywhere**, because a change since Phase 1 cascades into close-day execution. Procedure: `references/phases.md` Phase 9.
 
 **Inline jargon glossing rule.** When `criteria.md`, outbound dealer email, or any buyer-facing artifact emits one of the following terms for the FIRST time in that artifact, include a brief parenthetical gloss. Subsequent uses can drop the gloss.
 
@@ -197,13 +197,13 @@ This is the source of truth every subsequent counter cites. Re-pull whenever the
 
 ### Phase 3: Multi-Site Inventory Research
 
-Dispatch parallel subagents across inventory sites (Carfax / Cars.com / AutoTrader / Edmunds / TrueCar / CarGurus / CarMax / Carvana / OEM SmartPath). Each subagent produces `report_<site>.md` with top-N candidates (VIN, miles, price, dealer, deal tags, link, Delivery Mode for new cars). After all return, generate `master_comparison.md` as the buyer-facing market scan in two sections: a **Site Capability Matrix** on top (one role-tagged row per site, which source to trust for what, ranked Primary / Secondary / Negotiation-lever / Research-only / Plan-B / Skip) and the **VIN-deduplicated candidate list** on the bottom. New-car vs used-car router gate fires before dispatch and changes site set + history-PDF requirement.
+Dispatch parallel subagents across inventory sites; each returns `report_<site>.md`, then merge into `master_comparison.md` (Site Capability Matrix on top, VIN-deduplicated candidates below). The new-car vs used-car router gate fires BEFORE dispatch and changes both the site set and the history-PDF requirement. Site list, role tagging and merge rules: `references/phases.md` Phase 3 and `references/outreach_strategy.md`.
 
 **Full details**: see `references/phases.md#phase-3--inventory`.
 
 ### Phase 4: Mass Email Outreach
 
-Submit lead forms or send direct emails to the top 30-50 candidates. Capture per dealer: name, address, phone, sales rep, VIN, submission timestamp, anti-bot result. Track in `tracker.md`. Email format per Critical Rule #1; REAL-tagged citation only per Critical Rule #7. Dealer group ownership check (gotcha D11) BEFORE treating multiple stores as independent cross-bids. See SKILL.md § Outbound Email SOP for the full step-by-step ordered procedure.
+Submit lead forms or direct emails to the top 30-50 candidates, tracking per-dealer fields in `tracker.md`. **Run the dealer-group ownership check (gotcha D11) BEFORE treating multiple stores as independent cross-bids.** Email format per Critical Rule #1, REAL-tagged citations only per Critical Rule #7. Full procedure: § Outbound Email SOP and `references/phases.md` Phase 4.
 
 **Full details**: see `references/phases.md#phase-4--outreach`.
 
@@ -267,67 +267,22 @@ All dealer-related files belong here. No scattering across home / Downloads.
 
 ## Mid-Cycle Pivot Protocol
 
-Mid-cycle = the buyer is somewhere between Phase 3 and Phase 9 and changes a load-bearing field that invalidates the in-flight artifacts. Common pivots:
+**Full protocol: [`references/pivot_protocol.md`](references/pivot_protocol.md).** It fires on roughly
+one cycle in three, so it is loaded on demand, but the trigger is checked on every cycle.
 
-- **Used to new** (or new to used), different desks, different incentive stacks, mileage adjustments no longer apply.
-- **Cash to financing** (or financing to cash), binding-constraint changes from OTD ceiling to monthly cap; pre-approval / captive paths must be re-asked.
-- **Model A to model B**, entire Phase 2 baseline, Phase 3 inventory pull, and Phase 4 outreach become irrelevant; new cross-bid set must be assembled.
-- **ZIP / radius change**, registering state may change → tax rate, doc cap, "Has" / "Does NOT have" lists shift; in-flight quotes are state-template-leak suspects.
-- **Walk-away ceiling change**, entire OTD ladder + Phase 6 counter-math is rooted in this number.
-- **Trade-in added or removed mid-cycle**, separates-the-negotiation tactic must be reset; payoff workflow restarts.
-- **EV-eligibility flip**, NACS / CCS1 port, SoH thresholds, state rebate re-enter; ICE OTD math no longer applies. (Federal §30D / §25E / §45W credits are TERMINATED for vehicles acquired after 2025-09-30, no longer part of EV math for current purchases; state/local rebates only.)
+**Load-bearing fields. If any of these changes mid-cycle, STOP and load the protocol before sending
+anything else:**
 
-When the buyer changes any of these mid-cycle, the protocol is:
+1. Budget or financing structure (cash / finance / lease)
+2. Target vehicle set (model, trim, model year)
+3. Geography or search radius
+4. Trade-in presence or its valuation
+5. Timeline or close date
+6. Plate / registration state
 
-1. **STOP all in-flight drafting immediately.** Do not append new context to existing dealer threads. Do not save another draft. Do not send another counter. The next dealer reply that arrives during the pivot is held without drafting until the reset is complete.
-
-2. **Enumerate ALL stale artifacts** in a single message to the buyer. Buyer needs the full list to clean up Gmail drafts, tracker rows, and baseline files. Use this template:
-
-   ```
-   Pivot detected: [old value] -> [new value] on field [X].
-   The following artifacts are now stale and must be cleaned up
-   before we resume:
-
-   Gmail drafts:
-     - in:drafts subject:[OLD_MODEL] before:[TODAY]
-       (estimated [N] drafts — use this Gmail search string to
-       bulk-select for trash)
-     - any reply drafts referencing [old payment method / old ZIP /
-       old walk-away]
-
-   Working-directory files (review + delete or rename with .STALE
-   suffix):
-     - criteria.md (entire P1 capture is rooted in the old field)
-     - .firecrawl/[OLD_MODEL]-deal-baseline.md (entire Phase 2
-       baseline)
-     - market_research/reports/report_*.md (Phase 3 site reports
-       on the old model)
-     - master_comparison.md (Phase 3 dedup)
-     - dealer_outreach_tracker.md rows for outreach sent under old
-       criteria (do not delete the file; mark rows with
-       STATUS=STALE_PIVOT)
-     - [old_model]_negotiation_prep.md
-     - [old_model]_dossier.{md,html,pdf}
-
-   Dealer-side cleanup:
-     - For each dealer with an active thread on the old criteria,
-       send a polite walk-away (see assets/dealer_reply_template.md
-       "Walk-Away (Polite Close)") OR a pivot note ("Changing
-       targets, will be back in touch if [new model] inventory
-       overlaps your store"). Do NOT leave dealers hanging — they
-       remember and it costs leverage on the next outreach.
-   ```
-
-3. **Re-run Phase 1.** Full criteria.md regeneration. Do NOT copy-paste from the old file and edit, the buyer-type router gates (financing / trade / EV), heads-up block, close-day logistics table, and walk-away ceiling all interact, and partial edits leave field-level inconsistencies that surface as bugs later (e.g., old financing fields stay populated after a financing-to-cash pivot, then trigger a binding-constraint computation that no longer applies). Restart from `assets/criteria_template.md`.
-
-4. **Re-pull Phase 2 baseline.** New 5-query Firecrawl pipeline against the new model / state / incentive stack. Save to `.firecrawl/[NEW_MODEL]-deal-baseline.md`. Do NOT reuse the old baseline; manufacturer incentives and regional deal data shift weekly.
-
-5. **Resume Phase 3 and onward** with the new criteria. New inventory pull, new mass outreach, new tracker (or new STATUS=ACTIVE rows in the existing tracker below the STALE_PIVOT rows).
-
-Pivot frequency: empirically, ~30% of buying cycles see at least one load-bearing pivot between Phase 1 and Phase 9. Without this protocol, the agent silently keeps appending new context to stale artifacts, dealer drafts go out with mixed criteria (gotcha D5 firing pattern), tracker rows multiply with no clear cut-line, and the close-day execution operates on wrong assumptions (wrong walk-away, wrong payment instrument, wrong registering state). The protocol forces a hard reset.
-
-**Mini-pivot exception**, changes to non-load-bearing fields (must-haves list edit, color preference, mileage cap ±5k mi, trim swap within same model + same MY + same financing posture) do NOT trigger the full reset. Update criteria.md inline, mark the change in the heads-up block, and proceed. The reset is reserved for the load-bearing axes listed above.
-
+A changed load-bearing field invalidates quotes already in flight. **Do not let a stale quote enter
+the dossier**, and do not simply send a correction on top: the protocol exists because a partial
+re-quote produces two dealers answering two different questions.
 ## Resources
 
 ### References (load on demand)
@@ -383,325 +338,41 @@ Pivot frequency: empirically, ~30% of buying cycles see at least one load-bearin
 | `generate_dossier.py` | YAML → HTML + PDF dossier (Chrome/Edge auto-detect) |
 | `html_to_pdf.sh` | Chrome headless HTML to PDF |
 
-## Outbound Email SOP (Composition + Attachment)
+## Outbound Email SOP
 
-This is the ordered procedure for any dealer outreach, first-touch, counter, or follow-up. Following the order prevents the most common failure modes (draft accumulation, illegible inline images, mixed anchors).
+**Full procedure: [`references/outbound_email_sop.md`](references/outbound_email_sop.md).** Load it
+before composing Phase 4 outreach or any counter. Two things stay here because they are checkable
+before you open a draft.
 
-### Step 0: Gather requirements ONCE before opening a draft
+**Pre-draft gate, all five must be Y or do not open a draft:**
+1. Every load-bearing field in `criteria.md` confirmed current (see Mid-Cycle Pivot Protocol)?
+2. Target vehicle list final, with stock number and VIN per dealer?
+3. Attachment files already prepared at full resolution on disk?
+4. Buyer's send window agreed?
+5. Walk-away number set, and NOT going into the email?
 
-Ask in a single message (not piecemeal):
+**Length limits, hard:**
 
-- Exact trim / option package (e.g., "Premium with Option Package 15", not "Premium Hybrid or Premium gas")
-- Payment method with detail (card name + monthly cashback cap if CC, see `references/payment_methods.md`)
-- Attachment plan: which screenshots, manual or inline (default: manual)
-- Used-car vs new-car context: which thread is this? Do NOT mix in counters.
-- Deadline / close date for inclusion in walk-away line
-
-If buyer answers vaguely, ask follow-ups before drafting. Drafting before this is locked = inevitable iteration = clutter (see E4).
-
-**Email-type branching (pick ONE before drafting).** First-touch / counter / follow-up have different shapes; lumping them is the root of most line-count and citation errors.
-
-| Type | Line count | Body skeleton |
-|---|---|---|
-| First-touch | 15-20 lines | Greeting + buyer profile (1-2 lines: city/state, cash-or-financing, close-window) + vehicle ID + 5-line OTD breakdown ask + walk-away line + sign-off |
-| Counter | ~10 lines (E3 hard cap) | Greeting + 3 numbered asks + 1 anchor sentence + 1 walk-away line + sign-off. NO buyer-profile recap (dealer already has it). |
-| Follow-up / nudge | 4-6 lines | Greeting + reference to prior thread + 1 specific ask (e.g., "any update on the OTD?") + deadline + sign-off |
-
-**Pre-draft mandatory Y/N checklist (5 items).** Run this BEFORE the first `create_draft` call in any session. If ANY item answers N, STOP and ask the buyer. Do not draft.
-
-| # | Gate | What "Y" looks like |
-|---|---|---|
-| 1 | Trim + option package locked? | "Forester Limited with Option Package 25", not "Limited or Touring" |
-| 2 | Payment method locked? | "3% cashback Visa, $50k monthly cap", not "cash or card" |
-| 3 | Attachments planned? | "_FINAL_xhs-25500.jpg + _FINAL_cargurus-good-deal.jpg, manual paperclip", not "some screenshots" |
-| 4 | Anchor strategy + new-vs-used context locked? | "Cross-dealer anchor citing Rep A $X,XXX / Rep B $X,XXX; NEW MY thread, no used candidates referenced", not "I'll cite something" |
-| 5 | Walk-away deadline + dollar amount confirmed? | "$30,500 OTD walk-away, close by Wed May 22", not "close this week" |
-
-If any gate is N, the correct action is a single clarifying message back to the buyer, NOT a "best guess and iterate" draft. Iteration with `create_draft` only creates new drafts (no edit mode); 4 dealers × 3 rounds = 12 stale drafts the buyer must manually trash (see E4).
-
-### Step 1: Prepare attachment files at FULL resolution (no MCP)
-
-In the working directory:
-
-```bash
-mkdir -p .firecrawl/quote-images/
-```
-
-For each evidence image (XHS post screenshot, Reddit quote, dealer worksheet):
-
-```python
-from PIL import Image
-img = Image.open('source.png')
-if img.size[0] > 1300:
-    h = int(img.size[1] * 1300 / img.size[0])
-    img = img.resize((1300, h), Image.LANCZOS)
-if img.mode == 'RGBA': img = img.convert('RGB')
-img.save('_FINAL_<dealer>-<trim>-<datapoint>.jpg', 'JPEG', quality=88, optimize=True)
-```
-
-Target: 100-300KB JPGs at 1080-1300px width, fully legible. Use `_FINAL_` prefix so the user can find them at a glance.
-
-### Step 2: Compose drafts via MCP with NO attachments field
-
-```python
-create_draft(
-    to=[...],
-    subject=...,
-    body=...,  # plain ASCII, ~15 lines first-touch / ~10 lines counter
-    # NO attachments key
-)
-```
-
-In the body, reference attachments by name: "Screenshots attached." Do not include URLs or markdown link syntax.
-
-If buyer asks to "insert" or "attach" images, push back ONCE:
-
-> "Per E5: manual paperclip is the only way to send legible attachments. The MCP inline path forces ~16KB images that arrive blurry. I'll prepare the files at full resolution and you paperclip them in Gmail UI. Sound good?"
-
-Default to manual. Only inline if buyer explicitly overrides.
-
-### Step 3: Hand off to buyer with a per-draft attachment recipe
-
-In the summary to buyer, output a table like:
-
-| Dealer | Draft ID | Files to paperclip | Why |
-|---|---|---|---|
-| Dealer A | `r-xxxx` | `_FINAL_A.jpg`, `_FINAL_B.jpg` | NJ benchmark + ceiling reference |
-| Dealer B | `r-yyyy` | `_FINAL_A.jpg`, `_FINAL_B.jpg` | Same; skip Dealer B's own ad |
-| ... | ... | ... | ... |
-
-Tell buyer: "Open each draft in Gmail web UI → paperclip → folder path → select listed files → leave as draft → I will tell you when to send."
-
-### Step 4: Verify before send (buyer-side checks)
-
-Buyer's pre-send checklist:
-- ASCII body (no `**bold**`, no em-dashes)
-- Attachments named clearly
-- Subject line matches across all 4 emails in the cross-bid
-- Walk-away deadline date is correct (especially after time has passed since drafting)
-- Used-car / new-car threads not mixed
-
-### Step 4.5: Mid-cycle pivot protocol (when a load-bearing field changes)
-
-If the buyer changes a load-bearing field AFTER drafts have been created (trim, payment method, walk-away ceiling, anchor strategy, used-vs-new context, deadline), do NOT layer 4 new drafts on top of the 4 stale ones. Run this 4-step protocol:
-
-1. **STOP drafting immediately.** No new `create_draft` calls until the protocol completes.
-2. **Surface the stale drafts to the buyer with a bulk-delete Gmail search string** (per E4). Example: `in:drafts subject:"2024 Forester Limited" before:2026/05/18 -subject:"final batch"` selects the exact stale set. Tell the buyer: "These 4 drafts are now stale because trim/payment/X changed. Open Gmail web UI, paste this search, Select All, Move to Trash, then I'll create the new batch."
-3. **Re-run Step 0** in full (gather + 5-item Y/N gate + email-type pick). The load-bearing change may cascade (e.g., trim change → anchor strategy needs re-lock; payment change → walk-away ceiling math shifts).
-4. **Resume from Step 1** (full-res attachments may need regen if the screenshot set changed) → Step 2 (new drafts) → Step 3 → Step 4 → Step 5.
-
-Never assume "the buyer will sort the stale drafts themselves." MCP Gmail cannot delete drafts. Without the bulk-delete search string, stale Premium drafts and new Limited drafts coexist in the Drafts folder and the buyer's risk of accidentally sending a stale one is real.
-
-### Step 5: Send all 4 in a single 5-minute window
-
-Cross-bids work because dealers feel parallel pressure. Sending them an hour apart loses leverage. Buyer hits Send on all 4 within 5 minutes.
-
-**Send-window advisory (dealer-local time).** Recommend send between **9 AM and 5 PM Mon-Thu dealer-local time**. Reasoning:
-
-| Window | Reply timing | Recommendation |
-|---|---|---|
-| Mon-Thu 9 AM - 12 PM | Same-day reply most likely; sales desk fresh | BEST |
-| Mon-Thu 12 PM - 5 PM | Same-day or next-morning reply | GOOD |
-| Mon-Thu 5 PM - 9 AM (overnight) | Lands at bottom of next-day inbox; rep replies in inbox-surface order | AVOID, lose first-mover edge on cross-bid |
-| Friday after 12 PM | Lands in weekend autoresponder bucket; Mon reply | AVOID, 3-day reply lag |
-| Sat - Sun | Read Monday morning behind weekend backlog | AVOID |
-| 11 PM-7 AM dealer-local | Lands at bottom of inbox; rep treats as low-priority | AVOID |
-
-If buyer asks to send outside the recommended window, push back ONCE with reasoning: *"Send at [time] will land at bottom of [day]'s inbox, sales rep works through inbox top-down, so we lose first-mover edge on the parallel cross-bid. Recommend hold until [next 9-10 AM dealer-local slot]."* Then comply if buyer overrides. The advisory is guidance, not a hard block, but the buyer should know the trade-off before sending.
-
-Multi-state cross-bid: use the EARLIEST dealer-local 9 AM among the 4 dealers as the cohort send time (e.g., NJ + NY + CT + PA → all Eastern, 9 AM ET works; if MI dealer added, 9 AM ET = 8 AM CT, wait until 9 AM CT so the MI dealer also sees it in morning prime).
-
-### Step 6: Cron monitoring kicks in
-
-After send, the cron job (Phase 5) picks up replies. See `references/cron_monitoring.md`.
-
-### Common deviations and corrections
-
-| Deviation | Correction |
+| email type | content lines |
 |---|---|
-| Buyer says "just attach images for me" | Push back once (Step 2). Only inline if overridden. |
-| Drafts created before trim is finalized | Stop. Re-ask Step 0. Don't iterate. |
-| New car email cites used car offer | Discard draft, recompose without used anchor (gotcha D5). |
-| Image looks tiny in draft preview | Confirm: was it inlined via MCP? If yes, regenerate at full res + manual attach. |
-| 12+ stale drafts in Gmail Drafts folder | Give buyer one search string for bulk delete (gotcha E4). |
-
-## Gotchas (Grouped by Topic)
-
-Each gotcha is rooted in a real past incident. Use the topic groupings to find what's relevant. Where a workflow phase obviously triggers a gotcha, the gotcha is also referenced inline in the phase.
-
-### E. Email & Drafting Hygiene
-
-**E1. Plain ASCII required in every draft.** Dealers see literal `**bold**` and `—` characters that did not render. Strip markdown markers, em-dashes, en-dashes, backticks, and link syntax before saving any draft. See `references/email_format_rules.md`.
-
-**E2. Empty `plaintextBody` on HTML-only emails hides inline OTD data.** Many dealer CRM platforms send HTML-only. Snippet truncates at ~200 chars, sometimes mid-sentence before the actual numbers. When `plaintextBody` is empty, alert the buyer that data may exist past the snippet boundary and ask them to verify in Gmail directly.
-
-**E3. Keep dealer replies tight, ~10 content lines max.** Sales reps skim. Skeleton: 3 numbered asks + 1 anchor sentence + 1 walk-away line + sign-off. Cut without mercy: dealer knows their own car, can compute tax themselves, buyer profile only needs full restatement on first-touch. First-touch can be 15-20 lines; all subsequent counters compress to ~10.
-
-**E4. MCP Gmail integration is read+create scope only, cannot edit, delete, or relabel anything.** `create_draft` makes a NEW draft on every call (no update mode). Both `label_message` and `label_thread` exist as tool surfaces but return "insufficient authentication scopes" when invoked, so even "add TRASH label" doesn't work. Iterating 3 rounds × 4 dealers creates 12 stale drafts that ONLY the user can manually trash via Gmail web UI. Protocol: ask 2-3 clarifying questions upfront (trim, payment method, attachments, what to include/exclude) BEFORE first draft. If iteration is unavoidable, give the user one Gmail search string that selects exactly the stale set for bulk delete (e.g., `in:drafts subject:Forester before:YYYY/MM/DD -subject:"final batch marker"`).
-
-**E5. NEVER inline image attachments via MCP `create_draft`, the constraint chain forces 16-20KB tiny images that dealers can't read.** Why this is a hard rule, not a preference:
-- MCP schema requires `attachments[].content` as inline base64 string.
-- To pass base64 to MCP, must first Read it into context.
-- Read tool has 25K-token output cap.
-- Max base64 = ~25KB chars → max raw image ≈ 18-20KB.
-- 18KB JPEG = ~360x400 px, dealer sees a blurry illegible square instead of a quote.
-- Iterating to fit triggers 4-5 progressively smaller compressions, burning ~100K tokens on dead-end base64 reads.
-
-**Correct workflow ALWAYS**:
-1. Compose drafts via `create_draft` with NO `attachments` field.
-2. Generate full-res JPGs (1080-1300px wide, quality 85-90, 100-300KB each) in `<workdir>/.firecrawl/quote-images/` with `_FINAL_` filename prefix.
-3. List the exact files + per-dealer recommendation in a summary message.
-4. User opens each draft in Gmail web UI → paperclip → selects files from local folder → saves → sends.
-
-If the buyer asks to "insert images" or "attach screenshots", do NOT interpret as a request to inline via MCP. Push back once: "Per E5 the right play is high-res files + manual paperclip. The MCP inline path produces tiny unreadable images. Confirm you want manual attach (recommended) or the inline-tiny path." Default to manual unless explicitly overridden.
-
-Per-dealer attachment etiquette:
-- NEVER attach a dealer's own Internet Pricing screenshot back to them (shows you shop their own ad → kills negotiation).
-- Safe to attach 3rd-party aggregator screenshots (CarGurus, Cars.com, Edmunds) to anyone.
-- Safe to attach Competitor Dealer Y's quote to Dealer X (the "your competitor advertised this" play).
-- Same attachment set across all 4 dealers in a parallel cross-bid is the simplest and works fine.
-
-### I. Inbox & Cron Monitoring
-
-**I1. Carfax submissions look successful but dealers often delay 12+ hours.** Schedule cron monitoring at 15-min intervals starting the morning AFTER submission, not within minutes.
-
-**I2. Dealer email lands in Promotions AND occasionally Spam.** Search must be tab-agnostic or include `category:promotions`. Run a separate `in:spam` sweep at least once per buying-cycle day (eDealerHub / VinSolutions CRM platforms get spam-flagged often).
-
-**I3. `newer_than:25m` sliding window misses backlog during pauses.** Overnight / meeting gaps make dealer mail permanently invisible to subsequent runs. Run one `newer_than:3d is:unread` full sweep per buying-cycle day.
-
-**I4. Templated CRM emails are not always skippable.** A CRM email that embeds specific inventory data (stock, VIN, sales price, miles, color) IS actionable, even if the wrapper is boilerplate. Test: "does it contain vehicle-specific data?" not "does it look like a template?". Skip only pure marketing taglines.
-
-**I5. Do not trash the dealer's original email or sent replies, it breaks future thread anchors.** When cleaning drafts, only delete items in `DRAFT` label state; never trash items with `INBOX` or `SENT` labels. Recovery if accidentally trashed: send a fresh email with `Re: <original subject> - <small qualifier>` so it threads in dealer's inbox.
-
-### D. Dealer Behavior & Communication
-
-**D1. "Best price upfront" dealers will not negotiate.** Recognize quickly (rental-return chains like Enterprise, no-haggle independents, some volume Subaru stores at MSRP) and pivot rather than waste cycles.
-
-**D2. The 72-hour urgency claim is sometimes real, sometimes pressure.** Confirm by asking about the hold/deposit mechanism.
-
-**D3. Local relationship dealers (Chinese, family, community) value direct over aggressive.** Do not deploy multi-round anchor tactics; one fair counter is enough.
-
-**D4. Verify dealer hours and rep availability before scheduling.** A Wednesday test drive with a rep who is off Wednesday wastes everyone's time.
-
-**D5. NEVER mention competing USED car offers when inquiring NEW car pricing (and vice versa).** Used and new desks have different incentive structures; mixing closes off negotiation ("if you have used at $32k, just buy that, we cannot match"). Keep negotiations completely separate.
-
-**D6. When asking for multiple trim quotes, specify ONE "preferred" + ONE "alternative".** Lumping 4 trims yields generic "starting from $X" pitches. The 1+1 pattern yields two real labeled quotes.
-
-**D7. Dealer-attached `proposal.pdf` hides actual OTD numbers from Claude.** Ask the user to open the PDF, OR ask the dealer to paste the OTD breakdown inline in the email body for "side-by-side comparison". Many dealers happily comply.
-
-**D8. Dealer state-fee-template leak = full re-quote leverage, not single-line tweak.** When a dealer quote contains a fee that does not exist in the buyer's REGISTERING state, treat it as evidence that the entire OTD was generated from an out-of-state CRM template. Cross-check the rest of the line items against the registering state's "Does NOT have" list in `references/state_fees.md`. The correct response is to demand a full re-quote ("please re-issue the OTD using CT line items"), not just deletion of the leaking line. Other defaults in the same template, wrong reg fee structure, wrong tax rate tier, wrong title fee, are likely also wrong but harder to spot once the obvious leak is patched.
-Example from the CT Outback case: dealer quote on a CT registration carried an NJ $7.50 tire fee (5 tires × $1.50 NJ rate). CT has no per-tire fee on retail dealer sales. The leak also coincided with an under-collected CT 2-year reg ($80 vs ~$120), second template error caught only because the first one triggered full-quote review. Single-line deletion would have left the under-collected reg in place.
-
-**D9. ADM kill list, demand removal in first counter, do NOT negotiate around it.** When a dealer quote contains any Additional Dealer Markup line on NEW MY inventory (see `references/outreach_strategy.md` § New-Car ADM Detection, full kill list: Market Adjustment, Hybrid Premium / Hybrid Adjustment / Toyota Premium, Dealer Markup / Dealer Adjustment, Allocation Fee / Allocation Premium / Protection Plus when bundled with MSRP-overage), the FIRST counter must demand removal as a precondition, not propose a counter-amount or middle-meet. ADM is dealer-side margin theater dressed as a fee; trying to "split the difference" implicitly accepts that ADM is a real line item. It is not.
-
-Exact email language (paste-ready, paraphrase the line name to match the dealer's quote):
-
-> *"Please remove the $X [exact ADM line name as it appears on the quote] line. Per current market on [Year Make Model Trim], MSRP is the ceiling, not the floor; [Edmunds/CarGurus] [region] shows the fair-price band at or under MSRP. If the ADM stays, OTD walks above my ceiling and this unit cannot win."*
-
-Three rules:
-1. **Do not couple ADM removal to any other concession** (captive financing, F&I add-ons, faster close). ADM is its own line; coupling lets the dealer trade a fake concession for a real one. The captive-vs-CU rebate question (`references/payment_methods.md` § Captive-vs-credit-union rebate playbook) is decided on its own merits AFTER ADM is killed.
-2. **One ask, one round.** If dealer refuses ADM removal in the reply, mark dead and route to the next-best MSRP-clean candidate. Do not negotiate to a smaller ADM ($1,495 → $750); a $750 phantom line is still phantom. The Phase 3 ADM Tier-3 ranking already pre-positions Tier-1/2 MSRP-clean alternatives for exactly this pivot.
-3. **Cross-state-net override stays the Phase 3 decision, not Phase 6 leverage.** If a DE/NH/OR ADM dealer's net OTD still beats a PA MSRP-clean offer (per `outreach_strategy.md` § Cross-state ADM nuance), that decision was already made at Tier-2 promotion in Phase 3. Phase 6 still demands removal first, the cross-state arbitrage is the back-up, not the opening ask.
-
-Example from the RAV4 Hybrid PA case: a PA Toyota dealer opened at ~$40k OTD with $1,495 "Toyota Market Adjustment" baked in. ADM removal alone drops OTD to ~$39k (well inside the buyer's ceiling and binding cap). Counter-coupling ADM removal with captive-lender financing would have lost ~$1,000 in interest savings the captive rebate-rate offer was offering independently.
-
-**D10. "Listing disappeared" / bait-and-switch protocol.** When a dealer claims the original VIN-X you asked about is "just sold" / "in the wash bay being prepped for another buyer" / "in transit and never made it to the lot" and pivots to VIN-Y at a higher price OR more miles OR with ADM, treat this as a bait-and-switch attempt by default. The original-listing-still-active rate after a "just sold" claim is empirically ~40-60% (the listing reappears 24-72h later at higher price), and the pivoted VIN-Y is almost never at the same OTD-per-config as the original VIN-X anchor.
-
-Required defenses (all three, not pick-one):
-
-1. **Proof-of-sale ask.** Reply in writing: *"Can you forward the sold-date confirmation (bill of sale screenshot, CRM `STATUS=Sold` timestamp, or the listing-removed date from your inventory system)? I want to make sure I'm not still racing the same VIN with the next dealer."* Refusal or vagueness = bait-and-switch confirmed. Compliance = legitimate. If listing reappears within 7 days on Carfax / Cars.com / dealer website, the dealer lied, walk and log permanently as a low-trust counterparty.
-
-2. **Same-or-better OTD on the substitute, no upgrade markup.** If the dealer pivots to VIN-Y, the substitute must come in at the same or lower OTD as the original VIN-X benchmark, adjusted ONLY for legitimate config delta (trim, miles, color) using `references/negotiation_playbook.md` mileage and trim adjustments. The dealer cannot use the bait-and-switch as a free upgrade-markup opportunity. Reply: *"For the substitute to work, the OTD needs to land at or under $X (the locked OTD on the original VIN, adjusted for [Y miles delta x $0.10-0.15/mi] / [trim premium of $A] / [no other variables])."*
-
-3. **Pause and re-anchor, treat the pivot as a NEW dealer engagement.** Do NOT let the dealer pivot mid-conversation to a different VIN as if it's the same negotiation. If the pivot is forced (buyer wants the substitute), restart the engagement: re-run Phase 3 single-VIN anchor analysis on the new VIN against `references/deal_data_sources.md` market data, re-pull cross-bid quotes from the other dealers for the same config, and re-anchor before sending any counter. A 5-line "OK what's the OTD on VIN-Y?" reply without re-anchoring concedes the entire negotiation.
-
-Real-world pattern: dealer's original VIN-X listed at $26,500 (great deal, low miles, in-state, MSRP-clean). Buyer responds same day, dealer replies T+24h "just sold to another buyer this morning, but I have VIN-Y at $29,200 with 8k more miles, same trim, fresh on the lot." Without D10, buyer accepts the pivot and pays $2,700 over the anchor; with D10, buyer demands sold-confirmation (dealer cannot produce), waits 5 days, sees the original VIN-X relisted at $27,900, confirms the pivot was theater, walks.
-
-**D11. Dealer group ownership check, same parent = 1 anchor, not 2.** Before treating two dealer OTD quotes as "independent cross-bids", check the parent group. Many large auto groups own multiple dealers per region, and inter-group coordination on pricing is routine (the same regional GM sets the OTD floor for sibling stores). Two quotes from sibling stores are NOT real cross-bid leverage, they're a single anchor presented twice with inflated room for "competing" theater.
-
-Check method (run BEFORE Phase 6 cross-bid disclosure, ideally at Phase 4 outreach time):
-
-1. **Google "[dealer name] Auto Group ownership" or "[dealer name] parent company".** Public-corp dealer groups disclose ownership; mid-tier groups have it on About pages. DealerInspire partner directory + dealer.com partner listings also surface parent groups.
-2. **Common parent groups to memorize (US, 2024-2026):**
-   - **Penske Automotive Group** (NYSE: PAG), ~150 US dealers across Honda, Toyota, BMW, Mercedes, Audi, VW, Porsche, Land Rover, Lexus, Acura. Sibling-store dense in CA, FL, NY, NJ, TX.
-   - **Berkshire Hathaway Automotive (BHA)**, ~100 US dealers; concentrated in TX (former Van Tuyl), AZ, CO, GA, FL, IL, IN, MS, OK. Operates as "Berkshire Hathaway Automotive" but local stores often retain founder names (e.g., "Sewell" in TX).
-   - **Asbury Automotive Group** (NYSE: ABG), ~150 US dealers; concentrated in FL, GA, TX, NC, MO, IN, CO, NJ.
-   - **AutoNation** (NYSE: AN), ~315 US dealers; concentrated in FL, TX, CA, AZ, NV, CO, IL.
-   - **Sonic Automotive** (NYSE: SAH), ~110 US dealers; concentrated in CA, TX, NC, GA, FL.
-   - **Lithia Motors / Driveway** (NYSE: LAD), ~290+ US dealers; nationwide, fastest-growing roll-up 2020-2026.
-   - **Group 1 Automotive** (NYSE: GPI), ~150 US dealers; concentrated in TX, OK, FL, GA, LA, MA, NJ, NH, NY, MS.
-   - **Hendrick Automotive Group**, ~140 US dealers (private); concentrated in NC, SC, VA, TN, GA, AL, FL, CA, KS, MO.
-   - **Holman / Holman Automotive**, ~40 US dealers; concentrated in NJ, PA, FL.
-   - **Ken Garff Automotive Group**, ~60+ US dealers; concentrated in UT, NV, CA, AZ, TX, IA, MI.
-
-Treatment when sibling-store overlap found:
-
-- **Collapse the duplicate.** Treat both quotes as a single anchor representing the parent group's floor. Use the lower of the two as your reference number.
-- **Do NOT cite the sibling quote as a competitor.** Citing Penske-Honda-of-Old-Bridge against Penske-Honda-of-East-Brunswick to a Penske rep is comedy, they share an internal pricing dashboard. The dealer will laugh and price will not move.
-- **Replace the duplicate with a true cross-group anchor.** Phase 4 outreach should target 3-4 different parent groups in radius, not 3-4 stores from the same group. If radius is sibling-store-saturated (common in FL, TX, CA metro areas with Penske / AutoNation / Asbury density), expand radius or accept fewer truly-independent anchors.
-
-Real-world pattern: a buyer gets 4 quotes for a 2023 Camry XLE from <Dealer A>, <Dealer B>, <Dealer C>, and <Dealer D>. Two of them (<Dealer A> and <Dealer B>) turn out to be owned by the same regional dealer group (same GM, one shared inventory system). Phase 6 buyer cites <Dealer A>'s $32,400 OTD to <Dealer B>'s rep, expecting a $200-500 drop. The rep replies "that's our sister store, our system shows the same floor, best I can do is match $32,400." The two same-group quotes are 1 anchor, not 2. Real cross-bid leverage comes from the two independents (<Dealer C> and <Dealer D>). With D11, buyer routes outreach correctly from the start.
-
-### S. Data Sourcing & Sources
-
-**S1. Pull real-time deal data BEFORE quoting any discount or OTD estimate.** Heuristics are reliably wrong by $1-3k in either direction. The 5-query Firecrawl pipeline takes ~5 minutes and corrects baselines that would otherwise misdirect the entire negotiation. See `references/deal_data_sources.md`.
-
-**S2. For login-required sites (XHS / Facebook / Instagram), Playwright MCP local browser beats Firecrawl Live View URL.** Playwright pops a browser window on the user's screen, they log in via QR/SMS in 30 seconds. Subsequent navigation, snapshot, evaluate, screenshot all operate on that logged-in session. Cookies persist in user's local Chrome profile.
-
-**S3. XHS `/explore/{id}` direct URLs 404 without an access token.** The same post works via `/search_result/{id}?xsec_token={token}&xsec_source=` where token comes from a fresh search-page anchor's `href`. Tokens may expire after ~24h. Always source XHS URLs from a current search-page `browser_evaluate`, never from memory or old links.
-
-**S4. ~80% of XHS post images are NOT quote evidence.** Stock photos, delivery selfies, Apple Notes title cards, decorative emoji covers. Protocol: extract all img URLs via `browser_evaluate`, download all candidates, Read each one, `rm` the non-evidence files immediately. Useful keepers: dealer worksheets, sales-rep email/SMS screenshots, Costco quote sheets.
-
-**S5. For regional anchor evidence, XHS search MUST include the state/region keyword.** Generic `forester 报价` returns posts from CA/TX/MI/PA/WV, wrong regional market. Adding `NJ` / `新泽西` / `纽约` exposes posts from the buyer's tri-state area with same-dealer same-trim quotes. Run two parallel searches when buyer's state is known: generic for national anchor + state-specific for regional anchor.
-
-### N. Negotiation Mechanics
-
-**N1. Use OTD anchors transparently across multiple dealers.** Once 2+ written OTDs exist, cite them by dollar amount in counters: "My locked benchmarks are X at $X,XXX and Y at $X,XXX, for your unit to switch me, OTD needs to land near those." Converts each competitor offer into a market data point. Pulls subsequent offers down reliably.
-
-**N2. Parallel "drop $X" asks elicit counter-offers within 1-3 hours when framed correctly.** Formula: "Your X at $A vs locked alternative at $B with [advantage]. For your unit to win, OTD needs to land near $TARGET. If math does not pencil, I will go with the locked alternative by [deadline]." In practice, 3 dealers in one metro each dropped OTD within 1-3h (Rep A -$X,XXX, Rep B -$X,XXX, Rep C -$X,XXX). Run dealers in parallel, never sequentially.
-
-### V. Vehicle Verification
-
-**V1. CARFAX 1-owner is necessary but not sufficient.** Service records reveal whether the 1 owner actually maintained the car. Missing CVT fluid service at 60k is a $300-400 inherited cost.
-
-**V2. Require dealer-provided full CARFAX PDF or live URL before accepting OTD or scheduling PPI.** Verbal "clean carfax, 1-owner" has a real failure rate. Real incident: a dealer's written "clean CARFAX" claim turned out to hide a prior minor damage event with front + left + right impact zones. Buyer revised target down by $1.5-2k AND requested body-shop docs + EyeSight recalibration + structural report. Never accept OTD on verbal CARFAX summary.
-
-### P. PPI & Test Drive
-
-**P1. With 2-4 final candidates, book mobile PPI in parallel and cancel after dealer choice finalized.** Mobile services (Lemon Protector $139+ in NY/NJ/CT, YourMechanic, Pep Boys Mobile) eliminate dealer-side transport coordination. Stagger times (9 AM / 10 / 11 / 12 PM) to avoid form conflicts. Each NOTES field: "BOOKING X OF N - TENTATIVE, finalizing by [time]". Inspector phone gets dealer phone + VIN + address per slot.
-
-**P2. Online PPI booking forms have predictable quirks.** Year dropdowns cap at current/-1 year (newer vehicles need NOTES annotation). DATE inputs are `<input type="date">` requiring ISO YYYY-MM-DD. State defaults to service's HQ state. Phone TYPE defaults to "Cell" but dealer phone should be "Work". Always re-snapshot after `fill_form` before Submit.
-
-**P3. Close-day F&I (Finance & Insurance) hard-no script.** After OTD is locked in writing and the agreement is signed, the F&I office is the highest-frequency point of last-minute margin recovery: GAP coverage ($795-$1,295), VSC / extended service contracts ($1,495-$3,000), tire-and-wheel protection ($399-$799), paint / fabric protection ($499-$1,299), key replacement ($299-$499), nitrogen tires ($199), dent / ding ($499). Each is presented as "small monthly add" ($25/mo) hiding the lump-sum capitalization. F&I officers are paid on attach rate; expect 3-5 distinct pitches in a 30-45 minute close, often with paperwork shuffled so add-ons appear pre-initialed.
-
-Paste-ready hard-no script (read verbatim if pressured, or hand over the printed copy):
-
-```
-Per my signed agreement dated [DATE] with [GM/Sales Manager name],
-the OTD is locked at $[X]. I decline GAP, VSC, tire-and-wheel,
-paint protection, key replacement, nitrogen, dent / ding, and any
-other add-on not in the original agreement. Please process the
-close at the agreed OTD, or I will exit and we will both lose
-time. Repeat: NO add-ons. I will sign only the original
-agreement.
-```
-
-Operational rules:
-
-1. **Do NOT initial any new line item without a 5-minute pause to re-read.** F&I officers shuffle paperwork; a "just initial here for the title work" is sometimes a GAP authorization slipped into the stack. If anything is newly initialed-for, pause, take the page out of the folder, read every line, and verify it matches the agreement. The pause itself is a tactic, it slows the close and signals the buyer is not in a hurry.
-2. **Mandatory add-on response.** If F&I claims an add-on is "required by the dealership" (it is not, with the rare exception of state-mandated docs), reply: *"Please show me the line item in my signed agreement that authorizes this charge. If it's not there, remove it; if you cannot remove it, I will exit and the deal is dead. Per my OTD lock at $[X], adding anything constitutes a new deal that I have not agreed to."*
-3. **Monthly-payment-shift trick.** F&I will sometimes say "we can add GAP and your monthly only goes up $18". Reply: *"My agreement is OTD-locked, not monthly-locked. Adding $18/mo for 72 months is $1,296. I decline."* The monthly-shift framing exploits financing-buyer focus on monthly cap; D9-style ADM-vs-financing decoupling applies here too.
-4. **Recourse if F&I refuses to honor the locked OTD.** Walk to the sales floor and ask for the GM by name (the one on the signed agreement). The GM signed off; the F&I officer is breaking the agreement. If the GM also refuses, the deal is dead. State law in most jurisdictions allows buyer to recover the deposit if the dealer materially changes the terms.
-5. **Pre-close communication.** At Phase 6 close-day kickoff (before driving to dealer), re-confirm with the GM in writing: *"Confirming the OTD at $[X] per our agreement dated [DATE]. I will decline any F&I add-ons at close per my no-add-ons posture from Day 1. Please brief your F&I officer so we don't burn time on add-on pitches."* This pre-empts ~70% of close-day F&I friction by routing the no-add-ons signal to F&I before the buyer walks in.
-
-Cross-references: `assets/dealer_reply_template.md` § "Add-On Refusal" + the new F&I close-day hard-no template; `references/negotiation_playbook.md` § "Add-On Refusal" pricing detail. See also gotcha D9 for the structurally identical ADM-removal protocol, F&I add-ons are ADM in a different uniform.
-
-### H. Session & State Hygiene
-
-**H1. A previous Claude Code session may have invented fictitious dealer dialogue.** Always cross-check any "tracker log" entry against actual Gmail thread before acting. Counter-offers built on hallucinated context are how deals fall apart.
-
-**H2. Cleaning drafts: only delete `DRAFT`-label items.** See I5, accidentally trashing INBOX/SENT items breaks future reply threading.
-
+| first outreach to a dealer | <= 10 |
+| counter / reply | <= 10 |
+| close-day confirmation | <= 14 |
+
+**NEVER inline image attachments via MCP `create_draft`** (gotcha E5), the constraint chain forces
+unreadable 16-20KB images. Attachments are handed to the buyer as a per-draft recipe instead.
+## Gotchas (index only, full incidents in `references/gotchas.md`)
+
+Cited by ID from the phase summaries and from other references. **Load `references/gotchas.md` when a phase points at one**, or before drafting dealer email (group E), before any counter (N, D), and at session start (H).
+
+- **E. Email & Drafting Hygiene**, E1, E2, E3, E4, E5
+- **I. Inbox & Cron Monitoring**, I1, I2, I3, I4, I5
+- **D. Dealer Behavior & Communication**, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11
+- **S. Data Sourcing & Sources**, S1, S2, S3, S4, S5
+- **N. Negotiation Mechanics**, N1, N2
+- **V. Vehicle Verification**, V1, V2
+- **P. PPI & Test Drive**, P1, P2, P3
+- **H. Session & State Hygiene**, H1, H2
 ## Language and Audience Separation
 
 The skill operates in two language registers simultaneously. Drift between them causes either confusion (buyer sees an internal jargon dump) or unprofessionalism (dealer sees Chinese characters in a counter-offer email). Hold the separation strictly.
@@ -717,7 +388,7 @@ The skill operates in two language registers simultaneously. Drift between them 
 
 **Verification at draft time.** Before saving any Gmail draft via `create_draft`, scan the body for non-ASCII characters and any non-English content. If the buyer's preferred language is Chinese and an internal note about the dealer email leaked into the draft body, strip it. The draft is the dealer-facing surface; English-only, ASCII-only, no exceptions.
 
-**Mixed-language criteria.md handling.** If the buyer prefers Chinese, `criteria.md` may be rendered in Chinese for the buyer's review. When Phase 4 outreach drafts pull values from `criteria.md` (buyer name, city, state, walk-away ceiling), translate any Chinese fields to English at draft-creation time. The values are buyer profile data, not buyer voice, they go into the dealer email in English regardless of which language `criteria.md` was authored in. See `assets/criteria_template.md` (default English) and the buyer-facing surface rule above.
+**Mixed-language `criteria.md`.** `criteria.md` may be authored in the buyer's language, but values pulled into dealer email are buyer profile data, not buyer voice: translate them to English at draft-creation time. Rules: `references/email_format_rules.md`.
 
 ## Post-Cycle Feedback
 
