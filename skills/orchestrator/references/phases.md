@@ -192,7 +192,7 @@ Track in `tracker.md` using `assets/tracker_template.md` as the skeleton.
 
 Critical Rule #1 applies absolutely. Plain ASCII, no markdown, no em-dashes, no backticks. See `references/email_format_rules.md` for the ASCII substitution table.
 
-Critical Rule #7 applies absolutely. Phase 4 emails may only cite REAL-tagged baseline rows from `.firecrawl/{model}-deal-baseline.md`. Synthesized / placeholder rows are for internal reasoning only. Never paste a synthesized Reddit anecdote, fabricated dealer number, or generic "buyers report X" into a dealer email.
+**Critical Rule #7 applies absolutely here.** It is stated in full in SKILL.md; do not restate it, follow it.
 
 ### Email-type branching (mandatory before drafting)
 
@@ -283,7 +283,7 @@ Reply templates: `assets/dealer_reply_template.md`.
 
 ### The ask format (always written, never verbal)
 
-Critical Rule #3: Written OTD before any in-person visit. If a dealer refuses to send the full breakdown by email, decline the visit and pivot.
+**Critical Rule #3 governs this phase.** It is stated in full in SKILL.md; do not restate it, follow it.
 
 Required line items on every dealer OTD:
 
