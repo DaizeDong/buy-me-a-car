@@ -69,14 +69,14 @@ Mopar Vehicle Protection (rebranded **FlexCare** in 2026) is the separately-sold
 | Coverage Source | Cost |
 |-----------------|------|
 | SPOTiCAR CPO (built-in) | Already in dealer price |
-| Mopar/FlexCare Maximum Care (top tier, separate) | ~$1,500,$2,900 typical; up to ~$5,000 for max term/max mileage (8yr/125k) |
+| Mopar/FlexCare Maximum Care (top tier, separate) | ~$1,500 to $2,900 typical; up to ~$5,000 for max term/max mileage (8yr/125k) |
 | Mopar/FlexCare Powertrain Care Plus (separate, powertrain-focused) | Significantly less than Maximum Care |
-| Third-party (CARCHEX, Endurance) equivalent | ~$3,000,$3,500 (ConsumerAffairs 2026 Grand Cherokee sample: Mopar undercut third-party) |
+| Third-party (CARCHEX, Endurance) equivalent | ~$3,000 to $3,500 (ConsumerAffairs 2026 Grand Cherokee sample: Mopar undercut third-party) |
 
 **Stellantis-specific embedded value (do NOT cross-apply from Subaru/Honda):**
 
-- On a **top-tier (≤5 MY, <75k mi)** unit with substantial powertrain term remaining, the embedded CPO value is functionally **~$1,000,$1,800**, roughly the cost of the ~2 extra years of powertrain coverage the CPO adds beyond what the original 5yr/60k Mopar powertrain already covered, plus the 3mo/3k comprehensive and roadside.
-- On a **CPO Go (6 to 10 MY, 75k to 120k mi)** unit, the embedded value is **much lower (~$300,$800)** because most of the 7yr/100k powertrain is already burned off by age/mileage, the buyer is largely paying for the 3mo/3k Maximum Care + roadside + Carfax.
+- On a **top-tier (≤5 MY, <75k mi)** unit with substantial powertrain term remaining, the embedded CPO value is functionally **~$1,000 to $1,800**, roughly the cost of the ~2 extra years of powertrain coverage the CPO adds beyond what the original 5yr/60k Mopar powertrain already covered, plus the 3mo/3k comprehensive and roadside.
+- On a **CPO Go (6 to 10 MY, 75k to 120k mi)** unit, the embedded value is **much lower (~$300 to $800)** because most of the 7yr/100k powertrain is already burned off by age/mileage, the buyer is largely paying for the 3mo/3k Maximum Care + roadside + Carfax.
 - **UNVERIFIED**: a single canonical OEM "MSRP value of CPO" figure, Stellantis does not publish one; the ranges above are derived from Mopar/FlexCare quote data, not an OEM list price.
 
 Ram owner consensus corroborates the age-sensitivity: the SPOTiCAR warranty "may add only about 2 years of major powertrain coverage and not much else" on a newer (e.g., 2021) unit that still has substantial factory coverage, so the CPO premium is often not a big deal on near-new units.
@@ -104,7 +104,7 @@ Ram owner consensus corroborates the age-sensitivity: the SPOTiCAR warranty "may
 | Scenario | Effective Cost |
 |----------|---------------|
 | **SPOTiCAR Certified included** at $34,990 | $34,990 basis (CPO value embedded, ~7yr/100k powertrain runs to ~2030) |
-| Non-CPO same VIN at $33,990 (-$1,000) + buy Mopar Powertrain Care separately | ~$34,990,$35,500 effective |
+| Non-CPO same VIN at $33,990 (-$1,000) + buy Mopar Powertrain Care separately | ~$34,990 to $35,500 effective |
 | Non-CPO same VIN at $33,990 + self-insure | $33,990 net, accept powertrain risk (Ram powertrain claims are not cheap) |
 
 A non-CPO top-tier Ram priced **$1,000+ below** the CPO equivalent is roughly break-even after self-buying comparable powertrain coverage.
@@ -129,7 +129,7 @@ If a Stellantis vehicle is CPO-eligible but not yet enrolled (common on recent t
 Dealers can enroll a qualifying car for a modest internal cost (inspection + enrollment). On **top-tier** units they may absorb it as part of the deal, especially if you've reduced your OTD ask elsewhere.
 
 **Key plays:**
-1. **Top-tier unit**: treat CPO as ~$1,000,$1,800 of embedded value; close the price gap to a non-CPO comp accordingly.
+1. **Top-tier unit**: treat CPO as ~$1,000 to $1,800 of embedded value; close the price gap to a non-CPO comp accordingly.
 2. **CPO Go unit**: refuse to pay a powertrain-warranty premium, verify the in-service date and compute remaining powertrain term first. If it's <12 months / <10k mi of powertrain left, the "CPO" label is mostly the inspection.
 3. **Warranty upgrade**: if the unit is <74,999 mi and you want long-term coverage, you can add a Certified Upgrade (Powertrain Care / Added Care Plus / Maximum Care), but price-shop online sellers (Granger, Zeigler, Riedman, Chrysler Warranty Direct) against the dealer; online is routinely cheaper for the same Mopar/FlexCare plan.
 
@@ -173,7 +173,7 @@ Without these in hand, "CPO" claims are unverified and the buyer may be paying C
 | Powertrain extension | 7yr/100k from in-service | 7yr/100k from in-service | 7yr/100k from in-service |
 | Comprehensive layer | 3mo/3k Maximum Care | None | 1yr/12k (std) or 2yr/24k (Certified+) |
 | Powertrain deductible | $0 | $0 | $0 |
-| Embedded value | ~$1,000,$1,800 top-tier; ~$300,$800 CPO Go | $2,000,$2,500 | $1,200,$1,800 |
+| Embedded value | ~$1,000 to $1,800 top-tier; ~$300 to $800 CPO Go | $2,000 to $2,500 | $1,200 to $1,800 |
 | Transfer fee | $150 (powertrain) | n/a (free transfer within term) | n/a |
 
 **Key takeaway:** Stellantis SPOTiCAR has the **widest eligibility window** (10 MY / 120k mi) but the **weakest comprehensive layer** (only 3mo/3k vs Honda's 1 to 2 yr) and the **most age-sensitive embedded value** because the powertrain clock runs from in-service. Budget materially less "CPO discount leverage" on CPO Go units than on any Subaru/Honda CPO, and verify the in-service date before treating the powertrain warranty as a real benefit.

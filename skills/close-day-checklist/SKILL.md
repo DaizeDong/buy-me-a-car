@@ -191,8 +191,7 @@ their own language, spoken words are the agent-to-buyer surface, not a dealer
 artifact. The hard rule still holds for everything WRITTEN or EMAILED to the dealer:
 English + ASCII only (Critical Rule #1). Do NOT print these translations, do NOT
 paste them into a Gmail draft, do NOT hand them to F&I as a document. Read aloud only.
-See `../orchestrator/SKILL.md` § Language and Audience Separation and
-`../../data/fragments/es_refusal_scope.md`.
+See `../orchestrator/SKILL.md` § Language and Audience Separation, the authoritative statement.
 
 Load-bearing F&I terms below were checked against real US-Spanish-market usage, not
 literal-translated. Still: have a native speaker or Codex review the phrasing before a

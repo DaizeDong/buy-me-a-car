@@ -1,6 +1,6 @@
 ---
 name: buy-me-a-car
-description: "Use for help buying a car: research, dealer outreach, negotiation, closing. Triggers: buy me a car, find me a car, research cars, email dealers, compare quotes, negotiate OTD, buy a Subaru/Toyota/Honda/Mazda, 帮我找车, 买车, 选车, 砍价, 对比经销商, ayudame a comprar un carro/coche, encuentrame un auto, negociar el precio del carro, comparar concesionarios."
+description: "Triggers: buy me a car, find me a car, email dealers, negotiate OTD, 帮我找车, 买车, 选车, 砍价, 对比经销商, ayudame a comprar un carro, ayudame a comprar un coche, encuentrame un auto."
 ---
 
 # Buy Me a Car
@@ -18,7 +18,8 @@ market-data anchors, CARFAX and service-record PDF analysis, and decision dossie
 drives. That sentence used to live in the frontmatter `description`, which is loaded into every
 turn's system prompt whether or not the skill fires; it lives here instead because this file is
 loaded on invocation, when the list is actually useful. The `description` now carries trigger
-phrases only.
+phrases only, and only as many as the 180-char cap holds: the 17 phrases are 246 chars before
+separators. Complete list: `README.md` § orchestrator.
 
 - Buyer wants to evaluate inventory across multiple dealers / sites
 - Buyer wants written OTD by email before stepping on a lot
