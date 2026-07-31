@@ -92,9 +92,9 @@ effective_OTD_cap        = cash_down + financed_cap_from_monthly
 
 Compare `effective_OTD_cap` against the stated walk-away ceiling. If the math lands within $500 of the walk-away, surface in the heads-up block: *"Your monthly cap is the real binding constraint, not your OTD ceiling, real negotiation room is $X, not the apparent $Y."* See worked example in `references/payment_methods.md` § "Financing buyer sub-questions". This routine is **financing-only**, leases use the residual + money-factor math in the Lease Conversion section, not this formula.
 
-**Cross-state surfacing (mandatory when radius spans 2+ states).** If the buyer's ZIP + radius covers more than one state, add a one-paragraph note to the heads-up block: *"Your radius covers [state A, state B, state C]. You'll register in [registering state] so [registering-state]'s tax + reg apply regardless of dealer state. Out-of-state dealers must collect [registering-state] tax, not their home tax. Doc fees vary by dealer state, [state X] caps doc at $[N], [state Y] has no cap. I will force-correct every quote against `references/state_fees.md`."* Also include a 1-line cross-state arbitrage hint when a no-tax / low-doc state is in the radius: *"No-tax states (DE, NH, OR) and low-doc-cap states (CA $85 lowest binding cap, NC $129, NY $175, WA $200, TX $225 OCCC safe-harbor, MI $230, OH/RI/OR $250, IN $251) sometimes offer better OTD because they don't reach for fee padding, worth a quote if your radius reaches one. Note MD is NOT low-doc: its cap rose to $800 eff. July 1 2024 (now the highest statutory cap in the country, above NJ $799 and VA $599)."* Reference `references/state_fees.md` cross-state titling table for state-pair specifics; if a row is missing, derive inferentially using the general rule (tax follows registering state).
+**Cross-state surfacing (MANDATORY when radius spans 2+ states).** Add the buyer-facing note to the heads-up block: tax and registration follow the **registering** state, not the dealer state, and out-of-state dealers must collect the registering state's tax. Doc-fee caps vary by dealer state, so **force-correct every quote against `references/state_fees.md`**, which also holds the note's wording, the low-doc / no-tax arbitrage hint, and the cross-state titling table.
 
-**DC / VA / MD commuter-corridor sub-case (mandatory when ZIP is in the DC metro).** The DC metro is the most common 3-state commuter corridor in the US: a buyer's daytime address (work, mail) may be in DC while their nighttime address (home, registration) is in VA or MD, or vice versa. The registering-state rule still applies (tax + reg follow the registering state, not the dealer state or commute pattern), but cross-corridor edge cases are real: (a) DC residents must register with DC DMV, DC tax is excise-based (6% under $40k MSRP, scaling up by weight; no traditional sales tax on vehicles) and DC has no doc cap, but VA / MD dealers' CRM defaults often collect VA 4.15% / MD 6% sales tax instead. This is a state-template leak (gotcha D8), demand re-quote at DC excise. (b) VA residents register with VA DMV at 4.15% Motor Vehicle Sales and Use Tax (capped at min $75, no max) + $899-1,000 typical doc; MD dealers default to MD 6%, also a leak. (c) MD residents register at 6% with $800 statutory doc cap (eff. July 1 2024; MD's cap is now HIGHER than VA's $599, so MD is no longer the low-doc corner of the corridor); VA dealers default to VA 4.15% + $899 doc, also a leak, and at MD DMV titling the 6% will be collected as use tax, buyer ends up paying twice unless dealer re-quotes correctly. (d) **Plate question.** DC residents do NOT carry "VA tags" or "MD tags"; if buyer's daily-drive plates are DC plates but the dealer assumes VA, the registration paperwork goes to the wrong DMV. Confirm at P1 close-day logistics: registering state = the DMV where buyer's driver's license is issued (in 99% of cases). Reference `references/state_fees.md` for VA and MD detail (DC stub may not yet exist; if missing, default to DC = 6% excise on first $40k MSRP, no sales tax, no doc cap, but apply gotcha D8 leak detection against the standard "Has" set since DC's fee structure is distinct from VA / MD).
+**DC / VA / MD commuter-corridor sub-case (MANDATORY when ZIP is in the DC metro).** Daytime and nighttime addresses routinely straddle three states here, and dealer CRMs default to their own state's tax, which is a state-template leak (gotcha D8). The registering state still governs. **Confirm the registering state at P1 close-day logistics** (it is the DMV that issued the buyer's license in almost every case) and demand a re-quote on any leak. Per-state rates, the four corridor edge cases and the DC excise structure: `references/state_fees.md`.
 
 Save to `criteria.md` in the working directory. Then, BEFORE asking the buyer to confirm, surface a **"Heads-up before you confirm"** block, at most 3 items surfaced to the buyer, but the agent MUST evaluate all 14 checks below internally and pick the top-3 by priority rule.
 
@@ -151,35 +151,22 @@ Add this mini-table as a section in `criteria.md` BELOW the Heads-up block. **Ph
 
 **Inline jargon glossing rule.** When `criteria.md`, outbound dealer email, or any buyer-facing artifact emits one of the following terms for the FIRST time in that artifact, include a brief parenthetical gloss. Subsequent uses can drop the gloss.
 
-| Term | Gloss (EN) | Gloss (ES), explanatory, review pending |
-|---|---|---|
-| **OTD** | out-the-door (all-in: sale price + tax + doc + title + reg + add-ons) | precio final con todo / precio total: lo que de verdad pagas para salir manejando = precio + impuesto de venta + cargo por documentacion + titulo + registro/placas + extras. NO el precio anunciado. |
-| **NA** | Not Applicable (or, in context, North America) | no aplica (cuando es un campo sin dato); o Norteamerica segun el contexto |
-| **F&I** | Finance & Insurance (the dealer office where add-ons, extended warranties, and financing paperwork are signed) | oficina de Finanzas y Seguros: la oficina del concesionario donde te ofrecen financiamiento, garantia extendida y otros extras, y donde se firma el papeleo. Aqui es donde mas te tratan de vender productos opcionales. |
-| **anchor** | a market data point cited to set the negotiating range (e.g., "Edmunds TMV anchor at $28,500") | punto de referencia / precio de referencia: un dato de mercado que citas para fijar el rango de la negociacion (ej. "valor de mercado de Edmunds en $28,500 como referencia"). NO es traduccion de "ancla". |
-| **walk-away** | the absolute-stop price above which the buyer will not buy; distinct from the budget range upper bound | precio limite / tope para retirarte: el precio maximo absoluto pasado el cual te levantas y no compras; distinto del tope de tu presupuesto |
-| **cross-bid** | a parallel outreach to 3-4 dealers asking for OTDs on the same VIN class so each offer is leverage against the others | cotizar en paralelo / poner a competir: pedir el precio final (OTD) a 3-4 concesionarios por el mismo tipo de auto a la vez, para usar cada oferta como palanca contra las otras |
-| **ADM** | Additional Dealer Markup (a line item above MSRP, Market Adjustment, Hybrid Premium, Allocation Fee; see gotcha D9) | sobreprecio del concesionario / ajuste de mercado: un cargo extra por encima del precio sugerido (MSRP); aparece como "Market Adjustment", "ajuste de mercado", prima por hibrido, etc. Suele ser negociable o rechazable. |
-| **CPO** | Certified Pre-Owned (a manufacturer-program-certified used vehicle with extended powertrain + B2B warranty, see Subaru/Honda/Toyota CPO refs) | usado certificado por el fabricante (CPO): auto usado revisado y respaldado por la MARCA (no solo por el concesionario), con garantia extendida valida en cualquier concesionario de la marca. Ojo: "certificado por el concesionario" NO es lo mismo. |
-| **NACS** | North American Charging Standard (Tesla's connector, becoming the EV charging standard 2025-26; replaces CCS1 on Ford/GM/Hyundai/Kia/Rivian/VW/Volvo OEMs) | conector NACS / Estandar de Carga de Norteamerica: el conector de carga de Tesla (oficialmente SAE J3400) que se esta volviendo el estandar de carga para autos electricos en EE.UU. 2025-26. (Termino tecnico; se deja en ingles "NACS".) |
-
-**Companion auto-finance terms (ES).** These are not acronyms in the table above but recur constantly in close-day / payment chat with a Spanish-speaking buyer. Same treatment: explanatory ES gloss, English term-as-used kept recognizable, first-use-only, review pending.
-
-| Term (EN, as buyer will hear it) | Gloss (ES), explanatory, review pending |
+| Term | Gloss (EN) |
 |---|---|
-| **doc fee** (documentation fee) | cargo por documentacion ("doc fee"): tarifa del concesionario por procesar el papeleo; varia muchisimo por estado y a veces es negociable |
-| **trade-in** | vehiculo a cuenta / entregar tu auto a cuenta: dar tu auto usado como parte del pago; el concesionario le asigna un valor que se descuenta del auto nuevo |
-| **down payment** | enganche / pago inicial: el dinero que pones por adelantado en una compra financiada; reduce lo que financias. (NO confundir con trade-in: el "vehiculo a cuenta" puede cubrir el enganche, pero son cosas distintas.) |
-| **cashier's check** | cheque de caja (tambien "cheque oficial"): cheque respaldado por el banco, garantizado; forma de pago segura que muchos concesionarios exigen o prefieren para montos grandes |
-| **sales tax** | impuesto sobre la venta / impuesto de venta: varia por estado/condado; va incluido en el OTD |
-| **title / registration** | titulo y registro (placas): los tramites para poner el auto a tu nombre y obtener la matricula |
-| **MSRP** | precio sugerido por el fabricante (MSRP): el precio recomendado por la marca; el ADM/ajuste de mercado se suma POR ENCIMA de este |
-| **GAP insurance** | seguro GAP: cubre la diferencia entre lo que debes del prestamo y lo que paga tu seguro si el auto se pierde o destruye; producto opcional de F&I |
-| **extended warranty** | garantia extendida / contrato de servicio: cubre ciertas reparaciones despues de que termina la garantia del fabricante; opcional y negociable, NO obligatoria para financiar |
+| **OTD** | out-the-door (all-in: sale price + tax + doc + title + reg + add-ons) |
+| **NA** | Not Applicable (or, in context, North America) |
+| **F&I** | Finance & Insurance (the dealer office where add-ons, extended warranties, and financing paperwork are signed) |
+| **anchor** | a market data point cited to set the negotiating range (e.g., "Edmunds TMV anchor at $28,500") |
+| **walk-away** | the absolute-stop price above which the buyer will not buy; distinct from the budget range upper bound |
+| **cross-bid** | a parallel outreach to 3-4 dealers asking for OTDs on the same VIN class so each offer is leverage against the others |
+| **ADM** | Additional Dealer Markup (a line item above MSRP, Market Adjustment, Hybrid Premium, Allocation Fee; see gotcha D9) |
+| **CPO** | Certified Pre-Owned (a manufacturer-program-certified used vehicle with extended powertrain + B2B warranty, see Subaru/Honda/Toyota CPO refs) |
+| **NACS** | North American Charging Standard (Tesla's connector, becoming the EV charging standard 2025-26; replaces CCS1 on Ford/GM/Hyundai/Kia/Rivian/VW/Volvo OEMs) |
 
-**Regional usage note (carro / coche / auto).** When chatting with the buyer (NOT in dealer emails), pick the noun for "car" by region. carro = natural default for US Latino buyers from Mexico, Central America, and the Caribbean (safe majority choice). coche = Spain / central Mexico; avoid as the generic word for US Latino buyers (means a baby stroller in much of LatAm) unless the buyer uses it first. auto / automovil = neutral / formal / Southern Cone; safest neutral choice when region is unknown. Practical rule: **mirror the buyer**, if the buyer writes "carro", use "carro"; if "coche", use "coche"; default to "auto"/"carro" when unknown; never mix two in one message. The acronyms/terms above are unaffected; this is only about the surrounding prose feeling native.
+**Spanish buyers:** the ES column, the ES-only finance terms, the carro/coche regional note and the ES style rules live in [`references/glossary_es.md`](references/glossary_es.md) (translations are drafts, native sign-off pending). Load it when producing any Spanish buyer-facing surface.
 
-**ES gloss style rules** (carry into any new ES string): (1) explanatory, not word-for-word, "anchor" -> "punto de referencia", never "ancla"; "walk-away" -> "precio limite / tope para retirarte", never "precio de alejarse". (2) Keep the load-bearing English acronym/term recognizable in parentheses or as-is (OTD, doc fee, ADM, CPO, NACS, GAP, MSRP), that is exactly what the buyer sees on the window sticker, buyer's order, and F&I paperwork. The term ITSELF stays English even in Spanish chat; the ES gloss only *explains* it. (3) ASCII-safe: accents are dropped deliberately (documentacion, garantia, titulo) so a leaked gloss never violates Rule #1. (4) First-use-only, same as the EN rule. **All ES strings above are working translations pending Codex cross-check + native-speaker sign-off before production use.**
+
+
 
 The rule is **first-use only**, not every use. Glossing a term twice in one email is more confusing than glossing it zero times. Goal: make buyer-facing artifacts comprehensible without forcing the buyer to look up acronyms mid-decision. Per § Language and Audience Separation, the ES gloss is a **buyer-facing chat / `criteria.md`** surface only, it never enters a Gmail draft, counter, or signed line item (those stay English + ASCII, Rule #1).
 
@@ -392,19 +379,9 @@ The skill operates in two language registers simultaneously. Drift between them 
 
 ## Post-Cycle Feedback
 
-After every completed (or aborted) cycle, fill `assets/feedback_log.md` to capture what failed, what surprised the buyer, and what skill-specific gap surfaced. This is the structured input to the next skill iteration.
+Fill `assets/feedback_log.md` at every cycle close OR abort, **and after every gotcha violation even if the cycle continues**. Append-only; a gap recurring in 3+ cycles becomes a skill change. Concrete entries only, "P1 was OK" produces nothing actionable. Takes 10-15 minutes, and skipping it means the next iteration has nothing to act on.
 
-The log is append-only, older cycles stay for trend analysis. If the same gap appears in 3+ cycles, it becomes a Tier-1 fix in the next iteration wave.
-
-Concrete = actionable. "P1 was OK" produces no skill change. "P1 (h) trade-without-numbers fired correctly on explicit 'I want to trade' but did NOT fire on 'I have an old Civic'" is a specific Phase 1 trigger-phrase expansion that the next iteration can implement.
-
-Trigger this step:
-- At cycle close (after PPI passes, after deposit, after cashier's check, OR after walk-away)
-- At cycle abort (after Mid-Cycle Pivot Protocol fires AND buyer changes target so significantly that the cycle does not resume)
-- After every Gotcha violation (D5, D8, D9, D10, D11, P3, etc.), log even if the cycle continues; gotcha violations are the highest-leverage learning surface
-
-The fill takes 10-15 minutes. Skipping it means the next iteration has nothing concrete to act on.
-
+Protocol: [`assets/_feedback_protocol.md`](assets/_feedback_protocol.md).
 ## Quick Start
 
 To begin a new car search:

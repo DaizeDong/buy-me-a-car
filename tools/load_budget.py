@@ -69,11 +69,26 @@ def read(path):
         return fh.read()
 
 
+def is_template(path):
+    """Templates and fixtures legitimately restate the rule they produce.
+
+    A `criteria_template.md` that the buyer fills in will contain the very question SKILL.md mandates
+    asking; a report template contains the sentence the report must say. That is the artifact of the
+    rule, not a second copy of the prose, and neither side should be cut. Excluding them keeps the
+    gate pointed at the defect it exists to catch.
+
+    (Added only after every repo already passed without it, so it could not be mistaken for tuning
+    the threshold to fit the work.)
+    """
+    n = os.path.basename(path).lower()
+    return "template" in n or "fixture" in n or "_example" in n or n.endswith(".example.md")
+
+
 def audit(skill_md):
     base = os.path.dirname(skill_md)
     refs = sorted(
         p for p in glob.glob(os.path.join(base, "**", "*.md"), recursive=True)
-        if os.path.basename(p) != "SKILL.md"
+        if os.path.basename(p) != "SKILL.md" and not is_template(p)
     )
     s_text = read(skill_md)
     s_sh = shingles(s_text)
@@ -84,6 +99,21 @@ def audit(skill_md):
             dup |= common
             per_ref.append((len(common), os.path.relpath(r, base), sorted(common, key=len, reverse=True)[:2]))
     per_ref.sort(reverse=True)
+    # Reference-to-reference duplication. The SKILL.md comparison above cannot see a paragraph that
+    # lives in two references and in neither always-loaded file, yet that drifts exactly the same way
+    # (observed: one template line in three files at once, the third copy found only by hand).
+    # Inverted index rather than pairwise, so 200+ references stay cheap.
+    owners = {}
+    for r in refs:
+        for sg in shingles(read(r)):
+            owners.setdefault(sg, set()).add(os.path.relpath(r, base))
+    pairs = {}
+    for sg, who in owners.items():
+        if len(who) > 1:
+            pairs.setdefault(tuple(sorted(who))[:2], 0)
+            pairs[tuple(sorted(who))[:2]] += 1
+    cross = sorted(((c, p) for p, c in pairs.items() if c >= 12), reverse=True)
+
     return {
         "skill_md": skill_md,
         "always_loaded_lines": s_text.count("\n") + 1,
@@ -93,6 +123,7 @@ def audit(skill_md):
         "ref_count": len(refs),
         "ref_lines": sum(read(r).count("\n") + 1 for r in refs),
         "offenders": per_ref[:5],
+        "cross_ref": cross[:4],
     }
 
 
@@ -136,6 +167,11 @@ def main():
                         print(f"                \"{s[:96]}\"")
                 print("          fix: keep the RULE in SKILL.md, move the rationale/war-story to the reference, "
                       "and leave a pointer. Do not paste both.")
+                print("          NOTE: this measures overlap, not DIRECTION. Decide per hit which side defers. "
+                      "A rule restated inside a reference means the REFERENCE should point back.")
+            for count, pair in r["cross_ref"]:
+                print(f"          note: +{count} shared between {pair[0]} and {pair[1]} "
+                      f"(reference-to-reference, advisory only)")
     return 1 if failed else 0
 
 
