@@ -109,7 +109,7 @@ The default checklist every mobile PPI runs:
 | Pickup (HD) | Tow hitch wear, transmission cooler clean, 5th wheel rail wear |
 | Pickup (light) | Bed wear, hitch wiring integrity, 4WD engagement |
 
-For pickup-specific scope see `../orchestrator/references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 4.
+For pickup-specific scope see `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics` § 4.
 
 ## Post-PPI Walk-Decision Matrix
 
@@ -129,7 +129,7 @@ buyer's order in writing.
 
 - `../orchestrator/references/ppi_booking.md` - full inspector directory,
   state-by-state pricing, booking form screenshots
-- `../orchestrator/references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 4 - pickup
+- `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics` § 4 - pickup
   PPI scope additions
 - `../orchestrator/SKILL.md` gotcha V1 - CARFAX vs PPI evidence priority
 - `../orchestrator/SKILL.md` gotcha V2 - dealer "we already inspected" trick

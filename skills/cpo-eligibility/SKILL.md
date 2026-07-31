@@ -20,7 +20,7 @@ Quick lookup for factory CPO eligibility, coverage terms, and embedded dollar va
 
 ## When NOT To Use
 
-- Luxury / heavy commercial brands (BMW, MB, Audi, Porsche, RAM HD, F-250+) - see `../orchestrator/references/vertical_playbooks.md#part-2--heavy--commercial--luxury`. **Exceptions: Lexus L/Certified, Genesis CPO, and Acura Precision Certified/Used ARE documented factory programs in this skill**, see their per-brand reference files below and the Luxury exceptions table.
+- Luxury / heavy commercial brands (BMW, MB, Audi, Porsche, RAM HD, F-250+) - see `../orchestrator/references/vertical_playbooks.md#part-2-heavy--commercial--luxury`. **Exceptions: Lexus L/Certified, Genesis CPO, and Acura Precision Certified/Used ARE documented factory programs in this skill**, see their per-brand reference files below and the Luxury exceptions table.
 - Closing-day paperwork verification - delegate to `close-day-checklist`
 - General OTD math - delegate to `otd-calculator`
 
@@ -95,7 +95,7 @@ If the car is ineligible OR the CPO premium is wider than $2k, consider:
 2. **Independent extended warranty** (Endurance, Carchex, CARCHEX, olive): $1.8-4k for similar term. Watch claim-denial rates and authorized-repair networks. Read fine print on wear items.
 3. **Self-insure**: bank the $2-3k CPO premium and pay repairs as they come. Best for 1-2 owner cars with full service records under 60k miles.
 
-See `../orchestrator/references/vertical_playbooks.md#part-2--heavy--commercial--luxury` for luxury extended warranty notes (BMW/MB factory programs run $3-6k).
+See `../orchestrator/references/vertical_playbooks.md#part-2-heavy--commercial--luxury` for luxury extended warranty notes (BMW/MB factory programs run $3-6k).
 
 ## Fake CPO Label Detection
 
@@ -108,7 +108,7 @@ Red flags that a "Certified" sticker is dealer-house (NOT factory CPO):
 - Vehicle age/mileage exceeds brand's eligibility (see matrix above)
 - Charges a "certification fee" but cannot produce inspection report
 
-Full red-flag list: `../orchestrator/references/vertical_playbooks.md#part-2--heavy--commercial--luxury` section "Fake CPO Label Detection".
+Full red-flag list: `../orchestrator/references/vertical_playbooks.md#part-2-heavy--commercial--luxury` section "Fake CPO Label Detection".
 
 ## Verification Checklist (before paying CPO premium)
 

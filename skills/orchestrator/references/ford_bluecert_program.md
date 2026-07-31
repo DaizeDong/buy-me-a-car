@@ -217,7 +217,7 @@ Confirm CPO status before signing:
 - 14th gen powertrains: 3.3L V6 / 2.7L EcoBoost / 5.0L V8 / 3.5L EcoBoost / 3.5L PowerBoost Hybrid / 3.0L PowerStroke Diesel (2018-2021 only) / Electric Lightning
 - 13th gen: similar but 3.3L Cyclone V6 in early years
 - AWD/4WD adds ~$2,500-$4,000 over RWD same trim
-- Tow Package (Max Tow on Lariat+) verification critical, see `vertical_playbooks.md#part-1--pickup-truck-specifics` § 4
+- Tow Package (Max Tow on Lariat+) verification critical, see `vertical_playbooks.md#part-1-pickup-truck-specifics` § 4
 
 ### Super Duty F-250 / F-350 (3rd gen 2017-2022 / 4th gen 2023+)
 - 6.2L V8 gas / 7.3L "Godzilla" V8 gas (2020+) / 6.7L PowerStroke Diesel

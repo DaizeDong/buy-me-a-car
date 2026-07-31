@@ -333,5 +333,5 @@ Negotiation lever: ask sale price reduction of $[low] (the floor of the inherite
 
 - Gotcha V1 (`SKILL.md`): CARFAX 1-owner is necessary but not sufficient, service records reveal maintenance; missing CVT fluid service at 60k is $300-$400 inherited cost
 - `references/subaru_cpo_program.md`, `references/honda_cpo_program.md`, `references/toyota_cpo_program.md`, CPO programs include some of these expected services pre-sale; CPO premium may be net-zero if it includes the missed 60k/90k major service
-- `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 4, pickup-specific PPI items add to this list for F-150 / Silverado / Ram / Tundra / Tacoma (frame, hitch, V8 exhaust manifold, EcoBoost turbo, Hemi MDS lifters)
+- `references/vertical_playbooks.md#part-1-pickup-truck-specifics` § 4, pickup-specific PPI items add to this list for F-150 / Silverado / Ram / Tundra / Tacoma (frame, hitch, V8 exhaust manifold, EcoBoost turbo, Hemi MDS lifters)
 - `references/negotiation_playbook.md`, inherited-cost figure feeds Phase 6 counter as a quantified anchor ("PPI + service record gaps total $X, sale price needs to drop $X to neutralize")

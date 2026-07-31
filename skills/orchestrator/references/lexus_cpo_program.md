@@ -5,7 +5,7 @@
 
 Lexus L/Certified (stylized "L/Certified by Lexus") is Lexus's factory CPO program. It is the **luxury / premium-tier** CPO program in this skill's reference set, Lexus is Toyota's luxury division, so the L/Certified mechanics rhyme with TCUV (age-from-in-service logic, $0 deductible, OEM-backed) but the warranty STRUCTURE differs: L/Certified is a **comprehensive bumper-to-bumper extension**, not a powertrain-only extension. Understanding eligibility and embedded value is critical for negotiations on 2020-2026 Lexus ES, IS, RX, NX, GX, LX, UX, RC, LS, LC, and the Hybrid (h) / PHEV variants.
 
-> **Luxury-exclusion note**: the parent `cpo-eligibility/SKILL.md` "When NOT To Use" historically routed luxury brands (BMW/MB/Audi/Lexus/Porsche) to `vertical_playbooks.md#part-2`. Lexus is now an **exception**: it is a fully-documented factory CPO program in this reference set (this file). BMW / MB / Audi / Porsche remain routed to the vertical playbook. See the matrix-row fragment `data/fragments/cpo_B2.md` for the SKILL.md wording change the integrator applies.
+> **Luxury-exclusion note**: the parent `cpo-eligibility/SKILL.md` "When NOT To Use" historically routed luxury brands (BMW/MB/Audi/Lexus/Porsche) to `vertical_playbooks.md#part-2-heavy--commercial--luxury`. Lexus is now an **exception**: it is a fully-documented factory CPO program in this reference set (this file). BMW / MB / Audi / Porsche remain routed to the vertical playbook. See the matrix-row fragment `data/fragments/cpo_B2.md` for the SKILL.md wording change the integrator applies.
 
 This file mirrors the structure of `toyota_cpo_program.md` and `subaru_cpo_program.md`.
 

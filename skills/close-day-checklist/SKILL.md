@@ -45,7 +45,7 @@ Any change since Phase 1 (carrier switched, branch closed for holiday, plate dec
 
 ## Sub-Checklist by Buyer Type
 
-If multiple branches apply (financing + trade + EV), execute all of them. Full detail in `../orchestrator/references/phases.md#phase-9--close`.
+If multiple branches apply (financing + trade + EV), execute all of them. Full detail in `../orchestrator/references/phases.md#phase-9-close`.
 
 ### Cash buyer
 
@@ -137,7 +137,7 @@ Post-close:
 
 ### Pickup-truck buyer
 
-Pre-arrival (cross-ref `../orchestrator/references/vertical_playbooks.md#part-1--pickup-truck-specifics`):
+Pre-arrival (cross-ref `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics`):
 - [ ] Factory tow package verified at delivery via VIN decode + door-jamb option codes (Ford 53A/535, Ram AHT, GM NHT, Toyota tow prep)
 - [ ] Real tow capacity matches buyer's stated use case (engine x axle x package per section 1)
 - [ ] Payload capacity NOT exceeded by buyer's actual use (tongue + passenger + gear math per section 3)
@@ -292,15 +292,15 @@ Pre-empts most close-day F&I friction. Full template in `../orchestrator/assets/
 
 | Need | Open |
 |---|---|
-| Full Phase 9 detail (all 5 buyer types) | `../orchestrator/references/phases.md#phase-9--close` |
+| Full Phase 9 detail (all 5 buyer types) | `../orchestrator/references/phases.md#phase-9-close` |
 | Lien payoff full workflow | `../orchestrator/references/trade_in.md` section 4a-4d |
 | EV federal credit status (§30D/§25E/§45W all TERMINATED 2025-09-30, historical) + live state rebates | `../orchestrator/references/ev_buyer_playbook.md` section 1; `ev-buyer-helper` CRITICAL banner |
-| Pickup-specific PPI items | `../orchestrator/references/vertical_playbooks.md#part-1--pickup-truck-specifics` section 4 |
+| Pickup-specific PPI items | `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics` section 4 |
 | State-fee leak detection ("Does NOT have") | `../orchestrator/references/state_fees.md` section Tri-State / New England detail stubs (gotcha D8) |
 | F&I hard-no full text + reframe | `../orchestrator/assets/dealer_reply_template.md` section Close-Day F&I Hard-No |
 | Financing close-day instruments | `../orchestrator/references/payment_methods.md` |
 | CPO enrollment at close | per-OEM CPO programs in `../orchestrator/references/` (subaru_cpo_program.md, honda_cpo_program.md, etc.) |
-| HD pickup / commercial van / luxury close routing | `../orchestrator/references/vertical_playbooks.md#part-2--heavy--commercial--luxury` section 6 |
+| HD pickup / commercial van / luxury close routing | `../orchestrator/references/vertical_playbooks.md#part-2-heavy--commercial--luxury` section 6 |
 | Lease-end options | `../orchestrator/references/lease_playbook.md` section Lease-end options |
 
 ## Stop Conditions

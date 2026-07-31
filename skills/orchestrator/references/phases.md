@@ -4,13 +4,13 @@ This file is the combined reference for phases 3 through 9 of the 9-phase orches
 
 ## Table of contents
 
-- [Phase 3, Inventory](#phase-3--inventory)
-- [Phase 4, Outreach](#phase-4--outreach)
-- [Phase 5, Cron](#phase-5--cron)
-- [Phase 6, Negotiation](#phase-6--negotiation)
-- [Phase 7, PDF](#phase-7--pdf)
-- [Phase 8, Dossier](#phase-8--dossier)
-- [Phase 9, Close](#phase-9--close)
+- [Phase 3, Inventory](#phase-3-inventory)
+- [Phase 4, Outreach](#phase-4-outreach)
+- [Phase 5, Cron](#phase-5-cron)
+- [Phase 6, Negotiation](#phase-6-negotiation)
+- [Phase 7, PDF](#phase-7-pdf)
+- [Phase 8, Dossier](#phase-8-dossier)
+- [Phase 9, Close](#phase-9-close)
 
 ## Phase 3, Inventory
 
@@ -154,9 +154,9 @@ Generate the candidate table deduplicated by VIN. See `references/outreach_strat
 
 - `references/outreach_strategy.md`, dedup + ranking + ADM detection
 - `references/pdf_review_checklist.md`, V2 CARFAX requirement; new-car Monroney/PDI handling
-- `references/vertical_playbooks.md#part-2--heavy--commercial--luxury`, luxury-specific inventory sources (ultra-luxury allocation-driven, route to brand specialist for exotics)
+- `references/vertical_playbooks.md#part-2-heavy--commercial--luxury`, luxury-specific inventory sources (ultra-luxury allocation-driven, route to brand specialist for exotics)
 - `references/ev_buyer_playbook.md`, EV-specific inventory considerations (SoH for used EV, NACS vs CCS1 port)
-- `references/vertical_playbooks.md#part-1--pickup-truck-specifics`, pickup-specific listing red flags (ex-plow, ex-fleet, factory tow package)
+- `references/vertical_playbooks.md#part-1-pickup-truck-specifics`, pickup-specific listing red flags (ex-plow, ex-fleet, factory tow package)
 - Gotcha D9 (ADM kill list), V2 (CARFAX PDF requirement)
 
 ## Phase 4, Outreach
@@ -319,8 +319,8 @@ When a dealer claims the original VIN-X is "just sold" and pivots to VIN-Y at hi
 - **Lease buyer**: anchor on Money Factor markup buy-rate, not OTD, see `references/lease_playbook.md` § MF markup + paste-ready buy-rate counter language.
 - **Trade buyer**: SEPARATE the trade negotiation from the new-car negotiation (gotcha, see `references/trade_in.md` § 8 separate-the-negotiation). Lock new-car OTD first, then evaluate trade allowance independently against KBB Instant Cash Offer.
 - **EV buyer**: federal §30D $7,500 / §25E $4,000 / §45W lease pass-through credits are **TERMINATED** for vehicles acquired after 2025-09-30 (OBBBA / Public Law 119-21; IRS FAQ Fact Sheet 2025-05), do NOT enter them in OTD / net-price math for any 2026 purchase. Only still-funded state/local rebates remain live. See `references/ev_buyer_playbook.md` § 1 (historical mechanics + state rebate matrix) and `references/lease_playbook.md` § 8.
-- **Pickup buyer**: verify factory tow package via VIN decode before Phase 6 OTD lock, see `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 7.
-- **Heavy-duty / commercial / luxury**: see `references/vertical_playbooks.md#part-2--heavy--commercial--luxury` § 3 luxury pricing dynamics (sticker rarely budges MSRP - 4-7% on volume; lease incentives MORE aggressive).
+- **Pickup buyer**: verify factory tow package via VIN decode before Phase 6 OTD lock, see `references/vertical_playbooks.md#part-1-pickup-truck-specifics` § 7.
+- **Heavy-duty / commercial / luxury**: see `references/vertical_playbooks.md#part-2-heavy--commercial--luxury` § 3 luxury pricing dynamics (sticker rarely budges MSRP - 4-7% on volume; lease incentives MORE aggressive).
 - **CPO buyer**: embedded value calculation per brand, see Subaru/Honda/Toyota/Hyundai/Kia/Ford/GM/Mazda CPO references.
 
 ### Cross-references
@@ -503,24 +503,24 @@ The close checklist branches by buyer type. Use the relevant sub-checklist below
 #### Pickup-truck buyer close-day sub-checklist
 
 - [ ] Factory tow package verified at delivery via VIN decode + door-jamb option codes (Ford 53A/535, Ram AHT, GM NHT)
-- [ ] Real tow capacity matches buyer's stated use case (engine x axle x package per `vertical_playbooks.md#part-1--pickup-truck-specifics` § 1)
+- [ ] Real tow capacity matches buyer's stated use case (engine x axle x package per `references/vertical_playbooks.md#part-1-pickup-truck-specifics` § 1)
 - [ ] Payload capacity NOT exceeded by buyer's actual use (tongue + passenger + gear math per § 3)
 - [ ] Factory vs aftermarket hitch distinction confirmed
 - [ ] Integrated trailer brake controller functional test (dash-mounted gain knob; green LED on 7-pin connect)
 - [ ] PPI included pickup-specific items: frame inspection, transmission cooler, hitch wear, body mounts, exhaust manifold (V8 specifically), turbo seals (EcoBoost)
 - [ ] No ex-plow / ex-fleet posture concealed (CARFAX commercial fleet = $1-2k off; plow prep = $1.5-3k off)
-- [ ] Lift kit / oversized tires inspected for warranty + insurance impact (see `vertical_playbooks.md#part-1--pickup-truck-specifics` § 6)
+- [ ] Lift kit / oversized tires inspected for warranty + insurance impact (see `vertical_playbooks.md#part-1-pickup-truck-specifics` § 6)
 
 #### Universal close-day cross-references
 
 - `references/trade_in.md` § 4 + § 11 for trade documentation
-- `references/vertical_playbooks.md#part-1--pickup-truck-specifics` § 7 for pickup-specific Phase 6/9 items
+- `vertical_playbooks.md#part-1-pickup-truck-specifics` § 7 for pickup-specific Phase 6/9 items
 - `references/ev_buyer_playbook.md` § 9-10 for EV-specific items
 - `references/subaru_cpo_program.md` / `references/honda_cpo_program.md` / `references/toyota_cpo_program.md` / `references/hyundai_cpo_program.md` / `references/kia_cpo_program.md` / `references/ford_bluecert_program.md` / `references/gm_cpo_program.md` / `references/mazda_cpo_program.md` for CPO enrollment at close
 - `references/ppi_booking.md` for mobile PPI parallel-booking
 - `references/state_fees.md` registering-state stub for fee verification
 - `references/payment_methods.md` for financing close-day instruments
-- `references/vertical_playbooks.md#part-2--heavy--commercial--luxury` § 6 close-day routing matrix (HD pickup / commercial van / luxury loan-cash / luxury lease / ultra-luxury)
+- `references/vertical_playbooks.md#part-2-heavy--commercial--luxury` § 6 close-day routing matrix (HD pickup / commercial van / luxury loan-cash / luxury lease / ultra-luxury)
 - `references/lease_playbook.md` § Lease-end options (return / buy out / pull-ahead / extension) for lease-end timing
 
 ### F&I close-day hard-no

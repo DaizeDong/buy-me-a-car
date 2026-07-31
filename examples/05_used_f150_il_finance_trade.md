@@ -167,7 +167,7 @@ Four concrete deltas landed:
   (Rivian-vs-Ford SB-690 outcome since 2020), "Has" + "Does NOT have"
   leak lists, 2 worked OTD examples (no-trade and with-$7k-trade +
   $2.8k-lien), IL→IN / IL→WI / IL→MO / IL→IA cross-state titling rows.
-- **`vertical_playbooks.md#part-1--pickup-truck-specifics` (NEW reference file)**, 8 sections:
+- **`vertical_playbooks.md#part-1-pickup-truck-specifics` (NEW reference file)**, 8 sections:
   tow rating dependency table (F-150 / Ram / Silverado-Sierra / Tundra
   2021-2024 engine × axle × tow package combinations with real tow
   capacity in lb), factory-vs-aftermarket distinction (integrated TBC,
@@ -188,7 +188,7 @@ Four concrete deltas landed:
 - **Phase 9 expansion to buyer-type sub-checklists**, previously a
   single 8-line paragraph; now 5 routed sub-checklists (cash / financing
   / trade / EV / pickup) each 6-10 items with cross-references to
-  `trade_in.md` § 4 + § 11, `vertical_playbooks.md#part-1--pickup-truck-specifics` § 7,
+  `trade_in.md` § 4 + § 11, `vertical_playbooks.md#part-1-pickup-truck-specifics` § 7,
   `ev_buyer_playbook.md` § 9-10, the CPO refs, `ppi_booking.md`,
   `state_fees.md`, `payment_methods.md`.
 
