@@ -96,7 +96,11 @@ Each block: when to use, trigger phrases, one-line example, what comes back.
 
 ### orchestrator
 - **Use when**: you want the full 9-phase pipeline from scratch.
-- **Triggers**: `buy me a car`, `find me a car`, `帮我找车`, `买车`
+- **Triggers** (the complete set; the frontmatter `description` carries the first 12, which is all a 180-char cap holds):
+  - EN: `buy me a car`, `find me a car`, `email dealers`, `negotiate OTD`
+  - ZH: `帮我找车`, `买车`, `选车`, `砍价`, `对比经销商`
+  - ES: `ayudame a comprar un carro`, `ayudame a comprar un coche`, `encuentrame un auto`
+  - Also fire the skill, but live only here: `research cars`, `compare quotes`, `buy a Subaru/Toyota/Honda/Mazda`, `negociar el precio del carro`, `comparar concesionarios`
 - **Example**: `help me buy a 2022-2024 Outback Premium under 60k miles within 50mi of <ZIP>, budget $32k OTD`
 - **Output**: phase-by-phase artifacts under a `car_buying_<YEAR>/` working dir.
 - **6 buyer paths**: cash / financing / trade-in / EV / pickup, plus **private-party**, seller is a private individual (FSBO), not a dealer. No OTD stack and no F&I office; buyer pays tax + title + registration at the DMV. The work shifts to title transfer, state tax basis (purchase price vs book value vs Illinois-style fixed table), curbstoner detection, and payment/escrow safety (cashier's check at the seller's bank; pay any lien off directly to the lienholder). See `skills/orchestrator/references/private_party_playbook.md`.
