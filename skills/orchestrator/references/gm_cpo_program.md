@@ -183,7 +183,7 @@ Confirm CPO status before signing:
 - Powertrains: 2.7L Turbo / 5.3L V8 / 6.2L V8 / 3.0L Duramax Diesel inline-6 (light-duty diesel)
 - Light-duty 3.0L Duramax diesel on 1500-series qualifies for the 5/100k diesel tier
 - AT4 (Sierra) / Trail Boss (Silverado) are off-road trims; ZR2 (Silverado 2023+) is most off-road capable
-- See `vertical_playbooks.md#part-1--pickup-truck-specifics` § 4 for tow rating verification by engine x axle x package
+- See `vertical_playbooks.md#part-1-pickup-truck-specifics` § 4 for tow rating verification by engine x axle x package
 
 ### Silverado HD 2500/3500 / Sierra HD 2500/3500 (4th gen 2020-2024 / 5th gen 2025+)
 - Heavy-duty pickups; 6.6L Duramax Diesel V8 is the high-value engine

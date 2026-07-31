@@ -203,7 +203,7 @@ Without these in hand, "TCUV" claims are unverified and the buyer may be paying 
 ### Tacoma / Tundra / 4Runner (truck/SUV body-on-frame)
 - TCUV applies but no hybrid component (ICE only on 4th gen Tacoma 2024+, 3rd gen Tundra 2022+, 5th gen 4Runner 2010-2024, all ICE; 6th gen 4Runner 2025+ will introduce hybrid).
 - Tundra 2022+ has i-FORCE MAX Hybrid trim, this WILL qualify for 10yr/150k Hybrid Component coverage on TCUV resale starting around 2025-2026.
-- Pickup-truck-specific PPI items still apply, see `vertical_playbooks.md#part-1--pickup-truck-specifics` § 4 for Tundra V8 vs i-FORCE 3.5TT vs i-FORCE MAX Hybrid pre-purchase checks.
+- Pickup-truck-specific PPI items still apply, see `vertical_playbooks.md#part-1-pickup-truck-specifics` § 4 for Tundra V8 vs i-FORCE 3.5TT vs i-FORCE MAX Hybrid pre-purchase checks.
 
 ### Prius / Prius Prime
 - 2019-2024 4th gen Prius / Prius Prime (5th gen 2023+)

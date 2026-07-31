@@ -112,7 +112,7 @@ Save to `criteria.md` in the working directory. Then, BEFORE asking the buyer to
 | (j) EV / Hybrid with no charging plan | EV gate fires YES but buyer reports no home L1 outlet OR no home L2 install path OR no charging address at all (e.g., apartment renter without dedicated parking). Flag: *"You're targeting an EV but charging access is unclear. Without home L1 minimum (10-15 hrs/charge for daily commute), you depend on public DCFC, which runs 3-5x the cost per kWh of home charging ($0.40-$0.60/kWh public vs $0.10-$0.15/kWh home) and adds 30-45 min per session to your routine. If apartment rental, confirm building's L2 install policy OR check public L2 availability within walking distance. May make a hybrid or PHEV (charges on L1) a structurally better fit. See `ev_buyer_playbook.md` § Charging Access."* |
 | (k) Cross-state purchase with title-jumping risk | Buyer is purchasing in a no-tax / low-tax state (DE / NH / MT / OR) to register in a tax state (NJ / NY / CA), thinking they'll capture the tax savings. **They will not.** The registering state collects use tax at DMV titling, buyer pays full registering-state rate regardless of where they bought. Flag: *"Buying in [no-tax state] to register in [tax state] does NOT save sales tax. Your registering state ([tax state]) collects [X]% use tax at DMV when you title. The legitimate cross-state advantages are (a) doc fee differentials, (b) inventory access, (c) dealer competition, sales tax avoidance is not one of them. Title-jumping (registering in a no-tax state without actually living there) is fraud and can result in back-taxes + penalties + criminal charges. See `state_fees.md` cross-state titling section."* |
 | (l) Rebuilt / salvage / branded title | Buyer's target listing has a rebuilt / salvage / branded title OR buyer's trade does. Buyer often doesn't realize the downstream impact. Flag: *"This vehicle has a [rebuilt / salvage / branded] title. Insurance implications: most carriers only write liability (not comprehensive / collision); a few (State Farm, Geico in some states) refuse coverage. Financing implications: most banks / CUs decline; only specialized lenders (CarFinance, Credit Acceptance) at sub-prime rates. Resale implications: 30-50% discount to clean-title comparable at resale; many dealers won't take in trade. Verify acceptability with your insurer and bank BEFORE confirming."* |
-| (m) Fake CPO label | Buyer is targeting a used vehicle the dealer markets as "Certified" but the dealer is NOT the brand's authorized dealer OR no factory CPO certificate is provided. Flag: *"The dealer's 'Certified' label may be dealer-internal marketing, NOT manufacturer CPO. Verify: (a) is the inspecting dealer an authorized [Brand] dealer? (b) request the CPO certificate with manufacturer letterhead. (c) confirm warranty is registered in [Brand]'s CRM under your name. Independent shops' 'Certified' inspections do not carry factory-backed extended warranty, do not include the 150-200-point factory checklist, and do not offer manufacturer roadside / loaner programs. See `subaru_cpo_program.md` / `honda_cpo_program.md` / `toyota_cpo_program.md` for what real factory CPO includes; `vertical_playbooks.md#part-2--heavy--commercial--luxury` § 3.6 for luxury-specific fake-CPO traps."* |
+| (m) Fake CPO label | Buyer is targeting a used vehicle the dealer markets as "Certified" but the dealer is NOT the brand's authorized dealer OR no factory CPO certificate is provided. Flag: *"The dealer's 'Certified' label may be dealer-internal marketing, NOT manufacturer CPO. Verify: (a) is the inspecting dealer an authorized [Brand] dealer? (b) request the CPO certificate with manufacturer letterhead. (c) confirm warranty is registered in [Brand]'s CRM under your name. Independent shops' 'Certified' inspections do not carry factory-backed extended warranty, do not include the 150-200-point factory checklist, and do not offer manufacturer roadside / loaner programs. See `subaru_cpo_program.md` / `honda_cpo_program.md` / `toyota_cpo_program.md` for what real factory CPO includes; `vertical_playbooks.md#part-2-heavy--commercial--luxury` § 3.6 for luxury-specific fake-CPO traps."* |
 | (n) Filter combination = zero supply | More aggressive than (b), when the AGGREGATE combination of filters (year + miles + trim + color + interior + radius + payment) likely yields zero candidates. Run a quick supply check on Cars.com / Carfax / AutoTrader before confirming. Flag: *"Your filter combination ([trim X] + [color Y] + [miles <Z] + [radius W mi] + [MY range]) is likely sub-1 listing across your radius. Either widen one filter aggressively (color most-common-relaxed: 4x supply; radius: 2x supply per 50 mi expansion) OR confirm okay to wait for an inbound matching VIN at 4-12 weeks."* |
 
 **Priority rule when >3 fire**: surface the top 3 by impact, in this descending order:
@@ -186,31 +186,31 @@ This is the source of truth every subsequent counter cites. Re-pull whenever the
 
 Dispatch parallel subagents across inventory sites; each returns `report_<site>.md`, then merge into `master_comparison.md` (Site Capability Matrix on top, VIN-deduplicated candidates below). The new-car vs used-car router gate fires BEFORE dispatch and changes both the site set and the history-PDF requirement. Site list, role tagging and merge rules: `references/phases.md` Phase 3 and `references/outreach_strategy.md`.
 
-**Full details**: see `references/phases.md#phase-3--inventory`.
+**Full details**: see `references/phases.md#phase-3-inventory`.
 
 ### Phase 4: Mass Email Outreach
 
 Submit lead forms or direct emails to the top 30-50 candidates, tracking per-dealer fields in `tracker.md`. **Run the dealer-group ownership check (gotcha D11) BEFORE treating multiple stores as independent cross-bids.** Email format per Critical Rule #1, REAL-tagged citations only per Critical Rule #7. Full procedure: § Outbound Email SOP and `references/phases.md` Phase 4.
 
-**Full details**: see `references/phases.md#phase-4--outreach`.
+**Full details**: see `references/phases.md#phase-4-outreach`.
 
 ### Phase 5: Recurring Inbox Monitoring
 
 Three scheduled CronCreate jobs (not one): main 15-min inbox cron, 6-hour spam+promotions sweep, 7 AM morning catch-up. OOO autoresponder detection skips drafting and flags tracker until parsed return date. See `references/cron_monitoring.md` for full prompt templates, Gmail search patterns, OOO keyword list. Reply templates in `assets/dealer_reply_template.md`.
 
-**Full details**: see `references/phases.md#phase-5--cron` (stub pointing to `cron_monitoring.md`).
+**Full details**: see `references/phases.md#phase-5-cron` (stub pointing to `cron_monitoring.md`).
 
 ### Phase 6: OTD Negotiation
 
 Always-written, never-verbal OTD ask format with required line items (sales price + state tax + doc fee + title + reg + add-ons). Anchoring techniques: internal-trim, market-comp, cross-dealer (gotcha N1). ADM kill list (gotcha D9) demands removal as precondition, not middle-meet. Escalation Ladder when dealer delays. Bait-and-switch protocol (gotcha D10). Buyer-type specific notes for financing / lease / trade / EV / pickup / heavy-duty / luxury / CPO. See `references/negotiation_playbook.md` for full math + walk-away lines.
 
-**Full details**: see `references/phases.md#phase-6--negotiation`.
+**Full details**: see `references/phases.md#phase-6-negotiation`.
 
 ### Phase 7: PDF Analysis
 
 For every dealer-attached PDF (CARFAX, service records, OTD proposal, PPI report), open with Read tool and extract: VIN match, owner count, accident / damage / structural / odometer, service record completeness, active recalls. Per-brand expected service tables + ADAS recal by brand + OTD Proposal Add-On Anti-Pattern Detection. See `references/pdf_review_checklist.md` for the full checklist.
 
-**Full details**: see `references/phases.md#phase-7--pdf` (stub pointing to `pdf_review_checklist.md`).
+**Full details**: see `references/phases.md#phase-7-pdf` (stub pointing to `pdf_review_checklist.md`).
 
 ### Phase 8: Decision Dossier
 
@@ -225,13 +225,13 @@ python scripts/generate_dossier.py --config my_dossier.yaml \
 
 For Chinese-speaking dealers: `--template assets/dossier_template_cn.html`. Placeholders documented in `assets/dossier_config_template.yaml`. Generator validates load-bearing fields + placeholder substitution; auto-detects Chromium-family browsers.
 
-**Full details**: see `references/phases.md#phase-8--dossier`.
+**Full details**: see `references/phases.md#phase-8-dossier`.
 
 ### Phase 9: Test Drive + Close
 
 Maintain a PRIVATE `{dealer}_negotiation_prep.md` (buyer-only, never shared) with the dynamic OTD ladder, test-drive checklist, post-drive questions, decision matrix. Re-confirm the close-day logistics mini-table from `criteria.md` (Phase 1 capture) at close-day kickoff. Close-day routing branches by buyer type (cash / financing / trade / EV / pickup), execute all relevant sub-checklists if multiple apply. F&I close-day hard-no script (gotcha P3) is mandatory.
 
-**Full details**: see `references/phases.md#phase-9--close` (includes all 5 buyer-type sub-checklists + universal close-day cross-references).
+**Full details**: see `references/phases.md#phase-9-close` (includes all 5 buyer-type sub-checklists + universal close-day cross-references).
 
 ## Working Directory Convention
 
@@ -274,36 +274,37 @@ re-quote produces two dealers answering two different questions.
 
 ### References (load on demand)
 
-| File | Purpose |
+This is an index of load conditions, not a summary of contents. It answers "do I need to open this
+file right now", nothing else. Deliberately: a summary here is a second copy of the shard that no
+one updates when the shard changes, and a stale summary the agent trusts instead of opening the
+file is worse than no summary at all. If you want to know what is in a shard, open the shard.
+
+| File | Load when |
 |---|---|
-| `phases.md` | Combined detail for Phases 3-9 (use anchors `#phase-3--inventory` through `#phase-9--close`): new-vs-used router gate + site table + Playwright-first scraping recipe + pagination guide + Site Capability Matrix synthesis (P3); tracker capture + D11 dealer-group (P4); three-cron architecture + OOO handling (P5, stub → `cron_monitoring.md`); anchors + ADM kill list + escalation ladder + bait-and-switch + buyer-type notes (P6); PDF extraction targets (P7, stub → `pdf_review_checklist.md`); dossier generation pipeline + Chromium auto-detect + CN template (P8); close-day re-confirm + 5 buyer-type sub-checklists (P9) |
-| `outreach_strategy.md` | Multi-site outreach, anti-bot handling, multi-channel (email/SMS/phone) |
-| `negotiation_playbook.md` | Internal-anchor logic, market-comp anchoring, walk-away lines, cash leverage |
-| `pdf_review_checklist.md` | CARFAX / service records / proposal PDF red flags |
-| `cron_monitoring.md` | Cron prompt template + Gmail search patterns |
-| `email_format_rules.md` | ASCII substitution table, draft hygiene rules |
-| `state_fees.md` | All 50 states + DC at fee-detail depth (rendered from `data/state_fees.json`: 30 full + 21 stub, 34 web-verified); deepest ZIP/quirk breakdowns at CT/CA/TX/IL level for the high-traffic registering states (NJ / NY / PA / CT / MA / RI / NH / ME / VT / CA / TX / IL); cross-state titling; "Does NOT have" leak lists per gotcha D8 |
-| `subaru_cpo_program.md` | Subaru CPO eligibility + embedded value math |
-| `ppi_booking.md` | PPI parallel-booking, mobile services in NY/NJ/CT, Subaru checklist |
-| `deal_data_sources.md` | Firecrawl pipeline, source catalog, Playwright MCP browser workflow, XHS image extraction, image attachment workflow |
-| `payment_methods.md` | Cashier's check / debit / CC tiers (Amex/Chase/3% cashback cards), lease cash conversion, pre-close confirmation template |
-| `trade_in.md` | Trade-in valuation, ACV-vs-allowance, separate-the-negotiation, state trade-credit, lien payoff workflow, key/cosmetic deducts |
-| `ev_buyer_playbook.md` | Federal $7,500 §30D + $4,000 §25E + §45W credits (**ALL TERMINATED for vehicles acquired after 2025-09-30 per OBBBA, historical only; do not quote on current purchases**), dealer IRS registration, state EV rebate matrix (still live), NACS vs CCS1, charging, range planning, used-EV SoH, EV dealer tactics |
-| `honda_cpo_program.md` | Honda True Certified / Certified+ eligibility, coverage, embedded value, CR-V notes |
-| `toyota_cpo_program.md` | Toyota Certified Used Vehicle (TCUV), 160-pt inspection, 7yr/100k powertrain + 1yr/12k B2B + **10yr/150k Hybrid Component coverage** (RAV4 Hybrid / Camry Hybrid / Highlander Hybrid / Sienna / Prius / RAV4 Prime), embedded value $1,000-$2,000 ICE / $2,500-$4,000 Hybrid, market premium $1,000-$2,000 |
-| `hyundai_cpo_program.md` | Hyundai CPO, 173-pt inspection, **10yr/100k powertrain from in-service (industry-longest, tied with Kia)** + 1yr/12k B2B + **10yr/100k HV battery coverage on Ioniq 5/6 / Kona Electric**, SmartSense ADAS recal $400-$1,200, embedded value $1,500-$2,500 ICE / $3,000-$4,500 EV, market premium $800-$1,500. Note Genesis CPO separate (P3.5). |
-| `kia_cpo_program.md` | Kia CPO, 165-pt inspection, **10yr/100k powertrain from in-service** + 1yr/12k B2B + **8yr/100k Hybrid Component coverage (Sorento/Sportage/Niro/Carnival Hybrid)** + **10yr/100k HV battery on EV6/Niro EV/EV9**, $50 B2B deductible, embedded value $1,200-$2,000 ICE / $2,000-$3,000 Hybrid / $2,800-$4,200 EV, market premium $700-$1,500 |
-| `ford_bluecert_program.md` | Ford Blue Advantage **two-tier**, Gold (172-pt, 6yr/80k, 7yr/100k powertrain + 12mo/12k B2B + **PowerStroke diesel 7/100k tier** + 8/100k EV battery on Lightning/Mach-E) vs Blue (139-pt, 10yr/120k, 90day/4k only, marketing-grade not factory-backed). $100 deductible. Gold embedded value $1,500-$2,500 ICE / $2,500-$4,000 diesel; Blue $400-$800 |
-| `gm_cpo_program.md` | GM CPO (Chevy / GMC / Buick), 172-pt inspection, 6yr/100k powertrain + 12mo/12k B2B + **Duramax diesel 5/100k tier** + 8yr/100k HV battery on Bolt/Hummer EV/Lyriq/Blazer EV/Equinox EV/Silverado EV (10/150k in CA-emission states); 2 included maintenance visits. **Bolt 2017-2022 LG Chem recall remedy verification mandatory at CPO close**. Embedded value $1,500-$2,500 ICE / $2,500-$3,500 diesel / $2,000-$3,200 EV. Cadillac CPO separate (P3.5). |
-| `mazda_cpo_program.md` | Mazda CPO, 150-pt inspection, 7yr/100k powertrain + 12mo/12k B2B; no separate diesel / hybrid / EV tier (CX-50 Hybrid & CX-90 PHEV roll into powertrain). All-CarPlay-standard-since-2018. CX-50 built at MTMUS Huntsville AL JV with Toyota. **Narrowest CPO-win-zone ($800 break-even) due to Mazda reliability**. MX-5 Miata: CPO premium often justified by resale persistence above embedded warranty value. Embedded value $1,000-$1,800, market premium $600-$1,200 |
-| `stellantis_cpo_program.md` | Stellantis SPOTiCAR CPO (Ram / Jeep / Chrysler / Dodge / Fiat, one program, 5 brands), 125-pt inspection, two-tier: **Certified** (<=5 MY / <75k mi) vs **CPO Go** (6-10 MY / 75-120k mi); outer bound <=10 MY / <=120k mi. 7yr/100k powertrain from in-service ($0 deductible) + 3mo/3k Maximum Care. Certified Upgrade plans only <=74,999 mi. Mopar OEM extended-warranty hard ceiling at 80,001+ mi. Embedded value $1,000-$1,800 top / $300-$800 CPO Go (age-sensitive) |
-| `lexus_cpo_program.md` | Lexus L/Certified (luxury exception), 161-pt inspection, 6 MY / <80k mi; **2yr/UNLIMITED-mile comprehensive B2B stacking to up to 6yr/unlimited total** (NO separate 7/100k powertrain term, that is the Toyota structure, do not cross-apply), $0 deductible, 4-service/2yr/20k complimentary maintenance, trip interruption. Embedded value $1,500-$2,500 (vs Lexus Extra Care Platinum VSA ~$1,955 for 6/100k) |
-| `genesis_cpo_program.md` | Genesis CPO (luxury), 191-pt inspection (deepest in Hyundai group), 5 MY / <60k mi; **CPO reinstates 10yr/100k powertrain for 2nd owner** (non-CPO used Genesis drops to 5yr/60k) + 6yr/75k comprehensive, $50 PT deductible, 10yr/unlimited roadside, both warranties transfer. Embedded value $2,500-$3,500 (luxury 2x-4x repair multiplier). Negotiate premium below ~$1,000 |
-| `acura_cpo_program.md` | Acura CPO (Honda luxury), two-tier: **Precision Certified** (<=6 MY / <80k mi, 182-pt, 7yr/100k powertrain + 2yr/100k limited B2B, $0 deductible, transferable) vs **Precision Used** (<=10 MY / no mileage cap, 112-pt, 6mo/7.5k only, NOT transferable). Acura Care VSC separate-buy $1,500-$3,500+; Certified Additional Coverage up to 9yr/150k. Embedded value $1,800-$2,800 Certified / $300-$700 Used (analyst est.) |
-| `vertical_playbooks.md#part-1--pickup-truck-specifics` | Tow rating dependency (engine × axle × pkg), factory vs aftermarket tow, payload, pickup PPI items (frame/suspension/exhaust/turbo), depreciation, pickup dealer tactics |
-| `lease_playbook.md` | Lease math (Cap Cost / Residual / MF / Term / Allowance), state lease-tax mechanics (NJ vs CA vs TX vs IL up-front load), money factor markup + buy-rate counter, captive-by-captive rules (TFS / SMF / HFS / Ford / GM / BMW / MB / Audi / Lexus / Stellantis), EV lease arbitrage (§45W $7,500 pass-through, **TERMINATED for vehicles acquired after 2025-09-30; historical only**), lease assumption, walk-away vs pre-purchase miles, lease conversion (cash-to-lease) decision math |
-| `private_party_playbook.md` | Private-party (FSBO) buyer path (6th buyer path, keyed off the SELLER side). No OTD stack / no F&I; buyer pays tax + title + reg at the DMV. State tax basis (purchase-price vs book-value vs Illinois RUT-50 fixed table), curbstoner detection, payment/escrow safety (cashier's check at seller's bank; pay lien off directly to lienholder via 10-day payoff letter), odometer disclosure, title-transfer deadlines. Web-verified tax rules: CA, NJ, IL |
-| `vertical_playbooks.md#part-2--heavy--commercial--luxury` | Heavy-duty pickups (F-250+ / RAM 2500+ / GM 2500HD+: GCWR, diesel emissions LEGAL warning, commercial registration), commercial vans (Transit / Sprinter / ProMaster / Express: § 179 + bonus depreciation, fleet pricing, upfit), luxury brand defaults (BMW / MB / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln: 60-70% lease penetration, included service plans, MSDs, performance-trim premium, fake-CPO detection), sub-axes (ultra-luxury / exotic / high-end performance) |
+| `phases.md` | Entering any phase from 3 through 9. Anchors `#phase-3-inventory` through `#phase-9-close`. |
+| `gotchas.md` | A phase summary or another reference cites a gotcha ID. Also unconditionally at session start (group H), before drafting any dealer email (E), and before any counter (N, D). |
+| `pivot_protocol.md` | Any load-bearing field changed mid-cycle. Trigger list is in § Mid-Cycle Pivot Protocol. |
+| `deal_data_sources.md` | Phase 2 baseline pull, and every re-pull triggered by a new buyer claim. |
+| `outreach_strategy.md` | Phase 3 site dispatch, and Phase 4 channel selection. |
+| `outbound_email_sop.md` | Before composing Phase 4 outreach or any counter. |
+| `email_format_rules.md` | Before saving any Gmail draft. |
+| `cron_monitoring.md` | Phase 5, creating or debugging the three inbox crons. |
+| `negotiation_playbook.md` | Phase 6, before sending any counter or walk-away line. |
+| `pdf_review_checklist.md` | Phase 7, any dealer PDF in hand (CARFAX, service records, OTD proposal, PPI report). |
+| `ppi_booking.md` | Booking a PPI, Phase 6 or Phase 9. |
+| `state_fees.md` | Quoting any tax, doc, title or reg number; radius spans 2 or more states; plate-transfer decision. |
+| `payment_methods.md` | Capturing the Phase 1 payment method, or the financing gate fires YES. |
+| `trade_in.md` | Trade-in gate fires YES. |
+| `lease_playbook.md` | Buyer is leasing, or a cash-to-lease conversion is on the table. |
+| `private_party_playbook.md` | Seller-type gate answers private individual (FSBO). |
+| `ev_buyer_playbook.md` | EV gate fires YES (battery-electric or PHEV). |
+| `vertical_playbooks.md#part-1-pickup-truck-specifics` | Candidate is a light-duty pickup. |
+| `vertical_playbooks.md#part-2-heavy--commercial--luxury` | Candidate is heavy-duty, a commercial van, or a luxury brand. |
+| `glossary_es.md` | Producing any Spanish buyer-facing surface. |
+| `subaru_cpo_program.md`, `honda_cpo_program.md`, `toyota_cpo_program.md`, `mazda_cpo_program.md`, `hyundai_cpo_program.md`, `kia_cpo_program.md`, `lexus_cpo_program.md`, `genesis_cpo_program.md`, `acura_cpo_program.md` | Candidate is CPO, or is marketed as certified, for that brand. Load only the brand in play. |
+| `ford_bluecert_program.md` | Candidate is a Ford marketed as Blue Advantage Certified, either tier. |
+| `gm_cpo_program.md` | Candidate is a CPO Chevrolet, GMC or Buick. |
+| `stellantis_cpo_program.md` | Candidate is a CPO Ram, Jeep, Chrysler, Dodge or Fiat (SPOTiCAR). |
 
 ### Assets (templates, copy and edit)
 
