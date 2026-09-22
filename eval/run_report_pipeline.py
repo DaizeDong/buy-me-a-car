@@ -395,6 +395,10 @@ def artifact_receipts(paths):
             for name in sorted(DELIVERABLES)}
 
 
+def review_input(packet, config):
+    return {"source_packet": compact_packet(packet), "actual_analysis_text": analysis_text(config), "gates": GATES}
+
+
 def review_report(result, packet, config, report, receipt_path, caller, verbose=False):
     actual_text = analysis_text(config)
     prompt = (
@@ -404,12 +408,12 @@ def review_report(result, packet, config, report, receipt_path, caller, verbose=
         "You can assess consistency with the supplied packet transcription; you cannot independently verify "
         "original captures from their hashes, paths or metadata. Do not claim that verification. "
         "Mark a gate false when any material part is missing, contradicted or unsupported. "
-        "For each passed gate quote a verbatim substring from actual_analysis_text; the reason must explain "
-        "the complete criterion, not reward a keyword or copy a source record. Failed evidence may be empty. "
+        "For each of all six gates give one concise reason assessing the complete criterion. For each passed gate "
+        "also quote one short verbatim excerpt from actual_analysis_text; do not reward a keyword or copy a source "
+        "record. Failed evidence may be empty. Keep each reason to one sentence and each excerpt brief. "
         "Do not use tools or modify files. Return only JSON: {\"accepted\":boolean,\"gates\":{"
         "\"gate_id\":{\"passed\":boolean,\"evidence\":string,\"reason\":string}}}. "
-        "Use exactly the supplied gate IDs; accepted equals all gate values.\n" + _json({
-            "source_packet": compact_packet(packet), "actual_analysis_text": actual_text, "gates": GATES}))
+        "Use exactly the supplied gate IDs; accepted equals all gate values.\n" + _json(review_input(packet, config)))
     review = stage_call(caller, prompt, "review", report, receipt_path, result)
     if review is None:
         return
@@ -496,18 +500,54 @@ def resume_review(result, run_dir, verbose=False, *, caller=None):
     return run_dir
 
 
-def continuation_plan(run_dir):
+def review_reconciliation(path, run_dir, parent, parent_hash):
+    """Check an explicit local reconciliation; it is not signed provider proof."""
+    path = validate_data_path(path)
+    raw = path.read_bytes()
+    proof = json.loads(raw)
+    ledger = proof.get("ledger_record") if isinstance(proof, dict) else None
+    if (not isinstance(ledger, dict) or proof.get("schema_version") != 1
+            or proof.get("kind") != "llmcall_zero_reply_reconciliation"
+            or validate_data_path(proof["parent_run"]) != run_dir
+            or proof.get("parent_receipt_sha256") != parent_hash
+            or proof.get("review_prompt_sha256") != hashlib.sha256(parent["review_prompt"].encode("utf-8")).hexdigest()
+            or proof.get("caller_exited") is not True or proof.get("response_text") != ""
+            or not isinstance(proof.get("binding_method"), str) or not proof["binding_method"].strip()
+            or ledger.get("mode") != "agent" or ledger.get("ok") is not False
+            or type(ledger.get("reply_chars")) is not int or ledger["reply_chars"] != 0
+            or type(ledger.get("prompt_chars")) is not int or ledger["prompt_chars"] != len(parent["review_prompt"])
+            or not isinstance(ledger.get("id"), str) or not ledger["id"]
+            or not isinstance(ledger.get("error"), str) or not ledger["error"].strip()):
+        raise ValueError("invalid_legacy_review_reconciliation")
+    return {"path": str(path), "sha256": hashlib.sha256(raw).hexdigest(),
+            "scope": "local operator reconciliation, not signed provider proof", "ledger_record_id": ledger["id"]}
+
+
+def continuation_plan(run_dir, *, review_only=False, reconciliation_path=None):
     """Validate a locked, terminal parent without changing any parent artifact."""
     receipt_path = validate_data_path(run_dir / "receipt.json")
     parent_bytes = receipt_path.read_bytes()
     parent_hash = hashlib.sha256(parent_bytes).hexdigest()
     parent = json.loads(parent_bytes)
-    if (parent.get("schema_version") != 2 or parent.get("strategy") != "bounded_parallel_topics"
-            or parent.get("external_actions") is not False
-            or parent.get("status") not in {"writers_unavailable", "writers_failed"}
-            or any(key == "review" or key.startswith("review_") for key in parent)
-            or any((run_dir / name).exists() for name in DELIVERABLES | {"research_config.json"})
-            or parent.get("artifacts") or parent.get("config_sha256")):
+    compatible = (parent.get("schema_version") == 2 and parent.get("strategy") == "bounded_parallel_topics"
+                  and parent.get("external_actions") is False)
+    reconciliation = None
+    if review_only:
+        review = parent.get("review")
+        if (not compatible or parent.get("status") != "review_uncertain" or not isinstance(review, dict)
+                or review.get("status") != "uncertain" or ("text" in review and review["text"] != "")
+                or not isinstance(review.get("error"), str) or not review["error"].strip()
+                or set(review) - {"status", "error", "text", "provider"}
+                or parent.get("review_validation_error")):
+            raise ValueError("continuation_requires_terminal_review_uncertainty_without_text")
+        if "text" not in review and reconciliation_path is None:
+            raise ValueError("legacy_review_requires_zero_text_reconciliation")
+        if reconciliation_path is not None:
+            reconciliation = review_reconciliation(reconciliation_path, run_dir, parent, parent_hash)
+    elif (not compatible or parent.get("status") not in {"writers_unavailable", "writers_failed"}
+          or any(key == "review" or key.startswith("review_") for key in parent)
+          or any((run_dir / name).exists() for name in DELIVERABLES | {"research_config.json"})
+          or parent.get("artifacts") or parent.get("config_sha256")):
         raise ValueError("continuation_requires_terminal_unrendered_unreviewed_writers")
     packet_path = validate_data_path(parent["packet_path"])
     packet = load_packet(packet_path)
@@ -555,6 +595,8 @@ def continuation_plan(run_dir):
             raise ValueError("continuation_child_is_not_terminal")
     if not successful_sections:
         raise ValueError("continuation_has_no_valid_completed_writer_to_reuse")
+    if review_only and any(name not in reuse for name in names):
+        raise ValueError("review_continuation_requires_all_completed_writers")
     # Check successful prose, ownership and source references against unchanged
     # evidence. Missing topics are validation placeholders, never saved output.
     preflight = dict(packet["research_data"], title=actor["title"], decision_summary=actor["decision_summary"], sections=[
@@ -562,15 +604,42 @@ def continuation_plan(run_dir):
                                        "blocks": [{"type": "paragraph", "text": "Validation only"}]})
         for topic in REQUIRED_TOPICS])
     _validate(preflight, "live")
-    provenance = {"action": "explicit_continue_writers", "parent_run": str(run_dir),
+    provenance = {"action": "explicit_continue_review" if review_only else "explicit_continue_writers", "parent_run": str(run_dir),
                   "parent_receipt_sha256": parent_hash, "parent_status": parent["status"],
                   "parent_child_sha256": child_hashes, "packet_sha256": parent["packet_sha256"],
                   "reused_stages": sorted(reuse), "fresh_writers": [name for name in names if name not in reuse]}
+    if review_only:
+        config = json.loads(validate_data_path(run_dir / "research_config.json").read_text(encoding="utf-8"))
+        if _hash(config) != parent.get("config_sha256"):
+            raise ValueError("review_continuation_config_hash_mismatch")
+        if config != preflight:
+            raise ValueError("review_continuation_config_not_bound_to_packet_and_stages")
+        paths = {name: validate_data_path(run_dir / name) for name in DELIVERABLES}
+        if parent.get("artifacts") != artifact_receipts(paths):
+            raise ValueError("review_continuation_artifact_manifest_mismatch")
+        if prompt_input(parent.get("review_prompt")) != review_input(packet, config):
+            raise ValueError("review_continuation_prompt_not_bound_to_packet_analysis_and_gates")
+        verify_rendered(config, paths["buyer_research.html"], paths["buyer_research.pdf"])
+        verify_comparison(config, paths["master_comparison.md"])
+        provenance.update(parent_config_sha256=parent["config_sha256"], parent_artifacts=copy.deepcopy(parent["artifacts"]))
+        if reconciliation is not None:
+            provenance["review_reconciliation"] = reconciliation
     return packet_path, reuse, provenance
 
 
 def continue_writers(result, run_dir, verbose=False, *, caller=None, renderer=None, output_dir=None):
     """Explicit new run using completed stages; original receipts are immutable."""
+    return _continue_run(result, run_dir, verbose, caller=caller, renderer=renderer, output_dir=output_dir)
+
+
+def continue_review(result, run_dir, verbose=False, *, caller=None, renderer=None, output_dir=None, reconciliation_path=None):
+    """Rerender in a new run and review once after reconciled zero-text uncertainty."""
+    return _continue_run(result, run_dir, verbose, caller=caller, renderer=renderer, output_dir=output_dir,
+                         review_only=True, reconciliation_path=reconciliation_path)
+
+
+def _continue_run(result, run_dir, verbose=False, *, caller=None, renderer=None, output_dir=None,
+                  review_only=False, reconciliation_path=None):
     run_dir = validate_data_path(run_dir)
     if output_dir is not None:
         output_dir = validate_data_path(output_dir)
@@ -580,7 +649,26 @@ def continue_writers(result, run_dir, verbose=False, *, caller=None, renderer=No
     if not parent_lock.is_file() or not parent_lock.stat().st_size:
         raise ValueError("continuation_parent_lock_missing_or_empty")
     with _locked(parent_lock):
-        packet_path, reuse, provenance = continuation_plan(run_dir)
+        packet_path, reuse, provenance = continuation_plan(run_dir, review_only=review_only, reconciliation_path=reconciliation_path)
+        if review_only:
+            output_dir = output_dir or data_path(f"eval/model-runs/report-{uuid.uuid4().hex}", for_write=True)
+            output_dir = validate_data_path(output_dir, for_write=True)
+            claim_path = data_path(f"eval/model-runs/review-continuations/{provenance['parent_receipt_sha256']}.json", for_write=True)
+            if run_dir in claim_path.parents or run_dir in output_dir.parents or output_dir in run_dir.parents or output_dir == run_dir:
+                raise ValueError("review_continuation_state_must_be_separate_from_parent")
+            claim_path.parent.mkdir(parents=True, exist_ok=True)
+            with _locked(validate_data_path(claim_path.with_suffix(".lock"), for_write=True)):
+                if claim_path.exists():
+                    raise ValueError("review_continuation_parent_already_claimed_inspect_child")
+                if output_dir.exists() and (not output_dir.is_dir() or any(output_dir.iterdir())):
+                    raise ValueError("review_continuation_destination_not_empty")
+                atomic_write(claim_path, {"schema_version": 1, "status": "claimed", "parent_run": str(run_dir),
+                             "parent_receipt_sha256": provenance["parent_receipt_sha256"], "child_run": str(output_dir),
+                             "claimed_at": datetime.now(timezone.utc).isoformat()})
+                provenance["review_continuation_claim"] = {"path": str(claim_path),
+                    "sha256": hashlib.sha256(claim_path.read_bytes()).hexdigest()}
+                return run(result, packet_path, verbose, caller=caller, renderer=renderer, output_dir=output_dir,
+                           _reuse=reuse, _continuation=provenance)
         return run(result, packet_path, verbose, caller=caller, renderer=renderer, output_dir=output_dir,
                    _reuse=reuse, _continuation=provenance)
 
@@ -726,20 +814,26 @@ def main(argv=None):
     source.add_argument("--packet", help="Captured research packet inside private DATA")
     source.add_argument("--resume-review", help="Explicitly review an existing completed private run without rerunning stages")
     source.add_argument("--continue-writers", help="Explicit new run reusing completed stages from a terminal partial run")
+    source.add_argument("--continue-review", help="Explicit new run after reconciled review uncertainty with no returned text")
+    parser.add_argument("--review-reconciliation", help="Private zero-reply reconciliation for a legacy review receipt without text")
     parser.add_argument("--llm", action="store_true", help="Run actor, actual renderer and independent review")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
+    if args.review_reconciliation and not args.continue_review:
+        parser.error("--review-reconciliation requires --continue-review")
     if not args.llm:
-        print("Report pipeline model behavior: NOT RUN. Use --packet, --resume-review or --continue-writers with --llm; offline fixtures do not establish synthesis quality.")
+        print("Report pipeline model behavior: NOT RUN. Use --packet, --resume-review, --continue-writers or --continue-review with --llm; offline fixtures do not establish synthesis quality.")
         return 0
-    if not args.packet and not args.resume_review and not args.continue_writers:
-        parser.error("--packet, --resume-review or --continue-writers is required with --llm")
+    if not args.packet and not args.resume_review and not args.continue_writers and not args.continue_review:
+        parser.error("--packet, --resume-review, --continue-writers or --continue-review is required with --llm")
     result = Result()
     try:
         if args.resume_review:
             resume_review(result, args.resume_review, args.verbose)
         elif args.continue_writers:
             continue_writers(result, args.continue_writers, args.verbose)
+        elif args.continue_review:
+            continue_review(result, args.continue_review, args.verbose, reconciliation_path=args.review_reconciliation)
         else:
             run(result, args.packet, args.verbose)
     except (OSError, ValueError, ImportError, RuntimeError, KeyError) as exc:

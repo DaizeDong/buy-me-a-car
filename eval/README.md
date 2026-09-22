@@ -133,6 +133,44 @@ review call the model; rendering and all three artifact-content checks still
 run. This is explicit continuation after reconciliation, never an automatic
 retry of uncertain work.
 
+If all writing and artifact checks passed, but the final reviewer timed out
+without returning text, explicitly continue that reconciled attempt in a new run:
+
+```sh
+python eval/run_report_pipeline.py --continue-review eval/model-runs/report-example --llm -v
+```
+
+This requires a terminal `review_uncertain` receipt with an uncertainty error and
+explicitly empty review text. Every planner/writer response, saved prompt payload, config and
+artifact hash must still match the frozen evidence. HTML, PDF and Markdown
+content are checked again before any new run. All writing is reused with its
+original provenance, then the child renders fresh artifacts and calls only the
+final reviewer. The parent stays unchanged, including its failed attempt.
+Active calls, partial text, failed reviews and passed reviews are rejected as
+continuation sources. The review still assesses all six gates and provides one
+short report excerpt and one concise reason per gate. Continuation is an explicit
+recovery action, not an automatic retry or a mechanism for overturning a recorded
+qualitative decision.
+
+Older receipts discarded text when the caller returned an error. Missing text in
+those receipts is insufficient proof of an empty reply. Use the optional
+`--review-reconciliation` argument only after checking the original call ledger
+and confirming that the caller exited. Its private JSON must contain
+`schema_version: 1`, `kind: "llmcall_zero_reply_reconciliation"`, the absolute
+`parent_run`, `parent_receipt_sha256`, `review_prompt_sha256`, `caller_exited: true`,
+`response_text: ""`, a nonempty `binding_method`, and the original `ledger_record`.
+The ledger must record agent mode, a failed call with an error, exactly zero reply
+characters, and a prompt length matching the saved review prompt. This is an
+explicit local operator reconciliation, not signed provider proof. Its path and
+hash are recorded in the child. It never overrides nonempty stored review text.
+
+Before starting a review child, the runner writes a one-use claim under private
+`eval/model-runs/review-continuations/`, keyed by the parent receipt hash. A later
+attempt to use that same parent is rejected even if the child was rejected or the
+process stopped before starting it. Inspect the recorded child and reconcile its
+state; do not delete a claim to obtain another review. No claim or output is
+written inside the original parent run.
+
 This is a bounded test of synthesis and delivery after research. It does not
 establish automatic host skill discovery, autonomous source collection, visual
 PDF quality or purchase outcomes. Independently inspect every PDF page and
