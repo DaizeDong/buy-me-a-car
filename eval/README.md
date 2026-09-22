@@ -113,6 +113,26 @@ planner/writer receipts. It binds the analysis and candidate identities to HTML,
 PDF and Markdown again, preserves the prior failure, and refuses any run with an
 existing review attempt. It does not replay a model call or regenerate files.
 
+If the planner and some writers completed but another writer failed or timed
+out, first reconcile that pure-analysis attempt. An explicit continuation can
+preserve completed work in a new run:
+
+```sh
+python eval/run_report_pipeline.py --continue-writers eval/model-runs/report-example --llm -v
+```
+
+This mode locks and validates the terminal parent, its unchanged packet and
+source evidence, and every child receipt hash. It requires a valid planner and
+at least one valid completed writer. Active, rendered, reviewed or successful
+runs, changed evidence and corrupt receipts are rejected. The parent stays
+unchanged. The new receipt records its parent hashes and marks each reused
+response separately from fresh model calls. Saved prompt payloads must match
+the unchanged packet and current schema; reused responses retain their original
+prompts, with any current wrapper differences recorded explicitly. Only missing writers and the final
+review call the model; rendering and all three artifact-content checks still
+run. This is explicit continuation after reconciliation, never an automatic
+retry of uncertain work.
+
 This is a bounded test of synthesis and delivery after research. It does not
 establish automatic host skill discovery, autonomous source collection, visual
 PDF quality or purchase outcomes. Independently inspect every PDF page and
