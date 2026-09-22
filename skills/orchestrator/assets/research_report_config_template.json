@@ -1,0 +1,491 @@
+{
+  "document_type": "buyer_research",
+  "synthetic": true,
+  "date": "2026-09-22",
+  "language": "cn",
+  "title": "AcmeCorp 示例车型购车研究：用途、市场与待核实成本",
+  "decision_summary": "本报告全部为合成演示。先核实实际拖挂需求，再在示例跨界车与示例皮卡之间选择。当前没有书面 OTD 报价；挂牌价格差异不足以证明哪辆车交付成本最低。",
+  "criteria": [
+    {
+      "id": "use",
+      "label": "主要用途",
+      "value": "合成场景：日常通勤和偶尔露营",
+      "status": "confirmed",
+      "source_ids": [],
+      "notes": "演示输入，不代表真实买方。"
+    },
+    {
+      "id": "budget",
+      "label": "预算口径",
+      "value": "合成场景：比较完整交付成本",
+      "status": "assumed",
+      "source_ids": [],
+      "notes": "尚未确认上限；不据此产生对外报价。"
+    },
+    {
+      "id": "trailer",
+      "label": "拖车满载重量与舌重",
+      "value": null,
+      "status": "unknown",
+      "source_ids": [],
+      "notes": "先称重并查配置，不用空车重量替代满载值。"
+    },
+    {
+      "id": "winter",
+      "label": "冬季使用",
+      "value": "合成场景：可能遇到积雪与结冰路面",
+      "status": "assumed",
+      "source_ids": [],
+      "notes": "需要确认路线与冬胎存放条件。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "listing-a",
+      "title": "合成经销商 A 挂牌快照",
+      "url": "https://example.com/synthetic/listing-a",
+      "observed_date": "2026-09-22",
+      "status": "captured",
+      "kind": "listing",
+      "limitations": "虚构演示，未证明现车、税费或成交条件。"
+    },
+    {
+      "id": "listing-b",
+      "title": "合成聚合站 B 同车记录",
+      "url": "https://example.com/synthetic/listing-b",
+      "observed_date": "2026-09-22",
+      "status": "captured",
+      "kind": "listing",
+      "limitations": "虚构演示，同 VIN 价格不同；保留冲突。"
+    },
+    {
+      "id": "listing-c",
+      "title": "合成示例皮卡挂牌快照",
+      "url": "https://example.com/synthetic/listing-c",
+      "observed_date": "2026-09-22",
+      "status": "captured",
+      "kind": "listing",
+      "limitations": "虚构演示，配置与用途适合度待核实。"
+    },
+    {
+      "id": "guide",
+      "title": "合成检查与拖挂指南",
+      "url": "https://example.com/synthetic/guide",
+      "observed_date": "2026-09-22",
+      "status": "captured",
+      "kind": "guide",
+      "limitations": "仅演示报告结构，不是任何真实车型的厂家数据。"
+    },
+    {
+      "id": "blocked-search",
+      "title": "合成库存站访问失败记录",
+      "url": "https://example.com/synthetic/blocked",
+      "observed_date": "2026-09-22",
+      "status": "blocked",
+      "kind": "listing",
+      "limitations": "模拟访问受阻，不能视为无车或低价不存在。"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "local",
+      "label": "本地公开挂牌",
+      "status": "partial",
+      "source_ids": [
+        "listing-a",
+        "listing-b",
+        "listing-c"
+      ],
+      "query": "合成区域；跨界车和皮卡；只看演示结果第一页",
+      "limitations": "未遍历全部分页；价格不是全市场最低价。"
+    },
+    {
+      "id": "spec",
+      "label": "用途和配置核实",
+      "status": "partial",
+      "source_ids": [
+        "guide"
+      ],
+      "query": "合成车型的拖挂与载荷检查流程",
+      "limitations": "缺少 VIN 对应配置单与车门载荷铭牌。"
+    },
+    {
+      "id": "blocked",
+      "label": "其他库存站",
+      "status": "blocked",
+      "source_ids": [
+        "blocked-search"
+      ],
+      "query": "合成条件相同的第二站检索",
+      "limitations": "访问受阻，未形成可比较车辆记录。"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "offer-a",
+      "vehicle": "2024 AcmeCorp Example Crossover",
+      "configuration": "合成 Plus / AWD / 20,000 miles",
+      "asking_price": "28900.00",
+      "currency": "USD",
+      "location": "Synthetic City A",
+      "vin": "1ACEXAMPLE0000001",
+      "stock": "SYN-A",
+      "source_id": "listing-a",
+      "limitations": "拖挂包、轮胎状态与现车均待核实。"
+    },
+    {
+      "id": "offer-b",
+      "vehicle": "2024 AcmeCorp Example Crossover",
+      "configuration": "合成 Plus / AWD / 20,000 miles",
+      "asking_price": "29200.00",
+      "currency": "USD",
+      "location": "Synthetic City A",
+      "vin": "1ACEXAMPLE0000001",
+      "stock": "SYN-A",
+      "source_id": "listing-b",
+      "limitations": "同车第二来源比第一来源高 USD 300；不能重复算两辆。"
+    },
+    {
+      "id": "offer-c",
+      "vehicle": "2023 AcmeCorp Example Pickup",
+      "configuration": "合成 Work / 4WD / 32,000 miles",
+      "asking_price": null,
+      "currency": "USD",
+      "location": "Synthetic City B",
+      "stock": "SYN-C",
+      "source_id": "listing-c",
+      "limitations": "未记录价格与 VIN；不能按零价排序，也不能与其他无 VIN 车自动合并。"
+    }
+  ],
+  "costs": [
+    {
+      "candidate_id": "offer-a",
+      "tax": null,
+      "title_registration": null,
+      "dealer_fees": null,
+      "transport": "600.00",
+      "inspection": null,
+      "other": null,
+      "source_ids": [],
+      "limitations": "USD 600 仅为合成运输情景假设，未取得承运报价。税费与检查支出仍未知。"
+    }
+  ],
+  "written_quotes": [],
+  "sections": [
+    {
+      "id": "requirements",
+      "topic": "requirements",
+      "title": "需求与确认状态",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "以下需求表区分已确认、暂定与未知。需求变化会影响候选车型、税费情景和下一步工作；确认前不把假设写成买方要求。",
+          "refs": []
+        },
+        {
+          "type": "bullets",
+          "items": [
+            "先确认拖车满载重量、舌重、同行人数与车内行李。",
+            "确认登记地、付款方式、交易时间及是否置换，之后才能选择税费规则。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coverage",
+      "topic": "coverage",
+      "title": "检索范围与证据缺口",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "本次演示覆盖三个挂牌观察记录，其中两个属于同一 VIN。检索范围表记录访问成功与失败的部分；没有搜索到和已经确认不存在是两种结论。",
+          "refs": []
+        },
+        {
+          "type": "bullets",
+          "items": [
+            "分页未完成，因此不宣称覆盖全部可售库存。",
+            "访问受阻的站点只计入检索缺口，不为车辆价格或库存提供支持。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alternatives",
+      "topic": "alternatives",
+      "title": "车型选择与配置取舍",
+      "blocks": [
+        {
+          "type": "table",
+          "columns": [
+            "方向",
+            "适合的需求",
+            "需要承担的代价",
+            "决定前核实"
+          ],
+          "rows": [
+            [
+              "示例跨界车",
+              "通勤、较小停车空间、轻量露营",
+              "拖挂与有效载荷可能先达到限制",
+              "VIN 对应拖挂配置、满载舌重与车门载荷"
+            ],
+            [
+              "示例皮卡",
+              "较大载物空间与更频繁拖挂",
+              "车身尺寸、油耗、轮胎及保险成本",
+              "具体发动机、轴比、拖挂包与车况"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "车型类别不能替代具体配置。先排除不满足实际用途的车辆，再比较车况与完整交付成本；不能只按挂牌价作决定。",
+          "refs": [
+            "section:suitability"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listings",
+      "topic": "listings",
+      "title": "候选车辆与重复记录",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "同一 VIN 的观察合并为一个车辆组，保留每个来源的报价、日期与限制。两个来源价格冲突时，应索取当前书面价格与完整费用清单。",
+          "refs": [
+            "candidate:offer-a",
+            "candidate:offer-b"
+          ]
+        },
+        {
+          "type": "bullets",
+          "items": [
+            "无 VIN 的记录保持独立，避免把同款车型误当成同一辆车。",
+            "挂牌页面不证明当前有现车，不证明可以按该价无条件购买。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "topic": "costs",
+      "title": "挂牌价与完整交付成本",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "成本表以挂牌价作为比较起点。任何已填支出仍需核实计费口径与适用条件；未知税费不按零处理。已填项目情景小计包括假设金额，不是已确认费用、OTD 或最终交付总额。",
+          "refs": []
+        },
+        {
+          "type": "table",
+          "columns": [
+            "需要补齐的金额",
+            "取得方式",
+            "为何影响选择"
+          ],
+          "rows": [
+            [
+              "销售税和登记费",
+              "确认登记地和交易类型后查官方规则",
+              "不同税基、抵扣和牌照安排影响总额"
+            ],
+            [
+              "经销商费用",
+              "取得列明强制附加项目的书面 OTD",
+              "挂牌价差可能被附加产品或费用抵消"
+            ],
+            [
+              "运输或提车支出",
+              "确认路线、季节、运输方式后询价",
+              "较远车辆的名义便宜不等于交付便宜"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "suitability",
+      "topic": "suitability",
+      "title": "拖挂、载荷与实际用途",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "拖挂上限、车辆有效载荷、组合总重和舌重必须同时满足。当前没有具体 VIN 的厂家限制和车门铭牌，不能给出可安全拖挂的结论。",
+          "refs": [
+            "source:guide"
+          ]
+        },
+        {
+          "type": "bullets",
+          "items": [
+            "索取 VIN 配置单、车门有效载荷铭牌及适用的车主手册页。",
+            "把乘员、行李、加装件与舌重计入车辆载荷。",
+            "核实拖钩等级、接收器、线束、制动控制器和拖车制动要求。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "winter",
+      "topic": "winter",
+      "title": "冬季使用与提车安排",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "四驱主要帮助驱动牵引，不能替代适当轮胎与合理车速。冬季路线会改变提车时间、轮胎预算及是否选择运输。",
+          "refs": []
+        },
+        {
+          "type": "table",
+          "columns": [
+            "事项",
+            "核实内容",
+            "决定影响"
+          ],
+          "rows": [
+            [
+              "轮胎",
+              "尺寸、胎龄、花纹深度、冬季适用性",
+              "是否需要另备冬胎和轮毂"
+            ],
+            [
+              "路线",
+              "天气、山路、限行和休息点",
+              "自驾提车是否可行"
+            ],
+            [
+              "交付",
+              "运输保险、装卸检查及延期条款",
+              "运输报价是否完整"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ownership",
+      "topic": "ownership",
+      "title": "车况检查与持有成本",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "挂牌中的保养与车况描述是待核实陈述。独立检查应在支付不可退费用或签订无条件合同前完成。",
+          "refs": []
+        },
+        {
+          "type": "bullets",
+          "items": [
+            "比对 VIN、产权状态、维修记录、事故修复和召回处理。",
+            "检查车架腐蚀、液体渗漏、冷启动、变速箱、制动与悬架。",
+            "索取保险报价并核实保修起止、转让资格、免赔额和排除项。",
+            "持有成本还包括燃油或充电、轮胎、停车、维护与预期折旧；当前未量化的部分保留未知。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recommendation",
+      "topic": "recommendation",
+      "title": "推荐顺序与剩余不确定性",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "当前优先核实示例跨界车的用途适配和同 VIN 价格冲突；若拖挂需求超出其具体配置限制，再转向示例皮卡。这个顺序是降低无效询价工作量的研究建议，不是购买指令。",
+          "refs": [
+            "candidate:offer-a",
+            "candidate:offer-c"
+          ]
+        },
+        {
+          "type": "table",
+          "columns": [
+            "结论",
+            "现有支持",
+            "可推翻结论的新信息"
+          ],
+          "rows": [
+            [
+              "先核实用途，再比总价",
+              "拖车重量和车辆载荷尚未知",
+              "确认根本没有拖挂需求"
+            ],
+            [
+              "不能按挂牌价宣布最低成本",
+              "书面 OTD 为零份，税费和交付支出不完整",
+              "取得同一登记口径的完整书面报价"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "next",
+      "topic": "next_actions",
+      "title": "下一步与完成标准",
+      "blocks": [
+        {
+          "type": "table",
+          "columns": [
+            "顺序",
+            "工作",
+            "完成证据"
+          ],
+          "rows": [
+            [
+              "1",
+              "确认用途、登记地与预算口径",
+              "有日期的需求记录"
+            ],
+            [
+              "2",
+              "补齐 VIN 配置与现车状态",
+              "配置单、铭牌及当前库存确认"
+            ],
+            [
+              "3",
+              "取得同口径书面报价",
+              "逐项列费、有效期和购买条件"
+            ],
+            [
+              "4",
+              "安排独立检查并确认提车方案",
+              "检查报告与交付费用记录"
+            ],
+            [
+              "5",
+              "更新建议",
+              "比较完整成本并逐条关闭关键疑点"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "本报告不代表已联系经销商、预订检查或支付费用。执行外部动作时，使用买方对该动作已有的授权，并保留实际回执。",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "topic": "sources",
+      "title": "来源目录与阅读边界",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "来源表显示观察日期和访问状态。真实报告的 captured 来源必须有私有存档与匹配的 SHA-256；哈希只能证明存档内容未改变，不会自动证明页面陈述真实或仍然有效。",
+          "refs": []
+        },
+        {
+          "type": "bullets",
+          "items": [
+            "合成演示中的 URL、车型、价格和检索结果全部虚构。",
+            "未取得的报价、未完成的访问与未知金额应保留到下一轮，不替换成成功或零值。"
+          ]
+        }
+      ]
+    }
+  ]
+}

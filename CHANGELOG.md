@@ -6,6 +6,8 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ### Fixed
 
+- Broad purchase requests now include a market comparison and buyer research HTML/PDF without a separate expansion prompt. Research supports zero written quotes and unknown costs; outward dealer proposals keep their stronger evidence requirements.
+- Restored substantive research, visit preparation, private negotiation scenarios and pivot updates. Report schemas reject missing analysis and preserve duplicate-VIN observations, source access gaps and cost uncertainty.
 - Real purchase input/output now requires a verified private companion; feedback no longer writes into a public asset. Generated fixtures and physical DATA checks are enforced separately.
 - OTD uses decimal arithmetic, dated field evidence and explicit jurisdiction/transaction support. Corrected stale Maryland values and trade-in rules; unsupported calculations fail visibly.
 - Dealer drafts separate the private maximum from an authorized outward offer. Inbox imports, cursor state and draft receipts survive restarts without replaying uncertain actions.

@@ -5,10 +5,17 @@ description: Use when buyer is ready to close (signing today/tomorrow), needs th
 
 # Close Day Checklist
 
-> **Caveat**: this skill is one author's playbook + 5-scenario stress test. Verify state fees / CPO terms / EV credits / dealer practices against current sources before quoting numbers to a dealer or making financial decisions. Not tax, legal, or financial advice.
-> last_verified: 2026-05-18
+Prepare the buyer for an inspection, final contract review and collection using
+current written evidence. Verify applicable fees, warranty, incentives and seller
+terms against their sources. A completed checklist is preparation for the buyer's
+decision, not proof that a vehicle is suitable or a purchase succeeded.
 
-Narrow sub-skill: buyer has a locked OTD in writing and is heading to the dealer to sign. No re-negotiation, no fresh outreach. For the full 9-phase workflow load `../orchestrator/SKILL.md`; for upstream counter / follow-up drafting load `dealer-reply-drafter`.
+Reuse known criteria and the current buyer research package. For a visit before
+terms are locked, fill the private [negotiation and visit preparation](../orchestrator/assets/negotiation_prep_template.md)
+with unknowns and questions; a test drive does not require two competing quotes.
+Use [dealer-reply-drafter](../dealer-reply-drafter/SKILL.md) for a revised written
+offer. Save real notes under verified private DATA. Sending, booking, paying or
+signing requires authorization for that action and an execution receipt.
 
 ## When To Use
 
@@ -20,23 +27,31 @@ Narrow sub-skill: buyer has a locked OTD in writing and is heading to the dealer
 
 ## When NOT To Use
 
-- OTD not yet locked in writing (use orchestrator Phase 6 / `dealer-reply-drafter` first)
-- CARFAX not yet reviewed (use `carfax-pdf-review` sub-skill)
-- PPI not yet booked (use `../orchestrator/references/ppi_booking.md`)
-- Buyer wants to renegotiate at the F&I desk (don't - escalate per gotcha P3 F&I hard-no script)
+- For broad vehicle research, use [buy-me-a-car](../orchestrator/SKILL.md).
+- Before signing, resolve missing written terms, history/title evidence and material
+  inspection findings. Use [CARFAX review](../carfax-pdf-review/SKILL.md) and
+  [inspection planning](../ppi-scheduler/SKILL.md) when relevant.
+- Changed terms at the F&I desk require a fresh comparison and buyer decision;
+  do not treat an earlier agreement as authorization to accept the changes.
 
-## Critical Rules Invoked
+## Evidence and communication
 
-- **Critical Rule #4: Read the actual CARFAX PDF yourself.** Verbal "clean 1-owner" has a real failure rate. See gotcha V2. Re-confirm CARFAX was read end-to-end BEFORE close day.
-- **Critical Rule #1: Plain ASCII in every outbound email.** Close-day GM heads-up email + F&I hard-no email must be ASCII only.
+- Read the actual history/title and service records for a used vehicle; for a new
+  vehicle, review the window sticker and delivery inspection record. Record missing
+  pages and unresolved claims using the [PDF checklist](../orchestrator/references/pdf_review_checklist.md).
+- Buyer-facing notes use the buyer's language. The constrained dealer-email
+  renderer supports ASCII English; follow its reviewed draft contract and the
+  [email SOP](../orchestrator/references/outbound_email_sop.md) for external messages.
+- Keep private ceilings and negotiation notes out of dealer-facing documents.
 
 ## Close-Day Re-Confirmation (do this BEFORE buyer drives to dealer)
 
-Re-read the close-day logistics mini-table from `criteria.md` and confirm each line:
+Re-read the private criteria and visit preparation; verify changed or unresolved
+logistics instead of asking the buyer to repeat known facts:
 
 - Bank cut-off + branch + hours (cashier's check issued same morning?)
 - Insurance carrier (for binder + policy number)
-- Plate decision (transfer existing vs new plates - saves $25-150 in most states)
+- Plate decision (transfer existing versus new plates; verify eligibility and fees)
 - Available time windows on close day
 - ID set (driver's license, secondary ID, proof of residence)
 - Funding instrument (cash, cashier's check, wire, captive financing, CU financing)
@@ -45,12 +60,14 @@ Any change since Phase 1 (carrier switched, branch closed for holiday, plate dec
 
 ## Sub-Checklist by Buyer Type
 
-If multiple branches apply (financing + trade + EV), execute all of them. Full detail in `../orchestrator/references/phases.md#phase-9-close`.
+If multiple branches apply (financing + trade + EV), use each relevant checklist
+below. Record not applicable or unknown with a reason. The [phase reference](../orchestrator/references/phases.md#phase-9-close)
+defines the workflow handoff; this page holds the buyer-type checklists.
 
 ### Cash buyer
 
 Pre-arrival (T-1 day):
-- [ ] Cashier's check confirmed ready for issue by bank cut-off (~9-10 AM); buffer for same-day
+- [ ] Bank issuance timing, instrument, amount and verified payee confirmed if a cashier's check is used
 - [ ] Insurance binder issued; policy number in hand
 - [ ] Plate decision finalized (transfer vs new)
 - [ ] VIN re-verified against latest dealer paperwork (no last-minute substitution per gotcha D10)
@@ -58,22 +75,22 @@ Pre-arrival (T-1 day):
 
 On-site (close day):
 - [ ] OTD breakdown in signed agreement matches counter-locked numbers exactly
-- [ ] All line items cross-checked against `../orchestrator/references/state_fees.md` registering-state "Does NOT have" list (gotcha D8)
+- [ ] Every tax/fee line checked against current registration-jurisdiction evidence via [state-fee-lookup](../state-fee-lookup/SKILL.md)
 - [ ] No padded add-ons (paint protection / nitrogen / etching / VIN etching / theft deterrent)
 - [ ] F&I hard-no script ready (see below)
-- [ ] Temp permit issued at close; confirm permanent title timeline (4-8 weeks)
+- [ ] Required temporary permit or plates arranged; title/registration responsibilities and official timelines recorded
 
 Post-close (T+1 to T+30):
-- [ ] Title arrived in mail; if not, follow up at T+30
+- [ ] Title/registration delivery checked against the documented process and follow-up date
 - [ ] Insurance binder converted to permanent policy
 
 ### Financing buyer
 
 Pre-arrival:
-- [ ] Captive-vs-CU decision resolved per `../orchestrator/references/payment_methods.md` (gotcha D9 sub-rule: not coupled to ADM or other concessions)
+- [ ] Lender comparison includes total financing cost and conditional incentives, using [payment methods](../orchestrator/references/payment_methods.md#cash-versus-financed-acquisition)
 - [ ] If CU: funding instrument (cashier's check or wire) confirmed pre-close; first-payment date confirmed
-- [ ] If captive: no rebate clawback on early payoff; lender lien notation on title
-- [ ] Pre-approval re-pulled if approaching 30-day expiry
+- [ ] Prepayment, incentive-clawback and lien terms verified from the actual lender and offer documents
+- [ ] Pre-approval expiry and vehicle/funding conditions confirmed; a new application requires authorization
 - [ ] Down payment instrument confirmed (cash, debit, or cashier's check)
 
 On-site:
@@ -84,23 +101,26 @@ On-site:
 Post-close:
 - [ ] If CU loan: title issued to buyer with CU lien notation; CU receives title via mail
 - [ ] If captive: title goes to captive direct; buyer's name on registration
-- [ ] First payment due ~30-45 days post-funding
+- [ ] Actual first-payment date and servicing instructions recorded from the contract
 
 ### Trade-in buyer
 
 Pre-arrival (cross-ref `../orchestrator/references/trade_in.md` section 4a-4d if active lien):
 - [ ] If lien: 10-day payoff letter from lien-holder in hand (NOT dealer's quote)
-- [ ] Lien-holder auto-pay cancelled pre-close (avoid double-charge cycles)
-- [ ] KBB Instant Cash Offer screenshot in hand as walk-floor anchor
-- [ ] Key count verified (matches Phase 1 capture; missing 2nd key = $200-400 deduction)
+- [ ] Lender's payoff and payment instructions confirmed; keep required payments current until payoff is applied
+- [ ] Any trade offer used as an anchor remains valid and its inspection/expiry conditions are recorded
+- [ ] Key count verified; any deduction is supported by a written valuation or replacement quote
 - [ ] All personal items removed; both key fobs ready
 
 On-site:
 - [ ] Bill-of-sale shows: trade allowance, lien payoff routing, dealer commitment date
-- [ ] State trade-in tax credit applied to GROSS trade allowance (NOT net of payoff) per `../orchestrator/references/state_fees.md`
+- [ ] Applicable trade-in tax treatment verified from current jurisdictional rules; allowance and lien payoff remain separate
 - [ ] No shell-game: ACV and trade allowance NOT confused; sale price and trade negotiated separately
 
-Post-close monitoring (calendar reminders at Day 5 / 10 / 14 / 21): payoff initiated, lien-holder received, release filed at DMV, release confirmation in hand. If not released by Day 30, escalate per `../orchestrator/references/trade_in.md` section 5.
+Post-close: record agreed payoff and lien-release milestones, verify each with the
+responsible party, and prepare follow-up for missed dates. Reminders or messages
+require their own authorization; do not claim monitoring exists without a durable
+scheduled task. See [payoff handling](../orchestrator/references/trade_in.md#4-payoff-handling-trade-with-outstanding-loan).
 
 ### EV buyer
 
@@ -114,7 +134,7 @@ Post-close monitoring (calendar reminders at Day 5 / 10 / 14 / 21): payoff initi
 
 Pre-arrival (LIVE in 2026, cross-ref `../orchestrator/references/ev_buyer_playbook.md`):
 - [ ] Battery warranty docs reviewed (new EV) OR SoH report obtained (used EV) per section 6
-- [ ] NACS vs CCS1 port confirmed; adapter ordered if needed
+- [ ] Charging port, adapter compatibility and any needed authorized order confirmed
 - [ ] State EV rebate eligibility + paperwork confirmed (MSRP/income caps per state; this is the only live incentive)
 
 Pre-arrival (HISTORICAL, pre-2025-10-01 acquisitions only; §30D terminated 2025-09-30, do NOT use for 2026):
@@ -125,33 +145,38 @@ Pre-arrival (HISTORICAL, pre-2025-10-01 acquisitions only; §30D terminated 2025
 On-site (LIVE in 2026):
 - [ ] Battery warranty registered to buyer at delivery (new EV)
 - [ ] No EV Prep / Battery Conditioning / Charge Cable / EV Delivery Setup ADM line items per gotcha D9 + `../orchestrator/references/ev_buyer_playbook.md` section 8
-- [ ] L1 OEM charge cable included in delivery (factory accessory, NOT a separate purchase)
+- [ ] Included charging equipment matches the window sticker or written offer; no assumed standard accessory
 
 On-site (HISTORICAL, pre-2025-10-01 acquisitions only; do NOT apply to a 2026 close):
 - [ ] ~~$7,500 reduction shown as separate line item on signed agreement~~ (N/A, §30D terminated; no federal credit line should appear)
 - [ ] ~~Time of Sale report copy retained~~ (N/A, §30D terminated)
 
 Post-close:
-- [ ] Home L2 install scheduled (Qmerit / Treehouse / ChargePoint) if not already
-- [ ] State EV rebate application submitted (verify state DOE / clean-energy office deadline, the only live incentive)
+- [ ] Home charging plan and any authorized installation booking recorded
+- [ ] Applicable rebate deadline, eligibility and required documents verified; record a submission only with authorization and receipt
 
 ### Pickup-truck buyer
 
 Pre-arrival (cross-ref `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics`):
-- [ ] Factory tow package verified at delivery via VIN decode + door-jamb option codes (Ford 53A/535, Ram AHT, GM NHT, Toyota tow prep)
-- [ ] Real tow capacity matches buyer's stated use case (engine x axle x package per section 1)
-- [ ] Payload capacity NOT exceeded by buyer's actual use (tongue + passenger + gear math per section 3)
-- [ ] PPI included pickup-specific items: frame, transmission cooler, hitch wear, body mounts, exhaust manifold (V8), turbo seals (EcoBoost)
+- [ ] Exact VIN/configuration, OEM build information and tow equipment verified against [load/configuration requirements](../orchestrator/references/vertical_playbooks.md#1-establish-the-load-and-configuration)
+- [ ] Loaded towing and payload plan checked against all OEM vehicle, axle, hitch and trailer limits, with passengers/gear/tongue weight included
+- [ ] Door labels and relevant OEM towing documents retained; no towing approval from a model name or advertisement alone
+- [ ] Mechanic's PPI scope addresses frame/corrosion, suspension, drivetrain and towing equipment for this specific vehicle
 
 On-site:
 - [ ] Factory vs aftermarket hitch distinction confirmed in writing
-- [ ] Integrated trailer brake controller functional test (dash-mounted gain knob; green LED on 7-pin connect)
-- [ ] No ex-plow / ex-fleet posture concealed (CARFAX commercial fleet = $1-2k off; plow prep = $1.5-3k off)
-- [ ] Lift kit / oversized tires inspected for warranty + insurance impact (per section 6)
+- [ ] Brake controller, wiring and hitch assessed using the applicable OEM procedure
+- [ ] Commercial, plow and towing history checked; condition and value assessed from records/PPI without default discounts
+- [ ] Modifications evaluated for load limits, warranty and insurance implications using [equipment and inspection guidance](../orchestrator/references/vertical_playbooks.md#3-factory-equipment-modifications-and-inspection)
 
-Quick PPI items (frame / suspension / tow wear): frame (no rust-through, no welds outside factory locations, no bent crossmembers); suspension under-load (no clunk on speed bump, no sag past load index); tow wear (hitch ball threads, 7-pin pin corrosion, wiring harness chafe). Post-close: record door-jamb payload number for future tow planning.
+Record the mechanic's findings on frame repairs/corrosion, suspension and towing
+wear rather than inferring a diagnosis from a brief drive. Retain labels and OEM
+documents for future load planning. See [pickup handoff](../orchestrator/references/vertical_playbooks.md#5-pickup-decision-and-handoff).
 
-## F&I Hard-No Verbatim Script (gotcha P3)
+## F&I refusal script
+
+Use a signed-agreement claim only when that agreement exists and supports it.
+Otherwise state the buyer's current requested terms without inventing an agreement.
 
 Read verbatim or hand printed copy at the F&I (Finance & Insurance) desk when add-ons are pitched after the OTD is locked in writing. Plain ASCII, NO markdown:
 
@@ -182,24 +207,18 @@ not agreed to.
 {BUYER_NAME}
 ```
 
-### Verbatim Refusal Script (buyer-spoken language)
+### Buyer-language refusal preparation
 
-**Spoken-only carve-out.** The two scripts above are the dealer-facing baseline:
-English + ASCII, fine to print and hand across the desk or paste into email. A buyer
-who is more fluent in Spanish or Chinese may instead *say the refusal out loud* in
-their own language, spoken words are the agent-to-buyer surface, not a dealer
-artifact. The hard rule still holds for everything WRITTEN or EMAILED to the dealer:
-English + ASCII only (Critical Rule #1). Do NOT print these translations, do NOT
-paste them into a Gmail draft, do NOT hand them to F&I as a document. Read aloud only.
-See `../orchestrator/SKILL.md` § Language and Audience Separation, the authoritative statement.
+The scripts below are optional preparation for the buyer. Use a signed-agreement
+claim only if that agreement actually exists and says what the script asserts.
+Otherwise state the buyer's present terms without inventing a prior commitment.
+Have the buyer review the wording and desired response before any external use.
+Written messages use [dealer-reply-drafter](../dealer-reply-drafter/SKILL.md);
+unsupported languages need an explicitly reviewed alternative.
 
-Load-bearing F&I terms below were checked against real US-Spanish-market usage, not
-literal-translated. Still: have a native speaker or Codex review the phrasing before a
-buyer relies on it at the desk.
+Translation status: draft terminology for contextual review.
 
-> Translation status: DRAFT, pending Codex / native-speaker review.
-
-**Add-on name glossary (US Spanish market, verified usage):**
+**Add-on name glossary:**
 
 | English (source of truth) | Spanish (spoken) | Note |
 |---|---|---|
@@ -279,9 +298,12 @@ $1,296,不是小数目。我拒绝。
 {BUYER_NAME}
 ```
 
-### Pre-close-day heads-up email (send to GM ~24h before close)
+### Prepare a close-day heads-up draft
 
-Pre-empts most close-day F&I friction. Full template in `../orchestrator/assets/dealer_reply_template.md` section Pre-Close-Day F&I Heads-Up Email. Key elements:
+If useful, prepare the specific recipient and content with
+[dealer-reply-drafter](../dealer-reply-drafter/SKILL.md) and its
+[executable template contract](../orchestrator/assets/dealer_reply_template.md#executable-plan).
+Send only within existing authorization; retain the provider receipt. Include:
 
 - Confirm locked OTD with agreement date
 - Decline list (GAP, VSC, tire-and-wheel, paint, key, nitrogen, dent/ding)
@@ -291,22 +313,36 @@ Pre-empts most close-day F&I friction. Full template in `../orchestrator/assets/
 
 | Need | Open |
 |---|---|
-| Full Phase 9 detail (all 5 buyer types) | `../orchestrator/references/phases.md#phase-9-close` |
+| Buyer-type close checklists | [Checklists on this page](#sub-checklist-by-buyer-type) |
+| Workflow handoff | [Phase 9](../orchestrator/references/phases.md#phase-9-close) |
+| Price ladder, visit questions, decision matrix and backup | [Private visit preparation](../orchestrator/assets/negotiation_prep_template.md) |
 | Lien payoff full workflow | `../orchestrator/references/trade_in.md` section 4a-4d |
 | EV federal credit status (§30D/§25E/§45W all TERMINATED 2025-09-30, historical) + live state rebates | `../orchestrator/references/ev_buyer_playbook.md` section 1; `ev-buyer-helper` CRITICAL banner |
-| Pickup-specific PPI items | `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics` section 4 |
-| State-fee leak detection ("Does NOT have") | `../orchestrator/references/state_fees.md` section Tri-State / New England detail stubs (gotcha D8) |
-| F&I hard-no full text + reframe | `../orchestrator/assets/dealer_reply_template.md` section Close-Day F&I Hard-No |
+| Pickup-specific PPI items | [Equipment and inspection](../orchestrator/references/vertical_playbooks.md#3-factory-equipment-modifications-and-inspection) |
+| Applicable tax and fees | [State fee lookup](../state-fee-lookup/SKILL.md) and [review rules](../orchestrator/references/state_fees.md#review-rules) |
+| F&I refusal preparation | [Script on this page](#fi-refusal-script) and [buyer-language preparation](#buyer-language-refusal-preparation) |
 | Financing close-day instruments | `../orchestrator/references/payment_methods.md` |
 | CPO enrollment at close | per-OEM CPO programs in `../orchestrator/references/` (subaru_cpo_program.md, honda_cpo_program.md, etc.) |
-| HD pickup / commercial van / luxury close routing | `../orchestrator/references/vertical_playbooks.md#part-2-heavy--commercial--luxury` section 6 |
+| HD pickup / commercial van / luxury close routing | [Close-day routing](../orchestrator/references/vertical_playbooks.md#6-quick-reference-phase-9-close-day-routing) |
 | Lease-end options | `../orchestrator/references/lease_playbook.md` section Lease-end options |
 
 ## Stop Conditions
 
-- All buyer-type-relevant boxes checked + F&I script in hand -> buyer is ready to drive to dealer
-- Any pre-arrival item unchecked -> STOP, resolve before close (do NOT proceed without cashier's check ready or insurance binder issued)
-- F&I refuses to remove add-ons after hard-no script + reframe -> exit per script; the deal is dead, not negotiable
-- Trade lien payoff not confirmed by Day 14 -> escalate per `../orchestrator/references/trade_in.md` section 5
+- A visit may proceed with a clear inspection purpose and recorded open questions;
+  unresolved material terms or inspection concerns block a purchase recommendation.
+- Before signing or paying, resolve the applicable funding, insurance, title,
+  vehicle and contract requirements with evidence. The buyer makes the decision.
+- If the seller changes terms or refuses an agreed condition, update the private
+  decision matrix and compare alternatives. Do not accept or send a counter automatically.
+- For a missed payoff milestone, prepare a documented follow-up under the existing
+  authorization and lender instructions; never report a lien released without proof.
+
+## Deliverable
+
+Return the updated private visit-preparation path, completed/relevant checklist,
+unresolved questions, document references and next authorized action. After a visit,
+record actual findings and the buyer's decision, and refresh the buyer research
+HTML/PDF when the conclusion changes. Distinguish prepared, booked, inspected,
+signed and collected using the evidence for each state.
 
 When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.

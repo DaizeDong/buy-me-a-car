@@ -1,15 +1,55 @@
 ---
 name: dossier-builder
-description: Use to generate an evidence-based HTML and PDF market-research dossier for a dealer visit. Triggers include "build dossier", "generate market research PDF", "dealer dossier", "decision document", "make dossier for dealer", "生成 dossier", "制作 PDF", "generar el dossier para el concesionario", and "crear el PDF de investigacion de mercado".
+description: Generate complete buyer research reports and dealer proposals as HTML and PDF. Use for vehicle comparisons, market research, shortlists and default report delivery during a car-buying workflow. Triggers include "build dossier", "generate market research PDF", "dealer dossier", "decision document", "make dossier for dealer", "生成 dossier", "制作 PDF", "完整购车报告", "generar el dossier para el concesionario", and "crear el PDF de investigacion de mercado".
 ---
 
 # Decision Dossier Builder
 
-Build a purchase proposal from dated source records, a complete set of competing
-quotes, and an itemized offer. The generator checks arithmetic, required fields,
-source dates, and stored evidence integrity. It cannot determine whether the
-source actually supports a claim or whether a dealer still honors its terms.
-Read each source before describing a claim as supported.
+Deliver the buying report from the evidence already collected. A broad buying
+workflow includes this artifact without a separate request for detail or a PDF.
+The agent prepares the config; do not ask the buyer to populate schema fields.
+
+## Choose the document purpose first
+
+| Purpose | Generator | Evidence needed |
+|---|---|---|
+| Buyer research and shortlisting | `generate_research_report.py` | Dated source coverage, candidate listings, analysis and explicit unknowns. Zero written dealer quotes is allowed. |
+| Dealer-facing purchase proposal | `generate_dossier.py` | Complete competing written OTD quotes, supported facts and an itemized authorized proposal. |
+
+The first is the default during market research. The second is a later outward
+document. Do not make the proposal's two-quote or complete-fee requirement block
+useful research. Both have separate demo/live privacy modes; research versus
+proposal is not the same choice as synthetic versus real data.
+
+## Generate the buyer research packet
+
+Follow [report delivery](../orchestrator/references/report_delivery.md). Reuse the
+current private cycle, criteria and captured evidence. Produce substantive
+comparisons, configuration tradeoffs, delivered-cost uncertainties, suitability,
+ownership risks, shortlist rationale and next actions, rather than a long intake
+questionnaire or validation log. Use the
+[research schema](references/research_schema.md) to assemble structured input.
+
+```sh
+python skills/orchestrator/scripts/generate_research_report.py --mode live --config cycles/session/research_config.json --output cycles/session/buyer_research.html --to-pdf cycles/session/buyer_research.pdf
+```
+
+Live relative paths resolve under verified private DATA. Keep
+`master_comparison.md` alongside the report. When a scenario has fictional buyer
+criteria but real source observations, use live private storage and label every
+fictional criterion as an assumption; never turn observed inventory into public
+demo fixtures. List asking prices as asking prices, leave missing fees unknown,
+and explain what evidence would change the shortlist.
+
+Inspect every generated PDF page and the substance checklist before delivering
+the HTML/PDF links. Do not request extra permission to render local artifacts
+already implied by the buying task. Source/PDF problems must be visible; preserve
+useful partial work and resolve the remaining dependency where possible.
+
+The remainder of this document describes the stricter dealer proposal.
+Its generator checks arithmetic, required fields, source dates and evidence
+integrity. Those checks cannot determine whether a source supports a claim or
+whether a dealer still honors its terms. Read the sources before making claims.
 
 ## Choose the mode
 

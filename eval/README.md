@@ -33,6 +33,11 @@ The functional CI runs the offline checks on Windows and Ubuntu.
   synthetic fixture reproduction.
 - Model harness tests inject synthetic provider responses to test receipts,
   validation and failure handling. They do not measure a model's response quality.
+- Research report regressions exercise the actual renderer with incomplete costs,
+  zero quotes, duplicate VIN observations, source integrity and required topics.
+  Section coverage and successful rendering alone do not establish analytical
+  quality; actual reports still require content review and inspection of every
+  PDF page.
 
 ## Actual model evaluations
 
@@ -70,6 +75,49 @@ routing/defaults and no model pin. It saves an uncertain receipt before each
 call and never retries an uncertain execution. Missing capability or uncertain
 execution exits 2; invalid output or a failed criterion exits 1; passing checks
 exit 0. Without `--llm`, model behavior is explicitly NOT RUN.
+
+## Research report delivery acceptance
+
+The response scenarios above do not generate a research report. To test the
+delivery path after actual source collection, the agent prepares a private
+packet with `user_prompt`, `research_data` and `notes`, then runs:
+
+```sh
+python eval/run_report_pipeline.py --packet dossiers/example/pipeline_packet.json --llm -v
+```
+
+`research_data` uses the [research schema](../skills/dossier-builder/references/research_schema.md)
+without `title`, `decision_summary` or `sections`. All source captures must already
+have verified private artifact paths and hashes. Keep the user prompt as the
+ordinary buying request; do not add an expansion or PDF request for this test.
+
+The planner reads the shipped workflow and selects the default deliverables.
+Three independent topic writers receive compact records and generate the
+analysis in parallel, each with its own receipt. Missing or uncertain batches
+prevent a success claim. The runner preserves all supplied facts and invokes the production
+HTML/PDF renderer, verifies that the analysis appears in both artifacts, then a
+separate model reviews its decision value and consistency with the supplied
+packet. This model review does not independently re-read captured originals.
+The runner records artifacts, hashes and write-ahead receipts
+in a unique private run. Existing or uncertain work cannot silently replay.
+
+If all writing finished and a known rendering check failed before review, repair
+and reverify the deterministic artifacts, then resume only the first review:
+
+```sh
+python eval/run_report_pipeline.py --resume-review eval/model-runs/report-example --llm -v
+```
+
+Resume requires unchanged config/packet evidence and successful, hash-matching
+planner/writer receipts. It binds the analysis and candidate identities to HTML,
+PDF and Markdown again, preserves the prior failure, and refuses any run with an
+existing review attempt. It does not replay a model call or regenerate files.
+
+This is a bounded test of synthesis and delivery after research. It does not
+establish automatic host skill discovery, autonomous source collection, visual
+PDF quality or purchase outcomes. Independently inspect every PDF page and
+check the selected source records. Synthetic harness tests only establish the
+runner's acceptance and failure behavior.
 
 ## Synthetic inputs
 

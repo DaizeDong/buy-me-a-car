@@ -50,7 +50,8 @@
     "examples/09_alaska_pickup.md",
     "skills/orchestrator/assets/dossier_config_template.yaml",
     "skills/orchestrator/assets/dossier_config_template_cn.yaml",
-    "skills/orchestrator/assets/dossier_config_template_es.yaml"
+    "skills/orchestrator/assets/dossier_config_template_es.yaml",
+    "skills/orchestrator/assets/research_report_config_template.json"
   ],
   "tool": [
     "docs/superpowers/plans/*"
