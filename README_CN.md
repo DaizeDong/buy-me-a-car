@@ -86,6 +86,9 @@ python eval/test_rubric.py
 离线检查验证程序规则。另行运行 `python eval/test_rubric.py --llm` 才会通过本机 `llmcall` 实际调用模型并独立复核，
 完整输入与回执写入私有 DATA。超时、不可用或失败不能算通过，结果不确定的调用不能自动重放。
 
+`python eval/run_scenarios.py --llm` 会测试“阿拉斯加买皮卡”及税费、拖挂能力追问的实际中文回答，
+并另行调用模型评审。测试范围与结果说明见[评测文档](eval/README.md)。
+
 PDF 的 demo 模式只接受生成器产出的合成配置；真实档案必须用
 [live 模式](skills/dossier-builder/SKILL.md)，提供完整报价与实际证据。
 每次都要逐页查看最终 PDF，页数由内容决定。
@@ -96,6 +99,6 @@ PDF 的 demo 模式只接受生成器产出的合成配置；真实档案必须�
 车源、补贴、保修和税费规则都可能变化，需要当前证据。
 
 三种语言的档案模板只翻译固定标签，不会自动翻译任意输入段落。
-经销商回信渲染器当前只支持 ASCII 英文。[八个场景](examples/README.md)都是合成输入和预期行为，不是成交记录。
+经销商回信渲染器当前只支持 ASCII 英文。[九个场景](examples/README.md)都是合成输入和预期行为，不是成交记录。
 
 MIT，见 [LICENSE](LICENSE) 和 [CHANGELOG.md](CHANGELOG.md)。

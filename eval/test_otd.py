@@ -53,6 +53,14 @@ class ProductionStateTests(unittest.TestCase):
             with self.subTest(state=state), self.assertRaisesRegex(ValueError, "unsupported"):
                 otd.compute_state_otd(30000, 100, state, 50, 100, today=REVIEW_DATE)
 
+    def test_alaska_zero_state_rate_does_not_support_an_otd(self):
+        for local_rate in (None, "0", "0.05"):
+            for calculate in (otd.compute_state_otd, otd.reverse_state_otd):
+                with self.subTest(local_rate=local_rate, calculation=calculate.__name__):
+                    with self.assertRaisesRegex(ValueError, "AK calculation unsupported"):
+                        calculate(30000, 100, "AK", 50, 100,
+                                  local_rate=local_rate, today=REVIEW_DATE)
+
     def test_variable_fees_must_be_explicit(self):
         with self.assertRaisesRegex(ValueError, "--title and --reg"):
             otd.compute_state_otd(30000, 800, "MD", today=REVIEW_DATE)
@@ -116,6 +124,17 @@ class ProductionStateTests(unittest.TestCase):
 
 
 class GenericAndCliTests(unittest.TestCase):
+    def test_alaska_cli_refuses_a_state_total_with_explicit_zero_local_tax(self):
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), "--sales", "30000", "--forward",
+             "--state", "AK", "--local", "0", "--title", "50", "--reg", "100", "--json"],
+            capture_output=True, text=True,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("AK calculation unsupported", result.stderr)
+        self.assertEqual(result.stdout.strip(), "")
+        self.assertNotIn("Traceback", result.stderr)
+
     def test_generic_reverse_rounding_cannot_overspend(self):
         result = otd.reverse_otd("100.01", "1.99", "0.06625", 1, 1)
         self.assertLessEqual(result["otd"], Decimal("100.01"))
