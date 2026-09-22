@@ -30,6 +30,7 @@
     "*_dossier.pdf"
   ],
   "fixture": [
+    "eval/fixtures/alaska_pickup.json",
     "eval/fixtures/inventory.json",
     "eval/fixtures/leak_quotes/D10_bait_switch.md",
     "eval/fixtures/leak_quotes/D8_ct_tire_fee.md",
@@ -46,6 +47,7 @@
     "examples/06_lease_glc_ny.md",
     "examples/07_private_party_civic_nj.md",
     "examples/08_cpo_grand_cherokee_stellantis_tx.md",
+    "examples/09_alaska_pickup.md",
     "skills/orchestrator/assets/dossier_config_template.yaml",
     "skills/orchestrator/assets/dossier_config_template_cn.yaml",
     "skills/orchestrator/assets/dossier_config_template_es.yaml"

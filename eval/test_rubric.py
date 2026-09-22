@@ -156,9 +156,11 @@ def run_llm_cases(result: Result, verbose=False, *, caller=None, report_path=Non
     resolves its output through runtime_paths before calling any model.
     """
     from inbox_state import _locked, atomic_write
-    from tools.runtime_paths import data_path
+    from tools.runtime_paths import data_path, validate_data_path
 
     if caller is None:
+        if report_path is not None:
+            report_path = validate_data_path(report_path, for_write=True)
         try:
             import llmcall
         except ImportError:

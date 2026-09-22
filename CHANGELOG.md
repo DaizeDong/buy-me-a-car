@@ -13,6 +13,7 @@ All notable changes to this project are documented here (Keep a Changelog style)
 - All sixteen skills have an idempotent installer and readiness checks. Business tests now run in Windows/Linux CI, alongside existing guards.
 - Browser extraction keeps card identity and prices together and reports incomplete fields and partial coverage. Removed unsupported savings, timing, site-access and fixed-page-count claims.
 - Model evaluation now executes real tasks and a fresh-context review; registered skill names map explicitly to implementation directories.
+- Added generated Alaska pickup response scenarios, private model/reviewer receipts and explicit AK calculation-refusal regressions. Pickup guidance now requires actual loaded weights and exact manufacturer limits; remote sourcing includes transport and winter requirements.
 
 ## [0.2.2] - 2026-05-19
 ### Changed

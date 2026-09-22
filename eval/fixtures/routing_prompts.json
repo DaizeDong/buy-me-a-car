@@ -202,6 +202,15 @@
         "otd-calculator"
       ],
       "note": "Synthetic bilingual or narrowly ambiguous request."
+    },
+    {
+      "id": "R21",
+      "prompt": "我在阿拉斯加，想买辆皮卡，帮我开始选车。",
+      "expected_skill": "orchestrator",
+      "acceptable_skills": [
+        "orchestrator"
+      ],
+      "note": "Synthetic bilingual or narrowly ambiguous request."
     }
   ]
 }

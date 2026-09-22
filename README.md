@@ -148,6 +148,10 @@ separately runs actual model tasks and fresh-context review through installed
 failed or timed-out model work is reported as such, never counted as a pass.
 Do not retry an uncertain execution without reconciliation.
 
+`python eval/run_scenarios.py --llm` tests actual Chinese responses to an Alaska
+pickup purchase and a tax/towing follow-up, using a separate reviewer. See
+[evaluation instructions](eval/README.md) for scope and result interpretation.
+
 Functional CI covers the business tests on Windows and Linux. Existing PII/data
 and style workflows remain in place. Fixtures and local regressions do not test
 live email delivery, real tax-office acceptance, or negotiation success.
@@ -163,7 +167,7 @@ EN/CN/ES dossier layouts are available. Localized fixed labels do not translate
 arbitrary user prose, and translations need contextual review. The shipped
 dealer-email renderer supports ASCII English.
 
-The eight [scenarios](examples/README.md) are generated synthetic inputs and
+The nine [scenarios](examples/README.md) are generated synthetic inputs and
 expected behaviors. They contain no measured purchase outcomes. No savings,
 response-time, site-access or fixed-page-count guarantee is made.
 
