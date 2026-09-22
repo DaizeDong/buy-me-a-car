@@ -4,6 +4,24 @@ Begin in a verified private cycle directory. All capture paths in these phases
 refer to that directory. The source repository contains only the tool and
 generated synthetic fixtures.
 
+## Phase 2: Market baseline
+
+Reuse the saved criteria and facts already supplied by the buyer. Group missing
+decisions that materially change the search into one short clarification. Continue
+independent research while those answers are pending. Unknown fees, financing,
+transport costs or written quotes do not prevent a useful initial market report.
+
+Read [deal sources](deal_data_sources.md). Establish the comparison class, search
+area, observation date and budget basis before comparing amounts. Gather current
+listings, applicable manufacturer offers and official specification, warranty and
+tax sources. Retain source artifacts and distinguish asking prices, conditional
+advertisements, estimates, owner reports and written OTD offers.
+
+The default result of Phases 2 and 3 is a buyer-facing research package, including
+HTML and PDF, described below. A request to help buy a car includes preparing that
+package once the research is ready; do not wait for a second request to expand the
+analysis or generate the PDF. It does not authorize seller contact or purchases.
+
 ## Phase 3: Inventory
 
 Run independent site research in parallel when tools permit, assigning one owner
@@ -31,9 +49,48 @@ pages for shortlisted candidates to verify identity and availability. Deduplicat
 by normalized VIN while retaining multiple sources and conflicting dealer/price
 claims. Missing VIN records remain separate candidates, not guessed duplicates.
 
-Return a source coverage table followed by the candidate table. Keep new, used,
-CPO, private-seller and lease offers distinguishable. Read
-[deal sources](deal_data_sources.md) for evidence classes.
+### Research package
+
+Synthesize the source returns into `master_comparison.md` in the private cycle
+directory. Preserve the criteria revision and research date at the top. Include
+the following sections in order:
+
+1. **Source coverage and capability table.** For each source, show its query and
+   filters, retrieval date, pages inspected, unique relevant candidates, coverage
+   status, limitations and artifact references. Explain its observed role in this
+   search, such as inventory, manufacturer terms or owner-reported context.
+2. **Candidate comparison table.** Identify each candidate by VIN or stock ID,
+   year/model/trim, mileage, drivetrain, seller/location and listing URL. Include
+   asking price, price basis and conditions, available written OTD, delivery costs,
+   key equipment, history/CPO status and evidence gaps. Split wide tables for
+   readability. Keep new, used, CPO, private-seller and lease entries distinguishable.
+3. **Supported comparative analysis.** Explain material price, equipment,
+   condition, warranty, running-cost and availability differences. Show acquisition
+   cost components with sources and assumptions; mark missing components unknown.
+   If a range is justified, show its inputs. Never relabel an incomplete subtotal
+   as a final OTD or an asking-price difference as a verified saving. Compute
+   statistics only over the described, deduplicated sample with comparable terms.
+4. **Shortlist and alternatives.** Recommend candidates that fit the buyer's known
+   needs, explain each inclusion and exclusion, and state which unanswered facts
+   could change the ranking. Separate vehicle suitability from affordability when
+   either is unconfirmed. Do not manufacture a minimum number of candidates.
+5. **Open questions and next actions.** Prioritize the evidence needed before a
+   visit or decision, with a source or person to check and the decision it affects.
+   Distinguish research that can continue now from contact requiring authorization.
+
+Use [dossier-builder](../../dossier-builder/SKILL.md) to produce the buyer research
+HTML and PDF from this evidence, by default `buyer_research.html` and
+`buyer_research.pdf` in the same private cycle. Follow its current research schema
+and CLI rather than copying a dealer-proposal config. Research does not require
+two written OTD quotes. Show missing quotes and costs as gaps while delivering the
+supported analysis. A dealer proposal has a separate, stricter evidence contract.
+
+Inspect every PDF page for clipping, readable tables, useful comparisons and
+consistent source references. Return links to the Markdown, HTML and PDF with the
+shortlist conclusion and material limitations. If rendering fails, deliver the
+available research files and report the PDF failure explicitly; the full package
+remains incomplete until a valid PDF is available. A routing or acceptance-test
+receipt is not this buyer deliverable.
 
 ## Phase 4: Outreach
 
@@ -74,6 +131,12 @@ The constrained renderer selects approved ask and evidence IDs and an explicitly
 authorized outward offer. Draft validation and external operation receipts are
 separate gates.
 
+Prepare the buyer's private visit notes using
+[negotiation preparation](../assets/negotiation_prep_template.md). Record the
+evidence behind the price ladder, candidate-specific inspection questions,
+possible dealer responses and the backup plan. Proposed targets are internal
+planning until the buyer authorizes an outward offer.
+
 ## Phase 7: PDF
 
 Read [PDF checklist](pdf_review_checklist.md). Extract all pages and tables from
@@ -84,10 +147,13 @@ cannot replace an independent mechanical inspection.
 
 ## Phase 8: Dossier
 
-Follow [dossier-builder](../../dossier-builder/SKILL.md) for the current schema
-and CLI. Do not maintain a second field list here. Live mode requires private
+Update the buyer research package as new quotes and inspection results arrive.
+When preparing a dealer-facing purchase proposal, follow
+[dossier-builder](../../dossier-builder/SKILL.md) for its current schema and CLI.
+Do not maintain a second field list here. A live dealer proposal requires private
 input/output, complete written quotes, evidence artifacts and consistent amounts.
-Demo mode accepts exact generated fixtures only.
+That requirement does not delay the earlier buyer research report. Demo mode
+accepts exact generated fixtures only.
 
 Review every PDF page after generation, including tables, headers, long text and
 sources. Report actual page count and language. No fixed page count is promised.
@@ -98,6 +164,8 @@ Keep private limits and internal negotiation notes out of the dealer document.
 Use [close-day checklist](../../close-day-checklist/SKILL.md) and the confirmed
 private criteria revision. Reconfirm VIN, availability, inspection result,
 written OTD, lender terms, title/lien process, insurance and payment logistics.
+Bring the current private [visit preparation](../assets/negotiation_prep_template.md)
+and update it with the test-drive findings before making a purchase decision.
 
 Review the final buyer's order and finance/lease contract line by line. Resolve
 added charges or changed terms before signing. For an inspection issue, record

@@ -26,6 +26,13 @@ from tools import runtime_paths
 
 
 class DossierRegressionTests(unittest.TestCase):
+    def test_empty_analysis_cannot_masquerade_as_a_complete_proposal(self):
+        for key in ('EXEC_SUMMARY_PARAGRAPH_1', 'TRIM_ANALYSIS_PARA', 'INTERNAL_ANCHOR_PARA'):
+            with self.subTest(key=key):
+                config = demo_config()
+                config[key] = '   '
+                self.assertTrue(any(key in error for error in dossier.validate_config_sanity(config)))
+
     def test_inconsistent_offer_is_rejected(self):
         config = demo_config()
         config.update(PROPOSED_SALES="1", TAX_AMOUNT="999999", TARGET_OTD="30000")

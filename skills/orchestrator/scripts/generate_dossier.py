@@ -91,6 +91,9 @@ MONEY_KEYS = ("PROPOSED_SALES", "TARGET_OTD", "ASK_OTD", "TAX_BASE", "TAX_AMOUNT
 RESERVED_KEYS = {"QUOTE_ROWS", "EVIDENCE_ROWS", "NUM_COMPETING_OFFERS", "DOSSIER_NOTICE", "PAGE_NOTICE_CSS"}
 PROPOSAL_KEYS = {"TITLE", "DATE", "DOSSIER_MODE", "SYNTHETIC", "LANGUAGE", "TARGET_OTD", "PROPOSED_SALES"}
 EVIDENCE_KINDS = {"dealer_quote", "listing", "official", "buyer_statement"}
+ANALYSIS_KEYS = ("EXEC_SUMMARY_PARAGRAPH_1", "EXEC_SUMMARY_PARAGRAPH_2",
+                 "SUPPORT_POINT_1", "SUPPORT_POINT_2", "SUPPORT_POINT_3", "SUPPORT_POINT_4",
+                 "TRIM_ANALYSIS_PARA", "INTERNAL_ANCHOR_PARA", "CLOSING_PARAGRAPH")
 
 
 def _private_path(path, *, for_write=False):
@@ -156,6 +159,10 @@ def validate_config_sanity(config, *, today=None):
         val = config.get(k)
         if val is None or not str(val).strip():
             errors.append(f"missing or empty load-bearing field: {k}")
+    for key in ANALYSIS_KEYS:
+        value = config.get(key)
+        if not isinstance(value, str) or not value.strip():
+            errors.append(f"missing or empty analysis: {key}")
     for key in config:
         if key in RESERVED_KEYS or key.startswith("COMP_") or key.startswith("SOURCE_LINK_"):
             errors.append(f"{key} is derived; use QUOTES and EVIDENCE")

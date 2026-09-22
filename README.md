@@ -1,7 +1,11 @@
 # buy-me-a-car
 
 A set of 16 skills for researching a US car purchase, comparing written offers,
-preparing dealer replies and reviewing a decision dossier. The repository ships
+preparing dealer replies and reviewing a decision dossier. A broad buying request
+includes a market comparison and buyer research HTML/PDF by default. The agent
+reuses known criteria and prepares the report input; buyers do not need to ask
+again for a longer report, request a PDF separately or fill a JSON template.
+The repository ships
 an uninitialized tool with generated synthetic examples. Real purchase records
 belong in a separate, verified private companion repository.
 
@@ -16,8 +20,14 @@ belong in a separate, verified private companion repository.
   authorized offer. The private maximum is kept separate.
 - Inbox imports retain stable account/message IDs, cursors and operation receipts.
   Interrupted or uncertain draft exports cannot be replayed silently.
-- Dossiers validate itemized amounts, quote completeness, evidence dates and hashes,
-  then generate escaped HTML and checked PDFs in English, Chinese or Spanish.
+- Buyer research reports cover requirements, search coverage, model alternatives,
+  listings, costs, suitability, winter use, ownership, recommendations, next steps
+  and sources. Missing quotes and unknown costs remain visible. The current
+  research renderer supports Chinese; dealer proposals support English, Chinese
+  and Spanish and retain their complete-quote requirements.
+- Report generation validates evidence dates and hashes, escapes inserted text
+  and checks PDF output. Source archives establish what was captured, not whether
+  a listing is still available or a seller's claims are true.
 - Installation registers all 16 skills, detects conflicts before applying, and
   works through Windows directory junctions.
 - Public fixtures can be regenerated; real inputs and outputs must resolve into
@@ -96,8 +106,14 @@ Supported profiles expire when their evidence becomes stale. See
 `--estimate` performs explicitly requested generic algebra and cannot establish
 jurisdictional correctness.
 
-Generate a synthetic dossier outside the public repository; replace the temporary
+Generate a synthetic research report outside the public repository; replace the temporary
 path with an actual system temporary directory:
+
+```sh
+python skills/orchestrator/scripts/generate_research_report.py --mode demo --config skills/orchestrator/assets/research_report_config_template.json --output <temporary-directory>/research.html --to-pdf <temporary-directory>/research.pdf
+```
+
+For an outward dealer proposal supported by complete written quotes:
 
 ```sh
 python skills/orchestrator/scripts/generate_dossier.py --mode demo --config skills/orchestrator/assets/dossier_config_template.yaml --output <temporary-directory>/demo.html --to-pdf <temporary-directory>/demo.pdf
@@ -105,7 +121,9 @@ python skills/orchestrator/scripts/generate_dossier.py --mode demo --config skil
 
 Demo mode accepts exact generated fixtures only. Real input uses
 [dossier live mode](skills/dossier-builder/SKILL.md), private source artifacts and
-complete evidence. Inspect every PDF page; page count depends on the content.
+the evidence required for that document type. Inspect every PDF page; page count
+depends on the content. See the [default delivery workflow](skills/orchestrator/references/report_delivery.md)
+for how one buying request becomes a private comparison, HTML and PDF package.
 
 ## Skills and routing
 
