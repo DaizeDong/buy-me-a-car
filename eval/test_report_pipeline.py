@@ -62,16 +62,16 @@ class ReportPipelineTests(unittest.TestCase):
             for key in pipeline.GATES}}
 
     @staticmethod
-    def response(value, error=None):
+    def response(value, error=None, *, raw=False):
         class Response(str):
             pass
-        response = Response(json.dumps(value))
+        response = Response(value if raw else json.dumps(value))
         response.provider = "synthetic-harness"
         response.error = error
         return response
 
     def run_case(self, responses, *, render_mode="success", writer_overrides=None, concurrent=False,
-                 continue_from=None):
+                 continue_from=None, continue_review_from=None, reconciliation_path=None):
         calls, renders = [], []
         extracted_pdf = []
         lock = Lock()
@@ -133,14 +133,24 @@ class ReportPipelineTests(unittest.TestCase):
         with redirect_stdout(io.StringIO()), ExitStack() as stack:
             if render_mode != "corrupt_pdf":
                 verifier = stack.enter_context(patch.object(pipeline, "_verify_pdf", return_value=1))
-                extractor = stack.enter_context(patch.object(pipeline, "_pdf_text", side_effect=lambda path: extracted_pdf[0]))
-            if continue_from is None:
+                def pdf_text(path):
+                    if continue_review_from and path.parent == continue_review_from:
+                        config = json.loads((continue_review_from / "research_config.json").read_text(encoding="utf-8"))
+                        return "\n".join([pipeline.LIVE_NOTICE, *pipeline.analysis_strings(config), *pipeline.candidate_strings(config)])
+                    return extracted_pdf[0]
+                extractor = stack.enter_context(patch.object(pipeline, "_pdf_text", side_effect=pdf_text))
+            if continue_review_from is not None:
+                output = pipeline.continue_review(result, continue_review_from, caller=caller, renderer=renderer,
+                                                 output_dir=self.output, reconciliation_path=reconciliation_path)
+            elif continue_from is None:
                 output = pipeline.run(result, self.packet_path, caller=caller, renderer=renderer, output_dir=self.output)
             else:
                 output = pipeline.continue_writers(result, continue_from, caller=caller, renderer=renderer, output_dir=self.output)
             if render_mode == "success" and renders:
-                verifier.assert_called_once_with(self.output / "buyer_research.pdf", expected_notice=pipeline.LIVE_NOTICE)
-                extractor.assert_called_once_with(self.output / "buyer_research.pdf")
+                self.assertEqual(verifier.call_count, 2 if continue_review_from else 1)
+                self.assertEqual(extractor.call_count, 2 if continue_review_from else 1)
+                verifier.assert_called_with(self.output / "buyer_research.pdf", expected_notice=pipeline.LIVE_NOTICE)
+                extractor.assert_called_with(self.output / "buyer_research.pdf")
         self.assertEqual(output, self.output)
         return result, calls, renders, json.loads(self.receipt.read_text(encoding="utf-8"))
 
@@ -646,6 +656,248 @@ class ReportPipelineTests(unittest.TestCase):
             with self.subTest(unsafe=unsafe), self.assertRaisesRegex(ValueError, "separate_from_parent"):
                 pipeline.continue_writers(Result(), parent, output_dir=unsafe,
                                           caller=lambda *a, **k: self.fail("must not call"))
+
+    def prepare_uncertain_review(self):
+        result, calls, renders, receipt = self.run_case([
+            self.response(self.actor), self.response("", error="timeout", raw=True)])
+        self.assertEqual(receipt["status"], "review_uncertain")
+        self.assertEqual(receipt["review"]["text"], "")
+        self.assertEqual(result.exit_code, 2)
+        parent = self.output
+        self.output = self.private / "eval" / "report-review-continuation"
+        self.receipt = self.output / "receipt.json"
+        return parent, receipt
+
+    def test_review_continuation_reuses_all_stages_rerenders_and_preserves_parent(self):
+        parent, previous = self.prepare_uncertain_review()
+        original_files = {path: path.read_bytes() for path in parent.iterdir() if path.is_file()}
+        result, calls, renders, receipt = self.run_case(
+            [AssertionError("must reuse actor"), self.response(self.review)], continue_review_from=parent,
+            writer_overrides={stage: AssertionError("must reuse writer") for stage in self.writers})
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual([call["stage"] for call in calls], ["review"])
+        self.assertEqual(len(renders), 1)
+        self.assertEqual(receipt["status"], "passed")
+        self.assertEqual(receipt["actor_execution"], "reused")
+        self.assertEqual(receipt["review_execution"], "fresh")
+        self.assertEqual(receipt["continuation"]["action"], "explicit_continue_review")
+        self.assertEqual(receipt["continuation"]["reused_stages"], ["actor", "writer_1", "writer_2", "writer_3"])
+        self.assertEqual(receipt["continuation"]["fresh_writers"], [])
+        self.assertEqual(receipt["continuation"]["parent_artifacts"], previous["artifacts"])
+        self.assertEqual(receipt["config_sha256"], previous["config_sha256"])
+        self.assertEqual(receipt["actor_prompt"], previous["actor_prompt"])
+        for stage in self.writers:
+            child = json.loads((self.output / (stage + ".json")).read_text(encoding="utf-8"))
+            original = json.loads(original_files[parent / (stage + ".json")])
+            self.assertEqual(child[stage + "_execution"], "reused")
+            self.assertEqual(child[stage], original[stage])
+            self.assertEqual(child[stage + "_prompt"], original[stage + "_prompt"])
+        self.assertEqual({path: path.read_bytes() for path in parent.iterdir() if path.is_file()}, original_files)
+        supplied = pipeline.prompt_input(calls[0]["prompt"])
+        self.assertEqual(set(supplied["gates"]), set(pipeline.GATES))
+        self.assertIn("one concise reason", calls[0]["prompt"])
+        self.assertIn("one short verbatim excerpt", calls[0]["prompt"])
+        claim = receipt["continuation"]["review_continuation_claim"]
+        claim_path = Path(claim["path"])
+        self.assertEqual(claim["sha256"], hashlib.sha256(claim_path.read_bytes()).hexdigest())
+        self.assertEqual(json.loads(claim_path.read_text(encoding="utf-8"))["child_run"], str(self.output))
+        self.output = self.private / "eval" / "report-repeated-review"
+        self.receipt = self.output / "receipt.json"
+        with self.assertRaisesRegex(ValueError, "parent_already_claimed"):
+            self.run_case([], continue_review_from=parent)
+        self.assertFalse(self.output.exists())
+
+    def prepare_legacy_review(self):
+        parent, previous = self.prepare_uncertain_review()
+        previous["review"].pop("text")
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        proof = {"schema_version": 1, "kind": "llmcall_zero_reply_reconciliation", "parent_run": str(parent),
+                 "parent_receipt_sha256": hashlib.sha256((parent / "receipt.json").read_bytes()).hexdigest(),
+                 "review_prompt_sha256": hashlib.sha256(previous["review_prompt"].encode("utf-8")).hexdigest(),
+                 "caller_exited": True, "response_text": "", "binding_method": "Synthetic operator reconciliation test.",
+                 "ledger_record": {"id": "synthetic-ledger-row", "mode": "agent", "ok": False,
+                                   "prompt_chars": len(previous["review_prompt"]), "reply_chars": 0, "error": "timeout"}}
+        path = self.private / "synthetic_review_reconciliation.json"
+        path.write_text(json.dumps(proof), encoding="utf-8")
+        return parent, previous, path, proof
+
+    def test_legacy_review_requires_explicit_bound_private_reconciliation(self):
+        parent, previous, path, proof = self.prepare_legacy_review()
+        with self.assertRaisesRegex(ValueError, "requires_zero_text_reconciliation"):
+            pipeline.continue_review(Result(), parent, output_dir=self.output)
+        before = {item: item.read_bytes() for item in parent.iterdir() if item.is_file()}
+        proof_bytes = path.read_bytes()
+        result, calls, renders, receipt = self.run_case(
+            [AssertionError("must reuse actor"), self.response(self.review)], continue_review_from=parent,
+            reconciliation_path=path)
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual([call["stage"] for call in calls], ["review"])
+        recorded = receipt["continuation"]["review_reconciliation"]
+        self.assertEqual(recorded["path"], str(path))
+        self.assertEqual(recorded["sha256"], hashlib.sha256(proof_bytes).hexdigest())
+        self.assertEqual(recorded["ledger_record_id"], proof["ledger_record"]["id"])
+        self.assertEqual(path.read_bytes(), proof_bytes)
+        self.assertEqual({item: item.read_bytes() for item in parent.iterdir() if item.is_file()}, before)
+
+    def test_legacy_review_reconciliation_rejects_wrong_hashes_or_nonzero_uncertain_evidence(self):
+        parent, previous, path, proof = self.prepare_legacy_review()
+        mutations = [{"schema_version": 2}, {"parent_run": str(self.private / "other-run")}, {"parent_receipt_sha256": "0" * 64},
+                     {"review_prompt_sha256": "0" * 64}, {"caller_exited": False}, {"caller_exited": 1},
+                     {"response_text": "partial"}, {"response_text": None}, {"binding_method": ""}]
+        mutations.extend({"ledger_record": dict(proof["ledger_record"], **change)} for change in (
+            {"ok": True}, {"ok": 0}, {"reply_chars": 1}, {"reply_chars": False}, {"prompt_chars": 1},
+            {"mode": "judge"}, {"error": ""}, {"id": ""}))
+        for mutation in mutations:
+            path.write_text(json.dumps(dict(proof, **mutation)), encoding="utf-8")
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, "invalid_legacy_review_reconciliation"):
+                pipeline.continue_review(Result(), parent, output_dir=self.output, reconciliation_path=path,
+                                         caller=lambda *a, **k: self.fail("must not call"))
+            self.assertFalse(self.output.exists())
+        outside = self.base / "outside-reconciliation.json"
+        outside.write_text(json.dumps(proof), encoding="utf-8")
+        with self.assertRaises(runtime_paths.DataBoundaryError):
+            pipeline.continue_review(Result(), parent, output_dir=self.output, reconciliation_path=outside)
+
+    def test_review_claim_prevents_retrying_original_parent_after_child_rejection(self):
+        parent, previous = self.prepare_uncertain_review()
+        self.review["accepted"] = False
+        self.review["gates"]["costs"].update(passed=False, evidence="")
+        result, calls, renders, receipt = self.run_case(
+            [AssertionError("must reuse actor"), self.response(self.review)], continue_review_from=parent)
+        self.assertEqual(result.exit_code, 1)
+        self.assertEqual(receipt["status"], "failed")
+        self.output = self.private / "eval" / "report-after-rejected-child"
+        self.receipt = self.output / "receipt.json"
+        with self.assertRaisesRegex(ValueError, "parent_already_claimed"):
+            self.run_case([], continue_review_from=parent)
+        self.assertFalse(self.output.exists())
+
+    def test_review_claim_survives_interruption_before_child_start(self):
+        parent, previous = self.prepare_uncertain_review()
+        with patch.object(pipeline, "run", side_effect=RuntimeError("synthetic interruption before child start")):
+            with self.assertRaisesRegex(RuntimeError, "synthetic interruption"):
+                self.run_case([], continue_review_from=parent)
+        self.assertFalse(self.output.exists())
+        with self.assertRaisesRegex(ValueError, "parent_already_claimed"):
+            self.run_case([], continue_review_from=parent)
+        self.assertFalse(self.output.exists())
+
+    def test_review_continuation_rejects_changed_config_and_each_artifact(self):
+        parent, previous = self.prepare_uncertain_review()
+        for name in ["research_config.json", *sorted(pipeline.DELIVERABLES)]:
+            path = parent / name
+            original = path.read_bytes()
+            if name == "research_config.json":
+                config = json.loads(original)
+                config["decision_summary"] += " Synthetic changed conclusion."
+                path.write_text(json.dumps(config), encoding="utf-8")
+            else:
+                path.write_bytes(original + b"\nSynthetic artifact mutation")
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "hash_mismatch|manifest_mismatch"):
+                pipeline.continue_review(Result(), parent, output_dir=self.output,
+                                         caller=lambda *a, **k: self.fail("must not call"))
+            self.assertFalse(self.output.exists())
+            path.write_bytes(original)
+
+    def test_review_continuation_binds_rehashed_config_and_review_prompt(self):
+        parent, previous = self.prepare_uncertain_review()
+        config_path = parent / "research_config.json"
+        original = config_path.read_bytes()
+        config = json.loads(original)
+        config["decision_summary"] += " Synthetic changed conclusion."
+        changed = copy.deepcopy(previous)
+        changed["config_sha256"] = pipeline._hash(config)
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+        (parent / "receipt.json").write_text(json.dumps(changed), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "config_not_bound"):
+            pipeline.continue_review(Result(), parent, output_dir=self.output,
+                                     caller=lambda *a, **k: self.fail("must not call"))
+        config_path.write_bytes(original)
+        for key in ("source_packet", "actual_analysis_text", "gates"):
+            changed = copy.deepcopy(previous)
+            supplied = pipeline.prompt_input(changed["review_prompt"])
+            supplied[key] = "Synthetic changed review context"
+            changed["review_prompt"] = changed["review_prompt"].rsplit("\n", 1)[0] + "\n" + pipeline._json(supplied)
+            (parent / "receipt.json").write_text(json.dumps(changed), encoding="utf-8")
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, "prompt_not_bound"):
+                pipeline.continue_review(Result(), parent, output_dir=self.output,
+                                         caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_review_continuation_rejects_nonempty_text_and_non_uncertain_states(self):
+        parent, previous = self.prepare_uncertain_review()
+        mutations = [{"status": status} for status in
+                     ("writers_uncertain", "render_failed", "rendered_no_review", "review_unavailable", "review_failed", "failed", "passed")]
+        mutations.extend({"review": dict(previous["review"], text=text)} for text in (" ", "{", "null", None, []))
+        mutations.extend({"review": review} for review in (None, {}, {"status": "uncertain"},
+                          {"status": "returned", "text": "", "error": "timeout"},
+                          dict(previous["review"], accepted=False)))
+        for mutation in mutations:
+            (parent / "receipt.json").write_text(json.dumps(dict(previous, **mutation)), encoding="utf-8")
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, "terminal_review_uncertainty_without_text"):
+                pipeline.continue_review(Result(), parent, output_dir=self.output,
+                                         caller=lambda *a, **k: self.fail("must not call"))
+            self.assertFalse(self.output.exists())
+
+    def test_timeout_receipt_preserves_partial_review_and_cannot_continue(self):
+        partial = '{"accepted": false, "gates":'
+        result, calls, renders, receipt = self.run_case([
+            self.response(self.actor), self.response(partial, error="timeout", raw=True)])
+        self.assertEqual(receipt["status"], "review_uncertain")
+        self.assertEqual(receipt["review"]["text"], partial)
+        parent = self.output
+        destination = self.private / "eval" / "report-partial-review-continuation"
+        with self.assertRaisesRegex(ValueError, "terminal_review_uncertainty_without_text"):
+            pipeline.continue_review(Result(), parent, output_dir=destination,
+                                     caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(destination.exists())
+
+    def test_review_continuation_rejects_incomplete_writers(self):
+        parent, previous = self.prepare_uncertain_review()
+        path = parent / "writer_1.json"
+        child = json.loads(path.read_text(encoding="utf-8"))
+        child["status"] = "writer_1_uncertain"
+        child["writer_1"] = {"status": "uncertain", "error": "timeout"}
+        path.write_text(json.dumps(child), encoding="utf-8")
+        previous["writer_receipts"]["writer_1"].update(status=child["status"], sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "requires_all_completed_writers"):
+            pipeline.continue_review(Result(), parent, output_dir=self.output,
+                                     caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_review_continuation_rechecks_content_even_with_rehashed_artifact(self):
+        parent, previous = self.prepare_uncertain_review()
+        path = parent / "master_comparison.md"
+        path.write_text(path.read_text(encoding="utf-8").replace(self.actor["decision_summary"], ""), encoding="utf-8")
+        previous["artifacts"][path.name].update(bytes=path.stat().st_size, sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        config = json.loads((parent / "research_config.json").read_text(encoding="utf-8"))
+        content = "\n".join([pipeline.LIVE_NOTICE, *pipeline.analysis_strings(config), *pipeline.candidate_strings(config)])
+        with patch.object(pipeline, "_verify_pdf", return_value=1), patch.object(pipeline, "_pdf_text", return_value=content):
+            with self.assertRaisesRegex(ValueError, "Markdown missing expected"):
+                pipeline.continue_review(Result(), parent, output_dir=self.output,
+                                         caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_review_continuation_requires_private_separate_destination_and_intact_lock(self):
+        parent, previous = self.prepare_uncertain_review()
+        for unsafe in (parent, parent / "nested", parent.parent):
+            with self.subTest(destination=unsafe), self.assertRaisesRegex(ValueError, "separate_from_parent"):
+                pipeline.continue_review(Result(), parent, output_dir=unsafe)
+        with self.assertRaises(runtime_paths.DataBoundaryError):
+            pipeline.continue_review(Result(), parent, output_dir=self.base / "outside-output")
+        lock = parent / "run.lock"
+        for missing in (True, False):
+            if missing:
+                lock.unlink()
+            else:
+                lock.write_bytes(b"")
+            before = {path: path.read_bytes() for path in parent.iterdir() if path.is_file()}
+            with self.subTest(missing=missing), self.assertRaisesRegex(ValueError, "lock_missing_or_empty"):
+                pipeline.continue_review(Result(), parent, output_dir=self.output)
+            self.assertEqual({path: path.read_bytes() for path in parent.iterdir() if path.is_file()}, before)
+        self.assertFalse(self.output.exists())
 
     def test_writer_cannot_replace_facts_or_supply_unassigned_topics(self):
         self.writers["writer_1"]["candidates"] = []

@@ -106,7 +106,7 @@ def _response(call, prompt, **kwargs):
     if not response or getattr(response, "error", None):
         error = getattr(response, "error", "empty_result") or "empty_result"
         status = "uncertain" if re.search(r"timeout|budget|cancel|interrupt|connection", error, re.I) else "unavailable"
-        return None, {"status": status, "error": error}
+        return None, {"status": status, "error": error, "text": "" if response is None else str(response)}
     text = str(response)
     provider = getattr(response, "provider", None)
     if not isinstance(provider, str) or not provider:

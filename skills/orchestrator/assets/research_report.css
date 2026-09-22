@@ -54,7 +54,8 @@ section[data-topic="costs"] th, section[data-topic="costs"] td { padding: 7px 5p
   .candidate .configuration, .candidate .details { font-size: 8.5pt; line-height: 1.5; margin: 6px 0; }
   .candidate .references { font-size: 8pt; margin: 6px 0; }
   .source { font-size: 8.5pt; line-height: 1.5; padding-bottom: 6px; }
-  .source h3 { font-size: 10pt; margin-top: 10px; }
+  .source h3 { font-size: 10pt; margin: 6px 0 4px; }
+  .source p { margin: 3px 0; }
   nav { font-size: 9pt; }
   a { text-decoration: none; }
   section[data-topic="costs"] table { font-size: 7pt; }
