@@ -70,7 +70,8 @@ class ReportPipelineTests(unittest.TestCase):
         response.error = error
         return response
 
-    def run_case(self, responses, *, render_mode="success", writer_overrides=None, concurrent=False):
+    def run_case(self, responses, *, render_mode="success", writer_overrides=None, concurrent=False,
+                 continue_from=None):
         calls, renders = [], []
         extracted_pdf = []
         lock = Lock()
@@ -133,7 +134,10 @@ class ReportPipelineTests(unittest.TestCase):
             if render_mode != "corrupt_pdf":
                 verifier = stack.enter_context(patch.object(pipeline, "_verify_pdf", return_value=1))
                 extractor = stack.enter_context(patch.object(pipeline, "_pdf_text", side_effect=lambda path: extracted_pdf[0]))
-            output = pipeline.run(result, self.packet_path, caller=caller, renderer=renderer, output_dir=self.output)
+            if continue_from is None:
+                output = pipeline.run(result, self.packet_path, caller=caller, renderer=renderer, output_dir=self.output)
+            else:
+                output = pipeline.continue_writers(result, continue_from, caller=caller, renderer=renderer, output_dir=self.output)
             if render_mode == "success" and renders:
                 verifier.assert_called_once_with(self.output / "buyer_research.pdf", expected_notice=pipeline.LIVE_NOTICE)
                 extractor.assert_called_once_with(self.output / "buyer_research.pdf")
@@ -468,6 +472,180 @@ class ReportPipelineTests(unittest.TestCase):
         self.assertEqual(result.exit_code, 2)
         self.assertEqual(calls, [])
         self.assertEqual(self.receipt.read_bytes(), original)
+
+    def prepare_partial_writers(self):
+        result, calls, renders, receipt = self.run_case(
+            [self.response(self.actor)], writer_overrides={"writer_1": TimeoutError("synthetic reconciled timeout")})
+        self.assertEqual(receipt["status"], "writers_unavailable")
+        parent = self.output
+        self.output = self.private / "eval" / "report-continuation"
+        self.receipt = self.output / "receipt.json"
+        return parent, receipt
+
+    def test_explicit_continuation_reuses_completed_stages_and_preserves_parent(self):
+        parent, previous = self.prepare_partial_writers()
+        older_path = parent / "writer_2.json"
+        older = json.loads(older_path.read_text(encoding="utf-8"))
+        older["writer_2_prompt"] = "Synthetic original wrapper wording.\n" + older["writer_2_prompt"]
+        older_path.write_text(json.dumps(older), encoding="utf-8")
+        previous["writer_receipts"]["writer_2"]["sha256"] = hashlib.sha256(older_path.read_bytes()).hexdigest()
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        original_files = {path: path.read_bytes() for path in parent.iterdir() if path.is_file()}
+        result, calls, renders, receipt = self.run_case(
+            [AssertionError("must reuse actor"), self.response(self.review)], continue_from=parent,
+            writer_overrides={"writer_2": AssertionError("must reuse writer 2"),
+                              "writer_3": AssertionError("must reuse writer 3")})
+        self.assertEqual(result.exit_code, 0)
+        self.assertEqual([call["stage"] for call in calls], ["writer_1", "review"])
+        self.assertEqual(receipt["status"], "passed")
+        self.assertEqual(receipt["actor_execution"], "reused")
+        self.assertEqual(receipt["review_execution"], "fresh")
+        self.assertEqual(receipt["actor"], previous["actor"])
+        origin = receipt["continuation"]
+        self.assertEqual(origin["reused_stages"], ["actor", "writer_2", "writer_3"])
+        self.assertEqual(origin["fresh_writers"], ["writer_1"])
+        self.assertEqual(origin["parent_receipt_sha256"], hashlib.sha256(original_files[parent / "receipt.json"]).hexdigest())
+        for stage in ("writer_1", "writer_2", "writer_3"):
+            child = json.loads((self.output / (stage + ".json")).read_text(encoding="utf-8"))
+            self.assertEqual(child[stage + "_execution"], "fresh" if stage == "writer_1" else "reused")
+            if stage != "writer_1":
+                old = json.loads(original_files[parent / (stage + ".json")])
+                self.assertEqual(child[stage], old[stage])
+                self.assertEqual(child[stage + "_reused_from"]["sha256"], previous["writer_receipts"][stage]["sha256"])
+                self.assertEqual(child[stage + "_prompt"], old[stage + "_prompt"])
+                self.assertEqual(child[stage + "_prompt_matches_current"], stage != "writer_2")
+                self.assertEqual(len(child[stage + "_requested_prompt_sha256"]), 64)
+                if stage == "writer_2":
+                    self.assertEqual(child[stage + "_requested_prompt"], old[stage + "_prompt"].split("\n", 1)[1])
+        for path, data in original_files.items():
+            self.assertEqual(path.read_bytes(), data)
+        self.assertEqual(set(original_files), {path for path in parent.iterdir() if path.is_file()})
+        self.assertEqual(renders[0]["criteria"], self.packet["research_data"]["criteria"])
+        self.assertEqual(renders[0]["sources"], self.packet["research_data"]["sources"])
+
+    def test_continuation_rejects_changed_packet_parent_input_or_child_receipt(self):
+        parent, previous = self.prepare_partial_writers()
+        targets = (self.packet_path, parent / "receipt.json", parent / "writer_2.json")
+        for path in targets:
+            original = path.read_bytes()
+            changed = json.loads(original)
+            if path == self.packet_path:
+                changed["notes"] += " Synthetic changed context."
+            elif path.name == "receipt.json":
+                changed["input"]["request"] = "Synthetic changed request"
+            else:
+                changed["writer_2"]["text"] += " "
+            path.write_text(json.dumps(changed), encoding="utf-8")
+            with self.subTest(path=path.name), self.assertRaisesRegex(ValueError, "hash"):
+                pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                          caller=lambda *a, **k: self.fail("must not call"))
+            self.assertFalse(self.output.exists())
+            path.write_bytes(original)
+
+    def test_continuation_rechecks_packet_hash_before_dispatch(self):
+        parent, previous = self.prepare_partial_writers()
+        original_run = pipeline.run
+
+        def changed_packet_before_run(*args, **kwargs):
+            packet = json.loads(self.packet_path.read_text(encoding="utf-8"))
+            packet["notes"] += " Synthetic intervening context change."
+            self.packet_path.write_text(json.dumps(packet), encoding="utf-8")
+            return original_run(*args, **kwargs)
+
+        with patch.object(pipeline, "run", side_effect=changed_packet_before_run):
+            with self.assertRaisesRegex(ValueError, "packet_changed_before_dispatch"):
+                pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                          caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_continuation_binds_actor_context_even_when_prompt_and_hash_are_changed_together(self):
+        parent, previous = self.prepare_partial_writers()
+        previous["input"]["research_notes"] += " Synthetic stale approval context."
+        previous["input_sha256"] = pipeline._hash(previous["input"])
+        previous["actor_prompt"] = previous["actor_prompt"].rsplit("\n", 1)[0] + "\n" + pipeline._json(previous["input"])
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "actor_input_not_bound"):
+            pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                      caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_continuation_binds_writer_packet_even_when_all_recorded_hashes_are_updated(self):
+        parent, previous = self.prepare_partial_writers()
+        path = parent / "writer_2.json"
+        child = json.loads(path.read_text(encoding="utf-8"))
+        supplied = pipeline.prompt_input(child["writer_2_prompt"])
+        supplied["packet"]["notes"] += " Synthetic stale writer context."
+        child["input_sha256"] = pipeline._hash({key: value for key, value in supplied.items() if key != "assigned_topics"})
+        child["writer_2_prompt"] = child["writer_2_prompt"].rsplit("\n", 1)[0] + "\n" + pipeline._json(supplied)
+        path.write_text(json.dumps(child), encoding="utf-8")
+        previous["writer_receipts"]["writer_2"]["sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "writer_input_not_bound"):
+            pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                      caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_continuation_missing_or_empty_lock_does_not_mutate_parent(self):
+        parent, previous = self.prepare_partial_writers()
+        lock = parent / "run.lock"
+        for missing in (True, False):
+            if missing:
+                lock.unlink()
+            else:
+                lock.write_bytes(b"")
+            before = {path: path.read_bytes() for path in parent.iterdir() if path.is_file()}
+            with self.subTest(missing=missing), self.assertRaisesRegex(ValueError, "lock_missing_or_empty"):
+                pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                          caller=lambda *a, **k: self.fail("must not call"))
+            self.assertEqual({path: path.read_bytes() for path in parent.iterdir() if path.is_file()}, before)
+            self.assertFalse(self.output.exists())
+
+    def test_continuation_rejects_active_rendered_reviewed_and_successful_parents(self):
+        parent, previous = self.prepare_partial_writers()
+        receipt_path = parent / "receipt.json"
+        mutations = [{"status": status} for status in
+                     ("writers_uncertain", "render_uncertain", "render_failed", "rendered_no_review", "review_uncertain", "passed")]
+        mutations.extend([{"review_prompt": "Synthetic attempted review"}, {"review": None}])
+        for mutation in mutations:
+            receipt_path.write_text(json.dumps(dict(previous, **mutation)), encoding="utf-8")
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, "terminal_unrendered_unreviewed"):
+                pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                          caller=lambda *a, **k: self.fail("must not call"))
+            self.assertFalse(self.output.exists())
+        receipt_path.write_text(json.dumps(previous), encoding="utf-8")
+        (parent / "buyer_research.html").write_text("Synthetic existing output", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "terminal_unrendered_unreviewed"):
+            pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                      caller=lambda *a, **k: self.fail("must not call"))
+
+    def test_continuation_validates_returned_topic_ownership_even_with_matching_hash(self):
+        parent, previous = self.prepare_partial_writers()
+        path = parent / "writer_2.json"
+        child = json.loads(path.read_text(encoding="utf-8"))
+        value = json.loads(child["writer_2"]["text"])
+        value["sections"][0]["topic"] = "requirements"
+        child["writer_2"]["text"] = json.dumps(value)
+        path.write_text(json.dumps(child), encoding="utf-8")
+        previous["writer_receipts"]["writer_2"]["sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+        (parent / "receipt.json").write_text(json.dumps(previous), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "unassigned_topics"):
+            pipeline.continue_writers(Result(), parent, output_dir=self.output,
+                                      caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(self.output.exists())
+
+    def test_continuation_requires_completed_writer_and_a_separate_destination(self):
+        result, calls, renders, previous = self.run_case([self.response(self.actor)], writer_overrides={
+            stage: TimeoutError("synthetic unavailable writer") for stage in self.writers})
+        parent = self.output
+        destination = self.private / "eval" / "report-no-success"
+        with self.assertRaisesRegex(ValueError, "no_valid_completed_writer"):
+            pipeline.continue_writers(Result(), parent, output_dir=destination,
+                                      caller=lambda *a, **k: self.fail("must not call"))
+        self.assertFalse(destination.exists())
+        for unsafe in (parent, parent / "nested", parent.parent):
+            with self.subTest(unsafe=unsafe), self.assertRaisesRegex(ValueError, "separate_from_parent"):
+                pipeline.continue_writers(Result(), parent, output_dir=unsafe,
+                                          caller=lambda *a, **k: self.fail("must not call"))
 
     def test_writer_cannot_replace_facts_or_supply_unassigned_topics(self):
         self.writers["writer_1"]["candidates"] = []
