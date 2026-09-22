@@ -1,0 +1,36 @@
+"""Synthetic tax cases with independently specified, cent-exact expected values.
+
+Do not import the calculator here: these totals are arithmetic oracles, not
+snapshots of production output. The date fixes the reviewed law snapshot.
+"""
+import json
+
+
+def build():
+    cases = {
+        "_meta": {"synthetic": True, "as_of": "2026-09-22", "description": "Synthetic transaction inputs and independently calculated expectations. Supplied title/registration are arithmetic inputs, not verified DMV quotes."},
+        "forward": [
+            {"name": "MD current rate and title", "state": "MD", "sales": "30000", "doc": "800", "title": "200", "reg": "120.50", "trade": "0", "trade_payoff": "0", "tax": "2002.00", "otd": "33122.50", "balance_due": "33122.50"},
+            {"name": "MD trade and payoff are distinct", "state": "MD", "sales": "30000", "doc": "800", "title": "200", "reg": "120.50", "trade": "10000", "trade_payoff": "3000", "tax": "1352.00", "otd": "32472.50", "balance_due": "25472.50"},
+            {"name": "TX doc excluded and gross trade credited", "state": "TX", "sales": "25000", "doc": "225", "title": "33", "reg": "100", "trade": "10000", "trade_payoff": "3000", "tax": "937.50", "otd": "26295.50", "balance_due": "19295.50"},
+            {"name": "TX trade down never negative tax", "state": "TX", "sales": "10000", "doc": "200", "title": "33", "reg": "100", "trade": "12000", "trade_payoff": "0", "tax": "0.00", "otd": "10333.00", "balance_due": "-1667.00"},
+            {"name": "VA minimum tax and no trade credit", "state": "VA", "sales": "1000", "doc": "0", "title": "15", "reg": "40", "trade": "900", "trade_payoff": "0", "tax": "75.00", "otd": "1130.00", "balance_due": "230.00"},
+            {"name": "VA doc taxable", "state": "VA", "sales": "30000", "doc": "900", "title": "15", "reg": "40", "trade": "0", "trade_payoff": "0", "tax": "1282.35", "otd": "32237.35", "balance_due": "32237.35"},
+            {"name": "NC tax includes doc and trade credit", "state": "NC", "sales": "30000", "doc": "700", "title": "66.75", "reg": "50", "trade": "10000", "trade_payoff": "0", "tax": "621.00", "otd": "31437.75", "balance_due": "21437.75"},
+            {"name": "NC ordinary passenger has no commercial cap", "state": "NC", "sales": "100000", "doc": "0", "title": "100", "reg": "100", "trade": "0", "trade_payoff": "0", "tax": "3000.00", "otd": "103200.00", "balance_due": "103200.00"},
+            {"name": "NJ used vehicle doc and full trade credit", "state": "NJ", "condition": "used", "sales": "30000", "doc": "700", "title": "85", "reg": "70", "trade": "10000", "trade_payoff": "0", "tax": "1371.38", "otd": "32226.38", "balance_due": "22226.38"},
+            {"name": "MI 2026 cap and taxable doc", "state": "MI", "sales": "30000", "doc": "300", "title": "15", "reg": "100", "trade": "17000", "trade_payoff": "0", "tax": "1098.00", "otd": "31513.00", "balance_due": "14513.00"},
+            {"name": "NY qualifying doc excluded and explicit local rate", "state": "NY", "sales": "30000", "doc": "175", "title": "50", "reg": "100", "local_rate": "0.04875", "trade": "10000", "trade_payoff": "0", "tax": "1775.00", "otd": "32100.00", "balance_due": "22100.00"},
+            {"name": "CT exact luxury threshold includes doc", "state": "CT", "sales": "49500", "doc": "500", "title": "25", "reg": "100", "trade": "0", "trade_payoff": "0", "tax": "3175.00", "otd": "53300.00", "balance_due": "53300.00"},
+            {"name": "CT one cent above luxury threshold", "state": "CT", "sales": "49500.01", "doc": "500", "title": "25", "reg": "100", "trade": "0", "trade_payoff": "0", "tax": "3875.00", "otd": "54000.01", "balance_due": "54000.01"},
+            {"name": "CT trade does not lower luxury classification", "state": "CT", "sales": "50000", "doc": "500", "title": "25", "reg": "100", "trade": "15000", "trade_payoff": "0", "tax": "2751.25", "otd": "53376.25", "balance_due": "38376.25"},
+            {"name": "CT separate warranty below threshold", "state": "CT", "sales": "48000", "doc": "0", "warranty": "1000", "title": "25", "reg": "100", "trade": "0", "trade_payoff": "0", "tax": "3111.50", "otd": "52236.50", "balance_due": "52236.50"},
+            {"name": "CT warranty stays at basic rate on luxury vehicle", "state": "CT", "sales": "50000.01", "doc": "0", "warranty": "1000", "title": "25", "reg": "100", "trade": "0", "trade_payoff": "0", "tax": "3938.50", "otd": "55063.51", "balance_due": "55063.51"},
+        ],
+        "trade_rules": [
+            {"state": "IL", "as_of": "2026-09-22", "trade": "17000", "credit": "17000"},
+            {"state": "MI", "as_of": "2025-06-01", "trade": "17000", "credit": "11000"},
+            {"state": "MI", "as_of": "2026-09-22", "trade": "17000", "credit": "12000"},
+        ],
+    }
+    return {"eval/golden/otd_cases.json": (json.dumps(cases, indent=2) + "\n").encode("utf-8")}

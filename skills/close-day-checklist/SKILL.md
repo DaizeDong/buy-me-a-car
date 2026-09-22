@@ -308,3 +308,5 @@ Pre-empts most close-day F&I friction. Full template in `../orchestrator/assets/
 - Any pre-arrival item unchecked -> STOP, resolve before close (do NOT proceed without cashier's check ready or insurance binder issued)
 - F&I refuses to remove add-ons after hard-no script + reframe -> exit per script; the deal is dead, not negotiable
 - Trade lien payoff not confirmed by Day 14 -> escalate per `../orchestrator/references/trade_in.md` section 5
+
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.

@@ -1,0 +1,43 @@
+name: functional
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.10', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install deterministic validation dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Unit and offline replay tests
+        run: python -m unittest discover -s eval -p "test_*.py" -v
+      - name: Offline draft and routing corpus checks
+        run: python eval/test_rubric.py -v
+      - name: Synthetic fixture reproducibility
+        run: python tools/make_fixtures.py --check
+      - name: Generated tax table consistency
+        run: python skills/orchestrator/scripts/render_state_data.py --check
+      - name: Physical public data boundary
+        run: python tools/check_repository.py
+      - name: Register skills in an isolated directory
+        run: python tools/install.py --target "${{ runner.temp }}/bmac-skills" --apply
+      - name: Verify local readiness without live integrations
+        run: python tools/doctor.py --target "${{ runner.temp }}/bmac-skills"

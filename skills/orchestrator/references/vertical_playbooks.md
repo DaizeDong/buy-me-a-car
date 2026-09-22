@@ -430,17 +430,9 @@ Commercial vehicles are passenger-deficient utility vehicles built for fleet, co
 
 #### 2.2 Section 179 + Bonus Depreciation, Tax Strategy
 
-The IRS § 179 deduction allows businesses to deduct the full purchase price of qualifying vehicles in the year of purchase, up to a vehicle limit:
+Business deductions depend on acquisition and placed-in-service dates, business use, vehicle classification, taxable income and current federal/state rules. The former phase-down table was obsolete and must not be used.
 
-| Tax year | § 179 vehicle limit | Bonus depreciation |
-|---|---|---|
-| 2024 | $30,500 (passenger) / $1.16M (heavy van) | 60% additional |
-| 2025 | $30,500 (passenger) / $1.21M (heavy van) | 40% additional |
-| 2026 | $30,500 (passenger) / TBD (heavy van) | 20% additional (phasing out) |
-
-**Heavy van exception**: Vehicles over 6,000 lbs GVWR (Ford Transit 250/350 HD, Sprinter 2500/3500, ProMaster 2500/3500) qualify for FULL § 179 deduction without the $30,500 cap, up to the annual aggregate limit (~$1.2M).
-
-**Buyer strategy at Phase 1**: If buyer is purchasing commercially, run the tax-deduction math at Phase 2 baseline. A $60k Transit 350 HD bought December 31 with § 179 + bonus can save $25k-$33k in same-year taxes (35% marginal bracket business).
+Verify current IRS Section 179 and special depreciation allowance guidance, including the actual vehicle limits and recapture rules, with the buyer's tax adviser. GVWR above a threshold alone does not establish unlimited deductibility. Do not include an estimated income-tax deduction as a reduction in dealer OTD or guarantee same-year savings.
 
 #### 2.3 Upfit allowances
 
