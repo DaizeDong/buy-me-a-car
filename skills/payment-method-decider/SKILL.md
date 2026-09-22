@@ -5,170 +5,88 @@ description: Use to choose the right payment method (cashier's check, debit, cre
 
 # Payment Method Decider
 
-> **Caveat**: this skill is one author's playbook + 5-scenario stress test. Verify state fees / CPO terms / EV credits / dealer practices against current sources before quoting numbers to a dealer or making financial decisions. Not tax, legal, or financial advice.
-> **last_verified**: 2026-05-18 (Phase 3B sub-skill split from orchestrator)
+Compare the buyer's authorized payment options using written dealer and issuer
+terms. Payment method can change price, incentives, fees and borrowing costs.
+Retain the buyer's preference; do not switch to financing or a lease silently.
+Keep internal `walk_away`, maximum monthly payment and account details private.
 
-Narrow helper for picking the payment instrument at close. Use when buyer asks "should I pay by X" or when dealer pushes a specific payment channel. Payment method is load-bearing for OTD math and CANNOT be silently swapped.
+## Inputs
 
-## When To Use
+Use known information first and obtain only missing terms:
 
-- Buyer asks "should I use credit card vs cashier's check"
-- Card-rewards math (3% crypto-backed cashback, Amex, CSR, Citi DC) vs dealer surcharge
-- Dealer claims POS card limit, buyer wants to push back
-- Captive financing rebate vs credit union APR comparator
-- Binding-constraint check on monthly cap vs OTD ceiling
-- Lease cash / lease cap cost reduction routing
+- Complete same-vehicle OTD for each payment method, with conditional incentives.
+- Dealer's accepted instruments, aggregate and per-transaction card limits,
+  surcharge/fixed fees, settlement requirements and verified payee details.
+- Issuer's actual eligible purchase categories, reward rate, remaining cap,
+  treatment of surcharges, attainable redemption value and exclusions.
+- Available credit/funds, statement/grace-period terms and ability to pay in full.
+- For borrowing: principal, down payment, note interest rate, disclosed APR,
+  payment schedule, term, fees, prepayment terms and dated payoff conditions.
 
-## When NOT To Use
+There is no universal PCI card transaction cap, dealer surcharge or card-brand
+reward rate. A car intended for travel does not become travel-category spending.
+ACH is a transfer method, distinct from a wire and from an auto loan.
 
-- General OTD math without payment-method dimension - use `otd-calculator`
-- Lease structure end-to-end - use `lease_playbook.md` first
-- After purchase paperwork - use `close-day-checklist`
+## Card comparison
 
-## Critical Rule
+For the eligible card portion, let `C` be the amount before the card surcharge,
+`S` the actual surcharge and `R` the attainable incremental reward. Compare:
 
-Payment method is LOAD-BEARING. Do NOT recommend financing to a cash buyer, or cashier's check to a buyer who wants card rewards. The buyer's chosen channel constrains:
-- Dealer fees (some channels attach convenience fee)
-- Effective OTD
-- Negotiation leverage (cash often weaker than financing for back-end)
-- Reward capture timing
-
-If buyer's stated channel doesn't match the deal math, FLAG explicitly in heads-up.
-
-## Decision Matrix (Base Costs)
-
-| Method | Cost | Clearing | Dealer Pref | Notes |
-|--------|------|----------|-------------|-------|
-| Cashier's check | $0-15 | 1-3 days | High | Buyer-side mint at credit union |
-| Personal check | $0 | 5-10 days | Low | Often rejected for >$5k |
-| Debit card | $0 | Instant | Medium | Daily limit usually $5-10k; call bank to lift |
-| Credit card | 2-3% surcharge >$5k | Instant | Low-Medium | See card math below |
-| ACH (bank wire push) | $0-25 | 1-3 days | Medium | Buyer-friendly |
-| Wire transfer | $25-50 | Same day | High | Best for time-critical close |
-| Cash | $0 | Instant | Lowest | IRS Form 8300 over $10k |
-
-## Card-Specific Math (Top Cards in Circulation)
-
-Surcharge baseline = 3% (dealer-typical above $5k).
-
-| Card | Earn Rate | Effective Value | Net vs 3% Surcharge |
-|------|-----------|------------------|---------------------|
-| Crypto-backed cashback, high tier | 3% cashback all cats | 3.0% | BREAK EVEN |
-| Crypto-backed cashback, mid tier | 2% cashback all cats | 2.0% | NET LOSS 1% |
-| Amex Platinum | 1x non-bonused | ~1.0% (best redemption) | NET LOSS 2% |
-| Chase Sapphire Reserve | 1x non-bonused | 1.5-2.25% (transfer partner) | NET LOSS 0.75-1.5% |
-| Citi Double Cash | 2% flat | 2.0% | NET LOSS 1% |
-| Bilt Mastercard | 1x non-bonused | ~1.25% | NET LOSS 1.75% |
-| Capital One Venture X | 2x | ~2.0% | NET LOSS 1% |
-
-### When CC Actually Wins
-
-- Dealer offers card with NO surcharge AND has high POS limit (rare, volume dealers)
-- Buyer holds a 3% cashback card AND dealer surcharge is exactly 3% (true break-even with float + sign-up bonus value)
-- Buyer is chasing a sign-up bonus minimum spend (e.g., $4k MSR for $750 bonus = 18.75% effective on that portion, easily worth 3% surcharge)
-
-### When CC Loses
-
-- Any card with <3% effective rewards vs 3% surcharge
-- Dealer surcharge >3% (e.g., 3.5-4% common at independents)
-- Buyer cannot pay statement in full (interest eats reward)
-
-## Dealer POS Limit Reality
-
-- Standard PCI-compliance default: $5,000 max single CC transaction
-- Volume franchise (Toyota/Honda/Ford): $10,000-25,000 with GM approval
-- Full-price CC: rare, usually requires GM override + auto-attached surcharge
-- "Split" trick: some buyers split across 2 cards or 2 transactions; dealer may allow if total still under their absolute cap
-
-If dealer cites $5,000 and buyer wants more: push for written confirmation BEFORE signing other docs. Common dealer move: agree verbally, then refuse at finance office.
-
-## Captive Financing vs Credit Union Comparator
-
-Scenario: captive APR > CU APR, but $1,000-2,500 customer cash rebate available ONLY with captive financing.
-
-### Math
-
-```
-extra_interest = (captive_APR - CU_APR) * loan_amount * (term_yr / 2)
-                 [approximation; use amortization for precision]
-
-If rebate >= extra_interest: captive wins
-Else: CU wins, take rebate's value as opportunity cost
+```text
+incremental_cost = S + card_interest + other_incremental_costs
+                   - R - incremental_bonus - avoided_baseline_payment_fee
 ```
 
-### Quick Heuristic
+`R` must use the issuer's actual eligible base and remaining cap. If an uncapped
+flat rate `r` applies only to `C`, then `R = r*C`. If the entire charged total
+earns rewards, `R = r*(C+S)`. For a pure surcharge `S=s*C`, break-even rewards are
+`r=s` in the first case and `r=s/(1+s)` in the second. Equal headline rates are
+therefore not automatically break-even. Fixed fees, caps, exclusions, financing
+interest and reward valuation can change the answer.
 
-On $36k / 60 month loan:
-- $10 of rebate offsets ~1 bp of APR delta
-- So $2,000 rebate offsets ~200 bp (2.0%) of APR delta
-- If captive is 7.49% vs CU 5.49% (200 bp gap) with $2k rebate: BREAK EVEN; pick by other factors
-- If captive is 6.49% vs CU 5.49% (100 bp gap) with $2k rebate: CAPTIVE wins by ~$1k
+Count only a bonus caused by this purchase that the buyer would otherwise miss.
+Do not value all points at an optimistic transfer redemption or assume reward
+eligibility from a card name. A collateral-backed reward product also requires
+its actual fees, liquidity and collateral risks in the comparison.
 
-### Refinance Escape
+## Financing comparison
 
-Take captive financing to capture rebate; refinance with CU after 60-90 days. Verify:
-- No prepayment penalty in captive contract
-- CU will refi same-day-old loans (most do)
-- Captive doesn't have "rebate clawback" clause for early payoff (rare but exists)
+Use the actual lender schedule whenever available. For a fixed-rate, level-payment,
+fully amortizing monthly loan with principal `P`, contractual monthly rate `i`
+and `n` payments, the unrounded payment is:
 
-## Binding-Constraint Math
-
-When buyer states BOTH a monthly cap AND OTD ceiling, check which actually binds:
-
+```text
+M = P*i / (1 - (1+i)^(-n))      when i > 0
+M = P/n                       when i = 0
 ```
-max_financeable = (max_monthly - 0) * (1 - (1 + APR/12)^(-n)) / (APR/12)
-effective_OTD_ceiling = max_financeable + down_payment
-```
 
-Compare against buyer's stated OTD ceiling. If within $500, FLAG in heads-up: "monthly cap is the real binding constraint, not OTD ceiling."
+This assumes regular monthly periods. Use the note rate for `i`, not a disclosed
+APR that already includes fees. Daily-simple-interest contracts, irregular first
+periods, balloon amounts and cents rounding require the actual schedule/payoff.
 
-### Worked Example
+Compare each option's down payment, unfinanced fees and scheduled payments at the
+same ownership horizon. A rebate already deducted from the principal must not be
+subtracted again. There is no fixed conversion from a rebate dollar amount to
+basis points. A refinancing plan is conditional on actual future approval, fees,
+payoff, rate availability and any rebate clawback; never assume a waiting period.
 
-Buyer: $700/mo max, $5k down, OTD ceiling $42k, 60mo @ 5.49% APR.
-- max_financeable = $700 * (1 - (1.004575)^-60) / 0.004575 = ~$36,200
-- effective_OTD_ceiling = $36,200 + $5,000 = $41,200
-- Buyer's stated $42k ceiling is NOT the binding constraint - $700/mo is.
-- Must negotiate to OTD $41,200 or lower, OR raise monthly cap, OR extend term.
+## Affordability and choice
 
-## Lease Cash / Lease Cap Cost Reduction
+At a fixed `i` and `n`, the principal supported by a private monthly limit `Mmax` is
+`Mmax*(1-(1+i)^(-n))/i`, or `Mmax*n` at zero interest. Reconcile down payment,
+net trade equity and other financed amounts to the full OTD. Compare that private
+limit with the buyer's private OTD maximum; a lower monthly payment from a longer
+term does not by itself make the vehicle cheaper.
 
-Some manufacturers offer $1,000-3,000 lease cash that flows through ONLY as cap cost reduction (not as down payment, not as rebate to buyer). This OEM lease cash is ordinary marketing money and is still live in 2026, verify it on the worksheet and make sure it shows as a cap cost reduction line, not pocketed by the dealer.
+Recommend an option only when the written terms make its cost and feasibility
+clear. If terms are missing, return a conditional comparison with the missing
+inputs. Do not initiate a loan, credit-limit change, wire, card transaction or
+external communication without the user's authorization.
 
-> **Federal §45W lease pass-through is TERMINATED (acquired after 2025-09-30, OBBBA).**
-> The old play, lessor captures the federal §45W $7,500 commercial credit and passes it
-> through as cap cost reduction (~$104/mo over 60mo, ~$208/mo over 36mo), is **dead for
-> any 2026 lease**. There is NO federal $7,500 lease credit to capture or to watch for on
-> the worksheet. If a 2026 worksheet shows an "EV lease credit," it is OEM lease cash /
-> marketing money, NOT a federal credit; treat it as a negotiable OEM incentive and do
-> NOT count it as a federal incentive in OTD / monthly math. See the CRITICAL banner in
-> `ev-buyer-helper`. (Historical: pre-2025-10-01 acquisitions could still claim §45W.)
+Use `../orchestrator/references/payment_methods.md` for cash-flow accounting and
+`../lease-vs-cash-analyzer/SKILL.md` for lease comparisons. The purchase OTD
+calculator does not establish lender terms or lease tax treatment. Store real
+quotes, account details and calculations only in private companion data through
+`tools/runtime_paths.py`.
 
-See `../orchestrator/references/lease_playbook.md` for full lease structuring.
-
-## Heuristic Flowchart
-
-1. Cash buyer, no rewards play -> cashier's check from CU
-2. Cash buyer with 3% cashback card + 3% dealer surcharge -> CC up to dealer cap, cashier's check for remainder
-3. Cash buyer chasing sign-up MSR -> CC for the MSR portion, cashier's check for rest
-4. Financing buyer, manufacturer rebate available -> captive (with refi escape plan)
-5. Financing buyer, no rebate, CU pre-approved at lower APR -> CU outright
-6. Lease buyer -> follow lease_playbook.md (NOTE: federal §45W pass-through TERMINATED 2025-09-30; any "EV lease credit" in 2026 is OEM lease cash, not a federal credit)
-
-## Cross-References
-
-- `../orchestrator/references/payment_methods.md` - full reference
-- `../orchestrator/references/lease_playbook.md` § captive rules
-- orchestrator Phase 1 Critical Rule: "Payment method is load-bearing"
-- `otd-calculator` skill - for downstream OTD recomputation after method change
-
-## Worked Example
-
-A buyer wanting single-transaction Visa for ~$33k at a dealer.
-- Action item 1: confirm dealer POS limit for single transaction (likely $5-10k cap, needs GM override for $30k+)
-- Action item 2: confirm convenience fee rate (3% typical = ~+$1k on a $33k purchase)
-- If 3% fee AND buyer holds a 3% cashback card: BREAK EVEN, deal goes through net-neutral on payment method
-- If fee >3% OR card is not 3% cashback tier: split into card portion + cashier's check, or all cashier's check
-
-## Voice Note
-
-Do NOT silently change payment method between Phase 6 negotiation and Phase 9 close. If buyer said "cash" in Phase 1 and dealer pushes financing in Phase 9, FLAG as load-bearing change - rerun OTD with new assumptions.
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.

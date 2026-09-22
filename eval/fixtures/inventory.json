@@ -1,0 +1,50 @@
+{
+  "synthetic": true,
+  "cards": [
+    {
+      "vin": "1HGCM82633A000001",
+      "year": 2024,
+      "make": "Acme",
+      "model": "Example SUV",
+      "trim": "Test",
+      "price": 12000,
+      "mileage": 10000,
+      "seller": {
+        "dealerName": "Acme Motors 1"
+      },
+      "stockType": "used",
+      "url": "https://example.com/vehicledetail/1"
+    },
+    {
+      "vin": "1HGCM82633A000002",
+      "year": 2024,
+      "make": "Acme",
+      "model": "Example SUV",
+      "trim": "Test",
+      "price": 18000,
+      "mileage": 2000,
+      "seller": {
+        "dealerName": "Acme Motors 2"
+      },
+      "stockType": "used",
+      "url": "https://example.com/vehicledetail/2"
+    }
+  ],
+  "json_ld": {
+    "@type": "Car",
+    "name": "Acme Example SUV",
+    "vehicleIdentificationNumber": "1HGCM82633A000003",
+    "mileageFromOdometer": {
+      "value": 1000,
+      "unitCode": "KMT"
+    },
+    "offers": {
+      "price": 15000,
+      "priceCurrency": "USD",
+      "seller": {
+        "name": "Acme Motors"
+      },
+      "url": "https://example.com/vehicle/3"
+    }
+  }
+}

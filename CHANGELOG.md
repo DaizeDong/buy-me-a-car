@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here (Keep a Changelog style).
 
+## [Unreleased]
+
+### Fixed
+
+- Real purchase input/output now requires a verified private companion; feedback no longer writes into a public asset. Generated fixtures and physical DATA checks are enforced separately.
+- OTD uses decimal arithmetic, dated field evidence and explicit jurisdiction/transaction support. Corrected stale Maryland values and trade-in rules; unsupported calculations fail visibly.
+- Dealer drafts separate the private maximum from an authorized outward offer. Inbox imports, cursor state and draft receipts survive restarts without replaying uncertain actions.
+- Dossiers validate amounts, complete quotes and source artifacts, escape inserted text and verify fresh PDF output with page notices.
+- All sixteen skills have an idempotent installer and readiness checks. Business tests now run in Windows/Linux CI, alongside existing guards.
+- Browser extraction keeps card identity and prices together and reports incomplete fields and partial coverage. Removed unsupported savings, timing, site-access and fixed-page-count claims.
+- Model evaluation now executes real tasks and a fresh-context review; registered skill names map explicitly to implementation directories.
+
 ## [0.2.2] - 2026-05-19
 ### Changed
 - docs: unify repo structure (Skill Repo Spec v1), philosophy-first README, bilingual top block, standardized badges.

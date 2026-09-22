@@ -1,122 +1,123 @@
 #!/usr/bin/env python3
-"""
-render_state_data.py — render the single-source-of-truth state_fees.json as a
-markdown summary table, for cross-checking against the prose in
-references/state_fees.md.
-
-The JSON at data/state_fees.json is authoritative. This script never edits it;
-it only renders. Use it to detect drift between the structured data and the
-hand-written reference prose.
-
-Usage:
-  python render_state_data.py                 # full markdown table to stdout
-  python render_state_data.py --unverified    # only rows still needing R2 web verify
-  python render_state_data.py --json PATH      # point at an alternate json
-"""
+"""Render reviewed state fields; unknown values never appear as authoritative fees."""
 import argparse
-import json
-import os
+from decimal import Decimal
+from pathlib import Path
 import sys
 
-DEFAULT_JSON = os.path.normpath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "state_fees.json")
-)
-# repo root is three levels up from skills/orchestrator/scripts/
-REPO_ROOT_JSON = os.path.normpath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "state_fees.json")
-)
+from check_freshness import DEFAULT_JSON, REFERENCE_FIELDS, load, validate_dataset
 
-
-def load(path):
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
+ROOT = Path(__file__).resolve().parents[3]
+START = "<!-- state-data:start -->"
+END = "<!-- state-data:end -->"
+SURFACES = (
+    ROOT / "skills/orchestrator/references/state_fees.md",
+    ROOT / "skills/otd-calculator/SKILL.md",
+    ROOT / "skills/state-fee-lookup/SKILL.md",
+)
 
 
 def fmt_pct(rate):
-    return f"{rate * 100:.4f}".rstrip("0").rstrip(".") + "%"
+    return f"{Decimal(str(rate)) * 100:f}".rstrip("0").rstrip(".") + "%"
 
 
 def fmt_cap(cap):
-    return f"${cap:g}" if cap is not None else "None"
+    return f"${cap:g}" if cap is not None else "No numeric cap verified"
 
 
-def fmt_trade(tc):
-    posture = tc.get("posture", "?")
-    cap = tc.get("cap")
-    if cap is not None:
-        return f"{posture} (cap ${cap:,})"
-    return posture
+def fmt_trade(rule):
+    schedule = rule.get("annual_schedule")
+    if schedule:
+        return f"Up to ${rule['cap']:,} ({rule['cap_year']}); annual schedule"
+    if rule["posture"] == "yes":
+        return "Full eligible allowance"
+    if rule["posture"] == "no":
+        return "No tax credit"
+    if rule.get("cap") is not None:
+        return f"Up to ${rule['cap']:,}"
+    return "Not applicable"
 
 
-def fmt_ev(ev):
-    return f"${ev:g}" if ev is not None else "-"
+def reviewed(rec, field, formatter=str):
+    proof = rec["field_provenance"][field]
+    if proof["status"] != "verified":
+        return "Unverified"
+    return formatter(rec[field])
+
+
+def reviewed_rate(rec):
+    rate = reviewed(rec, "tax_state", fmt_pct)
+    rules = rec.get("tax_rules", {})
+    if rec["field_provenance"].get("tax_rules", {}).get("status") == "verified":
+        if "luxury_rate" in rules:
+            rate += f"; {fmt_pct(rules['luxury_rate'])} over ${rules['luxury_threshold']:,}"
+        if rules.get("local") == "required":
+            rate += " + supplied local rate"
+    return rate
 
 
 def render_table(records, only_unverified=False):
-    rows = records
+    rows = sorted(records, key=lambda r: r["state"])
     if only_unverified:
-        rows = [r for r in records if not r.get("verified")]
-    rows = sorted(rows, key=lambda r: r["state"])
+        rows = [r for r in rows if any(r["field_provenance"][f]["status"] != "verified" for f in REFERENCE_FIELDS)]
+    lines = ["| State | Reviewed tax rate | Doc cap | Title | Registration | Trade credit | Calculator profile |",
+             "|---|---|---|---|---|---|---|"]
+    for rec in rows:
+        profile = rec["calculator"]["status"]
+        if profile == "supported" and rec["tax_rules"].get("conditions"):
+            profile += " (" + "/".join(rec["tax_rules"]["conditions"]) + " only)"
+        cells = [rec["state"], reviewed_rate(rec),
+                 reviewed(rec, "doc_cap", fmt_cap), reviewed(rec, "title", lambda v: f"${v:g}"),
+                 reviewed(rec, "reg_1yr", lambda v: f"${v:g}"), reviewed(rec, "trade_credit", fmt_trade),
+                 profile]
+        lines.append("| " + " | ".join(cells) + " |")
+    return "\n".join(lines)
 
-    out = []
-    out.append(
-        "| State | Tax (state) | Local Typ | Mechanism | Doc Cap | Doc Eff | Title | Reg 1yr | Trade Credit | EV Surcharge | Depth | Verified |"
-    )
-    out.append(
-        "|-------|-------------|-----------|-----------|---------|---------|-------|---------|--------------|--------------|-------|----------|"
-    )
-    for r in rows:
-        out.append(
-            "| {state} | {tax} | {local} | {mech} | {cap} | {eff} | ${title} | ${reg} | {trade} | {ev} | {depth} | {ver} |".format(
-                state=r["state"],
-                tax=fmt_pct(r["tax_state"]),
-                local=r.get("tax_local_typ", "") or "",
-                mech=r.get("tax_mechanism", ""),
-                cap=fmt_cap(r.get("doc_cap")),
-                eff=r.get("doc_cap_effective_date") or "-",
-                title=r.get("title"),
-                reg=r.get("reg_1yr"),
-                trade=fmt_trade(r.get("trade_credit", {})),
-                ev=fmt_ev(r.get("ev_reg_surcharge")),
-                depth=r.get("detail_depth", ""),
-                ver="yes" if r.get("verified") else "NO",
-            )
-        )
-    return "\n".join(out)
+
+def replace_table(text, table):
+    if text.count(START) != 1 or text.count(END) != 1:
+        raise ValueError("Exactly one state-data marker pair is required")
+    before, remainder = text.split(START)
+    _, after = remainder.split(END)
+    return before + START + "\n" + table + "\n" + END + after
 
 
 def main():
-    p = argparse.ArgumentParser(description="Render state_fees.json as a markdown table")
-    p.add_argument("--json", default=REPO_ROOT_JSON, help="Path to state_fees.json")
-    p.add_argument("--unverified", action="store_true", help="Only show rows where verified=false")
-    args = p.parse_args()
-
-    if not os.path.exists(args.json):
-        print(f"ERROR: data file not found: {args.json}", file=sys.stderr)
-        sys.exit(1)
-
-    data = load(args.json)
-    records = data["states"]
-    meta = data.get("_meta", {})
-
-    print(f"# State Fees — rendered from {os.path.basename(args.json)}")
-    print()
-    print(f"> records: {len(records)} | seed_date: {meta.get('seed_date', '?')}")
-    verified_states = [r["state"] for r in records if r.get("verified")]
-    print(f"> verified (R2-confirmed): {', '.join(verified_states) if verified_states else 'none'}")
-    print()
-    print(render_table(records, only_unverified=args.unverified))
-    print()
-    print("Doc cap history / statute (where recorded):")
-    for r in sorted(records, key=lambda x: x["state"]):
-        if r.get("doc_cap_statute") or r.get("doc_cap_history"):
-            print(
-                f"- {r['state']}: cap {fmt_cap(r.get('doc_cap'))}"
-                f"{' eff ' + r['doc_cap_effective_date'] if r.get('doc_cap_effective_date') else ''}"
-                f"{' | ' + r['doc_cap_statute'] if r.get('doc_cap_statute') else ''}"
-                f"{' | history: ' + r['doc_cap_history'] if r.get('doc_cap_history') else ''}"
-            )
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--json", default=DEFAULT_JSON, help="State dataset path")
+    parser.add_argument("--unverified", action="store_true")
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument("--write-references", action="store_true")
+    action.add_argument("--check", action="store_true", help="Verify all three generated tables match JSON")
+    args = parser.parse_args()
+    try:
+        data = load(args.json)
+        errors = validate_dataset(data)
+        if errors:
+            raise ValueError("; ".join(errors))
+        if args.unverified and (args.check or args.write_references):
+            raise ValueError("Reference tables always contain all 51 states; omit --unverified")
+        table = render_table(data["states"], args.unverified)
+        if args.write_references or args.check:
+            drift = []
+            for path in SURFACES:
+                old = path.read_text(encoding="utf-8")
+                new = replace_table(old, table)
+                if args.write_references:
+                    path.write_text(new, encoding="utf-8")
+                elif old != new:
+                    drift.append(path.relative_to(ROOT).as_posix())
+            if drift:
+                raise ValueError("Generated state tables differ: " + ", ".join(drift))
+            print("Three state tables " + ("updated" if args.write_references else "verified"))
+        else:
+            print("Reviewed values only; source dates and applicability are in field_provenance. A supported tax profile still needs a runtime freshness check and explicit fees.\n")
+            print(table)
+        return 0
+    except (OSError, ValueError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

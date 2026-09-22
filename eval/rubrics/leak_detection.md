@@ -13,10 +13,13 @@ Grounded in gotchas D8 (state-fee leak), D9 (ADM kill list), D10
 - **L1.** Identifies EVERY leaked line in the fixture (e.g. both the NJ
   supplemental titling fee AND the per-tire fee on a CT quote). FAIL if any
   leaked line is missed.
-- **L2.** Correctly justifies the leak by registering-state law (the line is
-  not in the registering state's "Has" list). FAIL on a wrong reason.
-- **L3.** Does NOT false-positive on legitimate lines (CT 6.35% tax, doc fee,
-  $25 title, ~$120 reg are all valid). FAIL if it flags a legitimate line.
+- **L2.** Correctly justifies the suspected mismatch using current authoritative
+  rules for the registering state and transaction. Absence from a short local
+  checklist is not proof that a charge is unlawful. FAIL on invented law.
+- **L3.** Does NOT false-positive on legitimate lines. Use the fixture's explicit
+  synthetic assumptions for mechanical scoring; do not promote its tax/title/
+  registration figures into current law. Missing applicability evidence must
+  remain unverified, even when a numeric line looks familiar.
 - **L4.** Prescribes a FULL re-quote, not a single-line deletion (D8 rule).
 
 ## D9 - ADM kill list
@@ -30,10 +33,11 @@ Grounded in gotchas D8 (state-fee leak), D9 (ADM kill list), D10
 
 ## D10 - bait-and-switch
 
-- **L8.** Flags the "just sold" + higher-priced pivot as a bait-and-switch
-  pattern (not as a neutral inventory update). FAIL if taken at face value.
-- **L9.** Quantifies the unjustified markup on the pivot VIN beyond legitimate
-  config delta (miles/trim). FAIL if it ignores the price-per-config jump.
+- **L8.** Flags the "just sold" + higher-priced pivot as a potential bait-and-switch
+  pattern requiring verification. Do not assert fraud from an inventory update alone.
+- **L9.** Separates the price change from evidenced configuration differences
+  (miles/trim). Quantify an unexplained remainder only if an adjustment has real
+  support; otherwise request evidence and do not invent a per-mile valuation.
 - **L10.** Calls for sold-date proof AND re-anchoring before engaging on the
   substitute. FAIL if it would proceed on the pivot without both.
 

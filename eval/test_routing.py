@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Routing / trigger-conflict assertions for buy-me-a-car skills.
+"""Static routing vocabulary / trigger-conflict checks for buy-me-a-car skills.
 
 Pure standard library. Run directly:
 
@@ -9,7 +9,9 @@ or under pytest / unittest discovery:
 
     python -m unittest eval.test_routing
 
-Two guarantees are enforced:
+These offline checks exercise a local heuristic, not a host model router.
+Actual prompt routing is exercised by ``python eval/test_rubric.py --llm``.
+Two static properties are enforced:
 
   1. No two skills declare an identical exact trigger phrase
      (case-insensitive, whitespace-trimmed). Overlapping triggers make the
@@ -64,7 +66,9 @@ def all_triggers(info):
 
 
 def route(query, skills):
-    """Resolve a free-text query to a single skill directory.
+    """Apply the fixture's local heuristic to a free-text query.
+
+    This function does not invoke or emulate the host model's actual routing.
 
     Rule (from README): when a query could activate multiple skills, the most
     narrow + specific trigger wins. Resolution proceeds in two stages:

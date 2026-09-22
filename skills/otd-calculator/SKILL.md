@@ -1,153 +1,108 @@
 ---
 name: otd-calculator
-description: Use to compute out-the-door (OTD) cost from sale price + state + fees, or reverse-engineer a sales price ceiling from a target OTD. Handles trade-in tax credit if state grants it. Triggers include "compute OTD", "OTD math", "what's my OTD", "reverse OTD to sale price", "算 OTD", "算总价", Spanish phrases "calcula el precio final del carro", "calcula el precio total con impuestos y cargos", and any sale-price-vs-OTD disambiguation question.
+description: Compute an out-the-door (OTD) estimate or reverse a target OTD into a sales-price ceiling using verified, explicitly supported state rules. Triggers include "compute OTD", "OTD math", "what's my OTD", "reverse OTD to sale price", "算 OTD", "算总价", "calcula el precio final del carro", and "calcula el precio total con impuestos y cargos".
 ---
 
 # OTD Calculator
 
-> **Caveat**: this skill is one author's playbook + 5-scenario stress test. Verify state fees / CPO terms / EV credits / dealer practices against current sources before quoting numbers to a dealer or making financial decisions. Not tax, legal, or financial advice.
-> last_verified: 2026-05-18
-> Scope: narrow OTD math only. For full negotiation flow see `../orchestrator/SKILL.md`. For state fee data see `../state-fee-lookup/SKILL.md`.
+Use the installed orchestrator's `scripts/otd_calculator.py`. It resolves the real repository path through Windows junctions. State fees and tax rules come from `data/state_fees.json`; each reviewed field has its own source and effective scope.
 
-## Core formula (forward: Sale -> OTD)
+The result is an **estimate** with explicit fee inputs. A successful calculation does not confirm a dealer offer or the legality/completeness of every fee. Ordinary in-state resident dealer purchases of passenger ICE vehicles are the supported transaction class. Check the current profile table below; an unsupported profile must produce an actionable refusal.
 
-```
-Taxable = Sale + Doc  (in most states; CA is a notable exception, see gotchas)
-Tax     = Taxable * (StateRate + LocalRate)
-OTD     = Sale + Doc + Tax + Title + Reg + Other
-```
+## Required inputs and gate
 
-`Other` covers tire/battery/environmental fees, EV reg surcharge, lien recording, and any add-ons that survived F&I. Should be a short itemized list, not a black box.
+1. Confirm the state, transaction date, in-state dealer/resident context, passenger ICE vehicle, and whether this is an ordinary purchase. Lease, private-party, EV, commercial, exemption, rebate and new-resident branches need their own official calculation.
+2. Obtain itemized sales price, separately stated doc charge, title and registration amounts. Include applicable plate/inspection/local fees, and classify their tax treatment before putting them in `--reg`; Michigan temporary-registration and electronic-filing charges belong in taxable additions. No average registration fee is assumed.
+3. Classify additional charges explicitly: `--taxable-addons` versus `--addons` for independently verified nontaxable charges. Connecticut service and extended warranties must use `--warranty` because their rate is separate. Do not infer that warranties, accessories or dealer packages share one tax treatment.
+4. Run the calculator. It validates the dataset, field sources, source-value consistency, dates and a three-month review window before using an enabled state profile. Missing or stale evidence stops calculation.
+5. Keep gross OTD separate from the trade settlement. A trade allowance can change the tax base, while payoff changes the balance due. Neither cash down nor financing terms changes gross OTD.
 
-## Reverse formula (target OTD -> Sale ceiling)
+Use `--sales PRICE --forward` for a forward estimate, or `--target TARGET` for a cent-safe sales-price ceiling. Supply `--state STATE --doc DOC --title TITLE --reg REG` in both modes. `--sale-price` is an alias of `--sales`. Use `--trade ALLOWANCE --trade-payoff PAYOFF` for a buyer-owned motor vehicle transferred to the same dealer in the same transaction. The allowance is the vehicle's gross value, not equity after payoff.
 
-Given a target OTD you will pay, solve for the maximum Sale price you can accept:
+All amounts must be finite, nonnegative and have at most two decimal places. Reverse calculation returns the highest supported whole-cent sales price that stays within the target after tax rounding. If a higher price falls into an unresolved classification interval, the result says so. `--json` returns monetary values as decimal strings.
 
-```
-Sale = (TargetOTD - Doc * (1 + Rate) - Title - Reg - Other) / (1 + Rate)
-```
+## State differences that must survive the calculation
 
-Where `Rate = StateRate + LocalRate`. Doc is taxed in most states, hence the `(1 + Rate)` factor on Doc inside the bracket. Verify per-state in the state-fee-lookup skill.
+- Maryland: 6.5% from July 1, 2025; doc charge is taxable and eligible trade reduces the base. Standard title is $200, and the verified dealer processing cap is $800. The dealer profile refuses residual tax bases below $640 because valuation/minimum rules need separate review. A universal minimum is not inferred from the fee-summary page.
+- Texas: 6.25% motor vehicle tax with eligible trade credit. A separately stated documentary charge is excluded from this tax. Do not add a local general-sales-tax rate. The historical $225 figure is not represented as an unconditional statutory cap.
+- Virginia: 4.15% of sales plus doc, minimum tax $75, no trade-in tax credit. The former $599 cap claim was unsupported.
+- North Carolina: 3% highway-use tax includes the dealer administrative charge and eligible trade credit. The $2,000 commercial/RV maximum is not applied to an ordinary passenger car. The former $129 doc cap claim was unsupported.
+- Illinois: the $10,000 trade limit applied in 2020 and 2021; full eligible trade credit returned January 1, 2022. The production trade-rule helper covers that rule, while the complete OTD profile remains unavailable until all necessary jurisdiction rules are encoded.
+- Michigan: 6% includes doc charges and eligible trade credit capped at $12,000 in 2026. The statutory annual schedule is $5,000 in 2019 plus $1,000 per year; the limit ends in 2029. Temporary-registration and electronic-filing charges are taxable additions. The old fixed $230 doc cap is unverified and was removed.
+- New Jersey: 6.625% includes doc charges and eligible trade credit. The profile requires `--condition used`; new vehicles need a separate Luxury and Fuel-Inefficient Vehicle Surcharge calculation and are refused.
+- New York: 4% plus an explicitly supplied `--local` percentage for the purchaser's residence, including MCTD tax where applicable. Eligible trade is deductible. The `doc` input is only the separately stated reasonable title/registration application service, up to $175, which is exempt. A larger or differently described charge needs an itemized review.
+- Connecticut: 6.35%, or 7.75% when vehicle price including doc and taxable vehicle additions exceeds $50,000 **before trade**. Service/extended warranties are separately entered with `--warranty`, remain taxable at 6.35%, and do not go in sales or taxable vehicle additions. If a warranty alone pushes the combined price over $50,000, the profile requires an itemized tax review because the reviewed sources do not explicitly resolve that classification. Reverse calculation respects the tax jump and excludes this review interval.
 
-## Trade-in case
+## Coverage table
 
-In states granting trade-in tax credit (most; CA, KY, DC do NOT), trade value reduces the taxable base:
+“Unverified” means the stored legacy value must not be quoted as current fact. “Supported” refers to the scoped tax profile and still requires explicit fees and the runtime freshness gate. Reviewed fields carry their actual verification dates in JSON; a whole-state boolean is not evidence.
 
-```
-Taxable = (Sale + Doc - Trade)
-```
+<!-- state-data:start -->
+| State | Reviewed tax rate | Doc cap | Title | Registration | Trade credit | Calculator profile |
+|---|---|---|---|---|---|---|
+| AK | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| AL | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| AR | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| AZ | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| CA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| CO | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| CT | 6.35%; 7.75% over $50,000 | Unverified | Unverified | Unverified | Full eligible allowance | supported |
+| DC | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| DE | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| FL | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| GA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| HI | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| IA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| ID | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| IL | Unverified | Unverified | Unverified | Unverified | Full eligible allowance | unsupported |
+| IN | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| KS | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| KY | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| LA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| MA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| MD | 6.5% | $800 | $200 | Unverified | Full eligible allowance | supported |
+| ME | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| MI | 6% | Unverified | Unverified | Unverified | Up to $12,000 (2026); annual schedule | supported |
+| MN | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| MO | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| MS | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| MT | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| NC | 3% | Unverified | Unverified | Unverified | Full eligible allowance | supported |
+| ND | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| NE | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| NH | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| NJ | 6.625% | Unverified | Unverified | Unverified | Full eligible allowance | supported (used only) |
+| NM | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| NV | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| NY | 4% + supplied local rate | $175 | Unverified | Unverified | Full eligible allowance | supported |
+| OH | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| OK | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| OR | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| PA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| RI | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| SC | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| SD | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| TN | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| TX | 6.25% | Unverified | Unverified | Unverified | Full eligible allowance | supported |
+| UT | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| VA | 4.15% | Unverified | Unverified | Unverified | No tax credit | supported |
+| VT | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| WA | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| WI | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| WV | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+| WY | Unverified | Unverified | Unverified | Unverified | Unverified | unsupported |
+<!-- state-data:end -->
 
-Forward with trade:
-```
-OTD = Sale + Doc + (Sale + Doc - Trade) * Rate + Title + Reg + Other
-```
+## Explicit custom arithmetic
 
-Reverse with trade (solve for Sale given target OTD):
-```
-Sale = (TargetOTD + Trade*Rate - Doc*(1+Rate) - Title - Reg - Other) / (1+Rate)
-```
+An unsupported state must not fall back to generic arithmetic automatically. A user who specifically wants an estimate from externally supplied assumptions can use `--estimate --tax-rate PERCENT --doc-taxable yes|no --title TITLE --reg REG`. The output is labelled `unverified_custom_estimate`. This mode does not infer trade credits or apply state defaults.
 
-If state does NOT grant credit, drop the `Trade` term from the taxable base.
+The low-level Python functions `compute_otd(sales, doc, tax_rate, title, reg, addons=0)` and `reverse_otd(...)` preserve their argument signatures and return Decimal amounts. They implement generic sales-plus-doc algebra only. Production state work must use `compute_state_otd` / `reverse_state_otd`.
 
-## State quick rates (15 most-common)
+## Verification and sources
 
-| State | Combined typical | Doc cap | Title | Reg (1yr) | Trade credit |
-|-------|------------------|---------|-------|-----------|--------------|
-| NJ | 6.625% | $799 | $85 | $70 | Yes |
-| NY | 8.875% (NYC) / 8% (most) | $175 | $50 | $100 | Yes |
-| PA | 6% (8% Philly, 7% Allegheny) | none | $58 | $45 | Yes |
-| CT | 6.35% (7.75% >$50k) | none | $25 | $80 | Yes |
-| MA | 6.25% | none | $75 | $60 | Yes |
-| CA | 8.75-9.5% (combined) | $85 | $25 | ~1%/yr MSRP | NO |
-| TX | 6.25% (no local) | $225 | $33 | $50 + $200 EV | Yes |
-| FL | 6-7.5% (combined) | none | $77 | $225 | Yes |
-| IL | 7.5-10.25% (combined) | $347 | $155 | $151 | Yes |
-| OH | 6-7.5% (combined) | $250 | $15 | $31 | Yes |
-| MI | 6% | $230 | $15 | $100 | Yes capped 9k (2025) |
-| GA | 6.6% TAVT one-time | none | $18 | $20 | Yes (on TAVT) |
-| WA | 8-10% (combined) | $200 | $15 | $80 | Yes |
-| MD | 6% | $800 | $100 | $135 | Yes |
-| VA | 4.15% min $75 | $599 | $15 | $41 | NO |
+Run `python tools/make_fixtures.py --check` and `python -m unittest discover -s eval -p "test_*tax*.py"`, plus `eval/test_otd.py`, for deterministic validation. The generated [OTD cases](../../eval/golden/otd_cases.json) contain synthetic inputs and independent expected totals. Tests call production calculation and trade functions.
 
-Full 50-state + DC data: `../orchestrator/references/state_fees.md`.
+See [state fees and source evidence](../orchestrator/references/state_fees.md) and [state fee lookup](../state-fee-lookup/SKILL.md).
 
-## Worked examples
-
-### Example 1: NJ example county, cash buyer, no trade
-
-Sale $25,000, Doc $499, NJ 6.625%, Title $85, Reg $70.
-
-```
-Taxable = 25000 + 499 = 25499
-Tax     = 25499 * 0.06625 = 1689.31
-OTD     = 25000 + 499 + 1689.31 + 85 + 70 = 27343.31
-```
-
-### Example 2: CA Alameda 94703, trade-in, financed
-
-Sale $28,000, Trade $8,000, Doc $85 (CA cap), CA combined 9.25% (Bay Area). CA does NOT grant trade credit.
-
-```
-Taxable = 28000 + 85 = 28085  (trade IGNORED - CA rule)
-Tax     = 28085 * 0.0925 = 2597.86
-Title   = 25
-Reg     = ~280 (~1% of MSRP first year)
-OTD     = 28000 + 85 + 2597.86 + 25 + 280 = 30987.86
-```
-
-Trade still reduces cash-out-of-pocket by $8,000 but not the tax bill.
-
-### Example 3: TX Austin 78704, EV, no trade
-
-Sale $32,000, Doc $150 (TX cap), TX 6.25% (no local), Title $33, Reg $50, EV surcharge $200/yr.
-
-```
-Taxable = 32000 + 150 = 32150
-Tax     = 32150 * 0.0625 = 2009.38
-Other   = 200 (EV reg premium)
-OTD     = 32000 + 150 + 2009.38 + 33 + 50 + 200 = 34442.38
-```
-
-## Common gotchas
-
-- **Doc-fee taxability**: most states tax Doc. CA explicitly does not. Florida varies by dealer. When in doubt assume taxed (conservative for buyer in reverse math).
-- **Local rate stacking**: about 35 states have local tax. Use the buyer's residence ZIP, not dealer ZIP - the state collects tax based on registration address.
-- **EV registration premium**: TX +$200/yr, IL +$100/yr, OH +$200/yr, WA +$225/yr. Adds to `Other`.
-- **CA trade-in**: never reduces tax. KY and DC same. All others usually do.
-- **GA TAVT**: 6.6% one-time title ad valorem tax in lieu of sales+ad valorem. Trade reduces TAVT base.
-- **NC HUT**: 3% Highway Use Tax in lieu of sales tax; doc capped at $129.
-- **NH/OR/MT/DE no sales tax**: any sales-tax line on a quote to these buyers is a template leak - demand re-quote.
-- **MD doc cap**: $800 effective July 1 2024 (cap history $200 -> $300 -> $500 -> $800; older references citing $300/$499/$500 will mislead). MD's $800 cap is now HIGHER than VA's $599 - MD is no longer a low-doc state.
-
-## Python helper
-
-Use the existing script for forward or reverse math across all 50 states + DC:
-
-```bash
-# Forward: Sale -> OTD
-python ../orchestrator/scripts/otd_calculator.py \
-    --sales 25000 --state NJ --doc 499 --forward
-
-# Reverse: target OTD -> Sale ceiling
-python ../orchestrator/scripts/otd_calculator.py \
-    --target 27500 --state NJ --doc 499
-
-# CA with local stacking
-python ../orchestrator/scripts/otd_calculator.py \
-    --sales 28000 --state CA --doc 85 --local 2
-
-# List all 50 states + their default rates / doc caps
-python ../orchestrator/scripts/otd_calculator.py --list-states
-```
-
-Flags: `--target` (reverse) OR `--sales --forward`; `--state` two-letter code; `--doc` doc fee; `--local` extra local percentage (e.g. `1` = 1% extra); `--title --reg --addons` overrides.
-
-## Sale vs OTD disambiguation
-
-If a dealer quote or buyer message is ambiguous (e.g. "out the door at $28,000"), default to OTD interpretation and confirm. The classic trap: dealer says "$27,500" meaning Sale, buyer hears OTD, $1,800 surprise at signing. Always pin OTD explicitly in writing before any deposit.
-
-## Links
-
-- Full state fee table + cross-state titling math: `../orchestrator/references/state_fees.md`
-- State-by-state lookup skill (narrower scope, faster): `../state-fee-lookup/SKILL.md`
-- Negotiation playbook (escalation ladder, ADM kills): `../orchestrator/references/negotiation_playbook.md`
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.
