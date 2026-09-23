@@ -1,357 +1,114 @@
 # Vertical Buyer Playbooks (Pickup / Heavy / Luxury)
 
-> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
-
-This file combines two niche buyer-type playbooks that extend the mainstream-light-vehicle workflow. **Part 1, Pickup Truck Specifics** covers 1/2-ton and mid-size pickups (F-150, Ram 1500, Silverado/Sierra 1500, Tundra, Tacoma, Ranger, Frontier, Colorado/Canyon), tow rating, payload, factory vs aftermarket distinction, pickup-specific PPI items, and dealer tactics. **Part 2, Heavy / Commercial / Luxury** covers HD pickups (F-250+, 2500+, 3500+), commercial vans / box trucks / fleet vehicles, and the luxury European / Japanese / American luxury brands (BMW / MB / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln / Porsche).
+Pickup intake and capacity verification were reviewed on 2026-09-22. This review
+removed unsourced model-capacity, depreciation and discount tables. It does not
+verify any particular truck, current market value, manufacturer program or
+jurisdiction's tax treatment.
 
 ## Part 1, Pickup Truck Specifics
 
-## Pickup Truck Specifics
-
-> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
-
-Comprehensive reference for buying used full-size and mid-size pickups (F-150, Silverado/Sierra 1500, Ram 1500, Tundra, Tacoma, Ranger, Frontier, Colorado/Canyon). Covers:
-
-1. Tow rating dependency (engine × axle × cab × package = real capacity)
-2. Factory tow package vs aftermarket distinction
-3. Payload dependency (separate from tow capacity)
-4. Pickup-specific PPI items (frame, suspension, towing wear, body mounts, exhaust)
-5. Used-pickup depreciation patterns
-6. Pickup-specific dealer tactics
-
-Loaded when buyer's vehicle target is any 1500-class or mid-size pickup (Phase 1 router gate fires on truck make/model).
-
----
-
-### 1. Tow Rating Dependency Table, DO NOT trust the listing
-
-Pickup tow ratings vary wildly within the SAME nameplate based on **engine × axle ratio × cab config × bed length × tow package**. A "2022 F-150 with tow package" can mean anywhere from 8,000 lb to 14,000 lb depending on the actual configuration. Buyers are routinely sold the wrong truck because the dealer's listing only says "tow package" without the configuration detail.
-
-#### Ford F-150 2021-2023 Tow Capacity (SuperCrew 4x4 5.5' or 6.5' bed)
-
-| Engine | Axle Ratio | Tow Package | Real Tow Capacity |
-|---|---|---|---|
-| 2.7L EcoBoost V6 | 3.55 | Std Trailer Tow | 9,000-9,800 lb |
-| 3.3L V6 (base) | 3.55 | Std | 7,700 lb |
-| 5.0L V8 | 3.31 | Std | 9,300 lb |
-| 5.0L V8 | 3.55 | Max Trailer Tow Pkg | 11,300 lb |
-| 3.5L EcoBoost V6 | 3.55 | Std | 11,300 lb |
-| **3.5L EcoBoost V6** | **3.55 or 3.73** | **Max Trailer Tow Pkg** | **13,000 lb** |
-| 3.5L EcoBoost HO (Raptor) | 4.10 | Std | 8,200 lb (lower; Raptor is off-road tuned) |
-| PowerBoost Hybrid 3.5L | 3.73 | Max | 12,700 lb |
-| 3.0L Power Stroke diesel | 3.55 | Max | 12,100 lb |
-
-#### Ram 1500 2019-2024 Tow Capacity (Crew Cab 4x4 5.7' bed)
-
-| Engine | Axle | Tow Pkg | Capacity |
-|---|---|---|---|
-| 3.6L Pentastar V6 | 3.21 | Std | 7,500-7,730 lb |
-| 5.7L Hemi V8 | 3.21 | Std | 8,500 lb |
-| 5.7L Hemi V8 | 3.92 | Max Tow Pkg | 11,540 lb (12,750 w/ light-weight options) |
-| 5.7L eTorque mild hybrid | 3.92 | Max | 12,750 lb |
-| 3.0L EcoDiesel V6 | 3.92 | Max | 12,560 lb |
-| TRX (6.2L supercharged Hemi) | 4.10 | Std | 8,100 lb (TRX is off-road, not tow-tuned) |
-
-#### Chevy Silverado / GMC Sierra 1500 2021-2024 (Crew Cab 4x4)
-
-| Engine | Axle | Tow Pkg | Capacity |
-|---|---|---|---|
-| 2.7L Turbo I4 | 3.42 | Std | 9,500-9,800 lb |
-| 5.3L V8 | 3.23 | Std | 9,500 lb |
-| 5.3L V8 | 3.42 | Max Trailering | 11,400 lb |
-| 6.2L V8 | 3.23 | Std | 11,800 lb |
-| 6.2L V8 | 3.42 | Max | 13,300 lb |
-| 3.0L Duramax diesel | 3.42 | Max | 13,200 lb |
-
-#### Toyota Tundra 2022-2024 (Crew Cab 4x4)
-
-| Engine | Tow Pkg | Capacity |
-|---|---|---|
-| 3.5L Twin-Turbo V6 | Std | 11,120 lb |
-| 3.5L Twin-Turbo V6 | Tow Tech | 12,000 lb |
-| 3.5L Hybrid (i-Force MAX) | Tow Tech | 11,450 lb |
-
-#### Reading the Window Sticker / VIN for Tow Config
-
-Buyer must verify the SPECIFIC truck's tow rating, not the trim's max-possible rating:
-
-1. **Door-jamb sticker** has GVWR + GAWR + tire spec. Real tow capacity is derived from (GCWR − GVWR), not advertised.
-2. **VIN decode** via Ford / Ram / GM official decoders shows installed option codes:
-   - **Ford F-150 Max Trailer Tow Pkg = option code 53A or 53B** (depending on year)
-   - **Ford F-150 Std tow = code 535** (most common; just hitch + 7-pin + 4-pin)
-   - **Ram Max Tow = option code AHT** (with 3.92 axle electronic)
-   - **Chevy Max Trailering = code NHT** (with 3.42 axle)
-3. **Build sheet** (some dealers can pull from OEM) shows complete option list
-4. **Trailer hitch receiver class** stamped on hitch:
-   - Class III: 6,000 lb
-   - Class IV: 10,000 lb
-   - Class V: 16,000-20,000 lb (rare on factory 1500-class; common on HD trucks)
-   Factory Max Tow on F-150/Silverado/Sierra/Ram typically Class IV
-
-#### Tow-Capacity Negotiation Lever
-
-If a listing claims "tow package" but the VIN decode shows std tow only, the buyer has leverage:
-- Real tow capacity is 1,500-3,000 lb below advertised
-- A truck advertised at "12,000 lb tow" that actually does 9,500 lb has a value drop of $1,500-$3,000
-- Counter: "VIN decode shows std tow option 535, not Max Tow 53A. Listing says 'tow package' which is technically true but misleading on capacity. I'm asking for a $2,000 sale-price reduction to compensate."
-
-This is a frequent pickup-listing mismatch, surface it in Phase 6 routinely on any pickup-trade.
-
----
-
-### 2. Factory Tow Package vs Aftermarket Distinction
-
-A truck with **only an aftermarket hitch** is functionally a "no tow package" truck. The list of equipment that comes with FACTORY tow (and is absent with aftermarket) is load-bearing:
-
-| Equipment | Factory Max Tow Includes | Factory Std Tow | Aftermarket Hitch Only |
-|---|---|---|---|
-| Hitch receiver (welded to frame) | Yes Class IV/V | Yes Class III/IV | Bolt-on or weld-on; quality varies |
-| 7-pin OEM trailer connector wired | Yes | Yes | Sometimes wired aftermarket, voltage/ground can be flaky |
-| 4-pin trailer connector | Yes | Yes | Sometimes |
-| Integrated Trailer Brake Controller (dash) | Yes (Ford from 2009+; GM 2015+; Ram 2019+) | No (or optional add-on) | No, must add aftermarket Tekonsha/Curt under-dash |
-| Trailer sway control software | Yes (integrated with stability control) | Maybe (varies) | No |
-| Heavier rear axle gearing (3.55+ Ford / 3.92 Ram / 3.42 GM) | Yes | Maybe | No (whatever came with the truck) |
-| Transmission cooler (auxiliary or upgraded) | Yes | Yes (smaller) | No |
-| Engine oil cooler upgrade | Yes (some) | Maybe | No |
-| Larger radiator | Yes (some) | Maybe | No |
-| 36-gal extended fuel tank (Ford F-150 Max Tow only) | Yes | No | No |
-| Higher rated rear shocks / leaf packs | Yes (some Heavy Duty Payload variants) | No | No |
-| Rear axle pumpkin / diff size upgrade | Yes (Ford Heavy Duty 9.75" vs std 8.8") | No | No |
-| 7- or 4-pin OEM wiring harness back through chassis | Yes | Yes | Sometimes (cheap installs run wire under floor mat) |
-| Towing display in instrument cluster | Yes | Yes (some) | No |
-| Pro Trailer Backup Assist (Ford) | Yes | Maybe | No |
-| Class IV vs Class III hitch rating | Class IV (10k lb) or V | Class III (6-7.5k lb) | Varies; many aftermarket hitches are Class III only |
-
-#### Aftermarket hitch effective capacity
-
-A 2021 Lariat 5.0L V8 with aftermarket hitch + 7-pin and NO factory tow package:
-- Bumper-mounted vs frame-mounted hitch matters (frame-mount > bumper)
-- Even Class IV aftermarket hitch (10,000 lb rated) is **derated by the truck's GCWR** without factory rear axle/cooling upgrades
-- Real safe tow capacity: **8,000-9,000 lb** for a 9,300-lb-rated truck with aftermarket gear, due to:
-  - No transmission cooler upgrade (transmission overheats above 8,500 lb sustained)
-  - No integrated TBC (aftermarket Tekonsha is functional but adjustment requires user calibration; factory integrated is auto-calibrated)
-  - No rear axle upgrade (8.8" axle saturates above ~9,000 lb sustained on V8)
-  - No trailer sway integration
-
-Counter language for aftermarket-tow listing: "Listing says 'tow package' but VIN decode + door-jamb show no factory tow option (no 53A / 535 / NHT / AHT code). The aftermarket hitch is rated to 10,000 lb but real safe sustained tow on this truck is closer to 8,500 lb without factory cooling and TBC. For my use case (13,000 lb travel-trailer) this truck does not meet the requirement and I'm passing."
-
----
-
-### 3. Payload Capacity (Separate From Tow Capacity)
-
-Payload = max weight inside the cab + bed + passengers + fuel + factory accessories. Payload is **separate** from tow capacity and can be the binding constraint:
-
-| Truck | Typical Payload | Notes |
-|---|---|---|
-| F-150 SuperCrew 5.5' bed XLT 4x4 EcoBoost std | 1,640-1,780 lb | Crew cab + 4x4 + EB = lowest payload |
-| F-150 SuperCrew 6.5' bed Heavy Duty Payload Pkg | 2,200-2,400 lb | HDPP option, separate from Max Tow |
-| Ram 1500 Crew Cab 4x4 Hemi std | 1,700-1,800 lb | |
-| Ram 1500 Crew Cab 4x4 Hemi Max Tow | 1,500-1,600 lb (Max Tow REDUCES payload due to heavier driveline) | Counter-intuitive trade-off |
-| Silverado 1500 Crew 4x4 5.3L std | 1,750-1,900 lb | |
-| Tundra Crew 4x4 i-Force std | 1,940-2,030 lb | Tundra has best stock payload |
-| Tacoma Crew 4x4 V6 std | 1,140-1,280 lb (mid-size) | |
-
-**Tongue weight on bumper hitch:** 10-15% of trailer weight. A 13,000 lb trailer = 1,300-1,950 lb tongue weight. Plus 2 passengers (350 lb) + gear (200 lb) = 1,850-2,500 lb on the truck → many F-150 SCrew 4x4 EB configs **exceed payload capacity before tow capacity matters**.
-
-This is the #1 pickup-buyer mistake. Verify payload before tow-rating optimization.
-
----
-
-### 4. Pickup-Specific PPI Items (Distinct From Sedan/SUV PPI)
-
-Standard sedan PPI (CARFAX + service records + brake/tire/fluids) misses pickup-specific failure points. Add these to the inspection:
-
-#### Frame inspection
-
-- Rear frame rust around spare-tire well (water collects)
-- Rear cross-member rust (especially Toyota Tacoma 2005-2010, class-action) and (Ford F-150 1997-2003, separate class-action). **2015-2024 trucks generally OK** but inspect anyway in rust-belt states (IL, OH, PA, MI, NY, NJ, NE).
-- Frame cracks around hitch mount points, sign of regular over-tow use
-- Hidden surface rust under bedliner (drop-in liners hold moisture)
-- Frame paint condition (factory paint = original; recent paint = damage repair)
-- Body-mount bushings (12 mounts on F-150; cracked/missing rubber = corrosion access to frame and body misalignment)
-
-#### Suspension under-load test
-
-- Eyeball spring sag with truck on level ground, rear should sit 0-1" higher than front (raked stance); equal or rear-sagging = worn springs
-- Bump-stop wear pattern, visible rubber contact marks = regular bottoming-out from over-tow or off-road
-- Shock dust boots intact (torn boots = early shock failure)
-- Sway bar end-link rubber bushings (worn = clunk on washboard roads)
-- Rear leaf-spring stack alignment (off-center = previous accident or curb-hit)
-- Steering rack play (rare on modern trucks but check)
-
-#### Hitch + Towing wear pattern
-
-- **Hitch receiver wear**, regular tow use leaves chrome wear inside the receiver; sliding pattern indicates frequent insertion/removal
-- **Tongue weight ball wear**, flattened ball top = regular heavy tow; gouged = improper coupler match
-- **Hitch pin hole wear**, elongation = regular use
-- **7-pin connector wear**, corroded pins = exposure; bent pins = forced connection; replacement (new chrome) = damage repair
-- **Trailer brake controller test**, must function in gain test (dash knob 1-10); LED indicator goes from amber-no-trailer to green-trailer-connected; aftermarket Tekonsha installs often have wrong wire splice
-
-#### Transmission cooler
-
-- Front of radiator stack, look for separate auxiliary cooler with 2-3 lines running to transmission
-- Inspect cooler fins for road-debris damage
-- No fluid weeping at cooler joints
-- Transmission fluid color from dipstick (or via service records if sealed), clean amber/red = OK; dark brown = overdue change; metallic-grey = internal damage
-
-#### Differential (rear)
-
-- Rear axle fluid color via fill-plug inspection, clean amber = OK; metallic = bearing wear
-- 4x4 trucks: front axle fluid same check
-- Pinion-yoke wear (touch test), loose = U-joint or pinion bearing failure
-
-#### Exhaust
-
-- **V8 trucks**: exhaust manifold cracks (Ford 5.0L, Chevy 5.3L/6.2L, Ram 5.7L Hemi prone after 100k mi with work-truck stress), listen for ticking on cold start
-- **Hemi 5.7L specifically**: lifter tick (MDS lifter failure) audible cold; cylinder deactivation = wear pattern check
-- **EcoBoost 3.5L specifically**: turbo seal leak (smoke on cold start = turbo seal); intercooler condensation collection (causes misfires); spark plug condition critical
-- Cat health (passes IL emissions in DuPage County)
-
-#### Bed condition
-
-- Bedliner: drop-in plastic = pop out and inspect bed for rust/dents
-- Spray-in bedliner: tap test for hollow spots (rust trapped beneath cheap spray)
-- Bed-mount rust at corners (water collection)
-- Tailgate handle + latch function (handle wear from frequent use)
-- Tailgate cable condition (rusted/frayed cables on 10+ year trucks)
-- Bedside dents (snow piles, plow flicks)
-
-#### Cab
-
-- Floor pan rust under carpet (rear footwell especially)
-- Drain plugs functional
-- Roof rust spots above headliner
-- Door-hinge wear (regular work-truck use = sag on driver door)
-
-#### Drivetrain heat indicators
-
-- Transfer case (4x4 trucks), heat marks on case
-- Transmission pan, heat marks or fluid weeping
-- Engine oil pan, heat marks (overheating history)
-
-#### Plow-truck flags
-
-If truck has plow brackets installed or hooks at front bumper:
-- Frame stress at plow mount points
-- Body mount cracking
-- Front suspension wear (plows beat front springs)
-- Cooling system upgrade signs (plow trucks add coolers)
-- Premium-rate insurance flag (some insurers raise rates for ex-plow vehicles)
-- Highly negotiable, ex-plow trucks usually $1,500-$3,000 below clean comp
-
----
-
-### 5. Used-Pickup Depreciation Patterns
-
-Trucks depreciate differently from sedans:
-
-| Year | Typical Retained Value (full-size 1500) | Notes |
-|---|---|---|
-| Year 1 (~12 mo) | 75-80% of MSRP | Steeper than sedan year-1 |
-| Year 2 | 65-70% | Pickup market reset; CPO program targets here |
-| Year 3 | 55-60% | Sweet spot for used buyers |
-| Year 4-5 | 50-55% | Plateau begins |
-| Year 6-8 | 45-50% | Slow decline if low miles |
-| Year 9-10 | 35-45% | Mileage-dominated |
-| Year 11+ | Floor-priced by maintenance backlog (frame rust, suspension overhaul, transmission) |
-
-**The buyer's reference**: 2022 F-150 XLT EcoBoost SCrew 4x4 with MSRP ~$52,000 (Max Tow + Iconic Silver). At year 3 expected retained value: 55-60% × $52,000 = $28,600-$31,200 wholesale, $32-36k dealer retail. Currie's $41,995 ask is at the **retail premium tier** (not deal-floor); $38-40k is the deal-floor zone for this configuration.
-
-#### Comparison to ICE sedan depreciation
-
-| | Year 3 retained (sedan) | Year 3 retained (full-size pickup) |
-|---|---|---|
-| Premium German sedan | 50-55% | n/a |
-| Mainstream Japanese sedan | 65-70% | n/a |
-| Mainstream truck (F-150, Silverado, Ram) | n/a | 55-60% (steeper) |
-| Tundra (Toyota truck premium) | n/a | 65-70% (Japanese-truck retention) |
-| Tacoma (mid-size) | n/a | 70-75% (legendary retention) |
-
-**Tacoma is the depreciation exception**, holds value better than any other US truck due to legendary durability rep. Tundra second. Domestic full-size (F-150, Silverado, Ram) cluster around 55-60% year-3.
-
-#### Trim premium (used)
-
-- XLT vs Lariat used premium: $2,500-$4,500 (Lariat has heated/cooled leather seats, larger nav, BLIS standard)
-- Lariat vs King Ranch / Limited / Platinum: $3,000-$6,000 (luxury packages, real wood, panoramic roof, 360 cam)
-- Sport Trim Package premium (XLT Sport / Lariat Sport): $500-$1,200 (cosmetic + black grille)
-
----
-
-### 6. Pickup-Specific Dealer Tactics
-
-#### "Tow ready" / "tow package" listing language
-
-Most common pickup-listing deception. "Tow package" can mean factory Max Tow, factory Std Tow, or aftermarket hitch only. Counter: demand VIN decode + option code verification (53A/535/NHT/AHT) in writing before any deposit.
-
-#### "Plow prep" or "winter package"
-
-Code for ex-fleet / ex-plow truck. Front-end stress + cooling system upgrades are positives, but insurance rates and frame-stress are real risks. Negotiate $1,500-$3,000 below clean comp.
-
-#### "Work truck" / "fleet" history on CARFAX
-
-CARFAX reports fleet usage as "rental fleet" or "commercial fleet." Commercial fleet = construction/utility truck; expect higher engine hours, hitched usage, but also more consistent maintenance (commercial fleets typically follow OEM service schedules). Negotiate $1,000-$2,000 below clean private-owner comp.
-
-#### Aftermarket lift kit
-
-Common on Ram and F-150 in rural/red-state markets. Issues:
-- Voids OEM driveline warranty (CV joint angles increased)
-- Reduces tow capacity (geometry change)
-- Insurance flag (some insurers refuse to cover aftermarket lifts)
-- Negotiate $1,000-$3,000 below clean OEM comp; demand stock-suspension photos if dealer can't show lift documentation
-
-#### Aftermarket wheels / oversized tires
-
-- 35" tires on F-150 = -2 mpg, -1,500 lb tow, speedometer error
-- 33" tires = -1 mpg, -500 lb tow
-- Negotiate to restore stock wheels/tires OR get a $1,000-$2,000 price reduction
-
-#### "Pickup truck premium", current market context
-
-2022-2024 used pickup pricing was elevated (~10-15% over historical norm) due to 2021-2022 chip shortage. By 2026 the premium has compressed but used full-size pickups still trade at 5-10% above pre-2021 historical norm. Build this into baseline target.
-
-#### F&I "Tow service plan" / "RV-prep package"
-
-$1,500-$2,500 add-on offered at close. Most factory tow packages already cover trailer brake controller calibration and 7-pin troubleshooting via OEM warranty. Decline.
-
----
-
-### 7. Pickup-Specific Phase 6 Checklist
-
-Before sending an OTD counter on a used pickup:
-
-- [ ] VIN decode confirms engine + axle + tow package option codes (53A/535/NHT/AHT)
-- [ ] Real tow capacity verified against buyer's actual needs (the buyer: 13,000 lb → requires factory Max Tow only)
-- [ ] Payload capacity NOT exceeded by buyer's actual use (passengers + tongue weight + bed cargo)
-- [ ] Factory vs aftermarket hitch distinction confirmed
-- [ ] Listing claims of "tow ready" verified by VIN decode (not just listing text)
-- [ ] Frame inspection booked into PPI scope
-- [ ] If V8: exhaust manifold + lifter tick check booked
-- [ ] If EcoBoost: turbo seal + intercooler check booked
-- [ ] Ex-plow / ex-fleet posture asked of dealer in writing
-- [ ] Lift kit / oversized tires inspected for warranty + insurance impact
-
-### 8. Pickup-Specific Walk Conditions
-
-- VIN decode reveals std tow option (535) but listing claimed Max Tow → either renegotiate -$2k or walk
-- Aftermarket lift kit without documented installation + alignment specs → walk
-- Frame rust visible in spare-tire well or rear crossmember → walk in rust-belt states
-- Multiple owners + commercial fleet history + over-tow signs → walk
-- Tongue-weight + passenger + gear math exceeds payload capacity → walk; truck is wrong for buyer use case
-- Integrated TBC test fails (no green LED when connected to trailer) → renegotiate $300-$500 OR walk
-
-### Cross-References
-
-- `references/pdf_review_checklist.md`, CARFAX patterns; pickup-specific is additive to sedan checklist
-- `references/trade_in.md`, pickup as trade-in (lien handling + Hemi/EcoBoost specific resale)
-- `references/state_fees.md`, IL/PA/TX/OH/MI rust-belt states have higher frame-rust risk for cross-state purchases
-- SKILL.md Phase 3, pickup inventory dispatch should add tow-config column
-- SKILL.md Phase 9, pickup-specific close-day walk-around checklist (factory tow option verification at delivery, integrated TBC functional test)
+Load this guidance for any pickup request, including a buyer who has not chosen
+a make or model. Start with [requirements](requirements.md), including the Alaska
+intake when relevant. Do not select a truck class before understanding its use.
+
+### 1. Establish the load and configuration
+
+Ask what the truck will carry or tow, using loaded operating weights rather than
+an empty trailer's advertised weight. Capture trailer type, tongue or pin load,
+passengers, bed cargo, accessories, camper or plow, and cab/bed needs. If the
+buyer does not tow, record that rather than inventing a trailer requirement.
+Identify personal versus business use and the roads and winter conditions.
+
+A nameplate, trim, badge, seller's "tow package" claim, or maximum advertised
+rating does not establish the capability of a particular vehicle. Obtain:
+
+1. The exact model year, engine, drivetrain, axle, cab, bed and factory equipment
+   from the VIN-specific build record and physical inspection. Option codes and
+   package contents differ across model years; do not use a generic code table.
+2. The applicable OEM towing guide and owner's manual for that configuration and
+   hitch type, including towing restrictions and required equipment.
+3. The actual certification label with gross vehicle weight rating (GVWR) and
+   gross axle weight ratings (GAWR), plus the tire-and-loading label's occupant
+   and cargo allowance. Confirm tire load limits and account for modifications.
+4. Ratings and instructions for the actual receiver, hitch, ball/coupler,
+   weight-distributing equipment if applicable, trailer and brake controller.
+   A receiver's class name alone is not its usable rating.
+
+### 2. Verify all limits together
+
+Gross combined weight rating (GCWR) limits the loaded truck and trailer together.
+**GCWR minus GVWR is not a general towing-capacity formula.** GVWR is a rating,
+not the truck's actual operating weight. A combined-weight calculation alone
+also cannot establish an allowable trailer weight.
+
+Use OEM limits for the exact configuration and assess actual loaded weights
+against every applicable vehicle, axle, tire, hitch, trailer and combination
+limit. Include occupants, cargo and installed accessories. Tongue or pin weight
+loads the truck and consumes available payload; account for weight transfer and
+axle loads without double-counting the same weight in the combined total. Use
+appropriate loaded scale measurements when selecting or validating the setup.
+
+The tire-and-loading label's allowance is a starting point for the truck as
+built. Added equipment and changes in occupants or cargo reduce the remaining
+allowance. Do not substitute a nameplate-level payload table or a fixed tongue
+weight percentage for the trailer manufacturer's loading instructions and actual
+load. A truck can meet its trailer-weight limit and still exceed payload or an
+axle, tire or hitch limit. If any required limit or weight is unknown, capability
+remains unverified; do not call the truck suitable or safe to tow.
+
+### 3. Factory equipment, modifications and inspection
+
+Verify installed cooling, gearing, wiring, brake controls and other equipment
+against the OEM requirements for the proposed use. A receiver fitted after sale
+does not prove factory tow equipment is present or increase OEM weight ratings.
+Factory package names also do not prove every required component is installed.
+Use labels, build records, service records and an independent truck inspection.
+
+Ask the inspector to assess frame and mounting corrosion or damage, hitch and
+wiring condition, brake/controller operation, suspension and steering wear,
+transmission and differential condition, cooling, tires and 4WD operation.
+Investigate prior plow, camper, commercial or towing use without inferring it
+from a package badge alone. Evaluate lifts, altered tire sizes, suspension
+changes and emissions modifications against applicable OEM and legal guidance.
+Do not diagnose a component from a single noise or guarantee the cost to repair it.
+
+For Alaska, confirm local cold-start and winter-use needs from the actual route,
+parking conditions and power access. Inspect the battery, fluids and installed
+cold-weather equipment, and budget suitable winter tires when needed. Verify
+nearby service capability and parts support. See [Alaska pickup intake](requirements.md#alaska-pickup-intake)
+for registration, local taxes and Lower 48 shipping questions.
+
+### 4. Price and seller claims
+
+When advertised equipment or capacity disagrees with verified records, document
+the disagreement, ask for correction and reassess whether the truck meets the
+buyer's use. Do not convert a missing package into an invented dollar discount
+or accept an incapable truck because its price is lower.
+
+Value a specific truck using current comparable vehicles and written offers,
+accounting for configuration, condition, mileage and documented inspection
+findings. Old model-level depreciation ratios, purported market floors, repair
+averages and standard discount percentages are not evidence of today's value.
+Keep any private budget separate from an authorized outward offer.
+
+### 5. Pickup decision and handoff
+
+Before recommending a specific truck, retain the OEM and VIN-specific evidence,
+identify unresolved load or inspection questions, and compare complete delivered
+costs. Missing evidence stays unknown. Stop recommending a configuration if the
+intended load exceeds any applicable limit or if the necessary equipment cannot
+be verified. A discount does not resolve a suitability problem.
+
+Close-day checks include the actual hitch/brake equipment, agreed repairs,
+inspection findings, insurance for the intended use, registration class and
+transport arrangements. Do not claim a completed PPI, verified tow setup,
+shipping booking or seller contact without the corresponding evidence.
 
 ## Part 2, Heavy / Commercial / Luxury
 
 ## Heavy-Duty / Commercial / Luxury Axes
 
-> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
+> **Historical reference, not current verification:** The remaining commercial and luxury material below was last assembled on 2026-05-18. Its numeric capacities, fees, incentives, warranties, prices, depreciation and discounts are unverified. Do not use them to decide vehicle capability, compute a total, make an offer or promise a benefit; obtain current OEM, jurisdiction and transaction evidence first.
 
 Buyer-type extensions beyond the core mainstream-light-vehicle workflow. Covers heavy-duty pickups (HD trucks), commercial vehicles (cargo vans / box / fleet), and luxury (BMW / MB / Audi / Lexus / Genesis / Acura / Infiniti / Cadillac / Lincoln). Each axis has structurally different negotiation, financing, lease, and ownership patterns that the standard SKILL.md flow does not handle out-of-the-box.
 
@@ -361,57 +118,40 @@ Cross-references: Part 1 above (1/2-ton pickups, F-150, RAM 1500, Silverado 1500
 
 HD pickups are 3/4-ton (250 / 2500 class) and 1-ton (350 / 3500 class) trucks designed for heavy towing, payload, and commercial use. Different from the light-duty 1/2-ton pickups covered in Part 1 of this file.
 
-#### 1.1 Spec axes the buyer MUST capture at Phase 1
+#### 1.1 Heavy-duty requirements
 
-| Field | Why load-bearing |
-|---|---|
-| **GCWR (Gross Combined Weight Rating)** | Total weight of truck + trailer + cargo + passengers. Federal CDL trigger at 26,001 lbs GCWR; below that, no CDL needed. Many F-450 / RAM 3500 dually combos exceed 26,000 GCWR with a loaded fifth-wheel, CDL required. |
-| **Tow rating (5th-wheel / gooseneck vs conventional)** | 5th-wheel and gooseneck tow ratings are dramatically higher than conventional bumper-pull (e.g., F-350 SRW conventional 16,500 lbs vs 5th-wheel 24,800 lbs vs gooseneck 32,500 lbs). Buyer's trailer type determines which rating matters. |
-| **Engine (gas vs diesel)** | Diesel: Ford PowerStroke 6.7L, Ram Cummins 6.7L I6, GM Duramax 6.6L V8. Gas: Ford 7.3L "Godzilla" V8, Ram 6.4L Hemi V8, GM 6.6L Gas V8. Diesel: $9k-$11k premium, 22-28 MPG towing-loaded, $90k+ engine repairs at high mileage. Gas: $0 premium, 14-18 MPG loaded, $25k engine. |
-| **Axle ratio** | 3.55, 3.73, 4.10, 4.30 (Ford / GM) or 3.42 / 3.92 / 4.10 (Ram). Lower numerical = better fuel economy, lower tow. Higher = more tow capacity, worse MPG. |
-| **Cab configuration** | Regular cab (work truck, cheapest), Extended/SuperCab (4-door but rear suicide-style, less back room), Crew Cab (full 4-door, most common for retail). |
-| **Bed length** | 6.5 ft (standard, fits most setups) vs 8 ft (heavy-duty work, dually pairing). |
-| **Dually (DRW) vs SRW** | DRW = Dual Rear Wheel, 4 rear tires, only on 1-ton (350/3500). Higher payload (5,000-7,500 lbs vs SRW 3,500-4,500). Required for gooseneck-fifth-wheel combos over 25k lbs. Wider rear track, limits parking / urban use. |
-| **Trim (Tradesman/XL vs King Ranch/Platinum/Limited/Longhorn)** | XL/Work Truck: vinyl floors, manual everything, $50-$65k. Lariat/SLT: leather, navigation, $65-$80k. King Ranch / Platinum / Limited / Longhorn: $80-$110k. Dual-tank diesel King Ranch is the volume HD trim across all 3 makes. |
+Apply Part 1's exact-configuration and loaded-weight checks to conventional,
+fifth-wheel and gooseneck setups separately. Confirm trailer type, pin/tongue
+weight, hitch compatibility and bed clearance. Do not infer a rating or a need
+for dual rear wheels from a class badge or a generic weight threshold.
 
-#### 1.2 EPA emissions warnings, CRITICAL
+Select gas or diesel, cab, bed and axle configuration from the actual duty cycle,
+verified capability, winter requirements, local service support and documented
+ownership costs. Generic fuel-economy, engine-repair or price-premium tables do
+not establish the costs for this buyer's truck.
 
-**DELETED EMISSIONS / EGR / DPF SYSTEMS ON DIESEL TRUCKS ARE FEDERALLY ILLEGAL** under the Clean Air Act § 203. EPA pursues violators aggressively as of 2023-2026.
+#### 1.2 Licensing, registration and emissions
 
-- DEF (Diesel Exhaust Fluid) delete: ILLEGAL.
-- EGR (Exhaust Gas Recirculation) delete: ILLEGAL.
-- DPF (Diesel Particulate Filter) delete: ILLEGAL.
-- "Tuned for performance" with emissions still intact: legal.
-- "Deleted by previous owner": federal liability transfers to current owner once a violation is identified. Buyer can be fined $4,500-$45,000 per violation.
+Check current licensing and commercial-operation requirements for the vehicle,
+trailer, rated and actual weights, intended use and jurisdiction. A GCWR number
+alone does not establish whether a CDL is required or an exemption applies.
+Obtain registration and insurance advice for the actual use. Plate class alone
+does not establish tax-deduction eligibility; business-tax questions need a
+separate qualified review and never reduce dealer OTD automatically.
 
-Used-HD-diesel buyer MUST check at Phase 7 / PPI:
+For a modified diesel, have an independent qualified inspector verify emissions
+hardware and software against applicable requirements. An intact-looking system
+or a seller's claim that a tune is legal is not proof of compliance. Unresolved
+emissions tampering blocks a purchase recommendation; do not promise a repair
+cost, insurance outcome or legal exemption.
 
-1. Visual check of DEF tank (still present, not bypassed).
-2. Visual check of DPF (still present in exhaust line).
-3. OBD-II scan for cleared / deleted ECU codes (delete tunes leave fingerprints).
-4. Smoke output under load, black smoke = no DPF, likely deleted.
+#### 1.3 Heavy-duty close-day checks
 
-If deleted, walk regardless of price discount. Re-installing OEM emissions on a deleted truck costs $8,000-$15,000 plus parts wait-list (6+ months for some PowerStroke parts). Insurance also drops coverage on emissions-modified trucks.
-
-#### 1.3 Commercial registration vs personal
-
-Heavy-duty trucks can register as **personal** or **commercial**. Mechanics:
-
-| Registration type | Cost | Restrictions |
-|---|---|---|
-| **Personal** | Standard reg + fuel-type fees | Cannot use commercially (cannot rent, cannot deduct as business expense on Schedule C, may not pull commercial trailers in some states). |
-| **Commercial** | Higher reg (state-specific; $200-$1,200/yr); subject to weight tax (some states); commercial plates required | Allows business use, mileage deductions, IFTA fuel tax (interstate-commerce), commercial insurance. Some states require DOT number even for non-CDL trucks if commercial-registered. |
-
-**Heads-up for Phase 1**: Buyer says "I'll use my truck for my landscaping business", commercial registration may be legally required. Defer to CPA or commercial insurance broker if buyer is registering for business use.
-
-#### 1.4 HD pickup Phase 9 close-day items (in addition to standard pickup checklist)
-
-- [ ] DEF tank filled at delivery (DEF refills $15-$30 every 5k-10k miles thereafter)
-- [ ] 5th-wheel hitch prep package verified if buyer needs it (factory option $750-$1,800 plus install $400-$800)
-- [ ] Brake controller verified (integrated factory on all 2017+ HDs; aftermarket adds $300-$500)
-- [ ] Diesel pre-conditioning explanation if buyer is new to diesel (glow plug warm-up, regen cycles, DEF system requirements)
-- [ ] Insurance pre-quoted at commercial rate if commercial use planned (commercial coverage 1.5-2x personal rate)
-- [ ] Emissions inspection / DEF certification at delivery (proof the truck is not deleted)
+Confirm the required hitch, brake controls and trailer connections on the actual
+vehicle. Retain the inspection and emissions evidence, explain OEM diesel
+cold-start and maintenance requirements where applicable, and verify insurance,
+registration and transport for the intended use. Obtain written prices for any
+required equipment or repair rather than using historical allowance tables.
 
 ### 2. Commercial Vehicles (Cargo Vans / Box Trucks / Work Trucks)
 
@@ -430,17 +170,9 @@ Commercial vehicles are passenger-deficient utility vehicles built for fleet, co
 
 #### 2.2 Section 179 + Bonus Depreciation, Tax Strategy
 
-The IRS § 179 deduction allows businesses to deduct the full purchase price of qualifying vehicles in the year of purchase, up to a vehicle limit:
+Business deductions depend on acquisition and placed-in-service dates, business use, vehicle classification, taxable income and current federal/state rules. The former phase-down table was obsolete and must not be used.
 
-| Tax year | § 179 vehicle limit | Bonus depreciation |
-|---|---|---|
-| 2024 | $30,500 (passenger) / $1.16M (heavy van) | 60% additional |
-| 2025 | $30,500 (passenger) / $1.21M (heavy van) | 40% additional |
-| 2026 | $30,500 (passenger) / TBD (heavy van) | 20% additional (phasing out) |
-
-**Heavy van exception**: Vehicles over 6,000 lbs GVWR (Ford Transit 250/350 HD, Sprinter 2500/3500, ProMaster 2500/3500) qualify for FULL § 179 deduction without the $30,500 cap, up to the annual aggregate limit (~$1.2M).
-
-**Buyer strategy at Phase 1**: If buyer is purchasing commercially, run the tax-deduction math at Phase 2 baseline. A $60k Transit 350 HD bought December 31 with § 179 + bonus can save $25k-$33k in same-year taxes (35% marginal bracket business).
+Verify current IRS Section 179 and special depreciation allowance guidance, including the actual vehicle limits and recapture rules, with the buyer's tax adviser. GVWR above a threshold alone does not establish unlimited deductibility. Do not include an estimated income-tax deduction as a reduction in dealer OTD or guarantee same-year savings.
 
 #### 2.3 Upfit allowances
 
@@ -673,4 +405,4 @@ When buyer's Phase 1 input includes:
 - `outreach_strategy.md`, Phase 4 fleet-desk routing for commercial buyers.
 - `state_fees.md`, state-specific commercial / HD plate fee math.
 
-last_verified: 2026-05-18
+historical_material_date: 2026-05-18

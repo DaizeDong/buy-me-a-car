@@ -16,22 +16,27 @@ and gotchas D5/D8/D9/D10/E1/E3.
   between the greeting and the sign-off; greeting, blank lines, "Thanks,",
   and the signature name do not count). FAIL if > 10.
 
-- **HG2 - Three numbered asks.** Exactly 3 explicitly numbered asks
-  (`1)`/`1.` ... `3)`/`3.`). Not 2, not 4. Each ask is a concrete imperative
+- **HG2 - One to three approved numbered asks.** Select one to three explicitly numbered asks
+  (`1)`/`1.` ... `3)`/`3.`) from the private approved policy. Each ask is a concrete imperative
   request (remove X / re-quote without Y / hit $Z OTD). FAIL if the count is
   off or an "ask" is vague filler.
 
-- **HG3 - One anchor line, REAL-tagged.** Exactly one anchor sentence citing
-  a verifiable data point: a named source regional median (Edmunds/CarGurus/KBB
-  with city + sample where possible), a named single-comp listing
+- **HG3 - Confirmed anchor if selected.** Zero or one anchor sentence citing
+  a confirmed evidence record: a named single-comp listing
   (`{Dealer} has a comparable {trim} at ${ask}`), OR a locked competitor OTD by
   dollar amount. FAIL if the anchor is fabricated, a round-numbered placeholder,
   a synthesized anecdote ("a buyer on Reddit got..."), or "national average"
-  with no name. (Critical Rule #7.)
+  with no name. A confirmed record requires source text/hash, source ID,
+  observation/expiry times, buyer confirmation, and matching seller/vehicle/amount
+  and price basis. The verifier checks supplied evidence integrity, not live
+  authenticity. No anchor is required for an information request.
 
-- **HG4 - One walk-away line.** Exactly one explicit walk-away / ceiling
-  statement ("Above $X OTD I will move forward with my other anchors" or
-  equivalent). FAIL if absent, or if there are multiple competing walk lines.
+- **HG4 - Keep the private ceiling private.** Never disclose `WALK_AWAY` /
+  `walk_away`, a derived range, private financial details or maximum budget.
+  A separately user-approved `authorized_offer` can be proposed without calling
+  it a ceiling. The renderer blocks an offer equal to or above `walk_away`.
+  Use a nonnumeric exit such as "If that does not work, I will continue my search."
+  Never invent an existing competing offer to make the exit sound firmer.
 
 - **HG5 - Pure ASCII (E1).** Body contains NO non-ASCII characters and NO
   markdown markers: no em-dash, en-dash, curly quotes/apostrophes, unicode

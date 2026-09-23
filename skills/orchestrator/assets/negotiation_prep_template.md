@@ -1,137 +1,112 @@
-# {DEALER_NAME} Test Drive Negotiation Prep (PRIVATE)
+# Private negotiation and visit preparation
 
-**WARNING:** This file is buyer-internal. Do not share with dealer. Compare to `{vehicle}_dossier.html/pdf` which is the public version.
+Copy this blank template to `negotiation_prep.md` in the verified private cycle
+directory before filling it. It is buyer-only: private limits, alternatives and
+negotiation notes do not belong in a dealer attachment. Prepare a separate outward
+proposal only with the buyer's authorization and appropriate evidence.
 
-**Test Drive:** {DAY DATE TIME} at {DEALER_ADDRESS}
-**Target Vehicle:** {YEAR MODEL TRIM} {COLOR} {MILES}
-**Asking OTD:** ${ASK_OTD}
-**Target OTD:** ${TARGET_OTD}
+## Visit brief
 
----
+- Criteria revision and research package: {revision; private links}
+- Vehicle, VIN/stock ID and seller: {identity; source; date}
+- Purpose of visit: {inspect, test drive, compare or potentially close}
+- Availability and appointment: {confirmation, conditions or not confirmed}
+- Current written OTD: {amount; itemization; conditions; expiry; source, or none}
+- Payment, financing, trade and plate plans: {known choices; unresolved items}
+- Decision priorities: {needs this vehicle must satisfy}
+- Open issues that could stop purchase: {evidence gaps and reason}
 
-## Internal Pricing Anchor (Strongest Argument)
+## Comparison anchors
 
-If the dealer offers multiple similar vehicles, use the spread between them to derive fair price.
+| Candidate or source | Comparable features and condition | Price basis and date | Relevant difference | Evidence and limitations |
+|---|---|---|---|---|
+| {candidate or source ID} | {actual comparison class} | {asking, estimate or written OTD} | {supported difference} | {source; unresolved comparability} |
 
-Example: Dealer offers {Comparable Trim A} at ${PRICE_A} and {Comparable Trim B} at ${PRICE_B}.
-- Spread = ${PRICE_B - PRICE_A}
-- Justified spread (trim premium - mileage delta) = ${JUSTIFIED}
-- Implied overpricing = ${PRICE_B - PRICE_A - JUSTIFIED}
+Use the research package's candidate IDs. Explain differences in mileage, trim,
+condition, warranty, delivery and offer conditions before using a price anchor.
+A listing or owner report is not a written offer available to this buyer.
 
-State this in negotiation: "Your own {Trim A} at ${PRICE_A} implies the fair price for this {Trim B} should be around ${IMPLIED}, not ${PRICE_B}."
+## Private OTD ladder
 
----
+| Level | Amount or unknown | Basis, components and assumptions | Evidence date / expiry | Authorized outward use |
+|---|---|---|---|---|
+| Current seller terms | {written OTD or incomplete asking-price subtotal} | {sale, tax, doc, title, registration, add-ons, rebates, trade/payoff; unknowns} | {source} | {quote description only if accurately supported} |
+| Opening proposal | {candidate amount or unset} | {supported comparables and buyer priorities} | {source IDs} | {authorization or none} |
+| Preferred outcome | {candidate amount or unset} | {why this meets the buyer's needs} | {source IDs} | {authorization or none} |
+| Private walk-away ceiling | {buyer-stated maximum or unset} | {budget basis, finance/trade assumptions} | {criteria revision} | Never disclose |
 
-## Target OTD Ladder
+Keep shipping, travel and inspection costs visible alongside purchase OTD when
+the buyer's budget includes them. Show incomplete subtotals as incomplete. Do not
+invent fees, discounts, repair deductions or a standard spread between levels.
+An asking price is not an OTD. The private ceiling never sets an outward offer
+automatically. Use current jurisdictional evidence for tax treatment and keep
+trade allowance, tax credit and lien payoff distinct.
 
-| Scenario | Open at | Settle at | Walk away above |
-|----------|---------|-----------|-----------------|
-| Test drive PERFECT + CARFAX clean | ${LOWEST_OPEN} | ${LOWEST_SETTLE} | ${LOWEST_WALK} |
-| Test drive GOOD + CARFAX clean (default) | ${TARGET_OTD} | ${SETTLE} | ${WALK} |
-| Test drive OK with minor issues | ${TARGET_OTD - 500} | ${TARGET_OTD} | ${SETTLE} |
-| Test drive concerns | walk away or open ${MIN_OPEN} | accept only ${MIN_SETTLE} | n/a |
-| Major issues (accident, mechanical) | walk away | n/a | n/a |
+## Before departure
 
----
+- [ ] Reconfirm the exact vehicle, availability, appointment and access for an independent inspection.
+- [ ] Record inspection provider, scope, cost, timing and cancellation terms; distinguish a plan from an authorized booking.
+- [ ] Read available title/history, service and warranty/CPO records; for a new vehicle, review the window sticker and delivery inspection record.
+- [ ] Check recall status by VIN and record the required resolution or unanswered question.
+- [ ] Save the current itemized quote and financial assumptions; identify any expiring terms.
+- [ ] Confirm ID, insurance, payment instrument, verified payee and bank timing if closing is possible.
+- [ ] Plan transport, route and collection/delivery arrangements, with costs and unresolved dependencies.
+- [ ] Bring the private question list and an evidence-grounded alternative if this vehicle fails inspection.
 
-## Test Drive Checklist
+## Inspection and test drive
 
-### Outside (5-min walk-around)
-- [ ] Paint uniform (no resprays, look at reflection for color mismatch)
-- [ ] Panel gaps even (doors, hood, trunk, uneven = prior accident)
-- [ ] Glass date codes (front + 4 windows, original or replaced)
-- [ ] Tire brand + tread depth + DOT date (4 should match if maintained)
-- [ ] Headlights/taillights clear (no moisture, no cracks)
-- [ ] Bumpers aligned (rear bumper especially, common collision spot)
+Use an independent mechanic for diagnosis. Record each item as observed, not
+checked, not applicable or needing professional review, with notes and evidence.
 
-### Inside
-- [ ] Steering wheel wear vs odometer reading (excessive wear vs miles = rolled odo possible)
-- [ ] Driver seat side bolster wear
-- [ ] Pedal rubber wear
-- [ ] Center touchscreen all functions
-- [ ] All buttons work (heated seats, ventilated, lock, windows, mirrors, sunroof)
-- [ ] No interior odor (smoke, mildew, pet, leverage point)
+| Area | What to check | Findings and follow-up |
+|---|---|---|
+| Identity and exterior | VIN matches records; visible body/glass condition; tire age, wear and matching specifications; lights and visible corrosion | {observations; photos or mechanic question} |
+| Cabin and equipment | Seat comfort, visibility, passenger/cargo fit, restraints, HVAC, controls, cameras and advertised options | {observations; missing equipment} |
+| Stationary checks | Warning lights, startup behavior if a cold start is available, visible leaks and maintenance records | {observations; conditions of check} |
+| Normal road use | Steering, braking, ride, drivetrain behavior, unusual sounds and driver-assistance operation under appropriate conditions | {observations; mechanic review} |
+| Vehicle-specific needs | Truck OEM tow/payload labels and configuration; EV charging/battery evidence; accessibility or cargo equipment as applicable | {verified evidence; unresolved limits} |
+| Included items | Keys, manuals, advertised accessories, charging/towing equipment and any promised repairs | {present; missing; written resolution} |
 
-### Engine Bay
-- [ ] Oil dipstick: clean / not black / at correct level
-- [ ] Coolant: full / right color (varies by manufacturer)
-- [ ] Brake fluid: full / not cloudy (cloudy = old, needs flush)
-- [ ] No visible oil leaks (under valve cover, around oil pan)
-- [ ] Battery terminals clean / battery date code
+Follow road rules and seller instructions. Do not deliberately strike potholes,
+perform abrupt emergency maneuvers or test unknown towing limits. Panel gaps,
+odors, fluid appearance or post-shutdown fans do not establish a diagnosis.
+Request a written inspection finding and repair estimate before applying a
+condition-related monetary adjustment. A clean history report cannot replace PPI.
 
-### On the Road (15-20 min route)
-- [ ] Cold start without unusual noise (no piston slap, no timing chain rattle)
-- [ ] Smooth idle, no shaking
-- [ ] CVT smooth at all speeds (Subaru), listen for whining
-- [ ] 60mph cruise, no vibration, steering doesn't pull
-- [ ] Hard brake, straight stop, no pulsation
-- [ ] Pothole test, no clunking from suspension
-- [ ] Reverse + camera functioning
-- [ ] Adaptive cruise / Eyesight functioning (Subaru)
-- [ ] AC max cold for 5 min, cold air at all vents
-- [ ] Heat max hot for 2 min, warm air at all vents
-- [ ] Listen for any post-shutdown extended cooling fan (overheat sign)
+## Questions to resolve before agreement
 
----
+| Question | Why it matters | Evidence or answer required | Owner / status |
+|---|---|---|---|
+| {candidate-specific history, service, warranty or condition gap} | {effect on suitability, risk or cost} | {document, inspection finding or written seller answer} | {who can answer; pending/resolved} |
+| Does the itemized total include every required fee and condition? | Prevent changed terms at signing | {current buyer's order; rebate/finance/trade conditions} | {pending/resolved} |
+| How will title, lien release, plates and delivery be completed? | Confirm legal transfer and collection logistics | {responsible party; required documents; verified timing} | {pending/resolved} |
+| Which repairs, accessories and warranty terms are included? | Ensure promises are recorded | {written terms; completion evidence} | {pending/resolved} |
 
-## Mandatory Post-Test-Drive Questions
+## Response and decision matrix
 
-1. **CARFAX:** Can I see the full CARFAX report before committing? Single owner, no accidents, no salvage / lemon brands?
-2. **Service records:** Any dealership records or owner records on service history? When was the last oil change, brake fluid, CVT fluid?
-3. **Open recalls:** Any outstanding recalls for this VIN? Especially {make-specific common recalls}.
-4. **CPO eligibility:** Can you enroll this in {Make} CPO program (if model year and mileage qualify)?
-5. **PPI:** Can I bring an independent mechanic to inspect this vehicle? On-site or nearby shop?
-6. **Plates / Registration:** Title clean for transfer? Any outstanding lien? Process for plate transfer or new plates?
-7. **2 key fobs?** Floor mats? Cargo cover? Owner's manual? Spare tire?
-8. **Doc fee structure:** What is your typical doc fee? Is there any room there?
+| Inspection / evidence outcome | Seller response | Decision for buyer to consider | Required next evidence or authorization |
+|---|---|---|---|
+| Requirements satisfied; material gaps resolved | Written terms match reviewed figures | Proceed to final contract review | Buyer decides; signatures and payment still require authorization |
+| Documented issue with a reliable repair estimate | Seller offers a written repair or revised price | Compare remedy with alternatives; counter or defer | Repair scope, revised itemization and separately authorized outward offer |
+| Material evidence still missing | Seller provides a way to verify it | Defer commitment until verification | Inspection, source documents or confirmed terms |
+| Vehicle fails a must-have or a critical concern remains | Seller cannot resolve it | Walk away or choose a backup | Buyer decision; any follow-up contact needs authorization |
+| Vehicle is acceptable | New fees or changed finance/trade conditions appear | Recompute the deal and reassess | Corrected written terms; no automatic acceptance |
 
----
+Record the actual finding, response, source and buyer decision below. These rows
+are preparation scenarios, not predictions or commitments.
 
-## Closing Statement (after test drive)
+- Outcome: {observed finding; seller response; evidence}
+- Buyer decision: {proceed, counter, walk or defer}
+- Authorized next action: {scope, recipient and terms, or none}
 
-If happy with car:
+## Backup plan
 
-> The car drives well and I appreciated the inspection notes. To make this work today, here is where I am at: I have written OTD offers at ${OTHER_OTD_1} and ${OTHER_OTD_2} from other dealers. If we can land at ${TARGET_OTD} OTD this week, I am ready to put down a deposit and schedule PPI. Otherwise I understand and will go with my other option.
+- Next candidate(s): {IDs from master_comparison.md; reason each remains viable}
+- Revalidation needed: {availability, quote expiry, transport, inspection and cost gaps}
+- If none qualifies: {specific search adjustment; material buyer decision needed}
+- Logistics: {how to leave, return or reschedule without assuming a purchase}
+- Contact draft, if needed: {approved factual content; recipient; unsent status}
 
-If not happy:
-
-> I appreciate the time. Let me think it over and get back to you tomorrow. Could you share the CARFAX and service records by email tonight?
-
-(Buy 24 hours to evaluate; revisit with concrete decision.)
-
----
-
-## Decision Matrix (Test Drive Result × Dealer Response)
-
-| Drive | CARFAX | Dealer response | Action |
-|-------|--------|-----------------|--------|
-| Perfect | Clean | Accepts ${TARGET_OTD} | LOCK, sign and PPI |
-| Perfect | Clean | Counters within ${TOLERANCE} | Accept |
-| Perfect | Clean | Holds at ${ASK_OTD} | Walk to backup; revisit in 24h |
-| Perfect | Minor issues | Discounts ${MIN_DISCOUNT} | Consider, get PPI confirmation |
-| Perfect | Major issues | Any | Walk |
-| Concerns | Any | Any | Walk; revisit market |
-| Major issues | Any | Any | Walk |
-
----
-
-## Walk-Away Backup Path
-
-If {primary dealer} does not close at ${TARGET_OTD}:
-
-1. {Backup Vehicle 1} at ${BACKUP_OTD_1}
-2. {Backup Vehicle 2} at ${BACKUP_OTD_2}
-
-Action: Text / call {primary dealer} same day with polite walk-away. Email backup dealer to confirm test drive within 24-48 hours.
-
----
-
-## Final Reminders
-
-1. **Do not appear too interested.** Even if you love the car, maintain "I have options."
-2. **Do not anchor first.** Let the dealer name their best price before you state your target.
-3. **Get everything in writing.** Final OTD, fees, PPI date, plate transfer details, email or paper.
-4. **Take a moment before signing.** Read every line of the bill of sale. No add-ons that weren't agreed.
-5. **PPI is non-negotiable.** $150-200 to protect a $20-30k+ purchase. Always.
-6. **Plate transfer paperwork.** Bring current registration + insurance card. New plates need ~2-3 weeks.
-7. **Cashier's check delivery.** Confirm the exact amount and the dealer's preferred bank/payee name before pickup.
+Use the constrained reply drafter for written counters. Deposits, bookings,
+messages and purchase commitments require authorization for that action and a
+provider receipt before being recorded as complete.

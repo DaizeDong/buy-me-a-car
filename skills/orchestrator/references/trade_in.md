@@ -1,6 +1,6 @@
 # Trade-In Reference
 
-> **last_verified**: 2026-05-18 (skill stress test iteration 5 + P0-P5 consolidation)
+> Tax references reconciled September 22, 2026. Other valuation and timing ranges below are estimates, not current source verification.
 
 This reference covers used-vehicle trade-in mechanics: valuation methodology, the ACV-vs-trade-allowance distinction, the separate-the-negotiation rule, state-specific trade-in tax credit interactions, payoff handling, lien release timing, and key-count and cosmetic-deduct mechanics.
 
@@ -40,7 +40,7 @@ The prior P1 trade-in placeholder (6 inline fields: vehicle, miles, condition, p
 | 9 | **KBB Trade-In Value** at stated condition | **Fair dealer trade anchor #2** |
 | 10 | **KBB Private Party Value** | **Outside-option anchor #3** |
 | 11 | **Estimated Manheim wholesale floor** | Internal sanity-check anchor |
-| 12 | **State trade-in tax credit posture** (yes / no / partial / capped) | Affects OTD math by 5-10% of trade allowance |
+| 12 | **State trade-in tax credit posture** (yes / no / partial / capped) | Determines eligible tax-base reduction; verify caps, date and transaction scope |
 
 This is the structured set referenced from SKILL.md Phase 1.
 
@@ -85,28 +85,17 @@ If implied ACV is far below KBB Trade-In, the trade allowance is shell.
 
 ## 3. State Trade-In Tax Credit Matrix
 
-Most states give a tax credit on the net (sale - trade) instead of taxing the full sale. This saves the buyer **(combined tax rate) × (trade allowance)** in tax.
+Read the reviewed trade rule and calculation scope in `state_fees.md` and `data/state_fees.json`. Do not maintain a second all-state matrix here. A jurisdiction with no general sales tax may still impose vehicle excise, use, privilege or document taxes, and local rules can apply.
 
-Quick reference (full table in `state_fees.md`):
+- Maryland permits eligible trade allowance against the dealer-certified purchase price, including the dealer processing charge. Do not describe Maryland as a historical no-credit or partial-credit state.
+- Illinois restored full eligible like-kind trade credit on January 1, 2022. The $10,000 limitation applied only during 2020 and 2021.
+- Michigan's statutory schedule gives a $12,000 cap in 2026. The production trade helper calculates the cap from the transaction year.
+- Texas uses the eligible vehicle's gross allowance, not equity after lien payoff; Virginia's sales-and-use tax does not deduct a trade allowance.
+- For every other jurisdiction, use its reviewed field evidence and supported calculation profile. An unverified field must produce an unknown result, not a guessed yes/no posture.
 
-| State | Trade-in tax credit | OTD impact on $12k trade |
-|---|---|---|
-| NJ | Yes | -$795 tax (6.625%) |
-| NY | Yes | -$960-$1,065 tax (8-8.875%) |
-| PA | Yes | -$720-$960 tax (6-8% with Philly) |
-| **CA** | **NO, CA does NOT grant trade-in tax credit** (CDTFA taxes gross sale price; trade is a separate transaction). See `references/state_fees.md` for authoritative posture. | $0 savings; full sale taxed regardless of trade |
-| TX | Yes | -$750 tax (6.25%) |
-| IL | Yes (capped at $10k of trade through 2024; $10k cap continues 2025+, verify current legislation) | -$700-$870 tax |
-| CT | Yes | -$762-$930 tax (6.35-7.75%) |
-| MA | Yes | -$750 tax (6.25%) |
-| KY | No | $0 savings; full sale taxed |
-| DC | No | $0 savings; full sale taxed |
-| **CA** (listed twice for emphasis) | **No** | $0 savings; full sale taxed |
-| MT, NH, OR, DE, AK | N/A (no sales tax) | N/A |
+Calculate savings as **tax without trade minus tax with trade**, holding the purchase price and other inputs constant. Multiplying a headline rate by the allowance is only valid after verifying caps, local tax limits, minimum taxes and taxable-base rules. The calculator reports gross OTD separately from `balance_due = OTD - trade allowance + payoff`.
 
-**States that do NOT grant trade-in tax credit** (full sale price taxed regardless of trade): **CA, KY, DC**, plus VA via the SUT 4.15% structure historically (verify per `state_fees.md`), and MD partial-handling historically. **`references/state_fees.md` is the source of truth** for the trade-in tax credit column; if there is ever a conflict between this matrix and `state_fees.md`, defer to `state_fees.md`.
-
-**Always quantify the trade-in tax credit in writing in the Phase 6 OTD ask.** Dealers sometimes "forget" to apply it (or use a CRM template that doesn't apply it automatically) in states where it IS granted. **In CA**, the opposite gotcha applies: a dealer CRM template from a trade-credit state (NJ/NY/IL/TX) leaking into a CA quote may incorrectly show a trade-credit reduction the buyer is NOT legally entitled to; this looks like a "free $1,000+" but it will be reversed at CDTFA filing, the buyer ends up owing the back tax. Force-correct CA quotes to gross-sale-price tax base per `state_fees.md` CA detail stub.
+Request itemized trade allowance, credited trade, taxable base, tax and payoff in writing. A production trade-credit helper verifies that rule only; it does not authorize an otherwise unsupported full OTD calculation.
 
 ---
 
@@ -140,7 +129,7 @@ When the trade has an outstanding loan, the buyer is exposed to a 3-4 week windo
 - Capture: lien-holder name, current balance, per-diem interest accrual ($1-$8/day depending on rate), payoff valid-through date, lien-holder's wire/check receipt instructions.
 - If lien-holder is a captive (Ford Credit / Ally / Toyota Financial / GM Financial / Honda Financial Services / Capital One Auto / Chase Auto): payoff process is standardized; 10-day letter via online portal or 800-number request.
 - If lien-holder is a community bank or credit union: may require an in-branch visit to get the letter; allow extra 1-2 days.
-- **Auto-pay cancellation**: Cancel auto-pay on the lien-holder's account BEFORE close. Auto-pay continues for 1-2 cycles post-close otherwise, charging the buyer's account for a loan that's been paid off.
+- **Auto-pay**: Keep required payments current until the lender confirms the payoff has posted and the balance is zero. Then confirm cancellation and request any overpayment refund. A dealer promise to pay is not lender confirmation.
 
 **Step 2, Dealer-side payoff timing (T-0 close day through T+10)**
 - Most franchise dealers will cut a check to the lien-holder within 1-5 business days of close. Some same-day-wire-capable F&I departments wire payoff within 24-48 hours.
@@ -190,7 +179,7 @@ Mandatory questions before deposit on any trade-with-lien deal:
 2. "What's the dealer-side timing on payoff dispatch, within 1 day, within 5 days, or within 10 days?"
 3. "If lien-holder takes longer than 14 days to release lien, who covers any per-diem interest delta?" (Dealer should answer: dealer covers.)
 4. "Provide written confirmation of payoff dispatch date and routing on the bill of sale."
-5. "Confirm [registering state, e.g., IL] trade-in tax credit applied correctly to the trade ALLOWANCE (not the net-of-payoff)." (Important: IL/NJ/NY/PA trade-in tax credit applies to gross trade allowance, BEFORE lien payoff deduction. Some dealer CRMs incorrectly apply credit to net equity, costing buyer $200-$700. **NOTE: CA does NOT grant trade-in tax credit at all** per `state_fees.md`, if registering in CA, ask instead: "Confirm tax base equals the gross sale price; no trade-credit reduction shown.")
+5. "Provide the applicable state trade-credit rule, eligible gross allowance, taxable base and separate payoff amount on the itemized worksheet." Verify that result against the reviewed state profile; do not presume every state allows a trade deduction.
 
 ---
 
@@ -205,7 +194,7 @@ When the buyer's trade has a lien, the new dealer typically:
 
 Buyer is **not** on the hook for the trade after close, the dealer owns the trade once paperwork signs. But the buyer's name stays on the old loan's lien until the lien-holder processes the release. Set a calendar reminder for day 21 post-close to verify with the old lien-holder that the loan is fully closed.
 
-**Common gotcha:** Auto-pay on the old loan keeps charging the buyer's account for 1-2 months post-close. Cancel auto-pay manually before close.
+**Common gotcha:** A payoff can be delayed. Keep required payments current until the lender confirms a zero balance; then confirm auto-pay cancellation and reconcile any refund.
 
 ---
 
@@ -253,7 +242,7 @@ This is the load-bearing rule. Worth its own section.
 1. **Round 1 (no trade mentioned):**
    > Subject: 2022 CR-V EX-L AWD VIN xxx, written OTD request
    >
-   > Hi [Sales rep], I am a cash buyer in [ZIP], ready to close this week. What is your best OTD on this VIN with no trade? Please itemize sales price, doc, [state] [rate]% tax, title, reg, any add-ons. No financing, no trade in this number.
+   > Hi [Sales rep], please quote the OTD on this VIN with no trade. Itemize sales price, doc, applicable taxes, title, registration and additional charges. Please show the tax basis and jurisdiction used.
 
 2. **Round 2 (counter sale price only):**
    Apply Cold Open recipe (regional anchor + named comp + in-flight signal + soft ceiling + deadline), see `negotiation_playbook.md`. Lock sale price in writing.
@@ -265,20 +254,7 @@ This is the load-bearing rule. Worth its own section.
    Compare the post-trade-introduction quote against the locked Round 2 OTD. Sale price MUST be identical. If dealer raises sale price after introducing trade, walk back to "We agreed on $X sale price; please re-quote with the trade on that locked sale price."
 
 5. **Round 5 (state trade-in tax credit verification):**
-   For trade-credit states, verify the OTD line items show:
-   ```
-   Sale price: $X
-   - Trade allowance: -$Y
-   = Taxable base: $X - $Y
-   × State combined rate
-   = Tax
-   ```
-   NOT:
-   ```
-   Sale price tax: $X × rate (taxing full sale)
-   - Trade allowance: -$Y (flat credit after tax)
-   ```
-   The first is correct (trade-in tax credit applied). The second leaves money on the table. **Demand the correct math in writing.**
+   Run the supported state calculator twice, with and without the same eligible trade. Compare the tax difference and gross OTD, then reconcile the trade allowance and payoff separately. Include taxable doc/additional charges, annual trade caps, tax minimums and local limits as required by that profile. If the full profile is unsupported, obtain the dealer/DMV tax worksheet instead of applying a universal formula.
 
 ---
 
@@ -302,12 +278,9 @@ KBB Instant Offer is structurally the buyer's BATNA (Best Alternative To Negotia
 
 ## 10. State-Specific Trade Mechanics Quirks
 
-- **CA**: **CA does NOT grant trade-in tax credit.** CDTFA taxes the gross sale price; trade is treated as a separate transaction. A $30k sale with a $12k trade in Alameda (9.25%) is taxed on the full $30k → $2,775 tax, NOT $1,665 (which would be the trade-credit-adjusted figure). Source of truth: `state_fees.md` All-State Summary CA row + CA detail stub. Doc fee capped at $85. Title $25. Reg by value (~1% per year first 3 years).
-- **IL**: Trade-in tax credit capped at $10,000 of trade allowance for 2024 transactions; $10k cap continues through 2025+ per current legislation (verify). A $12,000 trade in IL caps the credit at $10k × 6.25-10.25% = $625-$1,025.
-- **NJ**: Trade-in tax credit unlimited; one of the strongest buyer protections.
-- **TX**: Trade-in tax credit unlimited; 6.25% rate makes it modest in dollar terms.
-- **NY**: Trade-in tax credit unlimited; high combined rate (8-8.875%) makes it valuable.
-- **KY, DC, CA**: NO trade-in tax credit. Full sale taxed. A $30k sale with $10k trade in KY (or DC, or CA) is taxed on the full $30k.
+Use the generated reviewed-field table in `state_fees.md`, including its unknowns. Historical Illinois limits and fixed Michigan caps must not be reused. Maryland dealer trade credit must be included where eligible. Verify local tax bases and same-transaction ownership conditions before treating a separate sale as equivalent to a trade.
+
+There is no universal no-tax group for Oregon, Delaware, Alaska, Montana or New Hampshire: vehicle-specific taxes, local taxes and registration charges must be checked individually. Do not infer full OTD from the absence of a general state sales tax.
 
 ---
 
@@ -409,7 +382,7 @@ When the buyer is *both* trading in an old EV/PHEV and buying a used EV/PHEV, ru
 ## Cross-References
 
 - `references/ev_buyer_playbook.md`, **EV/PHEV source of truth**: battery health, § 30D ($7,500 new) and § 25E ($4,000 used) credits (**both TERMINATED for vehicles acquired after 2025-09-30 per OBBBA, historical only**), charging/range, EV dealer tactics. This file's Section 13 covers only the trade-in (outgoing-EV) side.
-- `references/state_fees.md`, full trade-in tax credit table (column 7 in All-State Summary)
+- `references/state_fees.md`, generated reviewed-field table and transaction scope
 - `references/negotiation_playbook.md`, Cold Open formula (use Round 1 cold open on no-trade ask first); add-on refusal list
 - SKILL.md Phase 1, trade-in router gate (this file is loaded when gate fires YES)
 - SKILL.md Phase 6, trade negotiation steps reference this file's "Separate the negotiation" rule

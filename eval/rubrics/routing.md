@@ -6,8 +6,10 @@ skill name. This is a single-label classification check.
 
 ## Criteria
 
-- **RT1 - Correct dispatch.** PASS if the model's chosen skill is in the
-  case's `acceptable_skills` list (which always includes `expected_skill`).
+- **RT1 - Correct dispatch.** Normalize a unique declared frontmatter skill name
+  to its implementation directory (for example, the registered `buy-me-a-car`
+  name maps to `orchestrator`). Directory identifiers remain valid. PASS if that
+  canonical skill is in the case's `acceptable_skills` list (which always includes `expected_skill`).
   FAIL otherwise.
 
 - **RT2 - Single skill.** The model commits to ONE skill, not a menu
@@ -15,7 +17,8 @@ skill name. This is a single-label classification check.
   ambiguous prompt is correct; hedging across all of them is not. Advisory:
   note it but RT1 governs pass/fail.
 
-- **RT3 - No phantom skill.** The chosen skill exists in `_meta.skill_universe`.
+- **RT3 - No phantom skill.** The canonical skill exists in `_meta.skill_universe`.
+  Reject invented or ambiguous aliases; do not guess from semantic similarity.
   FAIL on a hallucinated skill name.
 
 ## Discriminations the judge should reward

@@ -1,135 +1,192 @@
-# eval/, objective assertion harness
+# Evaluation and regression checks
 
-Pure-stdlib (`unittest`) eval harness for `buy-me-a-car`. **No third-party
-dependencies**, no `pytest`, no network. Runs offline.
-
-```bash
-bash eval/run.sh        # runs every eval/test_*.py; exits non-zero on any failure
-```
-
-`run.sh` auto-detects a Python 3 interpreter (`python3` then `python`), runs
-each `test_*.py` in this directory, and exits non-zero if any test fails or
-errors.
-
-You can also run a single file directly:
+Run the offline suite from the repository root after installing
+`requirements.txt`. Tests use `unittest`; PDF and YAML checks use the declared
+runtime dependencies. Offline tests do not call models or contact sellers.
 
 ```bash
-python eval/test_otd.py -v
-python eval/test_data_integrity.py -v
+python -m pip install -r requirements.txt
+python -m unittest discover -s eval -p "test_*.py" -v
+python eval/test_rubric.py -v
+python tools/make_fixtures.py --check
+python skills/orchestrator/scripts/render_state_data.py --check
+python tools/check_repository.py
 ```
 
-## What is tested
+`bash eval/run.sh` is an alternative runner for the individual test scripts.
+The functional CI runs the offline checks on Windows and Ubuntu.
 
-### `test_otd.py`, OTD calculator math
+## What the checks establish
 
-Imports `skills/orchestrator/scripts/otd_calculator.py` directly and asserts:
+- Purchase calculation tests cover the supported state rules, forward/reverse
+  arithmetic, trade/payoff separation, input validation and CLI failure behavior.
+  Unsupported jurisdictions, including Alaska, must reject automated OTD
+  calculations even when the state-level sales-tax rate is zero. The current
+  `data/state_fees.json` calculator status and field provenance define support;
+  a state row alone does not.
+- Data integrity checks verify that generated reference tables agree with the
+  canonical records. Agreement does not independently verify current law.
+- Workflow tests exercise constrained drafts, private-budget protection,
+  inventory normalization, durable inbox state and uncertain-operation recovery.
+- Runtime, installer, dossier and repository checks cover private DATA resolution,
+  installed resource paths, schema/financial consistency, PDF outputs and exact
+  synthetic fixture reproduction.
+- Model harness tests inject synthetic provider responses to test receipts,
+  validation and failure handling. They do not measure a model's response quality.
+- Research report regressions exercise the actual renderer with incomplete costs,
+  zero quotes, duplicate VIN observations, source integrity and required topics.
+  Section coverage and successful rendering alone do not establish analytical
+  quality; actual reports still require content review and inspection of every
+  PDF page.
 
-- **Forward OTD to the cent** against frozen golden cases in
-  `golden/otd_cases.json` (NJ, CA, TX, MD, OH, NC, NY, MI, VA, WA, FL, IL).
-  Every input is sourced from `data/state_fees.json` verified values; the
-  combined tax rate is computed as `state_base_rate + local_pct/100`, the same
-  path the calculator and CLI use.
-- **Reverse round-trip within +/-$0.01**: `reverse_otd(forward(sale)) == sale`
-  for every golden case, plus an add-ons case.
-- **Trade-in tax-credit semantics** (encoded from the prose formulas in
-  `skills/otd-calculator/SKILL.md`, since the shipped calculator has no trade
-  parameter):
-  - granted states (e.g. NJ): trade reduces the taxable base;
-  - **CA / KY / DC**: trade is IGNORED for tax (full price taxed);
-  - **MI / IL**: trade credit is CLAMPED at the statutory cap read live from
-    `state_fees.json` (`trade_credit.cap`: MI $9,000 for 2025, IL $10,000).
-- **Doc-fee cap WARNING** fires from the CLI iff `doc > statutory cap`
-  (over-cap warns; at/under-cap silent; no-cap states never warn). Includes an
-  explicit MD anchor: MD cap is **$800**, so a $499 doc must NOT warn.
+## Actual model evaluations
 
-### `test_data_integrity.py`, CORE doc-cap regression net
-
-This is the net that catches "the next MD", a `doc_cap` in
-`data/state_fees.json` drifting out of sync with the prose humans/agent read.
-
-Doc-fee caps are written in prose in several places:
-
-| Surface | Where | Asserted how |
-|---|---|---|
-| (A) **canonical** | `state_fees.md` *All-State Summary Table* | HARD: JSON == (A), all 51 states |
-| (B) | `otd-calculator/SKILL.md` "State quick rates" table | HARD: JSON == (B), all capped states present |
-| (C) | `state-fee-lookup/SKILL.md` "All-state summary" table | HARD: JSON == (C) |
-| (D) | `state_fees.md` detail stubs + cross-state rows (free prose) | NOT line-asserted (see below) |
-
-- `TestCanonicalDocCaps` hard-asserts JSON `doc_cap` == the canonical (A) table
-  for all 51 records, with an explicit `MD == $800` anchor.
-- `TestSecondaryDocCapTables` hard-asserts the (B) and (C) SKILL.md doc-cap
-  **tables** match JSON for every capped state. `IL $347` vs JSON `$347.26` is a
-  whole-dollar display of cents and is absorbed by a $1 tolerance (not flagged).
-- The free-prose detail stubs / cross-state rows (D) are deliberately **not**
-  asserted line-by-line: nearly every such line legitimately cross-references
-  *other* states' caps ("no NY $175 doc cap", "VA $599 cap", D8 leak lists), so
-  a naive per-line scan is ~100% false positives. The three structured tables
-  are the correct, low-noise regression surface.
-
-**Negative control verified**: injecting `MD: doc_cap = 300` into the JSON makes
-`test_data_integrity.py` fail with 3 failures (canonical table, MD anchor, both
-SKILL.md tables), confirming the net actually bites.
-
-### Pre-existing siblings (run by the same `run.sh`)
-
-`run.sh` also discovers two test files authored alongside this harness:
-
-- `test_routing.py`, skill trigger-conflict / README routing-table assertions.
-- `test_rubric.py`, deterministic gates (ASCII-only, ask-count, walk-away,
-  line-cap, leak-flag) for the non-deterministic negotiation skills; LLM-judge
-  cases are opt-in via `--llm` and skipped offline by default.
-
-## Round 2, doc_cap contradiction worklist
-
-**Status as of 2026-06-22: none.** WI-2 reconciled the entire repo to the
-verified MD cap of **$800** (effective 2024-07-01). Every doc-cap surface now
-agrees with `data/state_fees.json`:
-
-- (A) `state_fees.md` All-State Summary Table, all 51 states match JSON.
-- (B) `otd-calculator/SKILL.md` quick-rates table, MD $800; all capped states match.
-- (C) `state-fee-lookup/SKILL.md` summary table, MD $800; all capped states match.
-- (D) `state_fees.md` MD detail stub, cross-state rows, quirks list, and the
-  "MD = low-doc sweet spot" framing have all been updated to $800 (now correctly
-  described as the *highest* cap in the DC corridor, above VA's $599).
-
-The earlier known divergence (canonical table fixed to $800 while SKILL.md
-tables and the detail stub still said $300/$499/$500) has since been fully
-resolved across all files; the integrity test passes against the current tree.
-
-If a future verification flips any `doc_cap` in the JSON, the (A)/(B)/(C)
-hard assertions will fail until the corresponding tables are updated in lockstep
-, that is the intended behavior. Any *new* contradiction surfaced by a later
-run should be listed here for the next reconciliation round.
-
-## Regenerating golden cases
-
-`golden/otd_cases.json` is a **frozen baseline**, not a derived value, it
-exists so a silent change in the calculator math or a JSON state value is
-caught. Regenerate it deliberately only when such a change is intended:
+The installed `llmcall` package and a verified PRIVATE companion repository are
+required. Configure the companion as described in the root README; receipts
+resolve through `tools/runtime_paths.py`. Raw inputs, replies, provider identities
+and review decisions are written under private `eval/model-runs/` only.
 
 ```bash
-python - <<'PY'
-import sys, json
-sys.path.insert(0, "skills/orchestrator/scripts")
-import otd_calculator as o
-specs = [("NJ",25000,499,0),("CA",25000,85,1.5),("TX",25000,150,0),
-         ("MD",31000,800,0),("OH",24500,250,2.25),("NC",26000,129,0),
-         ("NY",30000,175,4.5),("MI",28000,230,0),("VA",33000,599,0),
-         ("WA",35000,200,4.05),("FL",32500,500,1),("IL",40000,347.26,1.25)]
-fwd = []
-for st, sale, doc, local in specs:
-    rate = o.STATE_TAX_RATES[st] + local/100.0   # MUST match test path
-    title, reg = o.STATE_DEFAULT_TITLE[st], o.STATE_DEFAULT_REG[st]
-    r = o.compute_otd(sale, doc, rate, title, reg)
-    fwd.append({"state":st,"sale":sale,"doc":doc,"local_pct":local,
-                "title":title,"reg":reg,
-                "expected_tax":round(r["tax"],2),"expected_otd":round(r["otd"],2)})
-print(json.dumps(fwd, indent=2))
-PY
+python eval/test_rubric.py --llm -v
+python eval/run_scenarios.py --llm -v
 ```
 
-Paste the result into the `"forward"` array of `golden/otd_cases.json`. Do NOT
-add a pre-rounded combined `tax_rate` field back into the golden: rounding the
-rate to e.g. `0.085` shifts half-cent boundary cases (NY, TX) by a cent. The
-test derives the rate live from `base + local_pct/100`.
+The first command evaluates structured draft decisions and the routing corpus.
+The second produces actual Chinese buyer-facing answers for two generated Alaska
+pickup cases, then invokes a separate reviewer:
+
+- `AK01`: an initial, underspecified purchase request. Check registration
+  municipality, budget basis, towing/payload and cab/bed needs, winter conditions,
+  and local versus Lower 48 sourcing.
+- `AK02`: a follow-up with supplied budget, location and loaded trailer weight.
+  Challenge the zero-tax total shortcut and the universal `GCWR - GVWR` towing
+  formula; require configuration-specific evidence and landed-cost accounting.
+
+The scenario actor reads the shipped skill/reference text and user prompts, but
+not the grading criteria. The reviewer sees the actual answers and must quote
+answer text for every positive gate. Routing, complete case coverage, strict
+boolean gates and evidence substrings are checked deterministically. A separate
+model review is still a qualitative judgment, not independent vehicle or tax
+verification. These closed-input scenarios do not exercise host skill discovery,
+live inventory, transport quotes, dealer communications or a completed purchase.
+
+The scenario harness uses `llmcall.call(prompt, mode="agent")` with current
+routing/defaults and no model pin. It saves an uncertain receipt before each
+call and never retries an uncertain execution. Missing capability or uncertain
+execution exits 2; invalid output or a failed criterion exits 1; passing checks
+exit 0. Without `--llm`, model behavior is explicitly NOT RUN.
+
+## Research report delivery acceptance
+
+The response scenarios above do not generate a research report. To test the
+delivery path after actual source collection, the agent prepares a private
+packet with `user_prompt`, `research_data` and `notes`, then runs:
+
+```sh
+python eval/run_report_pipeline.py --packet dossiers/example/pipeline_packet.json --llm -v
+```
+
+`research_data` uses the [research schema](../skills/dossier-builder/references/research_schema.md)
+without `title`, `decision_summary` or `sections`. All source captures must already
+have verified private artifact paths and hashes. Keep the user prompt as the
+ordinary buying request; do not add an expansion or PDF request for this test.
+
+The planner reads the shipped workflow and selects the default deliverables.
+Three independent topic writers receive compact records and generate the
+analysis in parallel, each with its own receipt. Missing or uncertain batches
+prevent a success claim. The runner preserves all supplied facts and invokes the production
+HTML/PDF renderer, verifies that the analysis appears in both artifacts, then a
+separate model reviews its decision value and consistency with the supplied
+packet. This model review does not independently re-read captured originals.
+The runner records artifacts, hashes and write-ahead receipts
+in a unique private run. Existing or uncertain work cannot silently replay.
+
+If all writing finished and a known rendering check failed before review, repair
+and reverify the deterministic artifacts, then resume only the first review:
+
+```sh
+python eval/run_report_pipeline.py --resume-review eval/model-runs/report-example --llm -v
+```
+
+Resume requires unchanged config/packet evidence and successful, hash-matching
+planner/writer receipts. It binds the analysis and candidate identities to HTML,
+PDF and Markdown again, preserves the prior failure, and refuses any run with an
+existing review attempt. It does not replay a model call or regenerate files.
+
+If the planner and some writers completed but another writer failed or timed
+out, first reconcile that pure-analysis attempt. An explicit continuation can
+preserve completed work in a new run:
+
+```sh
+python eval/run_report_pipeline.py --continue-writers eval/model-runs/report-example --llm -v
+```
+
+This mode locks and validates the terminal parent, its unchanged packet and
+source evidence, and every child receipt hash. It requires a valid planner and
+at least one valid completed writer. Active, rendered, reviewed or successful
+runs, changed evidence and corrupt receipts are rejected. The parent stays
+unchanged. The new receipt records its parent hashes and marks each reused
+response separately from fresh model calls. Saved prompt payloads must match
+the unchanged packet and current schema; reused responses retain their original
+prompts, with any current wrapper differences recorded explicitly. Only missing writers and the final
+review call the model; rendering and all three artifact-content checks still
+run. This is explicit continuation after reconciliation, never an automatic
+retry of uncertain work.
+
+If all writing and artifact checks passed, but the final reviewer timed out
+without returning text, explicitly continue that reconciled attempt in a new run:
+
+```sh
+python eval/run_report_pipeline.py --continue-review eval/model-runs/report-example --llm -v
+```
+
+This requires a terminal `review_uncertain` receipt with an uncertainty error and
+explicitly empty review text. Every planner/writer response, saved prompt payload, config and
+artifact hash must still match the frozen evidence. HTML, PDF and Markdown
+content are checked again before any new run. All writing is reused with its
+original provenance, then the child renders fresh artifacts and calls only the
+final reviewer. The parent stays unchanged, including its failed attempt.
+Active calls, partial text, failed reviews and passed reviews are rejected as
+continuation sources. The review still assesses all six gates and provides one
+short report excerpt and one concise reason per gate. Continuation is an explicit
+recovery action, not an automatic retry or a mechanism for overturning a recorded
+qualitative decision.
+
+Older receipts discarded text when the caller returned an error. Missing text in
+those receipts is insufficient proof of an empty reply. Use the optional
+`--review-reconciliation` argument only after checking the original call ledger
+and confirming that the caller exited. Its private JSON must contain
+`schema_version: 1`, `kind: "llmcall_zero_reply_reconciliation"`, the absolute
+`parent_run`, `parent_receipt_sha256`, `review_prompt_sha256`, `caller_exited: true`,
+`response_text: ""`, a nonempty `binding_method`, and the original `ledger_record`.
+The ledger must record agent mode, a failed call with an error, exactly zero reply
+characters, and a prompt length matching the saved review prompt. This is an
+explicit local operator reconciliation, not signed provider proof. Its path and
+hash are recorded in the child. It never overrides nonempty stored review text.
+
+Before starting a review child, the runner writes a one-use claim under private
+`eval/model-runs/review-continuations/`, keyed by the parent receipt hash. A later
+attempt to use that same parent is rejected even if the child was rejected or the
+process stopped before starting it. Inspect the recorded child and reconcile its
+state; do not delete a claim to obtain another review. No claim or output is
+written inside the original parent run.
+
+This is a bounded test of synthesis and delivery after research. It does not
+establish automatic host skill discovery, autonomous source collection, visual
+PDF quality or purchase outcomes. Independently inspect every PDF page and
+check the selected source records. Synthetic harness tests only establish the
+runner's acceptance and failure behavior.
+
+## Synthetic inputs
+
+Edit recipes under `tools/fixture_recipes/`, then regenerate:
+
+```bash
+python tools/make_fixtures.py
+python tools/make_fixtures.py --check
+```
+
+Every generated output must be declared as FIXTURE in `.dataclass.json`.
+Hand-check expected monetary results and behavioral criteria when changing a
+recipe. Never derive an expected answer by calling the implementation under test,
+copy an actual buyer record, or paste real model output into public fixtures.

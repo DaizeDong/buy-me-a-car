@@ -152,3 +152,5 @@ For deeper templates (rental fleet detection, NJ MVI nuances, lien-release verif
 - "How much does this affect OTD?" - hand to `otd-calculator`
 - "Draft a reply asking dealer about these add-ons" - hand to `dealer-reply-drafter`
 - Closing-day final verification - hand to `close-day-checklist`
+
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.

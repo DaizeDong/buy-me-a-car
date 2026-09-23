@@ -1,0 +1,63 @@
+:root { color-scheme: light; --navy: #15334e; --ink: #202d39; --muted: #556577; --line: #d3dde6; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #edf1f5; color: var(--ink); font-family: "Microsoft YaHei", "Noto Sans CJK SC", "PingFang SC", sans-serif; font-size: 14px; line-height: 1.75; }
+main { max-width: 1120px; margin: 28px auto; padding: 44px 52px; background: white; }
+header { border-bottom: 3px solid var(--navy); padding-bottom: 18px; }
+h1 { margin: 8px 0 14px; font-size: 30px; line-height: 1.45; color: var(--navy); }
+h2 { font-size: 21px; line-height: 1.5; color: var(--navy); margin: 28px 0 14px; }
+h3 { font-size: 16px; color: var(--navy); margin: 19px 0 8px; }
+p { margin: 9px 0; }
+a { color: #205b84; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.document-mode { color: var(--navy); border: 1px solid var(--line); padding: 7px 12px; font-weight: 700; margin-bottom: 22px; }
+.eyebrow { font-size: 11px; letter-spacing: 1.3px; color: var(--muted); }
+.summary { margin: 24px 0 18px; padding: 17px 23px; border-left: 5px solid var(--navy); background: #edf3f8; }
+.summary h2 { margin-top: 0; font-size: 18px; }
+.scope, .details, .references { color: var(--muted); font-size: 12px; }
+.warning { background: #fff7e8; border-left: 3px solid #b98a31; padding: 9px 13px; }
+nav { border: 1px solid var(--line); padding: 12px 20px; margin: 23px 0; }
+nav ol { margin: 0; columns: 2; padding-left: 23px; }
+nav li { padding: 3px 4px; break-inside: avoid; }
+section { margin-top: 27px; }
+.section-number { display: inline-block; min-width: 34px; color: #718698; font-size: 15px; }
+.table-wrap { margin: 14px 0; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 12px; line-height: 1.65; }
+th { color: white; background: var(--navy); font-weight: 600; text-align: left; }
+th, td { padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+tbody tr:nth-child(even) { background: #f3f6f9; }
+ul { padding-left: 23px; }
+li { margin: 5px 0; }
+.candidate { border-bottom: 1px solid var(--line); padding: 2px 0 13px; }
+.configuration { font-size: 12px; }
+.source { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.source h3 { margin-top: 13px; }
+.source p { margin: 5px 0; }
+.source-url, .hash { overflow-wrap: anywhere; font-size: 11px; }
+.hash { color: var(--muted); font-family: Consolas, monospace; }
+section[data-topic="costs"] table { font-size: 10px; }
+section[data-topic="costs"] th, section[data-topic="costs"] td { padding: 7px 5px; }
+@page { size: A4; margin: 18mm 13mm 20mm; @bottom-left { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; font-size: 8pt; color: #556577; } @bottom-right { content: "第 " counter(page) " 页"; font-size: 8pt; color: #556577; } }
+@media print {
+  body { background: white; font-size: 10pt; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  main { margin: 0; padding: 0; max-width: none; }
+  h1 { font-size: 23pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 11pt; }
+  h1, h2, h3 { break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  table { font-size: 8pt; }
+  th, td { padding: 6px 7px; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  .table-wrap { overflow: visible; }
+  .summary, .document-mode, .warning, .source, .candidate { break-inside: avoid; }
+  .candidate .table-wrap { margin: 8px 0; }
+  .candidate .configuration, .candidate .details { font-size: 8.5pt; line-height: 1.5; margin: 6px 0; }
+  .candidate .references { font-size: 8pt; margin: 6px 0; }
+  .source { font-size: 8.5pt; line-height: 1.5; padding-bottom: 6px; }
+  .source h3 { font-size: 10pt; margin: 6px 0 4px; }
+  .source p { margin: 3px 0; }
+  nav { font-size: 9pt; }
+  a { text-decoration: none; }
+  section[data-topic="costs"] table { font-size: 7pt; }
+}
+@media (max-width: 700px) { main { margin: 0; padding: 22px 18px; } h1 { font-size: 24px; } nav ol { columns: 1; } table { min-width: 560px; } }

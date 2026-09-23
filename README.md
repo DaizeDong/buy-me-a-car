@@ -1,269 +1,192 @@
 # buy-me-a-car
 
-16 Claude Code skills that turn a used-car weekend into a 2-hour decision: scrape 9 sites in parallel, draft counter-offers, print a buyer-grade dossier.
+A set of 16 skills for researching a US car purchase, comparing written offers,
+preparing dealer replies and reviewing a decision dossier. A broad buying request
+includes a market comparison and buyer research HTML/PDF by default. The agent
+reuses known criteria and prepares the report input; buyers do not need to ask
+again for a longer report, request a PDF separately or fill a JSON template.
+The repository ships
+an uninitialized tool with generated synthetic examples. Real purchase records
+belong in a separate, verified private companion repository.
 
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-orange?style=flat)](https://docs.anthropic.com/en/docs/claude-code)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tax Data](https://img.shields.io/badge/Tax%20Data-50%20States%20%2B%20DC%20%C2%B7%2034%20web--verified-green?style=flat)](skills/orchestrator/references/state_fees.md)
-[![Languages](https://img.shields.io/badge/Languages-EN%20%2F%20CN%20%2F%20ES-blue?style=flat)](#languages)
-[![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.2%20alpha-purple?style=flat)](ROADMAP.md)
+[中文说明](README_CN.md) · [Main skill](skills/orchestrator/SKILL.md) ·
+[Roadmap](ROADMAP.md)
 
-[English](README.md) | [中文版](README_CN.md)
+## What works locally
 
----
+- OTD calculations use decimal arithmetic, dated state-rule evidence and explicit
+  applicability checks. Unknown or unsupported profiles refuse calculation.
+- Dealer replies are rendered from approved asks, supported anchors and an
+  authorized offer. The private maximum is kept separate.
+- Inbox imports retain stable account/message IDs, cursors and operation receipts.
+  Interrupted or uncertain draft exports cannot be replayed silently.
+- Buyer research reports cover requirements, search coverage, model alternatives,
+  listings, costs, suitability, winter use, ownership, recommendations, next steps
+  and sources. Missing quotes and unknown costs remain visible. The current
+  research renderer supports Chinese; dealer proposals support English, Chinese
+  and Spanish and retain their complete-quote requirements.
+- Report generation validates evidence dates and hashes, escapes inserted text
+  and checks PDF output. Source archives establish what was captured, not whether
+  a listing is still available or a seller's claims are true.
+- Installation registers all 16 skills, detects conflicts before applying, and
+  works through Windows directory junctions.
+- Public fixtures can be regenerated; real inputs and outputs must resolve into
+  a companion whose GitHub origin is verifiably PRIVATE.
 
-## ⭐ Read this first, the design philosophy
-
-A dealership wins because it controls the frame: it splits the deal into sale price, tax, fees, and financing so each looks small, refreshes its inbox on its own schedule, and counts on you walking in cold. This plugin inverts every one of those advantages. The whole design follows from five iron rules, each born from a specific dollar-loss incident:
-
-1. **OTD only**, never negotiate sale price / tax / fee separately, only the total out-the-door number. Splitting the deal is how you lose track of $1k at a time.
-2. **Plain ASCII emails**, no markdown, em-dash, or smart quotes. Dealer mail clients render them as literal garbage characters, and a sloppy email reads like a sloppy buyer.
-3. **3-anchor counters**, every reply cites (a) the dealer's own internal price spread, (b) a regional market comp, and (c) your locked competitor OTD. Three anchors leave nothing to argue with.
-4. **15-min cron sweep**, Gmail is polled automatically; a human never manually refreshes. The buyer who replies first holds the leverage.
-5. **Walk-away threshold**, over budget or counter rejected = a polite walk. Preserving optionality across many dealers beats grabbing one mediocre deal.
-
-Everything downstream, the parallel scrape, the OTD calculator, the dossier, exists to make those five rules cheap to follow. The full rule set lives in [`SKILL.md`](skills/orchestrator/SKILL.md).
-
-## What it is (and isn't)
-
-**It is** a buyer-side negotiation cockpit: 1 orchestrator that runs a 9-phase pipeline (research → outreach → negotiate → close) plus 15 narrow sub-skills you can call standalone for single tasks (OTD math, state-fee lookup, CARFAX review, lease-vs-cash, trade-in valuation, and more). It carries real data, 50 states + DC of fee detail, 16-brand CPO eligibility, 6 buyer paths including private-party.
-
-**It isn't** a price-prediction oracle, a dealer-side CRM, or tax / legal / financial advice. It does not auto-send anything binding, emails are saved as Gmail drafts for you to review and send. It is single-author alpha (see [Limitations](#limitations)).
+Inventory research uses available search/browser tools. Gmail access, unattended
+scheduling, dealer delivery and bookings require actual host integrations and
+authorization. The package does not install those integrations. A successful
+local test or synthetic example is not evidence of purchase savings.
 
 ## Install
 
-```
-/plugin install github:DaizeDong/buy-me-a-car
-```
+Requires Python 3.10 or newer, Git and the pinned submodules. YAML/PDF utilities
+need the dependencies below. Chromium or Edge is recommended for PDF rendering.
 
-Or clone manually:
-
-```bash
-git clone https://github.com/DaizeDong/buy-me-a-car.git ~/.claude/plugins/buy-me-a-car
-```
-
-Skills auto-activate on phrases like `help me buy a car`, `draft a reply to dealer`, `compute OTD`, `review CARFAX`, etc.
-
-Verify the install:
-
-```bash
-cd ~/.claude/plugins/buy-me-a-car
-ls skills/   # should show 16 directories
-python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
-python skills/orchestrator/scripts/generate_dossier.py \
-  --config skills/orchestrator/assets/dossier_config_template.yaml \
-  --output /tmp/test.html
+```sh
+git clone --recurse-submodules https://github.com/DaizeDong/buy-me-a-car.git
+cd buy-me-a-car
+python -m pip install -r requirements.txt
+git config core.hooksPath .githooks
+python tools/install.py
+python tools/install.py --apply
+python tools/doctor.py
 ```
 
-Any failure → open an issue with the traceback. Most failures are Python deps (`PyYAML`, `Jinja2`) or Chrome headless path.
+The installer previews by default, then links skills under `~/.agents/skills`.
+Use `--target <skill-directory>` for another host. It refuses unrelated existing
+skills rather than replacing them. Start a new agent session to discover newly
+registered skills. Claude plugin hosts can load this repository as a local plugin;
+its `.claude-plugin/plugin.json` exposes the bundled skill tree.
 
-## 60-second tour
+For an existing clone, initialize submodules with
+`git submodule update --init --recursive`. Missing guards must fail explicitly;
+do not bypass the hooks.
 
-You say:
+## Initialize private storage
 
+Clone or initialize a **private GitHub companion repository** outside this public
+worktree and create its `data` directory. Set `BUY_ME_A_CAR_CONFIG` to the companion
+root, authenticate GitHub CLI (`gh`), and run:
+
+```sh
+python tools/runtime_paths.py --write
 ```
-help me buy a used compact SUV this week, budget $25k OTD, under 60k miles, near <ZIP>
+
+The resolver reports the verified private repository and DATA path. It rejects
+public, unknown, missing and unversioned destinations. An optional read without
+initialization reports `UNINITIALIZED`; a write fails. Real criteria, inventory,
+quotes, PDFs, inbox state, feedback and evaluation receipts stay in this private
+Git repository and its normal commit/backup workflow. They are not public test
+fixtures. There is no in-repository fallback.
+
+Before capturing data, resolve a private path:
+
+```sh
+python tools/runtime_paths.py cycles/example/criteria.md --write
 ```
 
-What runs automatically:
+The path is relative to private DATA. Copy a blank template to the returned
+location before filling it. Run browser/scrape captures from the verified private
+cycle directory, so relative output flags cannot write into this repository.
 
-1. Confirms 9 criteria + buyer-type router (cash / financing / trade-in / EV / pickup / private-party)
-2. Parallel subagents scrape **9 sites** (Carfax, CarMax, Carvana, Cars.com, AutoTrader, Edmunds, TrueCar, CarGurus, Enterprise) and dedupe by VIN
-3. Submits lead forms to top 30 candidates via Playwright MCP (anti-bot aware)
-4. **15-min cron** monitors Gmail; triages dealer replies into 4 buckets (real / OOO / CRM / spam)
-5. Drafts plain-ASCII counter-offers using **3-anchor logic** (dealer's own price spread + regional comp + your locked OTDs)
-6. Extracts red flags from dealer-attached **CARFAX / proposal PDFs**
-7. Generates **8-page dossier** (HTML → headless-Chrome PDF, EN or CN template)
-8. Close-day checklist with verbatim **F&I add-on hard-no script**
+## Try the executable helpers
 
-Output: typically **$5-9k saved** vs walking in cold.
+A synthetic Maryland ordinary dealer calculation with explicit fees:
 
-## Skills at a glance
+```sh
+python skills/orchestrator/scripts/otd_calculator.py --state MD --sales 30000 --doc 800 --title 200 --reg 120.50 --forward --json
+python skills/orchestrator/scripts/otd_calculator.py --list-states
+python skills/orchestrator/scripts/check_freshness.py --report-only
+```
 
-16 skills total: 1 broad orchestrator + 15 narrow-trigger sub-skills. Sub-skills work standalone; the orchestrator routes to them inside the 9-phase pipeline.
+The supplied fees are demonstration inputs, not a personalized fee quote.
+Supported profiles expire when their evidence becomes stale. See
+[state-fee-lookup](skills/state-fee-lookup/SKILL.md) for support boundaries.
+`--estimate` performs explicitly requested generic algebra and cannot establish
+jurisdictional correctness.
 
-| Bucket | Skills |
+Generate a synthetic research report outside the public repository; replace the temporary
+path with an actual system temporary directory:
+
+```sh
+python skills/orchestrator/scripts/generate_research_report.py --mode demo --config skills/orchestrator/assets/research_report_config_template.json --output <temporary-directory>/research.html --to-pdf <temporary-directory>/research.pdf
+```
+
+For an outward dealer proposal supported by complete written quotes:
+
+```sh
+python skills/orchestrator/scripts/generate_dossier.py --mode demo --config skills/orchestrator/assets/dossier_config_template.yaml --output <temporary-directory>/demo.html --to-pdf <temporary-directory>/demo.pdf
+```
+
+Demo mode accepts exact generated fixtures only. Real input uses
+[dossier live mode](skills/dossier-builder/SKILL.md), private source artifacts and
+the evidence required for that document type. Inspect every PDF page; page count
+depends on the content. See the [default delivery workflow](skills/orchestrator/references/report_delivery.md)
+for how one buying request becomes a private comparison, HTML and PDF package.
+
+## Skills and routing
+
+Choose the narrow helper for a single task; use the orchestrator for a buying
+cycle. These are intended routing descriptions, not a claim that every host
+model routes every paraphrase correctly.
+
+| Request | Skill |
 |---|---|
-| **Research & shortlist** | [orchestrator](#orchestrator) · [inbox-triage](#inbox-triage) · [quote-evidence-collector](#quote-evidence-collector) |
-| **Price math & paperwork** | [otd-calculator](#otd-calculator) · [state-fee-lookup](#state-fee-lookup) · [trade-in-valuator](#trade-in-valuator) |
-| **Negotiate** | [dealer-reply-drafter](#dealer-reply-drafter) · [dossier-builder](#dossier-builder) |
-| **Decide & verify** | [lease-vs-cash-analyzer](#lease-vs-cash-analyzer) · [payment-method-decider](#payment-method-decider) · [ev-buyer-helper](#ev-buyer-helper) · [cpo-eligibility](#cpo-eligibility) · [carfax-pdf-review](#carfax-pdf-review) |
-| **Close** | [insurance-shopper](#insurance-shopper) · [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
+| help me buy a car | [orchestrator](skills/orchestrator/SKILL.md) |
+| compute OTD | [otd-calculator](skills/otd-calculator/SKILL.md) |
+| state fee lookup | [state-fee-lookup](skills/state-fee-lookup/SKILL.md) |
+| draft counter to dealer | [dealer-reply-drafter](skills/dealer-reply-drafter/SKILL.md) |
+| triage dealer replies | [inbox-triage](skills/inbox-triage/SKILL.md) |
+| review this CARFAX | [carfax-pdf-review](skills/carfax-pdf-review/SKILL.md) |
+| build dossier | [dossier-builder](skills/dossier-builder/SKILL.md) |
+| CPO eligibility | [cpo-eligibility](skills/cpo-eligibility/SKILL.md) |
+| EV purchase advice | [ev-buyer-helper](skills/ev-buyer-helper/SKILL.md) |
+| choose payment method | [payment-method-decider](skills/payment-method-decider/SKILL.md) |
+| lease vs cash | [lease-vs-cash-analyzer](skills/lease-vs-cash-analyzer/SKILL.md) |
+| value my trade-in | [trade-in-valuator](skills/trade-in-valuator/SKILL.md) |
+| collect quote evidence | [quote-evidence-collector](skills/quote-evidence-collector/SKILL.md) |
+| shop car insurance | [insurance-shopper](skills/insurance-shopper/SKILL.md) |
+| book pre-purchase inspection | [ppi-scheduler](skills/ppi-scheduler/SKILL.md) |
+| close day checklist | [close-day-checklist](skills/close-day-checklist/SKILL.md) |
 
-## How to invoke each skill
+## Validation
 
-Each block: when to use, trigger phrases, one-line example, what comes back.
+```sh
+python tools/make_fixtures.py --check
+python tools/check_repository.py
+python skills/orchestrator/scripts/render_state_data.py --check
+python -m unittest discover -s eval -p "test_*.py" -v
+python eval/test_rubric.py
+```
 
-### orchestrator
-- **Use when**: you want the full 9-phase pipeline from scratch.
-- **Triggers** (the complete set; the frontmatter `description` carries the first 12, which is all a 180-char cap holds):
-  - EN: `buy me a car`, `find me a car`, `email dealers`, `negotiate OTD`
-  - ZH: `帮我找车`, `买车`, `选车`, `砍价`, `对比经销商`
-  - ES: `ayudame a comprar un carro`, `ayudame a comprar un coche`, `encuentrame un auto`
-  - Also fire the skill, but live only here: `research cars`, `compare quotes`, `buy a Subaru/Toyota/Honda/Mazda`, `negociar el precio del carro`, `comparar concesionarios`
-- **Example**: `help me buy a 2022-2024 Outback Premium under 60k miles within 50mi of <ZIP>, budget $32k OTD`
-- **Output**: phase-by-phase artifacts under a `car_buying_<YEAR>/` working dir.
-- **6 buyer paths**: cash / financing / trade-in / EV / pickup, plus **private-party**, seller is a private individual (FSBO), not a dealer. No OTD stack and no F&I office; buyer pays tax + title + registration at the DMV. The work shifts to title transfer, state tax basis (purchase price vs book value vs Illinois-style fixed table), curbstoner detection, and payment/escrow safety (cashier's check at the seller's bank; pay any lien off directly to the lienholder). See `skills/orchestrator/references/private_party_playbook.md`.
+The offline rubric checks deterministic contracts. `python eval/test_rubric.py --llm`
+separately runs actual model tasks and fresh-context review through installed
+`llmcall` defaults, with input snapshots and receipts in private DATA. Unavailable,
+failed or timed-out model work is reported as such, never counted as a pass.
+Do not retry an uncertain execution without reconciliation.
 
-### otd-calculator
-- **Use when**: convert sale price → OTD, or reverse-engineer max sale from target OTD.
-- **Triggers**: `compute OTD`, `OTD math`, `算 OTD`, `算总价`
-- **Example**: `compute OTD for $30k sale in NJ with $499 doc fee`
-- **Output**: itemized OTD (tax / doc / title / reg / DMV) for all 50 states + DC (every state at fee-detail depth; 34 web-verified).
+`python eval/run_scenarios.py --llm` tests actual Chinese responses to an Alaska
+pickup purchase and a tax/towing follow-up, using a separate reviewer. See
+[evaluation instructions](eval/README.md) for scope and result interpretation.
 
-### state-fee-lookup
-- **Use when**: pull the 6-field summary (rate / local / doc cap / title / reg / trade credit) for any state.
-- **Triggers**: `doc fee in NJ`, `state 税率`, `trade-in credit`
-- **Example**: `what's TX doc fee cap and EV reg surcharge`
-- **Output**: state summary + "Does NOT have" leak-detection list (catches NJ tire fee on a CT quote, etc.). Backing data: 50 states + DC, every state at fee-detail depth (30 full + 21 stub), 34 web-verified.
+Functional CI covers the business tests on Windows and Linux. Existing PII/data
+and style workflows remain in place. Fixtures and local regressions do not test
+live email delivery, real tax-office acceptance, or negotiation success.
 
-### cpo-eligibility
-- **Use when**: verify factory CPO eligibility + embedded $ value before paying the CPO premium.
-- **Triggers**: `is this car CPO`, `Subaru CPO`, `Honda Certified`, `CPO 资格`
-- **Example**: `check CPO on 2021 Kia Telluride @ 55k miles`
-- **Output**: eligibility verdict (16-brand matrix across 12 programs: 8 mainstream + Stellantis SPOTiCAR [Ram/Jeep/Chrysler/Dodge/Fiat, 5 brands in one program] + luxury Lexus/Genesis/Acura), embedded $1-3k value, fake-CPO red flags.
+## Scope and evidence limits
 
-### carfax-pdf-review
-- **Use when**: dealer sent you CARFAX / service-record / F&I-proposal PDFs.
-- **Triggers**: `review this CARFAX`, `审 PDF`, `F&I add-on detection`
-- **Example**: `review the CARFAX dealer just emailed`
-- **Output**: structured red-flag report (accidents, service gaps with $ ranges, 12 challengeable F&I add-ons).
+The state dataset includes all states and DC, with explicit unknown fields;
+complete verified calculation support is narrower. Manufacturer terms, inventory,
+incentives and prices need current verification. Historical reference notes
+cannot override current official rules.
 
-### dealer-reply-drafter
-- **Use when**: draft ONE outbound reply, counter / follow-up / walk-away.
-- **Triggers**: `draft counter to dealer`, `回复 dealer`, `对 dealer 报价做 counter`
-- **Example**: `draft a counter to this Honda dealer's $33k OTD, target $30.75k`
-- **Output**: Gmail draft (saved, not sent), ~10 lines, plain ASCII, 3 asks + 1 anchor + 1 walk-away.
+EN/CN/ES dossier layouts are available. Localized fixed labels do not translate
+arbitrary user prose, and translations need contextual review. The shipped
+dealer-email renderer supports ASCII English.
 
-### inbox-triage
-- **Use when**: dealer inbox piling up, separate real replies from CRM noise.
-- **Triggers**: `check my dealer inbox`, `看下邮箱`, `dealer 回复了吗`
-- **Example**: `triage today's dealer inbox`
-- **Output**: per-bucket counts (real / OOO / CRM / spam), Gmail labels applied, handoff list to dealer-reply-drafter.
+The nine [scenarios](examples/README.md) are generated synthetic inputs and
+expected behaviors. They contain no measured purchase outcomes. No savings,
+response-time, site-access or fixed-page-count guarantee is made.
 
-### dossier-builder
-- **Use when**: print a buyer-grade research packet before the test drive.
-- **Triggers**: `build dossier`, `生成 PDF`, `make dossier`
-- **Example**: `generate the dossier PDF in Chinese template`
-- **Output**: 8-page HTML + headless-Chrome PDF (EN or CN), covering market avg / OTD / CPO embedded value / dealer anchor analysis.
-
-### ev-buyer-helper
-- **Use when**: buyer is going EV, state/local rebate stack, charging (NACS/CCS1), used-EV battery diligence. NOTE: the federal §30D ($7,500 new) / §25E ($4,000 used) / §45W (lease pass-through) credits were TERMINATED for vehicles acquired after 2025-09-30 (OBBBA, Public Law 119-21); they are historical only and not counted in net-price math.
-- **Triggers**: `EV federal credit`, `$7,500 POS`, `电车补贴`
-- **Example**: `what EV rebates still apply in NJ for an Ioniq 5 SEL in 2026`
-- **Output**: net price after any state/local rebate (no federal credit) + NACS/CCS1 adapter guidance + used-EV SoH diligence.
-
-### payment-method-decider
-- **Use when**: choose close-day instrument, cashier's check / credit card / wire / lease cap reduction.
-- **Triggers**: `cash or CC for car`, `支付方式`, `Visa for $30k car`
-- **Example**: `should I put $30k on my 3% cashback Visa or cashier's check`
-- **Output**: method recommendation with CC-rewards-vs-surcharge break-even math.
-
-### lease-vs-cash-analyzer
-- **Use when**: dealer offered a lease, verify MF / residual / acquisition / disposition.
-- **Triggers**: `lease or buy`, `money factor markup`, `租还是买`
-- **Example**: `is this Ioniq 5 SEL lease quote at $575/mo honest`
-- **Output**: monthly breakdown + LEASE / BUY / BREAK-EVEN verdict by ownership horizon.
-
-### trade-in-valuator
-- **Use when**: trading in, 4-anchor valuation + lien payoff workflow.
-- **Triggers**: `valuate my trade`, `评估置换车`, `trade-in tax credit`
-- **Example**: `what's my 2017 Civic worth as trade in NJ`
-- **Output**: 4-anchor table (KBB Instant / Trade-in / Private / Wholesale) + TRADE vs SEPARATE-SELL decision.
-
-### quote-evidence-collector
-- **Use when**: collect REAL dealer-quote screenshots from XHS / Reddit / FB as negotiation anchors.
-- **Triggers**: `find quote screenshots`, `搜集报价截图`, `find dealer evidence`
-- **Example**: `find XHS quotes for 2024 Outback Premium in <your state>`
-- **Output**: REAL-tagged compressed `_FINAL_*.jpg` (1300px, 100-300 KB) ready for manual paperclip.
-
-### insurance-shopper
-- **Use when**: setting up auto insurance before close day, new driver, cash buyer, or cross-state move.
-- **Triggers**: `set up insurance`, `car insurance quote`, `new driver insurance`, `上保`, `保险报价`
-- **Example**: `set up insurance for a new SUV in <your state>, first-time driver`
-- **Output**: 3-carrier quote comparison (NJM / Geico / Progressive), 6-month total, recommended coverage spec, bind sequence.
-
-### ppi-scheduler
-- **Use when**: ready to book pre-purchase inspection, mobile-PPI services by region.
-- **Triggers**: `book PPI`, `提车前检车`, `mobile inspector`
-- **Example**: `book a mobile PPI tomorrow for a 2022 Outback at a local dealer`
-- **Output**: bookings (ID + cancel deadline) + post-inspection PROCEED / COUNTER / WALK matrix.
-
-### close-day-checklist
-- **Use when**: tomorrow is close day, buyer-type checklists + F&I add-on hard-no script.
-- **Triggers**: `ready to close`, `F&I add-on refusal`, `提车清单`
-- **Example**: `give me the close-day checklist for tomorrow cash buyer with trade-in`
-- **Output**: pre / on-site / post checklists + verbatim F&I scripts.
-
-### Trigger routing
-
-When a query could activate multiple skills, the **most narrow + specific** trigger wins:
-
-| If user says | Activates | Not |
-|---|---|---|
-| "help me buy a car" | `orchestrator` | sub-skills |
-| "draft reply to dealer" | `dealer-reply-drafter` | `orchestrator` |
-| "compute OTD" | `otd-calculator` | `orchestrator` |
-| "doc fee in NJ" | `state-fee-lookup` | `otd-calculator` |
-| "lease or buy" | `lease-vs-cash-analyzer` | `payment-method-decider` |
-| "Visa for $30k car" | `payment-method-decider` | `lease-vs-cash-analyzer` |
-| "find quote screenshots" | `quote-evidence-collector` | `orchestrator` |
-| "$7,500 EV credit" | `ev-buyer-helper` | `payment-method-decider` |
-| "book PPI" | `ppi-scheduler` | `orchestrator` |
-| "review this CARFAX" | `carfax-pdf-review` | `orchestrator` |
-| "is this car CPO" | `cpo-eligibility` | `carfax-pdf-review` |
-| "build dossier PDF" | `dossier-builder` | `orchestrator` |
-| "check inbox" | `inbox-triage` | `orchestrator` |
-| "valuate trade-in" | `trade-in-valuator` | `otd-calculator` |
-| "set up insurance" | `insurance-shopper` | `close-day-checklist` |
-| "ready to close" | `close-day-checklist` | `orchestrator` |
-
-If ambiguous, name the skill explicitly: `use dealer-reply-drafter to draft this`. Unsure which one? Call `orchestrator`, it routes internally.
-
-## Example output
-
-Phase 3 renders two Markdown tables. A site-capability matrix (which sources
-yielded usable inventory/pricing, ranked into tiers):
-
-| Site | Inventory | Pricing | Anti-bot | Tier |
-|---|---|---|---|---|
-| AutoTrader | broad | list + some OTD | medium | 1 |
-| CarGurus | broad | list + deal rating | medium | 1 |
-| Cars.com | broad | list only | low | 2 |
-| Edmunds | medium | list + regional avg | low | 2 |
-| Dealer sites | narrow | internet price | high | 3 |
-
-...and a VIN-deduped candidate list with deal tags (all values below are
-synthetic illustrations, not a real search):
-
-| # | Vehicle | Area | Ask | Miles | Deal tag |
-|---|---|---|---|---|---|
-| 1 | 2023 Compact SUV Premium | Centerville | $28,900 | 22,140 | Great |
-| 2 | 2022 Compact SUV Limited | Fairview | $27,450 | 31,020 | Good |
-| 3 | 2023 Compact SUV Premium | Oakdale | $30,100 | 18,600 | Fair |
-
-## Limitations
-
-- **Single-author alpha**, workflow based on a single purchase cycle + 8 worked example scenarios (see `examples/`). Not multi-market validated.
-- **Data drifts**, state fees, CPO terms, and EV credits were last verified 2026-05-18; major bills may have passed since.
-- **Anti-bot fragile**, CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar depend on Playwright MCP and may break with site redesigns.
-- **Not tax / legal / financial advice**, verify with licensed professionals before signing.
-
-## Languages
-
-Three languages, two surfaces, keep them separate:
-
-- **Buyer-facing chat + `criteria.md` + dossier**: English, 中文, or Español. Triggers fire in all three (`buy me a car` / `帮我买车` / `ayudame a comprar un carro`). The dossier ships an EN and a CN print template; Spanish support is buyer-facing chat + an explanatory ES glossary for load-bearing terms (OTD, doc fee, ADM, CPO, NACS, GAP, MSRP), with regional `carro / coche / auto` mirroring.
-- **Dealer-facing email**: **always English + plain ASCII**, regardless of the buyer's chat language. Dealer CRM clients mangle non-ASCII, and an English OTD ask threads cleanly with the dealer's own quote. The buyer reads the deal in their language; the dealer reads the ask in English. See _Language and Audience Separation_ in `skills/orchestrator/SKILL.md`.
-
-> ES glosses are working translations pending native-speaker sign-off before production use.
-
-This repo ships docs in two languages: English (`README.md`, authoritative) · 中文 (`README_CN.md`).
-
-## Roadmap · Contributing · License
-
-[ROADMAP.md](ROADMAP.md) tracks v0.3.0 / v1.0.0 plans (multi-author data, adversarial dealer tests, EV-credit reinstatement watch, remaining luxury-brand CPO). Pick one → open issue → PR. Changes are logged in [CHANGELOG.md](CHANGELOG.md).
-
-MIT, fork it, ship it, save someone money. See [LICENSE](LICENSE).
-
-_last_verified: 2026-05-18_
+MIT. See [LICENSE](LICENSE) and [CHANGELOG.md](CHANGELOG.md).
