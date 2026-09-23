@@ -48,9 +48,24 @@
     h2 { page-break-before: auto; }
     table, .offer-box { page-break-inside: avoid; }
   }
+
+  @page {
+    size: Letter; margin: 0.7in 0.55in 0.6in;
+    @top-center { content: {{PAGE_NOTICE_CSS}}; font: 7pt/1.25 Arial, "Microsoft YaHei", sans-serif; color: #5c4300; vertical-align: middle; }
+  }
+  .document-mode { padding: 7px 10px; border: 1px solid #a56e00; background: #fff8dc; font: 9pt/1.35 Arial, "Microsoft YaHei", sans-serif; margin-bottom: 12px; }
+  td { overflow-wrap: anywhere; }
+  .quote-table td:nth-child(3), .market-table td:nth-child(3) { white-space: nowrap; }
+  .toc { break-inside: avoid; }
+  .evidence-table { font-size: 8pt; table-layout: fixed; }
+  @media print {
+    body { margin: 0; padding: 0; }
+    .document-mode { display: none; }
+  }
 </style>
 </head>
 <body>
+<div class="document-mode">{{DOSSIER_NOTICE}}</div>
 
 <h1>Propuesta de compra de vehículo usado e informe de investigación de mercado</h1>
 
@@ -114,9 +129,9 @@
   <tr><td>Nombre del comprador</td><td>{{BUYER_NAME}}</td></tr>
   <tr><td>Lugar de residencia</td><td>{{BUYER_ADDRESS}}</td></tr>
   <tr><td>Distancia al concesionario</td><td>{{DISTANCE}}</td></tr>
-  <tr><td>Forma de pago</td><td>Al contado (cheque de caja)</td></tr>
-  <tr><td>Financiamiento</td><td>Ninguno; sin condicionamiento a la aprobación de un préstamo</td></tr>
-  <tr><td>Vehículo a cuenta (trade-in)</td><td>Ninguno</td></tr>
+  <tr><td>Forma de pago</td><td>{{PAYMENT_METHOD}}</td></tr>
+  <tr><td>Financiamiento</td><td>{{FINANCING_TERMS}}</td></tr>
+  <tr><td>Vehículo a cuenta (trade-in)</td><td>{{TRADE_IN_TERMS}}</td></tr>
   <tr><td>Plazo para cerrar la operación</td><td>{{CLOSE_TIMING}}</td></tr>
   <tr><td>Cotizaciones competidoras vigentes</td><td>{{NUM_COMPETING_OFFERS}}</td></tr>
 </table>
@@ -140,7 +155,7 @@
 
 <p>Fecha de recopilación de datos: {{DATE}}.</p>
 
-<table>
+<table class="market-table">
   <tr><th>Fuente</th><th>Filtro geográfico</th><th>Precio promedio de listado</th><th>Rango de precios</th><th>Tamaño de muestra</th></tr>
   <tr><td>{{SOURCE_1}}</td><td>{{GEO_1}}</td><td>${{AVG_1}}</td><td>{{RANGE_1}}</td><td>{{SAMPLE_1}}</td></tr>
   <tr><td>{{SOURCE_2}}</td><td>{{GEO_2}}</td><td>${{AVG_2}}</td><td>{{RANGE_2}}</td><td>{{SAMPLE_2}}</td></tr>
@@ -162,19 +177,17 @@
 
 <table>
   <tr><th>Tipo de garantía</th><th>Cobertura</th><th>Vigencia</th><th>Estado actual</th></tr>
-  <tr><td>Garantía básica (vehículo completo)</td><td>Todos los defectos de fábrica</td><td>{{BASIC_TERM}}</td><td>{{BASIC_STATUS}}</td></tr>
-  <tr><td>Garantía del tren motriz</td><td>Motor, transmisión y sistema de tracción</td><td>{{PWRT_TERM}}</td><td>{{PWRT_STATUS}}</td></tr>
+  <tr><td>Garantía básica</td><td>Consultar los términos escritos</td><td>{{BASIC_TERM}}</td><td>{{BASIC_STATUS}}</td></tr>
+  <tr><td>Garantía del tren motriz</td><td>Consultar los términos escritos</td><td>{{PWRT_TERM}}</td><td>{{PWRT_STATUS}}</td></tr>
   <tr><td>Elegibilidad CPO (usado certificado)</td><td>{{CPO_TERM}}</td><td>{{CPO_LIMIT}}</td><td>{{CPO_STATUS}}</td></tr>
 </table>
 
 <h2>6. Cotizaciones competidoras vigentes</h2>
 
-<p>Las siguientes cotizaciones de precio final (OTD) por escrito se obtuvieron recientemente por correo electrónico de otros concesionarios y están archivadas en la bandeja de entrada del comprador.</p>
 
-<table>
+<table class="quote-table">
   <tr><th>Vehículo</th><th>Concesionario</th><th>Precio final (OTD)</th><th>Millaje</th><th>Estado</th></tr>
-  <tr><td>{{COMP_VEH_1}}</td><td>{{COMP_DEALER_1}}</td><td>${{COMP_OTD_1}}</td><td>{{COMP_MILES_1}}</td><td>{{COMP_STATUS_1}}</td></tr>
-  <tr><td>{{COMP_VEH_2}}</td><td>{{COMP_DEALER_2}}</td><td>${{COMP_OTD_2}}</td><td>{{COMP_MILES_2}}</td><td>{{COMP_STATUS_2}}</td></tr>
+{{QUOTE_ROWS}}
 </table>
 
 <h2>7. Análisis de precios del inventario del concesionario</h2>
@@ -188,32 +201,34 @@
   <tr><th>Concepto</th><th>Monto</th></tr>
   <tr><td>Precio de venta</td><td>${{PROPOSED_SALES}}</td></tr>
   <tr><td>Impuesto sobre la venta de {{STATE}} ({{TAX_RATE}}%)</td><td>${{TAX_AMOUNT}}</td></tr>
-  <tr><td>Cargo de registro (MVC de {{STATE}})</td><td>${{REG_AMOUNT}}</td></tr>
+  <tr><td>Base / ajuste del impuesto (solo referencia)</td><td>${{TAX_BASE}} / ${{TAX_ADJUSTMENT}}</td></tr>
+  <tr><td>Cargo de registro ({{STATE}})</td><td>${{REG_AMOUNT}}</td></tr>
   <tr><td>Cargo por documentación (doc fee)</td><td>${{DOC_AMOUNT}}</td></tr>
+  <tr><td>Cargo por título</td><td>${{TITLE_AMOUNT}}</td></tr>
+  <tr><td>Otros cargos</td><td>${{OTHER_FEES}}</td></tr>
+  <tr><td>Crédito por vehículo a cuenta</td><td>-${{TRADE_IN_CREDIT}}</td></tr>
+  <tr><td>Reembolso</td><td>-${{REBATE_AMOUNT}}</td></tr>
   <tr><td><strong>Total precio final (OTD)</strong></td><td><strong>${{TARGET_OTD}}</strong></td></tr>
 </table>
 
 <h2>9. Condiciones de la venta y verificaciones</h2>
 
 <ul>
-  <li><strong>Informe CARFAX</strong>, que confirme título limpio, sin accidentes y sin título de salvamento</li>
+  <li>Revisar el <strong>informe del historial y los registros del título</strong> antes del acuerdo</li>
   <li><strong>Inspección previa a la compra (PPI)</strong>, realizada por un técnico independiente certificado por ASE</li>
-  <li><strong>Sin retiros (recalls) pendientes</strong> para este VIN</li>
+  <li>Consultar los <strong>recalls pendientes</strong> por VIN y acordar las reparaciones necesarias</li>
   <li>{{CPO_OR_WARRANTY_CONDITION}}</li>
   <li>Transferencia de título limpio en {{STATE}}</li>
-  <li>Transferencia de las placas actuales de {{STATE}} del comprador</li>
+  <li>{{PLATE_PLAN}}</li>
   <li>Todos los impuestos y cargos incluidos en el precio final (OTD); sin cargos adicionales posteriores a la venta</li>
 </ul>
 
 <h2>10. Fuentes</h2>
 
-<ol>
-  <li>{{SOURCE_LINK_1}}</li>
-  <li>{{SOURCE_LINK_2}}</li>
-  <li>{{SOURCE_LINK_3}}</li>
-  <li>{{SOURCE_LINK_4}}</li>
-  <li>Bandeja de entrada del comprador; cotizaciones de precio final (OTD) por escrito disponibles a solicitud</li>
-</ol>
+<table class="evidence-table">
+  <tr><th>ID</th><th>Tipo</th><th>Fuente</th><th>Fecha</th></tr>
+{{EVIDENCE_ROWS}}
+</table>
 
 <hr>
 

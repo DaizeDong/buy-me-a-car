@@ -7,7 +7,7 @@ description: Use to valuate the buyer's trade-in vehicle (KBB / private party / 
 
 > **Caveat**: this skill is one author's playbook + 5-scenario stress test. Verify state fees / CPO terms / EV credits / dealer practices against current sources before quoting numbers to a dealer or making financial decisions. Not tax, legal, or financial advice.
 
-last_verified: 2026-05-18
+Tax references reconciled September 22, 2026; valuation ranges require current market evidence.
 
 Narrow-trigger skill: produce a defensible trade-in valuation, decide
 separate-sell vs trade-in, and stage lien-payoff timing. Defers full reference
@@ -97,43 +97,17 @@ owner? (Y/N + remaining term).**
 
 ## State trade-in tax credit matrix
 
-Excerpt from `../orchestrator/references/state_fees.md`. In states allowing
-trade credit, sales tax applies to NET (sale price minus trade allowance), not
-gross.
+Use the generated reviewed-field table and field provenance in `../orchestrator/references/state_fees.md`. The production `trade_credit_for_state` helper handles verified trade rules; use `compute_state_otd` for a supported complete tax profile. Do not recreate the rules in a separate skill table or a test-only helper.
 
-| Trade credit status | States |
-|---|---|
-| YES (full, uncapped) | NJ, NY, PA, TX, OH, NC, GA, WA, DC, MD, FL |
-| YES (capped first $10k) | IL |
-| YES (capped first $9k) | MI |
-| NO | CA, KY, VA |
-| N/A (no sales tax on vehicles) | OR, MT, NH, AK, DE |
+Illinois restored full eligible trade credit January 1, 2022. Michigan's cap is $12,000 in 2026 under its annual schedule. Maryland permits eligible trade credit on the dealer-certified taxable purchase price. Virginia does not reduce the sales-and-use tax base for trade allowance. Other state results remain subject to their recorded evidence and transaction scope.
 
-Worked example -- NJ $25k sale + $10k trade:
-- Tax base = $25,000 - $10,000 = $15,000
-- NJ sales tax 6.625% on $15k = $993.75
-- Without trade credit: 6.625% on $25,000 = $1,656.25
-- Trade credit saves $662.50
-
-Same deal in CA (no credit): tax base stays $25k, savings = $0. Move the trade
-to a separate private-party sale if the state-loss is large.
+An unverified field means unknown. The absence of general state sales tax does not establish that a vehicle has no excise, privilege, use, local or document tax.
 
 ## Separate-sell vs trade-in decision
 
-Decision rule:
+Compare the actual separate-sale proceeds, dealer trade allowance, independently calculated tax difference and the buyer's own convenience/time costs. Calculate trade tax savings by running the supported profile with and without trade while holding the purchase inputs constant. A headline-rate multiplication does not account for caps, tax minimums or limited local bases.
 
-- Private-party premium = (KBB Private Party) - (Dealer Trade Allowance)
-- Trade-credit value = (Trade Allowance) * (State combined tax rate, if credit)
-- If private-party premium > trade-credit value + buyer's convenience price
-  ($1,000-$3,000 typical), sell separately.
-- Else trade in.
-
-In NJ at 6.625% with a $15k trade allowance vs $17k private party: premium =
-$2,000; trade-credit value = $993; net cost of trading = $2,000 - $993 = $1,007.
-If buyer values convenience > $1,007, trade in; otherwise sell separately.
-
-In CA same numbers: premium $2,000; trade-credit value $0. Sell separately
-almost always wins.
+Use gross trade allowance for the eligibility calculation. Subtract payoff separately when comparing net proceeds. If no supported tax profile applies, leave the tax difference unknown and obtain a transaction-specific dealer/DMV worksheet before recommending the cheaper option.
 
 ## Lien payoff workflow
 
@@ -198,8 +172,7 @@ desk have different incentive structures; mixing closes off negotiation.
   TERMINATED 2025-09-30, HISTORICAL only; state rebates are the only live incentive
   layer, see the `ev-buyer-helper` CRITICAL banner). Use for the buyer's *acquisition*
   of a used EV; this skill's anchor 5 covers the *outgoing* EV trade.
-- `../orchestrator/references/state_fees.md` -- per-state Trade-In Tax Credit
-  column, worked OTD examples with trade.
+- `../orchestrator/references/state_fees.md` -- reviewed state trade fields, supported profiles and generated synthetic OTD cases.
 - `../orchestrator/SKILL.md` gotcha D5 -- never mix new vs used anchors.
 
 ## Output contract
@@ -220,3 +193,5 @@ Trade valuation pass -- <timestamp>
 
 Hand off to Phase 6 negotiation when traded; hand off to private-party listing
 help when separate-sell.
+
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.

@@ -1,15 +1,17 @@
 # Top {N} Dealer Outreach Tracker
 
 **Buyer:** {NAME} | {EMAIL} | {PHONE} | ZIP {ZIP} ({CITY} {STATE})
-**Payment:** Cash buyer ready
+**Payment:** {confirmed method and conditions; unknown if not established}
 **Started:** {YYYY-MM-DD}
 **Target Vehicle:** {YEAR_RANGE} {MAKE} {MODEL} {TRIM_LIST}, under {MILEAGE_CAP} mi, budget {OTD_RANGE}
+
+This is a blank shape. Copy it to verified private DATA before entering real records. Keep source artifacts, account/message/operation IDs, authorization and provider receipts with each entry.
 
 ---
 
 ## Current Dealer Conversation Summary
 
-### Written OTD Received (locked candidates)
+### Written OTD Received (retain conditions and expiry)
 
 | Rank | Vehicle | OTD | Mileage | Status | Notes |
 |------|---------|-----|---------|--------|-------|
@@ -73,7 +75,7 @@
 
 **Dealer:** {NAME / EMAIL / PHONE}
 **Vehicle:** {YEAR TRIM, VIN, MILES}
-**OTD Status:** {Open / Locked / Walked Away}
+**OTD Status:** {Requested / Written, with expiry / Expired / Walked Away}
 
 **Dealer message:**
 > "...quote..."

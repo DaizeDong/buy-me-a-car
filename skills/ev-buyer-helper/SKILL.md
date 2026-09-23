@@ -243,3 +243,5 @@ The buyer in central Texas, Ioniq 5 SEL AWD (2026):
 - L2 home install (Qmerit): +$1,400 (separate line)
 
 Historical (pre-2025-10-01 acquisition, for reference): §30D POS -$7,500 → Net OTD $40,656.
+
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.

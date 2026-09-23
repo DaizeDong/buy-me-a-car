@@ -1,67 +1,44 @@
-#!/usr/bin/env python3
-"""
-Mileage Adjustment Calculator — compute fair price adjustment between two used vehicles
-based on mileage delta.
+"""Apply an explicitly supplied mileage sensitivity; this is not a valuation model."""
+from __future__ import annotations
 
-Usage:
-  python mileage_adjustment.py --miles-a 50000 --miles-b 73000 --segment suv
-  python mileage_adjustment.py --miles-a 50000 --miles-b 73000 --rate 0.12
-"""
 import argparse
-
-SEGMENT_RATES = {
-    "sedan-compact": (0.07, 0.10),       # Civic, Corolla
-    "sedan-midsize": (0.08, 0.11),       # Accord, Camry
-    "suv": (0.10, 0.15),                  # Forester, Outback, CR-V, RAV4
-    "suv-midsize": (0.10, 0.15),
-    "suv-luxury": (0.15, 0.25),           # MDX, X5, GLE
-    "truck": (0.10, 0.15),                # Tacoma, F-150
-    "performance": (0.15, 0.25),          # WRX, Camaro
-    "luxury": (0.15, 0.25),               # 3-series, Lexus
-}
+from decimal import Decimal, DecimalException, ROUND_HALF_UP
+import sys
 
 
 def compute_mileage_adjustment(miles_a, miles_b, rate):
-    """Compute dollar adjustment for higher-mileage vehicle (b > a)."""
-    delta_miles = abs(miles_b - miles_a)
-    delta_dollars = delta_miles * rate
-    return delta_dollars
+    """Return the absolute dollar difference under the supplied per-mile assumption."""
+    mileage = []
+    for value in (miles_a, miles_b):
+        if isinstance(value, bool):
+            raise ValueError("Mileage must be a nonnegative whole number")
+        number = Decimal(str(value))
+        if not number.is_finite() or number < 0 or number > 10000000 or number != number.to_integral_value():
+            raise ValueError("Mileage must be a nonnegative whole number")
+        mileage.append(number)
+    if isinstance(rate, bool):
+        raise ValueError("Rate must be finite and nonnegative")
+    value = Decimal(str(rate))
+    if not value.is_finite() or value < 0 or value > 1000:
+        raise ValueError("Rate must be finite and nonnegative")
+    return (abs(mileage[1] - mileage[0]) * value).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
 
-def main():
-    p = argparse.ArgumentParser(description="Mileage adjustment between two vehicles")
-    p.add_argument("--miles-a", type=int, required=True, help="Lower-mileage comp")
-    p.add_argument("--miles-b", type=int, required=True, help="Higher-mileage target")
-    p.add_argument("--segment", choices=SEGMENT_RATES.keys(), help="Vehicle segment")
-    p.add_argument("--rate", type=float, help="Custom $/mile rate (overrides segment)")
-    args = p.parse_args()
-
-    if args.rate:
-        rate_low = args.rate
-        rate_high = args.rate
-    elif args.segment:
-        rate_low, rate_high = SEGMENT_RATES[args.segment]
-    else:
-        # Default to SUV rates
-        rate_low, rate_high = SEGMENT_RATES["suv"]
-        print("(No segment specified, using SUV default)")
-
-    delta_miles = abs(args.miles_b - args.miles_a)
-    adj_low = delta_miles * rate_low
-    adj_high = delta_miles * rate_high
-
-    print(f"Mileage A: {args.miles_a:,} mi")
-    print(f"Mileage B: {args.miles_b:,} mi")
-    print(f"Delta:     {delta_miles:,} mi")
-    print(f"Rate:      ${rate_low:.2f} - ${rate_high:.2f} per mile")
-    print(f"Adjustment: ${adj_low:,.0f} - ${adj_high:,.0f}")
-    print()
-
-    if args.miles_b > args.miles_a:
-        print(f"=> Higher-mileage car (B) should be ${adj_low:,.0f}-{adj_high:,.0f} CHEAPER than A")
-    else:
-        print(f"=> Higher-mileage car (A) should be ${adj_low:,.0f}-{adj_high:,.0f} CHEAPER than B")
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--miles-a", required=True)
+    parser.add_argument("--miles-b", required=True)
+    parser.add_argument("--rate", required=True, help="Explicit dollars per mile assumption, justified separately")
+    args = parser.parse_args(argv)
+    try:
+        adjustment = compute_mileage_adjustment(args.miles_a, args.miles_b, args.rate)
+    except (DecimalException, ValueError) as exc:
+        print(f"Invalid sensitivity input: {exc}", file=sys.stderr)
+        return 2
+    print(f"Assumed absolute mileage adjustment: ${adjustment:,.2f}")
+    print("Sensitivity only. No market value, dealer acceptance, or causality is established.")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

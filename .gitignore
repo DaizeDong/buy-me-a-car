@@ -27,8 +27,9 @@ scratch/
 *.local.md
 *.local.txt
 
-# Personal data (should NEVER be committed if using this plugin in a real car-buying project)
-# Treat user-generated tracker/PDFs/prep files as private
+# Real purchase DATA belongs in a verified PRIVATE companion Git repository.
+# These ignores are advisory only; tools/check_repository.py rejects physical DATA here.
+# Do not write user-generated trackers/PDFs/prep files inside this public worktree.
 *.pdf
 dealer_pdfs/
 car_buying_*/

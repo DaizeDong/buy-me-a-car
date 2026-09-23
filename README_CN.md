@@ -1,264 +1,108 @@
 # buy-me-a-car
 
-16 个 Claude Code skill，把一个用车周末压缩成 2 小时决策：9 个网站并行抓库存、起草 counter-offer、生成买家级 dossier。
+这套工具包含 16 个技能，帮助买家查车源、比较书面报价、准备经销商回信，并整理购车决策档案。
+一般购车请求默认交付市场比较、买方研究 HTML 和 PDF。助手复用已知需求并准备报告输入，
+用户不必另说“展开写”“生成 PDF”，也不必自己填写 JSON 模板。
+公开仓库只存工具和可重新生成的合成示例；真实购车记录必须放在已验证为私有的伴生 Git 仓库。
 
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-orange?style=flat)](https://docs.anthropic.com/en/docs/claude-code)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tax Data](https://img.shields.io/badge/%E7%A8%8E%E8%B4%B9%E6%95%B0%E6%8D%AE-50%E5%B7%9E%20%2B%20DC%20%C2%B7%2034%20web--verified-green?style=flat)](skills/orchestrator/references/state_fees.md)
-[![Languages](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-EN%20%2F%20CN%20%2F%20ES-blue?style=flat)](#语言)
-[![Roadmap](https://img.shields.io/badge/Roadmap-v0.2.2%20alpha-purple?style=flat)](ROADMAP.md)
+[English](README.md) · [主技能](skills/orchestrator/SKILL.md) · [后续工作](ROADMAP.md)
 
-[English](README.md) | [中文版](README_CN.md)
+## 已实现的能力
 
----
+- OTD（落地总价）使用十进制金额计算，按已核实的州规则检查适用范围。规则未知、过期或交易类型不支持时拒绝计算。
+- 经销商回信由已批准的问题、报价证据和对外报价生成。内部最高预算单独保存。
+- 邮件导入保留账号、消息和游标标识；草稿导出记录操作状态和回执，执行结果不确定时禁止直接重放。
+- 买方研究报告覆盖需求、检索范围、车型取舍、车源、成本、用途适配、冬季使用、持有成本、推荐、下一步和来源。没有书面报价时照常交付，未知费用保留未知。
+- 报告检查证据日期和文件哈希，转义插入文本并验证 PDF。研究报告当前支持中文；经销商提案保留完整书面报价要求，支持英文、中文和西班牙文。
+- 安装器注册全部 16 个技能，提前检查名称冲突，支持 Windows 目录联接。
+- 真实输入和输出统一通过私有目录解析器；找不到私有仓、可见性不明或路径越界时停止写入。
 
-## ⭐ 先读这个, 设计理念
-
-经销商赢，靠的是控制框架：把一笔交易拆成 sale price、税、fee、贷款，让每一项看起来都很小；按自己的节奏刷收件箱；赌你冷启动走进大堂。这个 plugin 把这些优势逐条反转。整套设计都源自五条铁律，每条都来自一次具体的丢钱事故：
-
-1. **只谈 OTD**, 绝不分开 sale price / tax / fee 单独谈，只盯 out-the-door 总价。拆分交易就是每次丢 $1k 还浑然不觉的根源。
-2. **纯 ASCII 邮件**, 禁用 markdown、em-dash、智能引号。Dealer 客户端会把它们当字面乱码显示，邮件糙就显得买家糙。
-3. **3-anchor 反砍**, 每封回信必含 (a) dealer 自家内部价差、(b) 区域市场 comp、(c) 你已锁的竞品 OTD。三个 anchor 让对方无从争辩。
-4. **15 分钟 cron 扫信**, Gmail 由 cron 自动轮询，绝不让人工反复刷。先回复的买家握有筹码。
-5. **walk-away 阈值**, 超预算或对方拒绝合理还价 → 礼貌走人。在多个 dealer 间维持选项，胜过抢一单平庸成交。
-
-下游的一切, 并行抓取、OTD 计算器、dossier, 都是为了让这五条铁律执行起来成本极低。完整规则见 [`SKILL.md`](skills/orchestrator/SKILL.md)。
-
-## 它是什么（不是什么）
-
-**它是**一个买家侧谈判驾驶舱：1 个 orchestrator 跑 9-phase 流程（research → outreach → negotiate → close），外加 15 个窄触发子 skill，可独立调用处理单项任务（OTD 数学、州费查询、CARFAX 审阅、lease-vs-cash、置换估值等）。它带着真实数据：50 州 + DC 的费项明细、16 品牌 CPO 资格、6 条买家路径（含 private-party）。
-
-**它不是**价格预言机、不是 dealer 侧 CRM、也不是税务 / 法律 / 财务建议。它不会自动发送任何有约束力的东西, 邮件以 Gmail draft 形式保存，由你审阅后再发。它是单作者 alpha（见 [局限](#局限)）。
+车源搜索需要当前会话提供搜索或浏览器工具。Gmail、后台定时运行、发信和预约还需要实际可用的集成与对应授权。
+本仓库不自带这些外部服务。合成示例和本地测试不能证明真实购车节省了多少钱。
+具体交付流程见[默认报告工作流](skills/orchestrator/references/report_delivery.md)。存档证明采集到了什么，不证明车辆仍在售或卖方陈述属实。
 
 ## 安装
 
-```
-/plugin install github:DaizeDong/buy-me-a-car
-```
+需要 Python 3.10 以上、Git 和完整子模块。PDF 推荐使用 Chrome 或 Edge。
 
-或者手动 clone：
-
-```bash
-git clone https://github.com/DaizeDong/buy-me-a-car.git ~/.claude/plugins/buy-me-a-car
-```
-
-Skill 在你说 `帮我买车`、`找辆车`、`回复 dealer`、`算 OTD`、`审 CARFAX` 等任意触发短语时自动激活。
-
-安装后跑这几条验证骨架：
-
-```bash
-cd ~/.claude/plugins/buy-me-a-car
-ls skills/   # 应看到 16 个目录
-python skills/orchestrator/scripts/otd_calculator.py --state NJ --sale-price 25000
-python skills/orchestrator/scripts/generate_dossier.py \
-  --config skills/orchestrator/assets/dossier_config_template.yaml \
-  --output /tmp/test.html
+```sh
+git clone --recurse-submodules https://github.com/DaizeDong/buy-me-a-car.git
+cd buy-me-a-car
+python -m pip install -r requirements.txt
+git config core.hooksPath .githooks
+python tools/install.py
+python tools/install.py --apply
+python tools/doctor.py
 ```
 
-任一步失败 → 开 issue 贴 traceback。多半是 Python 依赖（PyYAML / Jinja2）或 Chrome headless 路径问题。
+安装器默认先预览，`--apply` 才创建链接，默认目录为 `~/.agents/skills`。
+其他宿主可使用 `--target <技能目录>`。遇到已有的无关技能会拒绝覆盖。
+安装后启动新会话，让宿主重新发现技能。Claude 插件宿主也可把本仓库作为本地插件加载。
 
-## 60 秒导览
+已有仓库缺少子模块时，运行 `git submodule update --init --recursive`。不要绕过安全钩子。
 
-你说：
+## 真实数据初始化
 
+在公开仓库之外建立或克隆一个**私有 GitHub 伴生仓库**，创建其中的 `data` 目录。
+把 `BUY_ME_A_CAR_CONFIG` 设置为伴生仓根目录，并完成 GitHub CLI 的认证，然后运行：
+
+```sh
+python tools/runtime_paths.py --write
 ```
-帮我这周买一辆紧凑型 SUV，预算 25k OTD，里程 60k 以下，ZIP <ZIP> 附近
+
+输出会标明核实过的私有仓与 DATA 路径。公开仓、未知可见性、未初始化目录和没有版本管理的散目录均不能接收真实记录。
+只读检查可以报告“未初始化”；写操作必须失败并给出初始化指引。
+
+买家需求、网页截图、报价、邮件状态、PDF、反馈和模型评测回执，都保存在私有伴生仓，并沿用它的版本管理与备份流程。
+不要在公开模板或被 gitignore 忽略的仓内目录填写真实内容。
+
+```sh
+python tools/runtime_paths.py cycles/example/criteria.md --write
 ```
 
-自动跑起来：
+这里的相对路径以私有 DATA 为根。先解析路径，再复制空白模板并填写。
+浏览器和抓取命令也应在已验证的私有周期目录执行。
 
-1. 确认 9 项核心需求 + buyer-type router（cash / financing / trade-in / EV / pickup / private-party（个人对个人））
-2. 并行 subagent 抓 **9 个网站**（Carfax、CarMax、Carvana、Cars.com、AutoTrader、Edmunds、TrueCar、CarGurus、Enterprise），按 VIN 去重
-3. 通过 Playwright MCP 给 top 30 候选提交 lead form（自动绕 anti-bot）
-4. **每 15 分钟 cron** 扫 Gmail，把 dealer 回信分进 4 桶（real / OOO / CRM / spam）
-5. 用 **3-anchor 逻辑**起草纯 ASCII counter-offer（dealer 自家价差 + 区域 comp + 已锁竞品 OTD）
-6. 抽取 dealer 附件 **CARFAX / 报价 PDF** 的红旗
-7. 生成 **8 页 dossier**（HTML → headless-Chrome PDF，中英双模板）
-8. 提车日 checklist 含逐字 **F&I 加项硬拒话术**
+## 使用与验收
 
-效果：相比冷启动走入 dealer 大堂，通常省 **$5-9k**。
+完整购车流程从[主技能](skills/orchestrator/SKILL.md)开始；单项任务直接用对应技能。
+全部技能和命令示例见[英文说明](README.md#skills-and-routing)。
 
-## Skill 一览
+合成的 Maryland 普通经销商购车算例：
 
-总计 16 个：1 个宽触发 orchestrator + 15 个窄触发子 skill。子 skill 都能独立调用，orchestrator 在 9-phase 流程内部路由它们。
+```sh
+python skills/orchestrator/scripts/otd_calculator.py --state MD --sales 30000 --doc 800 --title 200 --reg 120.50 --forward --json
+python skills/orchestrator/scripts/otd_calculator.py --list-states
+python skills/orchestrator/scripts/check_freshness.py --report-only
+```
 
-| 分组 | Skill |
-|---|---|
-| **调研 + 候选** | [orchestrator](#orchestrator) · [inbox-triage](#inbox-triage) · [quote-evidence-collector](#quote-evidence-collector) |
-| **价格数学 + 文件** | [otd-calculator](#otd-calculator) · [state-fee-lookup](#state-fee-lookup) · [trade-in-valuator](#trade-in-valuator) |
-| **谈判** | [dealer-reply-drafter](#dealer-reply-drafter) · [dossier-builder](#dossier-builder) |
-| **决策 + 核查** | [lease-vs-cash-analyzer](#lease-vs-cash-analyzer) · [payment-method-decider](#payment-method-decider) · [ev-buyer-helper](#ev-buyer-helper) · [cpo-eligibility](#cpo-eligibility) · [carfax-pdf-review](#carfax-pdf-review) |
-| **提车** | [insurance-shopper](#insurance-shopper) · [ppi-scheduler](#ppi-scheduler) · [close-day-checklist](#close-day-checklist) |
+示例费用只是测试输入。实际费用必须按注册地、日期、车辆和交易类型核实。
+州数据表覆盖全部州与 DC，不等于全部州都支持完整计算。
 
-## 每个 skill 怎么用
+```sh
+python tools/make_fixtures.py --check
+python tools/check_repository.py
+python skills/orchestrator/scripts/render_state_data.py --check
+python -m unittest discover -s eval -p "test_*.py" -v
+python eval/test_rubric.py
+```
 
-每块 4 行：何时用、触发短语、示例输入、产出。
+离线检查验证程序规则。另行运行 `python eval/test_rubric.py --llm` 才会通过本机 `llmcall` 实际调用模型并独立复核，
+完整输入与回执写入私有 DATA。超时、不可用或失败不能算通过，结果不确定的调用不能自动重放。
 
-### orchestrator
-- **何时用**：你想跑完整 9-phase 流程。
-- **触发**：`buy me a car`、`帮我找车`、`买车`、`选车`
-- **示例**：`帮我找一辆 2022-2024 款 Outback Premium，里程 60k 以下，离 <ZIP> 50 英里内，预算 32k OTD`
-- **产出**：每个 phase 的 artifacts 输出到 `car_buying_<YEAR>/` 工作目录。
-- **6 条买家路径**：cash / financing / trade-in / EV / pickup，外加 **private-party（个人对个人）**, 卖家是私人（FSBO）而非经销商。无 OTD 总价堆叠、无 F&I 加项；买家在 DMV 自行缴税 + 过户 + 上牌。重点转向 title 过户、各州计税基准（成交价 vs 账面值 vs 伊利诺伊式固定表）、无照倒卖（curbstoner）识别 与 支付/托管安全（在卖家开户行出 cashier's check；车带 lien 时直接付清给 lienholder）。详见 `skills/orchestrator/references/private_party_playbook.md`。
+`python eval/run_scenarios.py --llm` 会测试“阿拉斯加买皮卡”及税费、拖挂能力追问的实际中文回答，
+并另行调用模型评审。测试范围与结果说明见[评测文档](eval/README.md)。
 
-### otd-calculator
-- **何时用**：sale price → OTD，或目标 OTD 反推最大 sale price。
-- **触发**：`compute OTD`、`算 OTD`、`算总价`
-- **示例**：`算下 NJ $30k sale + $499 doc 的 OTD`
-- **产出**：50 州 + DC 的逐项 OTD 分解（税 / doc / title / reg / DMV）。全部州均为 fee-detail 深度，其中 34 个 web-verified。
+PDF 的 demo 模式只接受生成器产出的合成配置；真实档案必须用
+[live 模式](skills/dossier-builder/SKILL.md)，提供完整报价与实际证据。
+每次都要逐页查看最终 PDF，页数由内容决定。
 
-### state-fee-lookup
-- **何时用**：拉某州 6 字段汇总（税率 / local / doc cap / title / reg / trade credit）。
-- **触发**：`doc fee in NJ`、`state 税率`、`trade-in credit`
-- **示例**：`看下 TX 的 doc fee 上限和 EV 附加费`
-- **产出**：州级汇总 + "Does NOT have" 漏洞清单（用于侦测 dealer 报价里跑错州的费项）。底层数据：50 州 + DC，全部 fee-detail 深度（30 full + 21 stub），其中 34 个 web-verified。
+## 当前边界
 
-### cpo-eligibility
-- **何时用**：付 CPO 溢价之前核实工厂认证资格 + 嵌入价值。
-- **触发**：`is this car CPO`、`Subaru CPO`、`CPO 资格`
-- **示例**：`查下 2021 款 Kia Telluride @ 55k 还能不能 CPO`
-- **产出**：16 品牌资格矩阵（共 12 个 program：8 主流 + Stellantis SPOTiCAR [Ram/Jeep/Chrysler/Dodge/Fiat，一套 program 覆盖 5 品牌] + 豪华 Lexus/Genesis/Acura）+ 嵌入价值 $1-3k + 假 CPO 红旗。
+本地验证无法代替真实发信、经销商确认、税务机关认定或实际成交。
+车源、补贴、保修和税费规则都可能变化，需要当前证据。
 
-### carfax-pdf-review
-- **何时用**：dealer 发了 CARFAX、保养记录或 F&I 报价 PDF。
-- **触发**：`审 CARFAX`、`review PDF`、`F&I 加项`
-- **示例**：`审下 dealer 刚发的 CARFAX`
-- **产出**：结构化红旗报告（事故、保养缺失附 $ 区间、12 类可挑战 F&I 加项）。
+三种语言的档案模板只翻译固定标签，不会自动翻译任意输入段落。
+经销商回信渲染器当前只支持 ASCII 英文。[九个场景](examples/README.md)都是合成输入和预期行为，不是成交记录。
 
-### dealer-reply-drafter
-- **何时用**：起一封外发邮件, counter / follow-up / walk-away。
-- **触发**：`回复 dealer`、`起草 counter`、`对 dealer 报价 counter`
-- **示例**：`帮我对这家 Honda dealer 的 $33k OTD 起草 counter，目标 $30.75k`
-- **产出**：Gmail draft（保存不发送），~10 行，纯 ASCII，3 ask + 1 anchor + 1 walk-away。
-
-### inbox-triage
-- **何时用**：dealer 收件箱堆积，要把真回复和 CRM 噪音分开。
-- **触发**：`看下邮箱`、`dealer 回复了吗`、`check inbox`
-- **示例**：`triage 今天的 dealer 邮箱`
-- **产出**：分桶计数（real / OOO / CRM / spam）+ Gmail 标签 + 交给 dealer-reply-drafter 的清单。
-
-### dossier-builder
-- **何时用**：试驾前打印一份买家级市场调研。
-- **触发**：`生成 dossier`、`生成 PDF`、`build dossier`
-- **示例**：`用中文模板生成 dossier PDF`
-- **产出**：8 页 HTML + headless-Chrome PDF（中英），含市场均价 / OTD / CPO 嵌入价值 / dealer 内部 anchor 分析。
-
-### ev-buyer-helper
-- **何时用**：买电车, 州级/地方 rebate 叠加、充电（NACS/CCS1）、二手电车电池尽调。注意：联邦 §30D（$7,500 新）/ §25E（$4,000 二手）/ §45W（租赁穿透）三项抵免已对 2025-09-30 之后购车 **全部终止**（OBBBA，公法 119-21），仅作历史参考、不计入净价。
-- **触发**：`EV 补贴`、`$7,500 POS`、`电车 credit`
-- **示例**：`Ioniq 5 SEL 在 NJ 2026 年还有哪些 EV rebate 可拿`
-- **产出**：扣除州/地方 rebate 后的净价（无联邦抵免）+ NACS/CCS1 转接头指引 + 二手电车 SoH 尽调。
-
-### payment-method-decider
-- **何时用**：选 close-day 工具, cashier's check / 信用卡 / wire / lease cap reduction。
-- **触发**：`支付方式`、`买车用刷卡还是支票`、`Visa for $30k car`
-- **示例**：`$30k 是刷我 3% 返现 Visa 还是 cashier's check`
-- **产出**：支付方式建议 + 信用卡返现 vs 刷卡手续费的盈亏平衡数学。
-
-### lease-vs-cash-analyzer
-- **何时用**：dealer 给了 lease 报价, 核实 MF / residual / acquisition / disposition。
-- **触发**：`lease 还是 cash`、`money factor markup`、`租还是买`
-- **示例**：`这台 Ioniq 5 SEL $575/mo 的 lease 报价靠谱吗`
-- **产出**：月供拆解 + 按持有年限 LEASE / BUY / 持平的裁定。
-
-### trade-in-valuator
-- **何时用**：要置换, 4-anchor 估值 + lien 还款流程。
-- **触发**：`评估置换车`、`valuate my trade`、`trade-in tax credit`
-- **示例**：`我 2017 款 Civic 在 NJ 当 trade 值多少`
-- **产出**：4-anchor 表（KBB Instant / Trade-in / Private / 批发）+ 置换 vs 单独卖的决策。
-
-### quote-evidence-collector
-- **何时用**：从 XHS / Reddit / FB 收 REAL dealer 报价截图，作为谈判 anchor。
-- **触发**：`找证据图`、`搜集报价截图`、`find dealer evidence`
-- **示例**：`找 <你所在州> 2024 Outback Premium 的 XHS 报价`
-- **产出**：REAL 标记的压缩 `_FINAL_*.jpg`（1300px，100-300 KB），可直接手动 paperclip。
-
-### insurance-shopper
-- **何时用**：提车前上车险, 新司机、cash buyer、跨州移居。
-- **触发**：`上保`、`保险报价`、`car insurance quote`、`new driver insurance`
-- **示例**：`帮我新司机在 <你所在州> 上一辆 SUV 的车险`
-- **产出**：NJM / Geico / Progressive 三家 6-month 报价对比 + 推荐 coverage + bind 步骤。
-
-### ppi-scheduler
-- **何时用**：要约 PPI 检车, 按地区匹配 mobile PPI 服务商。
-- **触发**：`约 PPI`、`提车前检车`、`book PPI`
-- **示例**：`明天约个 mobile PPI，给一家本地 dealer 的 2022 Outback`
-- **产出**：预约（含 ID + 取消时限）+ 检后 PROCEED / COUNTER / WALK 决策矩阵。
-
-### close-day-checklist
-- **何时用**：明天要提车, 按 buyer 类型的 checklist + F&I 硬拒话术。
-- **触发**：`提车清单`、`ready to close`、`F&I 加项硬拒`
-- **示例**：`给我明天 cash + 置换买家的提车清单`
-- **产出**：到店前 / 现场 / 离店后 checklist + 逐字 F&I 拒绝话术。
-
-### 触发冲突路由
-
-一句话能匹配多个 skill 时，**最窄、最具体**的触发胜出：
-
-| 一句话 | 激活 | 不激活 |
-|---|---|---|
-| "帮我买车" / "help me buy a car" | `orchestrator` | 子 skill |
-| "回复 dealer" / "draft reply to dealer" | `dealer-reply-drafter` | `orchestrator` |
-| "算 OTD" / "compute OTD" | `otd-calculator` | `orchestrator` |
-| "NJ 州税" / "doc fee in NJ" | `state-fee-lookup` | `otd-calculator` |
-| "租还是买" / "lease or buy" | `lease-vs-cash-analyzer` | `payment-method-decider` |
-| "刷卡买车" / "Visa for $30k car" | `payment-method-decider` | `lease-vs-cash-analyzer` |
-| "找证据图" / "find quote screenshots" | `quote-evidence-collector` | `orchestrator` |
-| "EV 补贴" / "$7,500 EV credit" | `ev-buyer-helper` | `payment-method-decider` |
-| "约 PPI" / "book PPI" | `ppi-scheduler` | `orchestrator` |
-| "审 CARFAX" / "review CARFAX" | `carfax-pdf-review` | `orchestrator` |
-| "CPO 资格" / "is this car CPO" | `cpo-eligibility` | `carfax-pdf-review` |
-| "生成 dossier" / "build dossier PDF" | `dossier-builder` | `orchestrator` |
-| "看下邮箱" / "check inbox" | `inbox-triage` | `orchestrator` |
-| "评估置换" / "valuate trade-in" | `trade-in-valuator` | `otd-calculator` |
-| "上保" / "set up insurance" | `insurance-shopper` | `close-day-checklist` |
-| "提车清单" / "ready to close" | `close-day-checklist` | `orchestrator` |
-
-歧义时显式点名 skill：`用 dealer-reply-drafter 起草这封`。不确定调哪个？喊 `orchestrator`，它会在内部路由。
-
-## 输出示例
-
-Phase 3 自动生成两张 Markdown 表格。一张是站点能力矩阵（哪些源产出了可用的
-库存/价格，并排成分层）：
-
-| 站点 | 库存 | 价格 | 反爬 | Tier |
-|---|---|---|---|---|
-| AutoTrader | 广 | 标价 + 部分 OTD | 中 | 1 |
-| CarGurus | 广 | 标价 + deal 评级 | 中 | 1 |
-| Cars.com | 广 | 仅标价 | 低 | 2 |
-| Edmunds | 中 | 标价 + 区域均价 | 低 | 2 |
-| Dealer 站点 | 窄 | internet price | 高 | 3 |
-
-另一张是按 VIN 去重的候选清单含 Deal Tag（下方数据均为合成示例，非真实搜索）：
-
-| # | 车辆 | 区域 | 要价 | 里程 | Deal Tag |
-|---|---|---|---|---|---|
-| 1 | 2023 Compact SUV Premium | Centerville | $28,900 | 22,140 | Great |
-| 2 | 2022 Compact SUV Limited | Fairview | $27,450 | 31,020 | Good |
-| 3 | 2023 Compact SUV Premium | Oakdale | $30,100 | 18,600 | Fair |
-
-## 局限
-
-- **单作者 alpha**, 工作流基于一次购车流程 + 8 个 worked example 情景（见 `examples/`），未经多市场对抗验证。
-- **数据会漂移**, 州费、CPO 条款、EV 补贴最后核对 2026-05-18，半年内可能有州法修订。
-- **anti-bot 不稳定**, CarGurus / Cars.com / AutoTrader / Edmunds / TrueCar 依赖 Playwright MCP，网站改版可能让 subagent 整组失败。
-- **非税务 / 法律 / 财务建议**, 所有计算仅供谈判参考，过户、贷款、保险请咨询持牌专业人士。
-
-## 语言
-
-三种语言、两个面向，必须分开：
-
-- **面向买家（chat + `criteria.md` + dossier）**：English / 中文 / Español 都行。触发短语三语都能激活（`buy me a car` / `帮我买车` / `ayudame a comprar un carro`）。dossier 有 EN 和 CN 两套打印模板；西语为买家侧 chat 支持 + 对 load-bearing 术语（OTD、doc fee、ADM、CPO、NACS、GAP、MSRP）的解释性 ES glossary，并按地区做 `carro / coche / auto` 镜像。
-- **面向 dealer 的邮件**：**无论买家用什么语言聊，发给 dealer 的件一律 English + 纯 ASCII**。dealer 的 CRM 客户端会把非 ASCII 字符渲染错乱，而英文 OTD ask 能和 dealer 自己的报价同线程对齐。买家用母语读这单生意，dealer 读到的 ask 是英文。详见 `skills/orchestrator/SKILL.md` 的 _Language and Audience Separation_ 段。
-
-> ES gloss 均为待母语者签字的 working translation，生产使用前需复核。
-
-本仓库提供两种语言的文档：English (`README.md`，权威版) · 中文 (`README_CN.md`)。
-
-## Roadmap · 贡献 · License
-
-[ROADMAP.md](ROADMAP.md) 记录 v0.3.0 / v1.0.0 计划（多作者数据、对抗性 dealer 测试、EV 抵免恢复跟踪、剩余豪华品牌 CPO）。挑一个 → 开 issue → PR。变更记录见 [CHANGELOG.md](CHANGELOG.md)。
-
-MIT, Fork it, ship it, save someone money. 见 [LICENSE](LICENSE)。
-
-_last_verified: 2026-05-18_
+MIT，见 [LICENSE](LICENSE) 和 [CHANGELOG.md](CHANGELOG.md)。

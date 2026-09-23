@@ -1,26 +1,63 @@
 {
   "_comment": [
-    "Skill Repo Spec v1 s9 -- every path in this repo belongs to exactly one class.",
-    "TOOL    = code, SKILL.md, docs, reference data, and metrics ABOUT THE SKILL. Public.",
-    "FIXTURE = LIFELIKE test data: rows that look like real records, whose real version is",
-    "          sitting right there in the operator's life and is structurally indistinguishable.",
-    "          Must be produced by tools/make_fixtures.py -- a real record cannot be regenerated,",
-    "          so pasting one in fails at commit. (A self-evidently fake canary or an Acme mock is",
-    "          NOT lifelike and does not need a generator; the risk it guards against is a person",
-    "          reaching for a convenient REAL example, and there is no temptation to reach for a",
-    "          real value that would look obviously wrong next to FAKE_CANARY_XYZ.)",
-    "DATA    = anything a REAL RUN produced. Never git-tracked. Lives in the private companion",
-    "          config, resolved at runtime by tools/datadir.py. This repo ships only the schema.",
-    "data_sealed = a path that HELD real data, was purged, and must stay dead.",
-    "",
-    "Enforced by tools/data_boundary.py in .githooks and in CI."
+    "TOOL: shipped code, blank templates, documentation and public reference rules.",
+    "FIXTURE: generated synthetic inputs; exact reproduction required.",
+    "DATA: all real-run inputs and outputs; physically absent here and versioned in a verified PRIVATE companion."
   ],
-  "_audited": "2026-07-13 -- swept for real-run output written back into this repo (every open(...,'a'), json.dump, write_text; every tracked *.jsonl / state / cache / report). This skill's writers all resolve OUTSIDE the repo, or it has no writers. No DATA-class path found. An empty list here is a CONCLUSION, not a default: it distinguishes 'audited, nothing to declare' from 'nobody has looked'. 2026-07-14 -- examples/market_en.png and examples/market_cn.png were real inventory-scrape screenshots (real towns + prices from an actual search); purged from the tree and from git history and sealed below so any re-add of a real screenshot at those paths is caught.",
-  "data": [],
+  "_audited": "2026-09-22: live paths include cycle criteria, inventory, quotes, documents, inbox state, feedback and model evaluation receipts. tools/runtime_paths.py proves private storage; tools/check_repository.py enforces physical absence in addition to pinned fleet guards.",
+  "data": [
+    "cycles/",
+    "inbox/",
+    "audits/",
+    "eval/model-runs/",
+    "diagnostics/",
+    ".firecrawl/",
+    ".playwright-mcp/",
+    "dealer_pdfs/",
+    "scratch/",
+    "runs/",
+    "car_buying_*/",
+    "dossiers/"
+  ],
   "data_sealed": [
     "examples/market_en.png",
-    "examples/market_cn.png"
+    "examples/market_cn.png",
+    "skills/orchestrator/assets/feedback_log.md",
+    "dealer_outreach_tracker.md",
+    "manual_followup_queue.md",
+    "*_negotiation_prep.md",
+    "*_dossier.html",
+    "*_dossier.pdf"
   ],
-  "fixture": [],
-  "_data_home": "~/.buy-me-a-car-config/data/   (override with $BUY_ME_A_CAR_DATA_DIR). If this skill ever needs to record real-run output, it goes THERE -- never back into this repo."
+  "fixture": [
+    "eval/fixtures/alaska_pickup.json",
+    "eval/fixtures/inventory.json",
+    "eval/fixtures/leak_quotes/D10_bait_switch.md",
+    "eval/fixtures/leak_quotes/D8_ct_tire_fee.md",
+    "eval/fixtures/leak_quotes/D9_rav4_adm.md",
+    "eval/fixtures/routing_prompts.json",
+    "eval/fixtures/workflow.json",
+    "eval/golden/otd_cases.json",
+    "eval/golden/routing.json",
+    "examples/01_used_outback_ct_cash.md",
+    "examples/02_new_rav4_hybrid_pa_financing.md",
+    "examples/03_used_crv_ca_trade.md",
+    "examples/04_new_ioniq5_ev_tx_cash.md",
+    "examples/05_used_f150_il_finance_trade.md",
+    "examples/06_lease_glc_ny.md",
+    "examples/07_private_party_civic_nj.md",
+    "examples/08_cpo_grand_cherokee_stellantis_tx.md",
+    "examples/09_alaska_pickup.md",
+    "skills/orchestrator/assets/dossier_config_template.yaml",
+    "skills/orchestrator/assets/dossier_config_template_cn.yaml",
+    "skills/orchestrator/assets/dossier_config_template_es.yaml",
+    "skills/orchestrator/assets/research_report_config_template.json"
+  ],
+  "tool": [
+    "docs/superpowers/plans/*"
+  ],
+  "_tool_reasons": {
+    "docs/superpowers/plans/*": "Implementation plans for the tool, containing no actual purchase or user records."
+  },
+  "_data_home": "tools/runtime_paths.py delegates discovery to guards/tools/datadir.py, then proves PRIVATE GitHub visibility. Set BUY_ME_A_CAR_CONFIG to an initialized private companion; no repository or unversioned fallback."
 }

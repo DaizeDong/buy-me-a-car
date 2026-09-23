@@ -140,3 +140,5 @@ For full program details (warranty granularity, transfer rules, deductibles, exc
 - CARFAX / service records on the candidate vehicle: hand off to `carfax-pdf-review`
 - OTD impact of CPO premium: hand off to `otd-calculator`
 - Drafting an email asking dealer "is this factory CPO certified": hand off to `dealer-reply-drafter`
+
+When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.
