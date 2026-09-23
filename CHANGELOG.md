@@ -6,6 +6,8 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ### Fixed
 
+- Restored the philosophy-first bilingual README, ordered badges, complete skill reference and version markers; clarified the different evidence requirements for buyer research and dealer proposals.
+- Moved closing checklists and translated refusal scripts into linked on-demand references, and corrected helper-script links.
 - Broad purchase requests now include a market comparison and buyer research HTML/PDF without a separate expansion prompt. Research supports zero written quotes and unknown costs; outward dealer proposals keep their stronger evidence requirements.
 - Restored substantive research, visit preparation, private negotiation scenarios and pivot updates. Report schemas reject missing analysis and preserve duplicate-VIN observations, source access gaps and cost uncertainty.
 - Real purchase input/output now requires a verified private companion; feedback no longer writes into a public asset. Generated fixtures and physical DATA checks are enforced separately.

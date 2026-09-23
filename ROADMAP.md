@@ -1,5 +1,7 @@
 # Roadmap
 
+Current: **v0.2.2**
+
 The current repair focuses on executable financial checks, private output
 boundaries, constrained drafts, durable inbox state and honest evidence reporting.
 See README for the validation commands and the distinction between local and

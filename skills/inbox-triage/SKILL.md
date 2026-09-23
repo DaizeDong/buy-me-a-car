@@ -50,7 +50,7 @@ covering colleague without authorization.
 
 ## Durable processing
 
-Use `scripts/inbox_state.py` in the orchestrator:
+Use `../orchestrator/scripts/inbox_state.py` in the orchestrator:
 
 1. Import a complete provider page. It atomically stores immutable message IDs,
    payload hashes and the new cursor. Repeated messages are deduplicated.

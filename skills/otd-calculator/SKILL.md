@@ -5,7 +5,7 @@ description: Compute an out-the-door (OTD) estimate or reverse a target OTD into
 
 # OTD Calculator
 
-Use the installed orchestrator's `scripts/otd_calculator.py`. It resolves the real repository path through Windows junctions. State fees and tax rules come from `data/state_fees.json`; each reviewed field has its own source and effective scope.
+Use the installed orchestrator's `../orchestrator/scripts/otd_calculator.py`. It resolves the real repository path through Windows junctions. State fees and tax rules come from `data/state_fees.json`; each reviewed field has its own source and effective scope.
 
 The result is an **estimate** with explicit fee inputs. A successful calculation does not confirm a dealer offer or the legality/completeness of every fee. Ordinary in-state resident dealer purchases of passenger ICE vehicles are the supported transaction class. Check the current profile table below; an unsupported profile must produce an actionable refusal.
 
