@@ -1,5 +1,6 @@
 """Private output boundaries, including symlink and missing-proof cases."""
 import importlib.util
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -12,7 +13,7 @@ class RuntimePathsTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
-        self.base = Path(self.tmp.name) / 'private' / 'data'
+        self.base = Path(self.tmp.name).resolve() / 'private' / 'data'
         self.base.mkdir(parents=True)
         path = ROOT / 'tools' / 'runtime_paths.py'
         spec = importlib.util.spec_from_file_location('runtime_paths_under_test', path)
@@ -59,6 +60,59 @@ class RuntimePathsTests(unittest.TestCase):
         self.assertEqual(self.runtime.validate_data_path(target, for_write=True), target)
         with self.assertRaises(self.runtime.DataBoundaryError):
             self.runtime.validate_data_path(Path(self.tmp.name) / 'outside.html', for_write=True)
+
+    def test_absolute_paths_reject_unsafe_components_before_normalization(self):
+        for suffix in ('exports/../report.html', '.git/../report.html', '.GIT/config',
+                       'nested./report.html', 'nested /report.html', 'report.html:stream'):
+            with self.subTest(suffix=suffix), self.assertRaises(self.runtime.DataBoundaryError):
+                self.runtime.validate_data_path(self.base / suffix, for_write=True)
+        self.assertFalse((self.base / 'report.html').exists())
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows short-name aliases require Windows')
+    def test_windows_short_alias_accepts_missing_outputs_but_rejects_escapes(self):
+        import ctypes
+        import _winapi
+
+        ancestor = Path(self.tmp.name).resolve() / 'Long Alias Parent'
+        base = ancestor / 'private' / 'data'
+        base.mkdir(parents=True)
+        kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+        get_short = kernel.GetShortPathNameW
+        get_short.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint]
+        get_short.restype = ctypes.c_uint
+        buffer = ctypes.create_unicode_buffer(32768)
+        length = get_short(str(ancestor), buffer, len(buffer))
+        if not length or length >= len(buffer):
+            raise ctypes.WinError(ctypes.get_last_error())
+        alias = Path(buffer.value) / 'private' / 'data'
+        if alias == base:
+            self.skipTest('Filesystem does not expose a distinct Windows short-name alias')
+        self.assertEqual(alias.resolve(), base)
+        with patch.object(self.runtime, '_guard_data_dir', return_value=base):
+            output = self.runtime.validate_data_path(alias / 'exports' / 'report.html', for_write=True)
+            self.assertEqual(output, base / 'exports' / 'report.html')
+            self.assertTrue(output.parent.is_dir())
+            self.assertFalse(output.exists())
+            outside = ancestor / 'outside'
+            outside.mkdir()
+            _winapi.CreateJunction(str(outside), str(base / 'linked'))
+            for path in (alias / 'linked' / 'escape.json', alias / 'exports' / '..' / 'report.html'):
+                with self.subTest(path=path), self.assertRaises(self.runtime.DataBoundaryError):
+                    self.runtime.validate_data_path(path, for_write=True)
+            self.assertFalse((outside / 'escape.json').exists())
+
+    def test_external_link_into_private_data_is_still_rejected(self):
+        link = Path(self.tmp.name).resolve() / 'external-link'
+        try:
+            link.symlink_to(self.base, target_is_directory=True)
+        except OSError:
+            if os.name != 'nt':
+                self.skipTest('symlink creation unavailable')
+            import _winapi
+            _winapi.CreateJunction(str(self.base), str(link))
+        with self.assertRaises(self.runtime.DataBoundaryError):
+            self.runtime.validate_data_path(link / 'exports' / 'report.html', for_write=True)
+        self.assertFalse((self.base / 'exports').exists())
 
     def test_symlink_escape_rejected(self):
         outside = Path(self.tmp.name) / 'outside'

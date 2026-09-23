@@ -12,7 +12,7 @@ class RepositoryBoundaryTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         (self.root / '.dataclass.json').write_text(json.dumps({
             'data': ['cycles/', 'inbox/'], 'data_sealed': ['old_feedback.md'],
             'fixture': ['example.txt'],

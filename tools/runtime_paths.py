@@ -160,12 +160,37 @@ def data_path(relative: str | Path, *, for_write: bool = False) -> Path | None:
     return _checked_target(base, relative, for_write=for_write)
 
 
+def _expand_windows_short_path(path: Path) -> Path:
+    """Expand 8.3 names without resolving junctions; preserve nonexistent tails."""
+    if os.name != 'nt':
+        return path
+    import ctypes
+
+    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+    get_long = kernel.GetLongPathNameW
+    get_long.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint]
+    get_long.restype = ctypes.c_uint
+    buffer = ctypes.create_unicode_buffer(32768)
+    candidate, suffix = path, []
+    while True:
+        length = get_long(str(candidate), buffer, len(buffer))
+        if 0 < length < len(buffer):
+            return Path(buffer.value).joinpath(*reversed(suffix))
+        if (length or ctypes.get_last_error() not in (2, 3)
+                or candidate.parent == candidate):
+            raise DataBoundaryError('Cannot normalize Windows DATA path spelling.')
+        suffix.append(candidate.name)
+        candidate = candidate.parent
+
+
 def validate_data_path(path: str | Path, *, for_write: bool = False) -> Path:
     base = resolve_data_dir(required=True)
     supplied = Path(path).expanduser()
     if supplied.is_absolute():
+        # Check original components before alias expansion can normalize spelling.
+        _relative_path(Path(*supplied.parts[1:]))
         try:
-            relative = supplied.relative_to(base)
+            relative = _expand_windows_short_path(supplied).relative_to(base)
         except ValueError as exc:
             raise DataBoundaryError('Live input/output must be inside the proven private DATA directory.') from exc
     else:
