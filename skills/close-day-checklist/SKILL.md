@@ -60,118 +60,27 @@ Any change since Phase 1 (carrier switched, branch closed for holiday, plate dec
 
 ## Sub-Checklist by Buyer Type
 
-If multiple branches apply (financing + trade + EV), use each relevant checklist
-below. Record not applicable or unknown with a reason. The [phase reference](../orchestrator/references/phases.md#phase-9-close)
-defines the workflow handoff; this page holds the buyer-type checklists.
+If multiple branches apply (financing + trade + EV), read and use each relevant
+checklist before preparing the close-day plan. Record not applicable or unknown
+with a reason. The [phase reference](../orchestrator/references/phases.md#phase-9-close)
+defines the workflow handoff.
 
-### Cash buyer
+| Buyer type | Read on demand |
+|---|---|
+| Cash | [Cash-buyer checklist](references/buyer-type-checklists.md#cash-buyer) |
+| Financing | [Financing-buyer checklist](references/buyer-type-checklists.md#financing-buyer) |
+| Trade-in | [Trade-in-buyer checklist](references/buyer-type-checklists.md#trade-in-buyer) |
+| EV | [EV-buyer checklist](references/buyer-type-checklists.md#ev-buyer) |
+| Pickup truck | [Pickup-truck checklist](references/buyer-type-checklists.md#pickup-truck-buyer) |
 
-Pre-arrival (T-1 day):
-- [ ] Bank issuance timing, instrument, amount and verified payee confirmed if a cashier's check is used
-- [ ] Insurance binder issued; policy number in hand
-- [ ] Plate decision finalized (transfer vs new)
-- [ ] VIN re-verified against latest dealer paperwork (no last-minute substitution per gotcha D10)
-- [ ] PPI complete (`../orchestrator/references/ppi_booking.md` - mobile inspector preferred)
-
-On-site (close day):
-- [ ] OTD breakdown in signed agreement matches counter-locked numbers exactly
-- [ ] Every tax/fee line checked against current registration-jurisdiction evidence via [state-fee-lookup](../state-fee-lookup/SKILL.md)
-- [ ] No padded add-ons (paint protection / nitrogen / etching / VIN etching / theft deterrent)
-- [ ] F&I hard-no script ready (see below)
-- [ ] Required temporary permit or plates arranged; title/registration responsibilities and official timelines recorded
-
-Post-close (T+1 to T+30):
-- [ ] Title/registration delivery checked against the documented process and follow-up date
-- [ ] Insurance binder converted to permanent policy
-
-### Financing buyer
-
-Pre-arrival:
-- [ ] Lender comparison includes total financing cost and conditional incentives, using [payment methods](../orchestrator/references/payment_methods.md#cash-versus-financed-acquisition)
-- [ ] If CU: funding instrument (cashier's check or wire) confirmed pre-close; first-payment date confirmed
-- [ ] Prepayment, incentive-clawback and lien terms verified from the actual lender and offer documents
-- [ ] Pre-approval expiry and vehicle/funding conditions confirmed; a new application requires authorization
-- [ ] Down payment instrument confirmed (cash, debit, or cashier's check)
-
-On-site:
-- [ ] Monthly payment math verified at close matches binding-constraint formula
-- [ ] APR and term on the contract match pre-approval terms
-- [ ] No "payment-packing" via extended warranty or GAP rolled into monthly (see F&I script)
-
-Post-close:
-- [ ] If CU loan: title issued to buyer with CU lien notation; CU receives title via mail
-- [ ] If captive: title goes to captive direct; buyer's name on registration
-- [ ] Actual first-payment date and servicing instructions recorded from the contract
-
-### Trade-in buyer
-
-Pre-arrival (cross-ref `../orchestrator/references/trade_in.md` section 4a-4d if active lien):
-- [ ] If lien: 10-day payoff letter from lien-holder in hand (NOT dealer's quote)
-- [ ] Lender's payoff and payment instructions confirmed; keep required payments current until payoff is applied
-- [ ] Any trade offer used as an anchor remains valid and its inspection/expiry conditions are recorded
-- [ ] Key count verified; any deduction is supported by a written valuation or replacement quote
-- [ ] All personal items removed; both key fobs ready
-
-On-site:
-- [ ] Bill-of-sale shows: trade allowance, lien payoff routing, dealer commitment date
-- [ ] Applicable trade-in tax treatment verified from current jurisdictional rules; allowance and lien payoff remain separate
-- [ ] No shell-game: ACV and trade allowance NOT confused; sale price and trade negotiated separately
-
-Post-close: record agreed payoff and lien-release milestones, verify each with the
-responsible party, and prepare follow-up for missed dates. Reminders or messages
-require their own authorization; do not claim monitoring exists without a durable
-scheduled task. See [payoff handling](../orchestrator/references/trade_in.md#4-payoff-handling-trade-with-outstanding-loan).
-
-### EV buyer
+### EV incentive status
 
 > **⚠️ Federal §30D POS credit transfer is TERMINATED 2025-09-30 (OBBBA / Public Law
 > 119-21).** For any 2026 purchase there is **NO federal $7,500 §30D credit**, no IRS
 > ECO registration check, no Form 8936, no Time of Sale report, no $7,500 line item to
 > verify at close. Do NOT expect or insert a federal credit line in the signed agreement.
-> The §30D items below are retained as **HISTORICAL** (pre-2025-10-01 acquisitions only).
-> The only live close-day EV incentive layer is **state/local rebates**, see the bottom
-> of this checklist and the CRITICAL banner in `ev-buyer-helper`.
-
-Pre-arrival (LIVE in 2026, cross-ref `../orchestrator/references/ev_buyer_playbook.md`):
-- [ ] Battery warranty docs reviewed (new EV) OR SoH report obtained (used EV) per section 6
-- [ ] Charging port, adapter compatibility and any needed authorized order confirmed
-- [ ] State EV rebate eligibility + paperwork confirmed (MSRP/income caps per state; this is the only live incentive)
-
-Pre-arrival (HISTORICAL, pre-2025-10-01 acquisitions only; §30D terminated 2025-09-30, do NOT use for 2026):
-- [ ] ~~Dealer is IRS Energy Credits Online registered~~ (N/A, §30D terminated)
-- [ ] ~~Form 8936 ready for signing~~ (N/A, §30D terminated)
-- [ ] ~~MAGI under threshold confirmed ($150k single / $300k joint for new; $75k / $150k for used)~~ (N/A, §30D/§25E terminated)
-
-On-site (LIVE in 2026):
-- [ ] Battery warranty registered to buyer at delivery (new EV)
-- [ ] No EV Prep / Battery Conditioning / Charge Cable / EV Delivery Setup ADM line items per gotcha D9 + `../orchestrator/references/ev_buyer_playbook.md` section 8
-- [ ] Included charging equipment matches the window sticker or written offer; no assumed standard accessory
-
-On-site (HISTORICAL, pre-2025-10-01 acquisitions only; do NOT apply to a 2026 close):
-- [ ] ~~$7,500 reduction shown as separate line item on signed agreement~~ (N/A, §30D terminated; no federal credit line should appear)
-- [ ] ~~Time of Sale report copy retained~~ (N/A, §30D terminated)
-
-Post-close:
-- [ ] Home charging plan and any authorized installation booking recorded
-- [ ] Applicable rebate deadline, eligibility and required documents verified; record a submission only with authorization and receipt
-
-### Pickup-truck buyer
-
-Pre-arrival (cross-ref `../orchestrator/references/vertical_playbooks.md#part-1-pickup-truck-specifics`):
-- [ ] Exact VIN/configuration, OEM build information and tow equipment verified against [load/configuration requirements](../orchestrator/references/vertical_playbooks.md#1-establish-the-load-and-configuration)
-- [ ] Loaded towing and payload plan checked against all OEM vehicle, axle, hitch and trailer limits, with passengers/gear/tongue weight included
-- [ ] Door labels and relevant OEM towing documents retained; no towing approval from a model name or advertisement alone
-- [ ] Mechanic's PPI scope addresses frame/corrosion, suspension, drivetrain and towing equipment for this specific vehicle
-
-On-site:
-- [ ] Factory vs aftermarket hitch distinction confirmed in writing
-- [ ] Brake controller, wiring and hitch assessed using the applicable OEM procedure
-- [ ] Commercial, plow and towing history checked; condition and value assessed from records/PPI without default discounts
-- [ ] Modifications evaluated for load limits, warranty and insurance implications using [equipment and inspection guidance](../orchestrator/references/vertical_playbooks.md#3-factory-equipment-modifications-and-inspection)
-
-Record the mechanic's findings on frame repairs/corrosion, suspension and towing
-wear rather than inferring a diagnosis from a brief drive. Retain labels and OEM
-documents for future load planning. See [pickup handoff](../orchestrator/references/vertical_playbooks.md#5-pickup-decision-and-handoff).
+> The §30D items in the EV checklist are retained as **HISTORICAL** (pre-2025-10-01 acquisitions only).
+> The only live close-day EV incentive layer is **state/local rebates**, see the EV checklist and the CRITICAL banner in `ev-buyer-helper`.
 
 ## F&I refusal script
 
@@ -209,94 +118,14 @@ not agreed to.
 
 ### Buyer-language refusal preparation
 
-The scripts below are optional preparation for the buyer. Use a signed-agreement
+The linked scripts are optional preparation for the buyer. Use a signed-agreement
 claim only if that agreement actually exists and says what the script asserts.
 Otherwise state the buyer's present terms without inventing a prior commitment.
 Have the buyer review the wording and desired response before any external use.
 Written messages use [dealer-reply-drafter](../dealer-reply-drafter/SKILL.md);
 unsupported languages need an explicitly reviewed alternative.
 
-Translation status: draft terminology for contextual review.
-
-**Add-on name glossary:**
-
-| English (source of truth) | Spanish (spoken) | Note |
-|---|---|---|
-| OTD / out-the-door price | precio final / precio total ("out the door") | keep "OTD" alongside; dealers use the English acronym |
-| doc fee | cargo por documentacion | dealer charge, not a government fee |
-| trade-in | vehiculo a cuenta / vehiculo de intercambio | "a cuenta" = applied as credit |
-| down payment | enganche / pago inicial | "enganche" is the common term |
-| cashier's check | cheque de caja (= cheque de gerencia) | both names = one instrument |
-| GAP insurance | seguro GAP (Proteccion Garantizada para Auto) | "seguro GAP" is standard in US docs |
-| extended warranty / VSC | garantia extendida / contrato de servicio vehicular | |
-| tire-and-wheel | proteccion de llantas y rines | |
-| paint protection | proteccion de pintura | |
-| ceramic coating | recubrimiento ceramico | |
-| key replacement | reemplazo de llave | |
-| nitrogen (tire fill) | nitrogeno (en las llantas) | |
-| dent / ding (PDR) | reparacion de abolladuras sin pintura | |
-
-> Regional vocabulary note (say what the buyer says): the word for "car" varies by region,
-> **carro** (Mexico / Central America / Caribbean), **coche** (Spain / Southern Cone),
-> **auto** (neutral, understood everywhere). Mirror the buyer's own word; the scripts
-> below use the neutral **vehiculo** to stay region-safe. Technical product names
-> (seguro GAP, garantia extendida, doc fee, OTD) stay fixed regardless of region.
-
-**Spanish (ES), hard-no, spoken:**
-
-```
-Segun mi acuerdo firmado con fecha {DATE} con {GM_OR_SALES_MGR_NAME},
-el precio final (OTD) esta fijado en ${OTD}. Rechazo el seguro GAP,
-la garantia extendida (contrato de servicio), la proteccion de
-llantas y rines, la proteccion de pintura, el recubrimiento
-ceramico, el reemplazo de llave, el nitrogeno, la reparacion de
-abolladuras, y cualquier otro complemento que no este en el acuerdo
-original. Por favor cierre la venta al OTD acordado, o me retiro y
-los dos perdemos el tiempo. Repito: ningun complemento. Solo firmo
-el acuerdo original.
-
-{BUYER_NAME}
-```
-
-**Spanish (ES), if F&I pushes anyway (reframe), spoken:**
-
-```
-Mi acuerdo esta fijado por el OTD, no por el pago mensual. Agregar
-$18 al mes por 72 meses son $1,296, no es poca cosa. Lo rechazo.
-
-Por favor muestreme la linea en mi acuerdo firmado que autoriza
-este cargo. Si no esta ahi, quitelo; si no puede quitarlo, me retiro
-y el trato se cae. Segun mi OTD fijado en ${OTD}, agregar cualquier
-cosa es un trato nuevo que yo no he aceptado.
-
-{BUYER_NAME}
-```
-
-**Chinese (ZH), hard-no, spoken:**
-
-```
-根据我在 {DATE} 与 {GM_OR_SALES_MGR_NAME} 签署的协议,
-落地总价 (OTD) 已锁定为 ${OTD}。我拒绝 GAP 保险、延长保修
-(服务合同)、轮胎轮毂保障、车漆保护、陶瓷镀膜、配钥匙、
-氮气充气、凹痕修复,以及任何不在原始协议中的附加项目。
-请按约定的 OTD 完成成交,否则我会离开,我们都浪费时间。
-重申:不要任何附加项目。我只签原始协议。
-
-{BUYER_NAME}
-```
-
-**Chinese (ZH), if F&I pushes anyway (reframe), spoken:**
-
-```
-我的协议锁的是 OTD 总价,不是月供。每月加 $18、分 72 期就是
-$1,296,不是小数目。我拒绝。
-
-请在我签署的协议里指出哪一行授权了这笔费用。没有就删掉;
-删不掉我就离开,这笔交易作废。按我锁定的 OTD ${OTD},
-加任何东西都是我没同意过的新交易。
-
-{BUYER_NAME}
-```
+For Spanish or Chinese spoken preparation, read the [glossary and refusal scripts](references/buyer-language-refusal.md) on demand. Translation status: draft terminology for contextual review.
 
 ### Prepare a close-day heads-up draft
 
@@ -313,7 +142,7 @@ Send only within existing authorization; retain the provider receipt. Include:
 
 | Need | Open |
 |---|---|
-| Buyer-type close checklists | [Checklists on this page](#sub-checklist-by-buyer-type) |
+| Buyer-type close checklists | [Buyer-type checklists](references/buyer-type-checklists.md) |
 | Workflow handoff | [Phase 9](../orchestrator/references/phases.md#phase-9-close) |
 | Price ladder, visit questions, decision matrix and backup | [Private visit preparation](../orchestrator/assets/negotiation_prep_template.md) |
 | Lien payoff full workflow | `../orchestrator/references/trade_in.md` section 4a-4d |
