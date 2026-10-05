@@ -145,6 +145,8 @@ def _checked_target(base: Path, relative: Path, *, for_write: bool) -> Path:
         raise DataBoundaryError('DATA path escapes the private directory through a link or traversal.')
     _private_repo_identity(_existing_directory(target))
     if for_write:
+        from tools.storage_retention import enforce_capacity
+        enforce_capacity(base, relative.as_posix())
         target.parent.mkdir(parents=True, exist_ok=True)
         # Recheck after directory creation before returning to a writer.
         if not _inside(lexical.resolve(), base):

@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "tool": "buy-me-a-car",
+  "artifacts": [
+    {
+      "artifact_id": "retention-register",
+      "path_pattern": "retention.json",
+      "purpose": "Explicit protected dependencies and completed retirement selections",
+      "schema": "schemas/storage-retention.schema.json",
+      "producer": "Owner-reviewed maintenance",
+      "consumer_or_final_deliverable": "tools/storage_retention.py",
+      "rebuild_or_restore": "Restore the registry from the private companion main history",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep the current registry; a completed job does not authorize deleting its protected outputs."
+      }
+    },
+    {
+      "artifact_id": "purchase-cycles",
+      "path_pattern": "cycles/**",
+      "purpose": "Purchase criteria, quotes, decisions and transaction state",
+      "schema": "skills/dossier-builder/references/research_schema.md",
+      "producer": "Orchestrator and quote/inbox workflows",
+      "consumer_or_final_deliverable": "Current or completed purchase case",
+      "rebuild_or_restore": "Restore the private companion main history",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep structured cases and their unique referenced evidence, including completed purchases."
+      }
+    },
+    {
+      "artifact_id": "inbox-state",
+      "path_pattern": "inbox/**",
+      "purpose": "Processed-message and follow-up state",
+      "schema": "skills/orchestrator/scripts/inbox_state.py validators",
+      "producer": "Inbox workflow",
+      "consumer_or_final_deliverable": "Deduplication and pending follow-up",
+      "rebuild_or_restore": "Restore the complete state before resuming polling",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep current state and unresolved follow-up; do not discard to reset a job."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-0",
+      "path_pattern": "dossiers/*/*.json",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-1",
+      "path_pattern": "dossiers/*/*.md",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-2",
+      "path_pattern": "dossiers/*/*.html",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-3",
+      "path_pattern": "dossiers/*/*.pdf",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-4",
+      "path_pattern": "dossiers/*/sources/**",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-5",
+      "path_pattern": "dossiers/*/validation/**",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-6",
+      "path_pattern": "dossiers/*/officials/*.pdf",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-7",
+      "path_pattern": "dossiers/*/officials/*.html",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "final-dossier-8",
+      "path_pattern": "dossiers/*/officials/*.json",
+      "purpose": "Final purchase report, structured case, validation and unique cited sources",
+      "schema": "skills/dossier-builder/references/research_schema.md and report validators",
+      "producer": "Dossier builder and reviewed delivery",
+      "consumer_or_final_deliverable": "User-requested final report and supporting evidence",
+      "rebuild_or_restore": "Restore exact deliverable bytes from private companion main",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep selected final reports and cited evidence. A synthetic test case can still be a user-requested final deliverable."
+      }
+    },
+    {
+      "artifact_id": "retired-development-0",
+      "path_pattern": "audits/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-1",
+      "path_pattern": "diagnostics/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-2",
+      "path_pattern": "eval/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-3",
+      "path_pattern": "data/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-4",
+      "path_pattern": "playwright-mcp/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-5",
+      "path_pattern": "browser-sessions/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-6",
+      "path_pattern": "scratch/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-7",
+      "path_pattern": "dossiers/*/delivery-before-approval-context/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-8",
+      "path_pattern": "dossiers/*/visual_qa/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-9",
+      "path_pattern": "dossiers/*/*.py",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-10",
+      "path_pattern": "dossiers/*/officials/*.txt",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "retired-development-11",
+      "path_pattern": "dossiers/*/officials/__pycache__/**",
+      "purpose": "Completed development, duplicate preview or reproducible intermediate output",
+      "schema": "Producer-specific debug format",
+      "producer": "Development and evaluation tools",
+      "consumer_or_final_deliverable": "Selected final delivery already preserves required conclusions",
+      "rebuild_or_restore": "Restore only needed bytes from the pre-retirement private commit",
+      "retention_rule": {
+        "class": "retired",
+        "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    }
+  ]
+}

@@ -17,7 +17,8 @@
     "scratch/",
     "runs/",
     "car_buying_*/",
-    "dossiers/"
+    "dossiers/",
+    "retention.json"
   ],
   "data_sealed": [
     "examples/market_en.png",
@@ -30,6 +31,7 @@
     "*_dossier.pdf"
   ],
   "fixture": [
+    "retention.json.example",
     "eval/fixtures/alaska_pickup.json",
     "eval/fixtures/inventory.json",
     "eval/fixtures/leak_quotes/D10_bait_switch.md",
