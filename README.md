@@ -319,3 +319,7 @@ English (`README.md`, authoritative) and Chinese (`README_CN.md`) mirror the sam
 See [ROADMAP.md](ROADMAP.md) for remaining work and [CHANGELOG.md](CHANGELOG.md) for changes. Contributions should include reproducible synthetic cases, current sources where applicable and the relevant validation results. Open an [issue](https://github.com/DaizeDong/buy-me-a-car/issues) or a [pull request](https://github.com/DaizeDong/buy-me-a-car/pulls) without private purchase records.
 
 Released under the [MIT license](LICENSE).
+
+## Private storage lifecycle
+
+See [DATA.md](DATA.md) and [storage.contract.json](storage.contract.json) for core outputs, reviewed retirement, recovery and generated-storage admission limits. Keep final deliverables and their unique cited evidence in the PRIVATE companion.
