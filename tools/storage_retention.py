@@ -85,6 +85,12 @@ def files_under(root, relative):
     return result
 
 
+def contract_relative_name(name, contract):
+    """Keep registry paths DATA-relative and compare companion-root patterns."""
+    name = relative_name(name)
+    return "data/" + name if contract.get("tool") == "buy-me-a-car" else name
+
+
 def build_plan(root, registry, contract):
     root = Path(root).absolute()
     if registry.get("schema_version") != 1 or contract.get("schema_version") != 1:
@@ -101,9 +107,10 @@ def build_plan(root, registry, contract):
             raise ValueError("Retirement overlaps a protected dependency")
         for path in files_under(root, name):
             rel = path.relative_to(root).as_posix()
-            if any(matches(rel, p) for p in core):
+            artifact_path = contract_relative_name(rel, contract)
+            if any(matches(artifact_path, p) for p in core):
                 raise ValueError("Retirement includes a core artifact")
-            if not any(matches(rel, a["path_pattern"]) for a in contract["artifacts"]
+            if not any(matches(artifact_path, a["path_pattern"]) for a in contract["artifacts"]
                        if a["retention_rule"]["class"] in {"retired", "rebuildable"}):
                 raise ValueError("Retirement includes an unclassified artifact")
             raw = path.read_bytes()
