@@ -1,6 +1,7 @@
 """Retirement must preserve core data and reject stale or escaping selections."""
 import copy
 import hashlib
+import json
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
@@ -39,6 +40,41 @@ class StorageRetentionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "core"):
             storage.build_plan(self.root, selected(case, case["core"]), case["contract"])
         self.assertEqual((self.root / case["core"]).read_bytes(), case["content"])
+
+    def test_companion_root_contract_preserves_data_relative_core(self):
+        case = self.case
+        with self.assertRaisesRegex(ValueError, "core"):
+            storage.build_plan(self.root, selected(case, case["core"]), case["companion_contract"])
+        self.assertEqual((self.root / case["core"]).read_bytes(), case["content"])
+
+    def test_companion_root_contract_returns_data_relative_retirement(self):
+        case = self.case
+        plan = storage.build_plan(self.root, selected(case, case["scratch"]), case["companion_contract"])
+        self.assertEqual([row["path"] for row in plan["files"]], [case["scratch"]])
+
+    def test_source_contract_preserves_selected_capture_helper(self):
+        case = self.case
+        helper = self.root / case["capture_helper"]
+        helper.parent.mkdir(parents=True, exist_ok=True)
+        helper.write_bytes(case["content"])
+        contract = json.loads((storage.ROOT / "storage.contract.json").read_text(encoding="utf-8"))
+        with self.assertRaisesRegex(ValueError, "core"):
+            storage.build_plan(self.root, selected(case, case["capture_helper"]), contract)
+        self.assertEqual(helper.read_bytes(), case["content"])
+
+    def test_nested_development_rule_cannot_cover_other_data(self):
+        case = self.case
+        nested = self.root / case["nested_development"]
+        nested.parent.mkdir(parents=True, exist_ok=True)
+        nested.write_bytes(case["content"])
+        plan = storage.build_plan(self.root, selected(case, case["nested_development"]), case["companion_contract"])
+        self.assertEqual(plan["file_count"], 1)
+        unrelated = "unclassified/synthetic.json"
+        path = self.root / unrelated
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(case["content"])
+        with self.assertRaisesRegex(ValueError, "unclassified"):
+            storage.build_plan(self.root, selected(case, unrelated), case["companion_contract"])
 
     def test_protected_dependency_blocks_parent_retirement(self):
         case = self.case

@@ -4,8 +4,15 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ## [Unreleased]
 
+### Storage review threshold
+- Set a 64 MiB companion working-data review threshold. Required observations and
+  recovery state stay protected when the threshold is exceeded.
+
 ### Fixed
 
+- Align storage declarations with the whole companion repository while retaining
+  DATA-relative native retirement plans; nested development material cannot
+  classify current buyer evidence as retired.
 - Restored the philosophy-first bilingual README, ordered badges, complete skill reference and version markers; clarified the different evidence requirements for buyer research and dealer proposals.
 - Moved closing checklists and translated refusal scripts into linked on-demand references, and corrected helper-script links.
 - Broad purchase requests now include a market comparison and buyer research HTML/PDF without a separate expansion prompt. Research supports zero written quotes and unknown costs; outward dealer proposals keep their stronger evidence requirements.

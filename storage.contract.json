@@ -1,10 +1,11 @@
 {
   "schema_version": 1,
   "tool": "buy-me-a-car",
+  "max_bytes": 67108864,
   "artifacts": [
     {
       "artifact_id": "retention-register",
-      "path_pattern": "retention.json",
+      "path_pattern": "data/retention.json",
       "purpose": "Explicit protected dependencies and completed retirement selections",
       "schema": "schemas/storage-retention.schema.json",
       "producer": "Owner-reviewed maintenance",
@@ -17,7 +18,7 @@
     },
     {
       "artifact_id": "purchase-cycles",
-      "path_pattern": "cycles/**",
+      "path_pattern": "data/cycles/**",
       "purpose": "Purchase criteria, quotes, decisions and transaction state",
       "schema": "skills/dossier-builder/references/research_schema.md",
       "producer": "Orchestrator and quote/inbox workflows",
@@ -30,7 +31,7 @@
     },
     {
       "artifact_id": "inbox-state",
-      "path_pattern": "inbox/**",
+      "path_pattern": "data/inbox/**",
       "purpose": "Processed-message and follow-up state",
       "schema": "skills/orchestrator/scripts/inbox_state.py validators",
       "producer": "Inbox workflow",
@@ -43,7 +44,7 @@
     },
     {
       "artifact_id": "final-dossier-0",
-      "path_pattern": "dossiers/*/*.json",
+      "path_pattern": "data/dossiers/*/*.json",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -56,7 +57,7 @@
     },
     {
       "artifact_id": "final-dossier-1",
-      "path_pattern": "dossiers/*/*.md",
+      "path_pattern": "data/dossiers/*/*.md",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -69,7 +70,7 @@
     },
     {
       "artifact_id": "final-dossier-2",
-      "path_pattern": "dossiers/*/*.html",
+      "path_pattern": "data/dossiers/*/*.html",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -82,7 +83,7 @@
     },
     {
       "artifact_id": "final-dossier-3",
-      "path_pattern": "dossiers/*/*.pdf",
+      "path_pattern": "data/dossiers/*/*.pdf",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -95,7 +96,7 @@
     },
     {
       "artifact_id": "final-dossier-4",
-      "path_pattern": "dossiers/*/sources/**",
+      "path_pattern": "data/dossiers/*/sources/**",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -108,7 +109,7 @@
     },
     {
       "artifact_id": "final-dossier-5",
-      "path_pattern": "dossiers/*/validation/**",
+      "path_pattern": "data/dossiers/*/validation/**",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -121,7 +122,7 @@
     },
     {
       "artifact_id": "final-dossier-6",
-      "path_pattern": "dossiers/*/officials/*.pdf",
+      "path_pattern": "data/dossiers/*/officials/*.pdf",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -134,7 +135,7 @@
     },
     {
       "artifact_id": "final-dossier-7",
-      "path_pattern": "dossiers/*/officials/*.html",
+      "path_pattern": "data/dossiers/*/officials/*.html",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -147,7 +148,7 @@
     },
     {
       "artifact_id": "final-dossier-8",
-      "path_pattern": "dossiers/*/officials/*.json",
+      "path_pattern": "data/dossiers/*/officials/*.json",
       "purpose": "Final purchase report, structured case, validation and unique cited sources",
       "schema": "skills/dossier-builder/references/research_schema.md and report validators",
       "producer": "Dossier builder and reviewed delivery",
@@ -160,7 +161,7 @@
     },
     {
       "artifact_id": "retired-development-0",
-      "path_pattern": "audits/**",
+      "path_pattern": "data/audits/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -173,7 +174,7 @@
     },
     {
       "artifact_id": "retired-development-1",
-      "path_pattern": "diagnostics/**",
+      "path_pattern": "data/diagnostics/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -186,7 +187,7 @@
     },
     {
       "artifact_id": "retired-development-2",
-      "path_pattern": "eval/**",
+      "path_pattern": "data/eval/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -199,7 +200,7 @@
     },
     {
       "artifact_id": "retired-development-3",
-      "path_pattern": "data/**",
+      "path_pattern": "data/data/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -212,7 +213,7 @@
     },
     {
       "artifact_id": "retired-development-4",
-      "path_pattern": "playwright-mcp/**",
+      "path_pattern": "data/playwright-mcp/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -225,7 +226,7 @@
     },
     {
       "artifact_id": "retired-development-5",
-      "path_pattern": "browser-sessions/**",
+      "path_pattern": "data/browser-sessions/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -238,7 +239,7 @@
     },
     {
       "artifact_id": "retired-development-6",
-      "path_pattern": "scratch/**",
+      "path_pattern": "data/scratch/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -251,7 +252,7 @@
     },
     {
       "artifact_id": "retired-development-7",
-      "path_pattern": "dossiers/*/delivery-before-approval-context/**",
+      "path_pattern": "data/dossiers/*/delivery-before-approval-context/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -264,7 +265,7 @@
     },
     {
       "artifact_id": "retired-development-8",
-      "path_pattern": "dossiers/*/visual_qa/**",
+      "path_pattern": "data/dossiers/*/visual_qa/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -277,7 +278,7 @@
     },
     {
       "artifact_id": "retired-development-9",
-      "path_pattern": "dossiers/*/*.py",
+      "path_pattern": "data/dossiers/*/*.py",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -290,7 +291,7 @@
     },
     {
       "artifact_id": "retired-development-10",
-      "path_pattern": "dossiers/*/officials/*.txt",
+      "path_pattern": "data/dossiers/*/officials/*.txt",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -303,7 +304,7 @@
     },
     {
       "artifact_id": "retired-development-11",
-      "path_pattern": "dossiers/*/officials/__pycache__/**",
+      "path_pattern": "data/dossiers/*/officials/__pycache__/**",
       "purpose": "Completed development, duplicate preview or reproducible intermediate output",
       "schema": "Producer-specific debug format",
       "producer": "Development and evaluation tools",
@@ -312,6 +313,214 @@
       "retention_rule": {
         "class": "retired",
         "rule": "Remove only after completion and dependency release, with final reports explicitly protected. Generated-area admission stops at 2000 files or 128 MiB; it never evicts core data."
+      }
+    },
+    {
+      "artifact_id": "companion-readme",
+      "path_pattern": "README.md",
+      "purpose": "Minimal private companion setup and selected final-deliverable index.",
+      "schema": "DATA.md and the companion initialization contract.",
+      "producer": "Companion maintainer.",
+      "consumer_or_final_deliverable": "Companion discovery and final-deliverable restoration.",
+      "rebuild_or_restore": "Recreate current setup instructions from source and the selected private deliverables.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Keep the current setup and selected-deliverable index; replace obsolete instructions without copied history."
+      }
+    },
+    {
+      "artifact_id": "companion-ignore",
+      "path_pattern": ".gitignore",
+      "purpose": "Private companion exclusions for generated temporary files.",
+      "schema": "Git ignore syntax.",
+      "producer": "Companion maintainer.",
+      "consumer_or_final_deliverable": "Private companion version-control admission.",
+      "rebuild_or_restore": "Restore the reviewed companion exclusions.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Keep current exclusions; review changes against required runtime data and selected final evidence."
+      }
+    },
+    {
+      "artifact_id": "companion-attributes",
+      "path_pattern": ".gitattributes",
+      "purpose": "Portable text and binary handling for private companion files.",
+      "schema": "Git attributes syntax.",
+      "producer": "Companion maintainer.",
+      "consumer_or_final_deliverable": "Private companion checkout and diff behavior.",
+      "rebuild_or_restore": "Restore reviewed companion attributes.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Keep current attributes while they are needed for reproducible checkout and restoration."
+      }
+    },
+    {
+      "artifact_id": "fee-source-ny-pub838-pdf",
+      "path_pattern": ".firecrawl/ny-pub838.pdf",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-ct-json",
+      "path_pattern": ".firecrawl/tax-ct.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-mi-doc-json",
+      "path_pattern": ".firecrawl/tax-mi-doc.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-mi-json",
+      "path_pattern": ".firecrawl/tax-mi.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-nj-doc-json",
+      "path_pattern": ".firecrawl/tax-nj-doc.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-nj-json",
+      "path_pattern": ".firecrawl/tax-nj.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-ny-doc-current-json",
+      "path_pattern": ".firecrawl/tax-ny-doc-current.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-ny-rate-json",
+      "path_pattern": ".firecrawl/tax-ny-rate.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-source-tax-ny-json",
+      "path_pattern": ".firecrawl/tax-ny.json",
+      "purpose": "Selected source capture supporting maintained state-fee references.",
+      "schema": "PDF source document or Firecrawl response containing data.web results; data/state_fees.json source citations.",
+      "producer": "State-fee source verification.",
+      "consumer_or_final_deliverable": "Maintained state-fee citations and source-age review.",
+      "rebuild_or_restore": "Restore the selected private capture; refresh against the cited official source when current verification is needed.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Keep this selected capture while maintained citations or their verification evidence depend on it. Continued retention does not certify current rates."
+      }
+    },
+    {
+      "artifact_id": "fee-review-tax-ct-warranty-threshold-json",
+      "path_pattern": ".firecrawl/tax-ct-warranty-threshold.json",
+      "purpose": "Source-search response from a state-fee review without a current selected citation.",
+      "schema": "Firecrawl response containing data.web search results.",
+      "producer": "State-fee source review.",
+      "consumer_or_final_deliverable": "Source review or a separately selected verification result.",
+      "rebuild_or_restore": "Repeat the source search; preserve any selected unique evidence before replacing the response.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Review its remaining evidence dependencies before retirement; a missing current citation alone does not authorize deletion."
+      }
+    },
+    {
+      "artifact_id": "fee-review-tax-il-json",
+      "path_pattern": ".firecrawl/tax-il.json",
+      "purpose": "Source-search response from a state-fee review without a current selected citation.",
+      "schema": "Firecrawl response containing data.web search results.",
+      "producer": "State-fee source review.",
+      "consumer_or_final_deliverable": "Source review or a separately selected verification result.",
+      "rebuild_or_restore": "Repeat the source search; preserve any selected unique evidence before replacing the response.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Review its remaining evidence dependencies before retirement; a missing current citation alone does not authorize deletion."
+      }
+    },
+    {
+      "artifact_id": "data-placeholder",
+      "path_pattern": "data/.gitkeep",
+      "purpose": "Empty DATA directory initialization marker.",
+      "schema": "Empty file.",
+      "producer": "Companion setup.",
+      "consumer_or_final_deliverable": "Private DATA initialization.",
+      "rebuild_or_restore": "Recreate an empty marker only when the directory needs tracking.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Keep only while needed to represent an initialized empty directory."
+      }
+    },
+    {
+      "artifact_id": "dossier-source-capture-helper",
+      "path_pattern": "data/dossiers/*/officials/capture_sources.py",
+      "purpose": "Reviewed dossier-specific source-capture and evidence-hash helper.",
+      "schema": "Python capture helper using tools/runtime_paths.py DATA confinement.",
+      "producer": "Dossier source verification.",
+      "consumer_or_final_deliverable": "Refreshing cited official source captures and their verification metadata.",
+      "rebuild_or_restore": "Restore the reviewed helper with the selected source manifest; verify its interface before running it.",
+      "retention_rule": {
+        "class": "core",
+        "rule": "Preserve while retained official-source evidence or supported refresh procedures rely on it. This declaration does not execute the helper or certify a fresh capture."
       }
     }
   ]

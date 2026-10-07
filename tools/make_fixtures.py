@@ -67,6 +67,13 @@ def retention_samples():
         "scratch": "diagnostics/synthetic-complete.json",
         "content": b"Synthetic retained report.\n",
         "changed": b"Synthetic changed receipt.\n",
+        "nested_development": "data/synthetic-complete.json",
+        "capture_helper": "dossiers/synthetic-case/officials/capture_sources.py",
+        "companion_contract": {"schema_version": 1, "tool": "buy-me-a-car",
+                               "artifacts": [
+                                   {"path_pattern": "data/dossiers/*/*.pdf", "retention_rule": {"class": "core"}},
+                                   {"path_pattern": "data/diagnostics/**", "retention_rule": {"class": "retired"}},
+                                   {"path_pattern": "data/data/**", "retention_rule": {"class": "retired"}}]},
         "registry": {"schema_version": 1, "source_commit": "a" * 40,
                      "protected_paths": [], "retirements": []},
         "contract": {"schema_version": 1, "tool": "synthetic",
