@@ -152,3 +152,5 @@ At close, abort, pivot or a rule violation, use the
 [private feedback protocol](assets/_feedback_protocol.md). Record a distinct
 private event with evidence and measured impact. Convert reusable findings into a
 synthetic regression before changing public code or documentation.
+
+For real output, follow [runtime storage configuration](../../CONFIG.md) and [DATA ownership](../../DATA.md). Clear stale higher-priority selectors before switching companion roots; only source-declared active output paths are writable.

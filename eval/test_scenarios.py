@@ -21,6 +21,9 @@ class TestScenarioHarness(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.path = Path(self.temp.name) / 'receipt.json'
+        authorization = patch('inbox_state._authorize_file', side_effect=lambda path: path)
+        authorization.start()
+        self.addCleanup(authorization.stop)
         self.cases = scenario.corpus()['cases']
         self.actor = {'answers': [
             {'id': case['id'], 'skill': 'buy-me-a-car', 'reply': 'Synthetic answer for ' + case['id']}

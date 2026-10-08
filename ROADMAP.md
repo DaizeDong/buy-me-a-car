@@ -7,6 +7,12 @@ boundaries, constrained drafts, durable inbox state and honest evidence reportin
 See README for the validation commands and the distinction between local and
 external verification.
 
+Current main also produces a buyer research comparison and HTML/PDF deliverable for broad
+purchase requests, including zero written quotes and explicit unknown costs. Research and
+outward dealer proposals retain different evidence requirements. Runtime tests cover PRIVATE
+publication routes and declared storage paths with synthetic metadata; live outcomes remain
+separate acceptance work.
+
 Remaining product work:
 
 - Extend verified state calculation profiles from current official sources,

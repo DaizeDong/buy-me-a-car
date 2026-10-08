@@ -100,7 +100,7 @@ def run(result, verbose=False, *, caller=None, report_path=None):
         import llmcall
         caller = llmcall.call
     if report_path is None:
-        report_path = data_path(f'eval/model-runs/alaska-{uuid.uuid4().hex}.json', for_write=True)
+        report_path = data_path(f'research-runs/scenarios/alaska-{uuid.uuid4().hex}.json', for_write=True)
     report_path = Path(report_path)
     with _locked(report_path.with_suffix('.lock')):
         if report_path.exists():

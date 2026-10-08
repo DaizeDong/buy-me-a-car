@@ -104,6 +104,9 @@ class TestInboxReplay(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.directory = Path(self.temp.name)
+        authorizer = patch.object(inbox_state, "_authorize_file", side_effect=lambda path: path)
+        authorizer.start()
+        self.addCleanup(authorizer.stop)
         self.patch = patch.object(inbox_state, "data_path", self.path)
         self.patch.start()
         self.addCleanup(self.patch.stop)
@@ -216,6 +219,7 @@ sys.path.insert(0, sys.argv[1])
 import inbox_state
 root = Path(sys.argv[2])
 inbox_state.data_path = lambda relative, **kwargs: root / relative
+inbox_state._authorize_file = lambda path: path
 store = inbox_state.InboxState(sys.argv[3])
 store.export_operation(sys.argv[4])
 os._exit(23)
@@ -238,6 +242,7 @@ sys.path.insert(0, sys.argv[1])
 import inbox_state
 root = Path(sys.argv[2])
 inbox_state.data_path = lambda relative, **kwargs: root / relative
+inbox_state._authorize_file = lambda path: path
 replace = inbox_state.os.replace
 def crash(source, target):
     if sys.argv[4] == 'after': replace(source, target)
@@ -257,6 +262,9 @@ class TestModelHarness(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.report = Path(self.temp.name) / "report.json"
+        authorizer = patch.object(inbox_state, "_authorize_file", side_effect=lambda path: path)
+        authorizer.start()
+        self.addCleanup(authorizer.stop)
         data = corpus()
         routes = json.loads(test_rubric.ROUTING_JSON.read_text(encoding="utf-8"))
         self.actor = {

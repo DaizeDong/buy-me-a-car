@@ -168,7 +168,7 @@ def run_llm_cases(result: Result, verbose=False, *, caller=None, report_path=Non
             return
         caller = llmcall.call
     if report_path is None:
-        report_path = data_path(f"eval/model-runs/{uuid.uuid4().hex}.json", for_write=True)
+        report_path = data_path(f"research-runs/rubric/{uuid.uuid4().hex}.json", for_write=True)
     report_path = Path(report_path)
     with _locked(report_path.with_suffix(".lock")):
         if report_path.exists():

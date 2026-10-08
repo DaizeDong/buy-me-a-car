@@ -21,6 +21,8 @@ class RuntimePathsTests(unittest.TestCase):
         spec.loader.exec_module(self.runtime)
         self.guard = patch.object(self.runtime, '_guard_data_dir', return_value=self.base)
         self.proof = patch.object(self.runtime, '_private_repo_identity', return_value='example-owner/example-private')
+        from tools.test_support import install_artifact_proof
+        install_artifact_proof(self, self.runtime)
         self.guard.start()
         self.proof.start()
         self.addCleanup(self.guard.stop)
@@ -56,7 +58,7 @@ class RuntimePathsTests(unittest.TestCase):
                 self.runtime.data_path(value, for_write=True)
 
     def test_absolute_output_must_stay_inside_private_data(self):
-        target = self.base / 'exports' / 'report.html'
+        target = self.base / 'cycles/example' / 'report.html'
         self.assertEqual(self.runtime.validate_data_path(target, for_write=True), target)
         with self.assertRaises(self.runtime.DataBoundaryError):
             self.runtime.validate_data_path(Path(self.tmp.name) / 'outside.html', for_write=True)
@@ -89,14 +91,14 @@ class RuntimePathsTests(unittest.TestCase):
             self.skipTest('Filesystem does not expose a distinct Windows short-name alias')
         self.assertEqual(alias.resolve(), base)
         with patch.object(self.runtime, '_guard_data_dir', return_value=base):
-            output = self.runtime.validate_data_path(alias / 'exports' / 'report.html', for_write=True)
-            self.assertEqual(output, base / 'exports' / 'report.html')
+            output = self.runtime.validate_data_path(alias / 'cycles/example' / 'report.html', for_write=True)
+            self.assertEqual(output, base / 'cycles/example' / 'report.html')
             self.assertTrue(output.parent.is_dir())
             self.assertFalse(output.exists())
             outside = ancestor / 'outside'
             outside.mkdir()
             _winapi.CreateJunction(str(outside), str(base / 'linked'))
-            for path in (alias / 'linked' / 'escape.json', alias / 'exports' / '..' / 'report.html'):
+            for path in (alias / 'linked' / 'escape.json', alias / 'cycles/example' / '..' / 'report.html'):
                 with self.subTest(path=path), self.assertRaises(self.runtime.DataBoundaryError):
                     self.runtime.validate_data_path(path, for_write=True)
             self.assertFalse((outside / 'escape.json').exists())
@@ -111,8 +113,8 @@ class RuntimePathsTests(unittest.TestCase):
             import _winapi
             _winapi.CreateJunction(str(self.base), str(link))
         with self.assertRaises(self.runtime.DataBoundaryError):
-            self.runtime.validate_data_path(link / 'exports' / 'report.html', for_write=True)
-        self.assertFalse((self.base / 'exports').exists())
+            self.runtime.validate_data_path(link / 'cycles/example' / 'report.html', for_write=True)
+        self.assertFalse((self.base / 'cycles/example').exists())
 
     def test_symlink_escape_rejected(self):
         outside = Path(self.tmp.name) / 'outside'

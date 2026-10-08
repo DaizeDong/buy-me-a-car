@@ -18,7 +18,8 @@
     "runs/",
     "car_buying_*/",
     "dossiers/",
-    "retention.json"
+    "retention.json",
+    "research-runs/"
   ],
   "data_sealed": [
     "examples/market_en.png",
@@ -53,7 +54,8 @@
     "skills/orchestrator/assets/dossier_config_template.yaml",
     "skills/orchestrator/assets/dossier_config_template_cn.yaml",
     "skills/orchestrator/assets/dossier_config_template_es.yaml",
-    "skills/orchestrator/assets/research_report_config_template.json"
+    "skills/orchestrator/assets/research_report_config_template.json",
+    "eval/test_fleet_storage.py"
   ],
   "tool": [
     "docs/superpowers/plans/*"

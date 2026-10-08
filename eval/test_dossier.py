@@ -205,6 +205,8 @@ class LiveDossierBoundaryTests(unittest.TestCase):
         # containment, file loading, hashing, validation, and rendering run.
         self.guard = patch.object(runtime_paths, "_guard_data_dir", return_value=self.private_data)
         self.proof = patch.object(runtime_paths, "_private_repo_identity", return_value="example/private-fixture")
+        from tools.test_support import install_artifact_proof
+        install_artifact_proof(self, runtime_paths)
         self.guard.start()
         self.proof.start()
         self.addCleanup(self.guard.stop)
@@ -229,14 +231,14 @@ class LiveDossierBoundaryTests(unittest.TestCase):
         self.config_path.write_text(json.dumps(config), encoding="utf-8")
 
     def run_cli(self, *args):
-        argv = [str(SCRIPT), "--mode", "live", "--config", "config.json", "--output", "dossiers/result.html", *args]
+        argv = [str(SCRIPT), "--mode", "live", "--config", "config.json", "--output", "dossiers/example/result.html", *args]
         with patch.object(sys, "argv", argv), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
             dossier.main()
 
     def test_live_config_artifact_and_html_use_real_boundary_code(self):
         self.assertEqual(dossier.validate_config_sanity(self.config), [])
         self.run_cli()
-        output = self.private_data / "dossiers" / "result.html"
+        output = self.private_data / "dossiers" / "example" / "result.html"
         self.assertTrue(output.is_file())
         result = output.read_text(encoding="utf-8")
         self.assertIn("Test vehicle 1", result)
@@ -250,7 +252,7 @@ class LiveDossierBoundaryTests(unittest.TestCase):
             with self.assertRaises(SystemExit) as raised:
                 self.run_cli()
             self.assertNotEqual(raised.exception.code, 0)
-            self.assertFalse((self.private_data / "dossiers" / "result.html").exists())
+            self.assertFalse((self.private_data / "dossiers" / "example" / "result.html").exists())
 
     def test_unproven_claim_and_stale_quote_block_output(self):
         for mutate in (lambda: self.config["EVIDENCE"][0]["supports"].remove("CPO_STATUS"),
@@ -259,7 +261,7 @@ class LiveDossierBoundaryTests(unittest.TestCase):
             self.config_path.write_text(json.dumps(self.config), encoding="utf-8")
             with self.assertRaises(SystemExit):
                 self.run_cli()
-            self.assertFalse((self.private_data / "dossiers" / "result.html").exists())
+            self.assertFalse((self.private_data / "dossiers" / "example" / "result.html").exists())
 
     def test_live_cannot_write_outside_private_data(self):
         outside = Path(self.temp.name) / "outside.html"
@@ -270,14 +272,14 @@ class LiveDossierBoundaryTests(unittest.TestCase):
     def test_live_cannot_read_config_outside_private_data(self):
         with self.assertRaises(SystemExit):
             self.run_cli("--config", str(ASSETS / "dossier_config_template.yaml"))
-        self.assertFalse((self.private_data / "dossiers" / "result.html").exists())
+        self.assertFalse((self.private_data / "dossiers" / "example" / "result.html").exists())
 
     def test_live_evidence_cannot_escape_private_data(self):
         self.config["EVIDENCE"][0]["artifact"] = "../quote.json"
         self.config_path.write_text(json.dumps(self.config), encoding="utf-8")
         with self.assertRaises(SystemExit):
             self.run_cli()
-        self.assertFalse((self.private_data / "dossiers" / "result.html").exists())
+        self.assertFalse((self.private_data / "dossiers" / "example" / "result.html").exists())
 
     def test_actual_synthetic_leather_term_is_not_mistaken_for_demo(self):
         self.config["HIGHER_1"] = "Synthetic leather upholstery"
