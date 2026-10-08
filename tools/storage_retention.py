@@ -39,6 +39,18 @@ def matches(name, pattern):
     return visit(0, 0)
 
 
+def _resolved_for_comparison(path):
+    resolved = path.resolve()
+    # Windows can retain the extended prefix when a sibling staging file is
+    # renamed during resolve. It does not change the resolved destination.
+    name = str(resolved)
+    if name.startswith("\\\\?\\UNC\\"):
+        return Path("\\\\" + name[8:])
+    if name.startswith("\\\\?\\"):
+        return Path(name[4:])
+    return resolved
+
+
 def checked(root, relative):
     root = Path(root).absolute()
     path = root / relative_name(relative)
@@ -58,9 +70,10 @@ def checked(root, relative):
             raise ValueError("Retention refuses linked paths")
         if stat.S_ISREG(info.st_mode) and info.st_nlink != 1:
             raise ValueError("Retention refuses multiply linked files")
-    if path.resolve().is_relative_to(ROOT.resolve()):
+    resolved = _resolved_for_comparison(path)
+    if resolved.is_relative_to(_resolved_for_comparison(ROOT)):
         raise ValueError("Runtime DATA cannot be inside the public tool")
-    if not path.resolve().is_relative_to(root.resolve()):
+    if not resolved.is_relative_to(_resolved_for_comparison(root)):
         raise ValueError("Retention path escaped DATA")
     return path
 

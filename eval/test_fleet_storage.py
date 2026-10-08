@@ -101,3 +101,128 @@ class ArtifactAdmissionTests(TestCase):
             return result
         with patch.object(storage, 'files_under', enumerated):
             storage.enforce_capacity(self.base, 'research-runs/next.json', max_files=1)
+
+
+class AtomicReplaceTests(TestCase):
+    def setUp(self):
+        from skills.orchestrator.scripts import inbox_state
+        test_runtime_paths.RuntimePathsTests.setUp(self)
+        seam = patch.object(inbox_state, 'validate_data_path', side_effect=self.runtime.validate_data_path)
+        seam.start()
+        self.addCleanup(seam.stop)
+
+    def test_atomic_replace_recovers_from_windows_metadata_readers(self):
+        import json
+        from skills.orchestrator.scripts import inbox_state
+        target = self.base / 'inbox/state.json'
+        target.parent.mkdir()
+        original_replace = inbox_state.os.replace
+        for code in (5, 32):
+            with self.subTest(winerror=code):
+                target.write_text('synthetic retained state')
+                error = PermissionError('synthetic Windows reader contention')
+                error.winerror = code
+                staged = []
+                def replace(source, destination):
+                    self.assertEqual(destination.read_text(), 'synthetic retained state')
+                    staged.append((source, source.read_bytes()))
+                    if len(staged) == 1:
+                        raise error
+                    return original_replace(source, destination)
+                with patch.object(inbox_state.os, 'replace', side_effect=replace):
+                    try:
+                        inbox_state.atomic_write(target, {'revision': 2})
+                    except PermissionError:
+                        self.fail('Transient Windows reader contention must not discard the completed state')
+                self.assertEqual(json.loads(target.read_text()), {'revision': 2})
+                self.assertEqual(staged[0], staged[1])
+                self.assertEqual(list(target.parent.iterdir()), [target])
+
+    def test_atomic_replace_exhaustion_preserves_previous_state(self):
+        from skills.orchestrator.scripts import inbox_state
+        target = self.base / 'inbox/state.json'
+        target.parent.mkdir()
+        target.write_text('synthetic retained state')
+        error = PermissionError('synthetic permanent Windows denial')
+        error.winerror = 5
+        with patch.object(inbox_state.os, 'replace', side_effect=error) as replace:
+            with self.assertRaises(PermissionError) as caught:
+                inbox_state.atomic_write(target, {'revision': 2})
+        self.assertIs(caught.exception, error)
+        self.assertEqual(replace.call_count, 6)
+        self.assertEqual(target.read_text(), 'synthetic retained state')
+        self.assertEqual(list(target.parent.iterdir()), [target])
+
+    def test_atomic_replace_does_not_retry_other_permission_failures(self):
+        from skills.orchestrator.scripts import inbox_state
+        target = self.base / 'inbox/state.json'
+        target.parent.mkdir()
+        for code in (None, 87):
+            with self.subTest(winerror=code):
+                target.write_text('synthetic retained state')
+                error = PermissionError('synthetic unrelated denial')
+                if code is not None:
+                    error.winerror = code
+                with patch.object(inbox_state.os, 'replace', side_effect=error) as replace:
+                    with self.assertRaises(PermissionError) as caught:
+                        inbox_state.atomic_write(target, {'revision': 2})
+                self.assertIs(caught.exception, error)
+                self.assertEqual(replace.call_count, 1)
+                self.assertEqual(target.read_text(), 'synthetic retained state')
+                self.assertEqual(list(target.parent.iterdir()), [target])
+
+    def test_atomic_replace_reauthorizes_before_retry(self):
+        from skills.orchestrator.scripts import inbox_state
+        target = self.base / 'inbox/state.json'
+        target.parent.mkdir()
+        target.write_text('synthetic retained state')
+        error = PermissionError('synthetic Windows reader contention')
+        error.winerror = 32
+        original_authorize = inbox_state._authorize_file
+        attempts = []
+        def replace(source, destination):
+            attempts.append(source)
+            raise error
+        def authorize(path):
+            if attempts:
+                raise self.runtime.DataBoundaryError('synthetic authorization revoked')
+            return original_authorize(path)
+        with patch.object(inbox_state.os, 'replace', side_effect=replace), patch.object(
+                inbox_state, '_authorize_file', side_effect=authorize):
+            with self.assertRaisesRegex(self.runtime.DataBoundaryError, 'authorization revoked'):
+                inbox_state.atomic_write(target, {'revision': 2})
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(target.read_text(), 'synthetic retained state')
+        self.assertEqual(list(target.parent.iterdir()), [target])
+
+
+class ResolvedPathComparisonTests(TestCase):
+    setUp = test_runtime_paths.RuntimePathsTests.setUp
+
+    def test_capacity_scan_counts_staging_with_extended_resolved_prefix(self):
+        from tools import storage_retention as storage
+        folder = self.base / 'research-runs'
+        folder.mkdir()
+        staging = folder / '.report.json-synthetic'
+        staging.write_text('synthetic staging')
+        original = Path.resolve
+        def resolve(path, *args, **kwargs):
+            resolved = original(path, *args, **kwargs)
+            return Path('\\\\?\\' + str(resolved)) if path == staging else resolved
+        with patch.object(Path, 'resolve', resolve):
+            with self.assertRaisesRegex(ValueError, 'Generated storage capacity reached'):
+                storage.enforce_capacity(self.base, 'research-runs/next.json', max_files=1)
+        self.assertEqual(staging.read_text(), 'synthetic staging')
+
+    def test_extended_resolved_prefix_cannot_hide_a_real_escape(self):
+        from tools import storage_retention as storage
+        target = self.base / 'research-runs' / 'output.json'
+        original = Path.resolve
+        def resolve(path, *args, **kwargs):
+            if path == target:
+                return Path('\\\\?\\' + str(self.base.parent / 'outside.json'))
+            return original(path, *args, **kwargs)
+        with patch.object(Path, 'resolve', resolve):
+            with self.assertRaisesRegex(ValueError, 'Retention path escaped DATA'):
+                storage.checked(self.base, 'research-runs/output.json')
+        self.assertFalse(target.exists())
