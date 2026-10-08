@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 import sys
+import time
 import uuid
 from contextlib import contextmanager
 from pathlib import Path
@@ -102,8 +103,17 @@ def atomic_write(path: Path, value: dict) -> None:
             handle.write(payload)
             handle.flush()
             os.fsync(handle.fileno())
-        _authorize_file(path)
-        os.replace(temporary, path)
+        for attempt in range(6):
+            _authorize_file(path)
+            try:
+                os.replace(temporary, path)
+                break
+            except PermissionError as exc:
+                # Windows metadata readers can briefly deny the rename. Retry
+                # only this fsynced payload, never the operation that produced it.
+                if getattr(exc, "winerror", None) not in (5, 32) or attempt == 5:
+                    raise
+                time.sleep(0.01 * 2 ** attempt)
         if os.name != "nt":
             directory = os.open(path.parent, os.O_RDONLY)
             try:
