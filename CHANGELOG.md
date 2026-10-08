@@ -10,6 +10,9 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ### Fixed
 
+- Prove all effective companion fetch/push destinations, require source-owned active output declarations, and retain the `data` child in alternate installation layouts.
+- Declare runtime-storage-only configuration and document exact precedence and safe companion switching in both README editions.
+
 - Align storage declarations with the whole companion repository while retaining
   DATA-relative native retirement plans; nested development material cannot
   classify current buyer evidence as retired.

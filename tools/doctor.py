@@ -96,7 +96,7 @@ def diagnose(target=None, *, check_private=False):
     for executable, required in [("git", True), ("gh", False)]:
         checks.append(_check(executable, *_executable(executable), required=required))
     for name, files in {
-        "guards": ["tools/datadir.py", "tools/data_boundary.py", "tools/pii_guard.py"],
+        "guards": ["tools/datadir.py", "tools/data_boundary.py", "tools/pii_guard.py", "tools/storage_contract.py"],
         "style": ["tools/dash_guard.py", "tools/load_budget.py"],
     }.items():
         populated = (ROOT / name / ".git").is_file() and all((ROOT / name / item).is_file() for item in files)

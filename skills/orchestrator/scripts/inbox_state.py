@@ -13,7 +13,7 @@ import hashlib
 import json
 import os
 import sys
-import tempfile
+import uuid
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Protocol
@@ -23,7 +23,7 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from email_policy import render_draft, validate_draft
-from tools.runtime_paths import DataBoundaryError, data_path
+from tools.runtime_paths import DataBoundaryError, data_path, validate_data_path
 
 
 class StateError(ValueError):
@@ -58,9 +58,14 @@ def _id(value) -> str:
     return value
 
 
+def _authorize_file(path):
+    return validate_data_path(path, for_write=True)
+
+
 @contextmanager
 def _locked(path: Path):
     # OS locks are released if the process dies; a stale lock file is harmless.
+    path = _authorize_file(path)
     with path.open("a+b") as handle:
         handle.seek(0, os.SEEK_END)
         if handle.tell() == 0:
@@ -89,12 +94,15 @@ def _locked(path: Path):
 def atomic_write(path: Path, value: dict) -> None:
     """Replace one complete JSON state; fsync data before committing the name."""
     payload = (_json(value) + "\n").encode("utf-8")
-    descriptor, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    path = _authorize_file(path)
+    temporary = _authorize_file(path.with_name(f".{path.name}.{uuid.uuid4().hex}"))
+    descriptor = os.open(temporary, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     try:
         with os.fdopen(descriptor, "wb") as handle:
             handle.write(payload)
             handle.flush()
             os.fsync(handle.fileno())
+        _authorize_file(path)
         os.replace(temporary, path)
         if os.name != "nt":
             directory = os.open(path.parent, os.O_RDONLY)

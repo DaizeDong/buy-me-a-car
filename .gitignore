@@ -38,3 +38,10 @@ car_buying_*/
 *_dossier.pdf
 dealer_outreach_tracker.md
 manual_followup_queue.md
+
+# Public source never contains local credential/configuration values.
+*.env
+.env
+.env.*
+!*.env.template
+!*.env.example

@@ -319,3 +319,7 @@ python eval/test_rubric.py
 后续工作见 [ROADMAP.md](ROADMAP.md)，改动记录见 [CHANGELOG.md](CHANGELOG.md)。贡献请附上可复现的合成用例、适用时的当前来源，以及相关验证结果。提交 [issue](https://github.com/DaizeDong/buy-me-a-car/issues) 或 [pull request](https://github.com/DaizeDong/buy-me-a-car/pulls) 时，不要附带私有购车记录。
 
 采用 [MIT 许可](LICENSE)。
+
+运行数据的发现顺序、A/B 切换和私有仓校验见 [CONFIG.md](CONFIG.md)。路径按 `BUY_ME_A_CAR_DATA_DIR`、`BUY_ME_A_CAR_CONFIG`、`BUY_ME_A_CAR_CONFIG_DIR`、已证明的同级伴生仓、家目录约定顺序选择。切换前清除优先级更高的旧变量；输出始终在伴生仓的 `data` 子目录。
+
+生命周期与恢复规则见 [DATA.md](DATA.md)、[storage.contract.json](storage.contract.json) 和 [保留工具](tools/storage_retention.py)。写入前会核对全部有效 fetch/push 目的地和唯一产物归属。

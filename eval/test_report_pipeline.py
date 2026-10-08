@@ -35,6 +35,8 @@ class ReportPipelineTests(unittest.TestCase):
         ):
             guard.start()
             self.addCleanup(guard.stop)
+        from tools.test_support import install_artifact_proof
+        install_artifact_proof(self, runtime_paths)
         config = demo_config()
         config.update(synthetic=False, date=date.today().isoformat())
         for source in config["sources"]:
@@ -54,7 +56,7 @@ class ReportPipelineTests(unittest.TestCase):
                        "research_data": config, "notes": "Generated fictional research for a harness test only."}
         self.packet_path = self.private / "packet.json"
         self.packet_path.write_text(json.dumps(self.packet), encoding="utf-8")
-        self.output = self.private / "eval" / "report-fixture"
+        self.output = self.private / "research-runs" / "report-fixture"
         self.receipt = self.output / "receipt.json"
         self.review = {"accepted": True, "gates": {
             key: {"passed": True, "evidence": self.actor["decision_summary"],
@@ -488,7 +490,7 @@ class ReportPipelineTests(unittest.TestCase):
             [self.response(self.actor)], writer_overrides={"writer_1": TimeoutError("synthetic reconciled timeout")})
         self.assertEqual(receipt["status"], "writers_unavailable")
         parent = self.output
-        self.output = self.private / "eval" / "report-continuation"
+        self.output = self.private / "research-runs" / "report-continuation"
         self.receipt = self.output / "receipt.json"
         return parent, receipt
 
@@ -647,7 +649,7 @@ class ReportPipelineTests(unittest.TestCase):
         result, calls, renders, previous = self.run_case([self.response(self.actor)], writer_overrides={
             stage: TimeoutError("synthetic unavailable writer") for stage in self.writers})
         parent = self.output
-        destination = self.private / "eval" / "report-no-success"
+        destination = self.private / "research-runs" / "report-no-success"
         with self.assertRaisesRegex(ValueError, "no_valid_completed_writer"):
             pipeline.continue_writers(Result(), parent, output_dir=destination,
                                       caller=lambda *a, **k: self.fail("must not call"))
@@ -664,7 +666,7 @@ class ReportPipelineTests(unittest.TestCase):
         self.assertEqual(receipt["review"]["text"], "")
         self.assertEqual(result.exit_code, 2)
         parent = self.output
-        self.output = self.private / "eval" / "report-review-continuation"
+        self.output = self.private / "research-runs" / "report-review-continuation"
         self.receipt = self.output / "receipt.json"
         return parent, receipt
 
@@ -701,7 +703,7 @@ class ReportPipelineTests(unittest.TestCase):
         claim_path = Path(claim["path"])
         self.assertEqual(claim["sha256"], hashlib.sha256(claim_path.read_bytes()).hexdigest())
         self.assertEqual(json.loads(claim_path.read_text(encoding="utf-8"))["child_run"], str(self.output))
-        self.output = self.private / "eval" / "report-repeated-review"
+        self.output = self.private / "research-runs" / "report-repeated-review"
         self.receipt = self.output / "receipt.json"
         with self.assertRaisesRegex(ValueError, "parent_already_claimed"):
             self.run_case([], continue_review_from=parent)
@@ -766,7 +768,7 @@ class ReportPipelineTests(unittest.TestCase):
             [AssertionError("must reuse actor"), self.response(self.review)], continue_review_from=parent)
         self.assertEqual(result.exit_code, 1)
         self.assertEqual(receipt["status"], "failed")
-        self.output = self.private / "eval" / "report-after-rejected-child"
+        self.output = self.private / "research-runs" / "report-after-rejected-child"
         self.receipt = self.output / "receipt.json"
         with self.assertRaisesRegex(ValueError, "parent_already_claimed"):
             self.run_case([], continue_review_from=parent)
@@ -846,7 +848,7 @@ class ReportPipelineTests(unittest.TestCase):
         self.assertEqual(receipt["status"], "review_uncertain")
         self.assertEqual(receipt["review"]["text"], partial)
         parent = self.output
-        destination = self.private / "eval" / "report-partial-review-continuation"
+        destination = self.private / "research-runs" / "report-partial-review-continuation"
         with self.assertRaisesRegex(ValueError, "terminal_review_uncertainty_without_text"):
             pipeline.continue_review(Result(), parent, output_dir=destination,
                                      caller=lambda *a, **k: self.fail("must not call"))

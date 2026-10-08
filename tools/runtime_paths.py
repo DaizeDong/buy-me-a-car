@@ -100,17 +100,46 @@ def _existing_directory(path: Path) -> Path:
     return candidate
 
 
+def _guard_module(name):
+    path = REPO_ROOT / 'guards' / 'tools' / (name + '.py')
+    if not path.is_file():
+        raise DataBoundaryError('Missing guards submodule; initialize it before accessing DATA.')
+    key = '_bmac_guard_' + name
+    spec = importlib.util.spec_from_file_location(key, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[key] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def _private_repo_identity(directory: Path) -> str:
-    existing = _existing_directory(directory)
-    root = Path(_run(['git', '-C', str(existing), 'rev-parse', '--show-toplevel'])).resolve()
-    if _inside(root, REPO_ROOT) or _inside(REPO_ROOT, root):
-        raise DataBoundaryError('Real DATA must be in a separate private companion, never the tool worktree.')
-    remote = _run(['git', '-C', str(root), 'config', '--get', 'remote.origin.url'])
-    identity = _github_repo(remote)
-    private = _run(['gh', 'api', '--hostname', 'github.com', f'repos/{identity}', '--jq', '.private'])
-    if private != 'true':
-        raise DataBoundaryError('DATA repository is public or its visibility is unknown; refusing access.')
-    return identity
+    try:
+        api = _guard_module('data_boundary')
+        proof = api.prove_private_companion(_existing_directory(directory))
+        root = Path(proof.root).resolve()
+        if _inside(root, REPO_ROOT) or _inside(REPO_ROOT, root):
+            raise DataBoundaryError('DATA requires a separate PRIVATE companion.')
+        head = api.read_private_companion_git(proof, 'rev-parse', '--verify', 'HEAD')
+        if head.returncode or not head.stdout.strip():
+            raise DataBoundaryError('DATA companion must have committed history.')
+        for identity in proof.repositories:
+            if _run(['gh', 'api', '--hostname', 'github.com', f'repos/{identity}', '--jq', '.private']) != 'true':
+                raise DataBoundaryError('DATA publication destination is public or unknown.')
+        current = api.prove_private_companion(_existing_directory(directory))
+        if (proof.root, proof.repositories, proof.signature) != (current.root, current.repositories, current.signature):
+            raise DataBoundaryError('DATA publication destinations changed during proof.')
+        return ', '.join(proof.repositories)
+    except (OSError, ValueError, RuntimeError) as exc:
+        raise DataBoundaryError('Cannot prove every PRIVATE DATA publication destination.') from exc
+
+
+def _authorize_target(base: Path, relative: Path, *, directory=False) -> Path:
+    try:
+        receipt = _guard_module('storage_contract').authorize_artifact_write(
+            REPO_ROOT, base.parent, 'data/' + relative.as_posix(), directory=directory)
+        return Path(receipt.path)
+    except (OSError, ValueError, RuntimeError) as exc:
+        raise DataBoundaryError('Output lacks source-owned, versioned artifact authorization.') from exc
 
 
 def resolve_data_dir(*, required: bool = False) -> Path | None:
@@ -120,6 +149,10 @@ def resolve_data_dir(*, required: bool = False) -> Path | None:
             raise DataBoundaryError('Uninitialized: clone a PRIVATE buy-me-a-car-config companion, create its data directory, and set BUY_ME_A_CAR_CONFIG. Authenticate gh to verify its visibility.')
         return None
     candidate = candidate.resolve()
+    if candidate.name != 'data':
+        if os.environ.get('BUY_ME_A_CAR_DATA_DIR'):
+            raise DataBoundaryError('BUY_ME_A_CAR_DATA_DIR must select the companion data child.')
+        candidate = candidate / 'data'
     if _inside(candidate, REPO_ROOT):
         raise DataBoundaryError('Real DATA cannot be stored inside the public tool repository.')
     _private_repo_identity(candidate)
@@ -138,13 +171,15 @@ def _relative_path(value: str | Path) -> Path:
     return Path(*parts)
 
 
-def _checked_target(base: Path, relative: Path, *, for_write: bool) -> Path:
+def _checked_target(base: Path, relative: Path, *, for_write: bool, directory=False) -> Path:
     lexical = base / relative
     target = lexical.resolve()
     if not _inside(target, base):
         raise DataBoundaryError('DATA path escapes the private directory through a link or traversal.')
     _private_repo_identity(_existing_directory(target))
     if for_write:
+        if _authorize_target(base, relative, directory=directory) != target:
+            raise DataBoundaryError("Artifact authority returned a different destination.")
         from tools.storage_retention import enforce_capacity
         enforce_capacity(base, relative.as_posix())
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -154,12 +189,12 @@ def _checked_target(base: Path, relative: Path, *, for_write: bool) -> Path:
     return target
 
 
-def data_path(relative: str | Path, *, for_write: bool = False) -> Path | None:
+def data_path(relative: str | Path, *, for_write: bool = False, directory=False) -> Path | None:
     relative = _relative_path(relative)
     base = resolve_data_dir(required=for_write)
     if base is None:
         return None
-    return _checked_target(base, relative, for_write=for_write)
+    return _checked_target(base, relative, for_write=for_write, directory=directory)
 
 
 def _expand_windows_short_path(path: Path) -> Path:
@@ -185,7 +220,7 @@ def _expand_windows_short_path(path: Path) -> Path:
         candidate = candidate.parent
 
 
-def validate_data_path(path: str | Path, *, for_write: bool = False) -> Path:
+def validate_data_path(path: str | Path, *, for_write: bool = False, directory=False) -> Path:
     base = resolve_data_dir(required=True)
     supplied = Path(path).expanduser()
     if supplied.is_absolute():
@@ -197,7 +232,7 @@ def validate_data_path(path: str | Path, *, for_write: bool = False) -> Path:
             raise DataBoundaryError('Live input/output must be inside the proven private DATA directory.') from exc
     else:
         relative = supplied
-    return _checked_target(base, _relative_path(relative), for_write=for_write)
+    return _checked_target(base, _relative_path(relative), for_write=for_write, directory=directory)
 
 
 def main(argv=None) -> int:

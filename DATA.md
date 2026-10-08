@@ -53,3 +53,9 @@ its destination; it is an admission limit, not a per-write reservation. Core
 purchase records, final reports and their source evidence are never evicted to
 make room. Review completed work and its recovery obligations before reclaiming
 capacity.
+
+Runtime storage selection is specified in [CONFIG.md](CONFIG.md). All new writes require the pinned Guards artifact authorizer; a retained retired path is never permission to write new data. Missing `data/` does not permit writing at the companion root.
+
+Opt-in research evaluation writes new records under `data/research-runs/` in the companion.
+The former `data/eval/` namespace is retained as historical retired material and cannot receive
+new writes. Restore current receipts and referenced inputs together before any continuation.

@@ -50,7 +50,7 @@ The installer previews first, then `--apply` registers all 16 skills under `~/.a
 
 For an existing clone, run `git submodule update --init --recursive`. Missing guards must fail explicitly; do not bypass the hooks.
 
-## Config
+## Runtime storage configuration
 
 Create or clone a **private GitHub companion repository** outside this public worktree, create its `data` directory, and authenticate `gh`. Set `BUY_ME_A_CAR_CONFIG` to that companion's root:
 
@@ -323,3 +323,5 @@ Released under the [MIT license](LICENSE).
 ## Private storage lifecycle
 
 See [DATA.md](DATA.md) and [storage.contract.json](storage.contract.json) for core outputs, reviewed retirement, recovery and generated-storage admission limits. Keep final deliverables and their unique cited evidence in the PRIVATE companion.
+
+Exact discovery order, safe A/B switching and PRIVATE proof are documented in [CONFIG.md](CONFIG.md): `BUY_ME_A_CAR_DATA_DIR`, `BUY_ME_A_CAR_CONFIG`, `BUY_ME_A_CAR_CONFIG_DIR`, proven sibling, then home conventions. Clear stale higher-priority pointers before switching. All outputs use the companion `data` child and require a unique active source-owned artifact declaration. Every effective fetch and push destination must prove PRIVATE.

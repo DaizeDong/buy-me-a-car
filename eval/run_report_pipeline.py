@@ -651,9 +651,9 @@ def _continue_run(result, run_dir, verbose=False, *, caller=None, renderer=None,
     with _locked(parent_lock):
         packet_path, reuse, provenance = continuation_plan(run_dir, review_only=review_only, reconciliation_path=reconciliation_path)
         if review_only:
-            output_dir = output_dir or data_path(f"eval/model-runs/report-{uuid.uuid4().hex}", for_write=True)
-            output_dir = validate_data_path(output_dir, for_write=True)
-            claim_path = data_path(f"eval/model-runs/review-continuations/{provenance['parent_receipt_sha256']}.json", for_write=True)
+            output_dir = output_dir or data_path(f"research-runs/report-{uuid.uuid4().hex}", for_write=True, directory=True)
+            output_dir = validate_data_path(output_dir, for_write=True, directory=True)
+            claim_path = data_path(f"research-runs/review-continuations/{provenance['parent_receipt_sha256']}.json", for_write=True)
             if run_dir in claim_path.parents or run_dir in output_dir.parents or output_dir in run_dir.parents or output_dir == run_dir:
                 raise ValueError("review_continuation_state_must_be_separate_from_parent")
             claim_path.parent.mkdir(parents=True, exist_ok=True)
@@ -685,8 +685,8 @@ def run(result, packet_path, verbose=False, *, caller=None, renderer=None, outpu
         raise ValueError("continuation_packet_changed_before_dispatch")
     reuse = _reuse or {}
     if output_dir is None:
-        output_dir = data_path(f"eval/model-runs/report-{uuid.uuid4().hex}", for_write=True)
-    output_dir = validate_data_path(output_dir, for_write=True)
+        output_dir = data_path(f"research-runs/report-{uuid.uuid4().hex}", for_write=True, directory=True)
+    output_dir = validate_data_path(output_dir, for_write=True, directory=True)
     output_dir.mkdir(parents=True, exist_ok=True)
     writer_names = [f"writer_{index}" for index in range(1, len(BATCHES) + 1)]
     paths = {name: validate_data_path(output_dir / name, for_write=True)
@@ -791,7 +791,7 @@ def run(result, packet_path, verbose=False, *, caller=None, renderer=None, outpu
         try:
             renderer(paths["research_config.json"], paths["buyer_research.html"],
                      mode="live", to_pdf=paths["buyer_research.pdf"])
-            paths["master_comparison.md"].write_text(comparison_markdown(config), encoding="utf-8")
+            validate_data_path(paths["master_comparison.md"], for_write=True).write_text(comparison_markdown(config), encoding="utf-8")
             if any(not paths[name].is_file() or not paths[name].stat().st_size for name in DELIVERABLES):
                 raise ValueError("renderer_did_not_produce_all_deliverables")
             report["comparison_verification"] = verify_comparison(config, paths["master_comparison.md"])

@@ -522,6 +522,19 @@
         "class": "core",
         "rule": "Preserve while retained official-source evidence or supported refresh procedures rely on it. This declaration does not execute the helper or certify a fresh capture."
       }
+    },
+    {
+      "artifact_id": "research-evaluation-runs",
+      "path_pattern": "data/research-runs/**",
+      "purpose": "Current opt-in research evaluator receipts, model responses and generated report validation.",
+      "schema": "eval/run_report_pipeline.py receipt/continuation schemas and report deliverables.",
+      "producer": "eval/run_report_pipeline.py explicit opt-in execution.",
+      "consumer_or_final_deliverable": "Reviewer, continuation reconciliation and report validation.",
+      "rebuild_or_restore": "Restore receipts, exact inputs and any referenced provider responses together; never replay an uncertain external operation merely because local files are missing.",
+      "retention_rule": {
+        "class": "rebuildable",
+        "rule": "Keep while the run, review, continuation or selected evidence depends on it. Retire only after those dependencies close; historical data/eval remains retired."
+      }
     }
   ]
 }

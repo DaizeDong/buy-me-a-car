@@ -60,6 +60,8 @@ class ResearchReportTests(unittest.TestCase):
         private.mkdir(parents=True, exist_ok=True)
         guard = patch.object(runtime_paths, "_guard_data_dir", return_value=private)
         proof = patch.object(runtime_paths, "_private_repo_identity", return_value="example/private-fixture")
+        from tools.test_support import install_artifact_proof
+        install_artifact_proof(self, runtime_paths)
         guard.start()
         proof.start()
         self.addCleanup(guard.stop)
@@ -69,8 +71,8 @@ class ResearchReportTests(unittest.TestCase):
         for source in config["sources"]:
             source["observed_date"] = config["date"]
             if source["status"] == "captured":
-                artifact = private / "evidence" / (source["id"] + ".json")
-                artifact.parent.mkdir(exist_ok=True)
+                artifact = private / "cycles/example/evidence" / (source["id"] + ".json")
+                artifact.parent.mkdir(parents=True, exist_ok=True)
                 artifact.write_text(json.dumps({"synthetic_test_only": True, "source": source}), encoding="utf-8")
                 source.update(artifact=str(artifact), sha256=hashlib.sha256(artifact.read_bytes()).hexdigest())
         path = private / "config.json"
@@ -79,7 +81,7 @@ class ResearchReportTests(unittest.TestCase):
 
     def test_live_imported_api_validates_input_output_and_artifact_paths(self):
         config, path, private = self.live_config()
-        output = private / "reports" / "research.html"
+        output = private / "dossiers" / "example" / "research.html"
         self.report.generate_report(path, output, mode="live")
         self.assertTrue(output.is_file())
         outside = self.base / "outside.json"

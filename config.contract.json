@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "repository_kind": "skill",
+  "configuration": "runtime-storage-only",
+  "rationale": "Purchase helpers use per-invocation input and a PRIVATE runtime storage root; they do not load a global product registry.",
+  "documentation": [
+    "README.md",
+    "README_CN.md",
+    "CONFIG.md",
+    "DATA.md"
+  ]
+}

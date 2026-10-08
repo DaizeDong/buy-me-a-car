@@ -65,7 +65,7 @@ def checked(root, relative):
     return path
 
 
-def files_under(root, relative):
+def files_under(root, relative, *, allow_vanished=False):
     start = checked(root, relative)
     if not start.exists():
         return []
@@ -74,11 +74,25 @@ def files_under(root, relative):
     result, pending = [], [start]
     while pending:
         directory = pending.pop()
-        for entry in sorted(directory.iterdir()):
+        try:
+            entries = sorted(directory.iterdir())
+        except FileNotFoundError:
+            if allow_vanished:
+                continue
+            raise
+        for entry in entries:
             path = checked(root, entry.relative_to(root).as_posix())
-            if path.is_dir():
+            try:
+                info = path.lstat()
+            except FileNotFoundError:
+                if allow_vanished:
+                    continue
+                raise
+            if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 1024:
+                raise ValueError("Retention refuses linked paths")
+            if stat.S_ISDIR(info.st_mode):
                 pending.append(path)
-            elif path.is_file():
+            elif stat.S_ISREG(info.st_mode) and info.st_nlink == 1:
                 result.append(path)
             else:
                 raise ValueError("Unsupported retention entry")
@@ -137,7 +151,7 @@ def enforce_capacity(root, relative, *, max_files=MAX_FILES, max_bytes=MAX_BYTES
     name = relative_name(relative)
     tool = json.loads((ROOT / "storage.contract.json").read_text(encoding="utf-8"))["tool"]
     if tool == "buy-me-a-car":
-        areas = ("audits", "diagnostics", "eval/model-runs", "browser-sessions", "playwright-mcp", "scratch")
+        areas = ("audits", "diagnostics", "eval/model-runs", "research-runs", "browser-sessions", "playwright-mcp", "scratch")
         if not any(name == a or name.startswith(a + "/") for a in areas):
             return
     else:
@@ -160,9 +174,18 @@ def enforce_capacity(root, relative, *, max_files=MAX_FILES, max_bytes=MAX_BYTES
             return
     count = size = 0
     for area in areas:
-        for path in files_under(root, area):
+        for path in files_under(root, area, allow_vanished=True):
+            # Atomic replacements can remove staging files during this advisory scan.
+            # Retirement plans use the strict default and still require stable inputs.
+            try:
+                info = path.lstat()
+            except FileNotFoundError:
+                continue
+            if (not stat.S_ISREG(info.st_mode) or info.st_nlink != 1
+                    or getattr(info, "st_file_attributes", 0) & 1024):
+                raise ValueError("Unsupported retention entry")
             count += 1
-            size += path.stat().st_size
+            size += info.st_size
             if count >= max_files or size >= max_bytes:
                 raise ValueError("Generated storage capacity reached; review and apply storage retirement before writing")
 
