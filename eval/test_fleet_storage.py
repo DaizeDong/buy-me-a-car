@@ -226,3 +226,55 @@ class ResolvedPathComparisonTests(TestCase):
             with self.assertRaisesRegex(ValueError, 'Retention path escaped DATA'):
                 storage.checked(self.base, 'research-runs/output.json')
         self.assertFalse(target.exists())
+
+
+class VanishedInodeTests(TestCase):
+    def setUp(self):
+        test_runtime_paths.RuntimePathsTests.setUp(self)
+        self.folder = self.base / 'research-runs'
+        self.folder.mkdir()
+        self.staging = self.folder / '.report.json-synthetic'
+        self.staging.write_text('synthetic staging')
+
+    def observe_links(self, phase, links, attributes=0):
+        original = Path.lstat
+        observations = 0
+        def lstat(path, *args, **kwargs):
+            nonlocal observations
+            info = original(path, *args, **kwargs)
+            if path == self.staging:
+                observations += 1
+                if observations == phase:
+                    return SimpleNamespace(st_mode=info.st_mode, st_nlink=links,
+                                           st_size=info.st_size, st_file_attributes=attributes)
+            return info
+        return patch.object(Path, 'lstat', lstat)
+
+    def test_capacity_tolerates_unlinked_inodes_at_each_metadata_stage(self):
+        from tools import storage_retention as storage
+        for phase in (1, 2, 3):
+            with self.subTest(phase=phase), self.observe_links(phase, 0):
+                storage.enforce_capacity(self.base, 'research-runs/next.json', max_files=1)
+        self.assertEqual(self.staging.read_text(), 'synthetic staging')
+
+    def test_retirement_refuses_unlinked_inodes_during_validation_or_enumeration(self):
+        from tools import storage_retention as storage
+        for phase in (1, 2):
+            with self.subTest(phase=phase), self.observe_links(phase, 0):
+                with self.assertRaises(FileNotFoundError):
+                    storage.files_under(self.base, 'research-runs')
+        self.assertEqual(self.staging.read_text(), 'synthetic staging')
+
+    def test_capacity_still_rejects_multiple_links_at_each_metadata_stage(self):
+        from tools import storage_retention as storage
+        for phase in (1, 2, 3):
+            with self.subTest(phase=phase), self.observe_links(phase, 2):
+                with self.assertRaisesRegex(ValueError, 'multiply linked|Unsupported retention entry'):
+                    storage.enforce_capacity(self.base, 'research-runs/next.json', max_files=1)
+
+    def test_zero_link_reparse_metadata_is_never_treated_as_vanished(self):
+        from tools import storage_retention as storage
+        for phase in (1, 2, 3):
+            with self.subTest(phase=phase), self.observe_links(phase, 0, attributes=1024):
+                with self.assertRaisesRegex(ValueError, 'linked paths|Unsupported retention entry'):
+                    storage.enforce_capacity(self.base, 'research-runs/next.json', max_files=1)
