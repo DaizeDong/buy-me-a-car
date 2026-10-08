@@ -10,6 +10,8 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ### Fixed
 
+- Skip ordinary files already unlinked during advisory capacity scans when
+  concurrent writers replace receipts; retirement still requires stable inputs.
 - Retry local atomic receipt renames briefly when Windows metadata readers hold
   the destination open. Each attempt rechecks artifact authorization; exhausted
   or unrelated errors preserve the previous state and remain visible.

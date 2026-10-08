@@ -51,6 +51,13 @@ def _resolved_for_comparison(path):
     return resolved
 
 
+def _require_single_link(info):
+    if info.st_nlink == 0:
+        raise FileNotFoundError("Retention entry disappeared during inspection")
+    if info.st_nlink != 1:
+        raise ValueError("Retention refuses multiply linked files")
+
+
 def checked(root, relative):
     root = Path(root).absolute()
     path = root / relative_name(relative)
@@ -68,8 +75,8 @@ def checked(root, relative):
             continue
         if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 1024:
             raise ValueError("Retention refuses linked paths")
-        if stat.S_ISREG(info.st_mode) and info.st_nlink != 1:
-            raise ValueError("Retention refuses multiply linked files")
+        if stat.S_ISREG(info.st_mode):
+            _require_single_link(info)
     resolved = _resolved_for_comparison(path)
     if resolved.is_relative_to(_resolved_for_comparison(ROOT)):
         raise ValueError("Runtime DATA cannot be inside the public tool")
@@ -94,21 +101,22 @@ def files_under(root, relative, *, allow_vanished=False):
                 continue
             raise
         for entry in entries:
-            path = checked(root, entry.relative_to(root).as_posix())
             try:
+                path = checked(root, entry.relative_to(root).as_posix())
                 info = path.lstat()
+                if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 1024:
+                    raise ValueError("Retention refuses linked paths")
+                if stat.S_ISDIR(info.st_mode):
+                    pending.append(path)
+                elif stat.S_ISREG(info.st_mode):
+                    _require_single_link(info)
+                    result.append(path)
+                else:
+                    raise ValueError("Unsupported retention entry")
             except FileNotFoundError:
                 if allow_vanished:
                     continue
                 raise
-            if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 1024:
-                raise ValueError("Retention refuses linked paths")
-            if stat.S_ISDIR(info.st_mode):
-                pending.append(path)
-            elif stat.S_ISREG(info.st_mode) and info.st_nlink == 1:
-                result.append(path)
-            else:
-                raise ValueError("Unsupported retention entry")
     return result
 
 
@@ -192,11 +200,12 @@ def enforce_capacity(root, relative, *, max_files=MAX_FILES, max_bytes=MAX_BYTES
             # Retirement plans use the strict default and still require stable inputs.
             try:
                 info = path.lstat()
+                if (not stat.S_ISREG(info.st_mode)
+                        or getattr(info, "st_file_attributes", 0) & 1024):
+                    raise ValueError("Unsupported retention entry")
+                _require_single_link(info)
             except FileNotFoundError:
                 continue
-            if (not stat.S_ISREG(info.st_mode) or info.st_nlink != 1
-                    or getattr(info, "st_file_attributes", 0) & 1024):
-                raise ValueError("Unsupported retention entry")
             count += 1
             size += info.st_size
             if count >= max_files or size >= max_bytes:
