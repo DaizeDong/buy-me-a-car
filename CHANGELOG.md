@@ -4,6 +4,10 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ## [Unreleased]
 
+### Documentation
+
+- Added matching English and Chinese purchase flowcharts, showing the initial buyer research HTML/PDF delivery before written quotes and the buyer-controlled steps through closing and handover.
+
 ### Storage review threshold
 - Set a 64 MiB companion working-data review threshold. Required observations and
   recovery state stay protected when the threshold is exceeded.
