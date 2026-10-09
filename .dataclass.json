@@ -58,10 +58,12 @@
     "eval/test_fleet_storage.py"
   ],
   "tool": [
-    "docs/superpowers/plans/*"
+    "docs/superpowers/plans/*",
+    "docs/diagrams/*"
   ],
   "_tool_reasons": {
     "docs/superpowers/plans/*": "Implementation plans for the tool, containing no actual purchase or user records."
   },
+  "_readme_diagrams": "TOOL: docs/diagrams/ contains generic workflow drawings, rendered PNGs and their render script; no buyer records or live purchase evidence.",
   "_data_home": "tools/runtime_paths.py delegates discovery to guards/tools/datadir.py, then proves PRIVATE GitHub visibility. Set BUY_ME_A_CAR_CONFIG to an initialized private companion; no repository or unversioned fallback."
 }

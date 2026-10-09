@@ -1,0 +1,41 @@
+// Public tool workflow; no buyer records or live purchase evidence.
+// Render with: python docs/diagrams/render.py
+digraph workflow {
+  graph [rankdir=LR, bgcolor="white", pad=0.12, nodesep=0.35, ranksep=0.24,
+         splines=polyline, outputorder=edgesfirst];
+  // Arial has no CJK glyphs in Graphviz's Windows renderer.
+  node [shape=box, style="rounded,filled", fontname="Microsoft YaHei", fontsize=15,
+        fontcolor="#0f172a", penwidth=1.6, margin="0.08,0.11"];
+  edge [fontname="Microsoft YaHei", fontsize=11, color="#64748b", fontcolor="#475569",
+        penwidth=1.4, arrowsize=0.65];
+
+  needs [label=<<b>关键需求</b><br/><font point-size="12">只补影响<br/>判断的缺口</font>>,
+         fillcolor="#eef2ff", color="#6366f1"];
+  market [label=<<b>市场与车源</b><br/><font point-size="12">查在售车辆<br/>与实际价格</font>>,
+          fillcolor="#f1f5f9", color="#475569"];
+  report [label=<<b>首份报告</b><br/><font point-size="12">HTML/PDF<br/>与候选清单</font>>,
+          fillcolor="#e0f2fe", color="#0284c7"];
+  quotes [label=<<b>审阅报价</b><br/><font point-size="12">书面落地价<br/>与议价草稿</font>>,
+          fillcolor="#fef9c3", color="#ca8a04"];
+  checks [label=<<b>车辆核查</b><br/><font point-size="12">看车、独立检查<br/>与保险比较</font>>,
+          fillcolor="#fef9c3", color="#ca8a04"];
+  decision [label=<<b>买家决定</b><br/><font point-size="12">更新报告<br/>与交车清单</font>>,
+            fillcolor="#fef9c3", color="#ca8a04"];
+  close [label=<<b>签约交车</b><br/><font point-size="12">按具体<br/>授权执行</font>>,
+         fillcolor="#dcfce7", color="#16a34a"];
+  pause [label=<<b>暂停或放弃</b><br/><font point-size="12">证据保留在<br/>私有记录中</font>>,
+         fillcolor="#fff1f2", color="#e11d48"];
+
+  needs -> market [color="#6366f1"];
+  market -> report [color="#0284c7"];
+  report -> quotes [label="按需", style=dashed, color="#ca8a04"];
+  report -> checks [label="按需", style=dashed, color="#ca8a04"];
+  quotes -> decision;
+  checks -> decision;
+  decision -> close [color="#16a34a"];
+  decision -> pause [color="#e11d48"];
+  decision -> quotes [xlabel="调整条件", style=dashed, color="#ca8a04", constraint=false];
+
+  { rank=same; quotes; checks; }
+  { rank=same; close; pause; }
+}

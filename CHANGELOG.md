@@ -6,6 +6,7 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ### Documentation
 
+- Replaced the bilingual Mermaid flowcharts with compact color PNGs and editable Graphviz sources.
 - Added matching English and Chinese purchase flowcharts, showing the initial buyer research HTML/PDF delivery before written quotes and the buyer-controlled steps through closing and handover.
 
 ### Storage review threshold

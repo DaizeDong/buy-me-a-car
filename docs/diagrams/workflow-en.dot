@@ -1,0 +1,40 @@
+// Public tool workflow; no buyer records or live purchase evidence.
+// Render with: python docs/diagrams/render.py
+digraph workflow {
+  graph [rankdir=LR, bgcolor="white", pad=0.12, nodesep=0.35, ranksep=0.24,
+         splines=polyline, outputorder=edgesfirst];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=15,
+        fontcolor="#0f172a", penwidth=1.6, margin="0.08,0.11"];
+  edge [fontname="Arial", fontsize=11, color="#64748b", fontcolor="#475569",
+        penwidth=1.4, arrowsize=0.65];
+
+  needs [label=<<b>Key needs</b><br/><font point-size="12">Fill material<br/>gaps only</font>>,
+         fillcolor="#eef2ff", color="#6366f1"];
+  market [label=<<b>Market scan</b><br/><font point-size="12">Live inventory<br/>+ prices</font>>,
+          fillcolor="#f1f5f9", color="#475569"];
+  report [label=<<b>First report</b><br/><font point-size="12">HTML/PDF<br/>+ shortlist</font>>,
+          fillcolor="#e0f2fe", color="#0284c7"];
+  quotes [label=<<b>Quote review</b><br/><font point-size="12">Written OTD<br/>+ draft terms</font>>,
+          fillcolor="#fef9c3", color="#ca8a04"];
+  checks [label=<<b>Vehicle checks</b><br/><font point-size="12">Visit · PPI<br/>+ insurance</font>>,
+          fillcolor="#fef9c3", color="#ca8a04"];
+  decision [label=<<b>Buyer decides</b><br/><font point-size="12">Update report<br/>+ checklist</font>>,
+            fillcolor="#fef9c3", color="#ca8a04"];
+  close [label=<<b>Close</b><br/><font point-size="12">Authorized<br/>handover</font>>,
+         fillcolor="#dcfce7", color="#16a34a"];
+  pause [label=<<b>Pause / exit</b><br/><font point-size="12">Keep private<br/>evidence</font>>,
+         fillcolor="#fff1f2", color="#e11d48"];
+
+  needs -> market [color="#6366f1"];
+  market -> report [color="#0284c7"];
+  report -> quotes [label="As needed", style=dashed, color="#ca8a04"];
+  report -> checks [label="As needed", style=dashed, color="#ca8a04"];
+  quotes -> decision;
+  checks -> decision;
+  decision -> close [color="#16a34a"];
+  decision -> pause [color="#e11d48"];
+  decision -> quotes [xlabel="Revise", style=dashed, color="#ca8a04", constraint=false];
+
+  { rank=same; quotes; checks; }
+  { rank=same; close; pause; }
+}

@@ -36,22 +36,15 @@
 
 完成初步市场和车源研究后，就交付比较表和买方研究 HTML/PDF，无需等经销商出具书面报价。买家决定继续时，后续工作沿用同一份私有购车记录。
 
-```mermaid
-flowchart TD
-    request["说出你的购车需求"] --> clarify["补齐影响判断的缺失信息<br/>复用已知需求"]
-    clarify --> research["评估可行性与市场价格<br/>查找实际车源"]
-    research --> report["交付买方研究 HTML/PDF<br/>比较表、候选清单与下一步"]
-    report -->|"按需继续"| quotes["审阅书面报价并核算落地总价<br/>准备议价草稿"]
-    report -->|"按需继续"| inspection["准备看车并核查车辆证据<br/>试驾、独立购前检查与保险比较"]
-    quotes --> preparation["更新报告与签约交车清单<br/>核对合同、保险保障与付款"]
-    inspection --> preparation
-    preparation --> decision{"买家作出决定"}
-    decision -->|"购买"| handover["按授权完成签约和交车<br/>核验车辆与文件"]
-    decision -->|"调整交易条件"| revise["返回报价审阅<br/>准备下一轮议价草稿"]
-    decision -->|"暂停或放弃购买"| pause["把研究和证据保留在<br/>私有购车记录中"]
-```
+<p align="center">
+  <a href="docs/diagrams/workflow-cn.png"><img width="760" src="docs/diagrams/workflow-cn.png" alt="购车流程：补齐关键需求，研究市场与车源，交付首份报告；按需核查报价、车辆和保险，由买家决定购买、调整或暂停。"></a>
+</p>
+
+[流程图源码](docs/diagrams/workflow-cn.dot) · [渲染脚本](docs/diagrams/render.py)
 
 报告保留未知费用和待补证据，并按具体车辆和购车阶段安排核查。联系卖方、预约、投保和作出购车承诺，都需要对应行动的授权。买家可以在任何阶段暂停或调整方向。
+
+报价审阅与车辆核查可以按需并行。签约交车前，核对合同、保险保障、付款、车辆和文件。
 
 ## 安装
 
