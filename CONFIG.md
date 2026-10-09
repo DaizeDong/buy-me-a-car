@@ -6,8 +6,10 @@ product registry or settings initializer. [DATA.md](DATA.md) owns output lifecyc
 
 ## Discovery and switching
 
-The first nonempty explicit environment selection is authoritative. A missing selection fails
-before writing; clear stale higher-priority variables before switching:
+The first nonempty explicit environment selection is authoritative. If that selected path is
+missing, resolution fails before writing rather than trying a lower-priority location. When no
+explicit selector is set, discovery continues through the sibling and home conventions below.
+Clear stale higher-priority variables before switching:
 
 1. `BUY_ME_A_CAR_DATA_DIR`: the exact `data` child of the PRIVATE companion.
 2. `BUY_ME_A_CAR_CONFIG`: the companion root.
@@ -43,6 +45,6 @@ The pinned Guards authorizer checks the source contract and version-control elig
 creating output parents. Retained historical paths do not authorize new writes. Add a reviewed
 producer, schema, consumer and recovery rule before introducing a new output kind.
 
-Opt-in research evaluation writes new records under `data/research-runs/` in the companion.
-The former `data/eval/` namespace is retained as historical retired material and cannot receive
-new writes. Restore current receipts and referenced inputs together before any continuation.
+Current evaluation output locations and continuation commands are documented in the
+[evaluation guide](eval/README.md). Follow [DATA.md](DATA.md) when retaining or restoring their
+receipts and referenced inputs.

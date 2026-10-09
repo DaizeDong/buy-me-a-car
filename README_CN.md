@@ -24,17 +24,15 @@
 
 完整操作规则见[主技能](skills/orchestrator/SKILL.md)和[默认报告工作流](skills/orchestrator/references/report_delivery.md)。
 
-## 它是什么（不是什么）
+## 适用范围
 
 一个主技能协调美国购车流程，15 个专项技能处理落地价计算、车辆历史审阅、置换估值、租赁比较、回信草稿和签约检查等任务。单个问题可以直接用专项技能，完整买车过程由主技能衔接。
-
-一般购车请求默认包含市场比较和买方研究 HTML/PDF。没有经销商书面报价时，研究仍可继续。对外经销商提案另有更严格的完整报价要求。
 
 这是一套助手技能包，使用宿主提供的搜索、浏览器和邮箱工具；它不安装 Gmail 接入、后台定时器或预约服务。外部行动能否执行，取决于实际集成和已有授权。
 
 ## 购车流程
 
-完成初步市场和车源研究后，就交付比较表和买方研究 HTML/PDF，无需等经销商出具书面报价。买家决定继续时，后续工作沿用同一份私有购车记录。
+一般购车请求默认包含比较表和买方研究 HTML/PDF，在完成初步市场和车源研究后交付，无需等经销商出具书面报价。对外经销商提案要求完整报价。买家决定继续时，后续工作沿用同一份私有购车记录。
 
 <p align="center">
   <a href="docs/diagrams/workflow-cn.png"><img width="760" src="docs/diagrams/workflow-cn.png" alt="购车流程：补齐关键需求，研究市场与车源，交付首份报告；按需核查报价、车辆和保险，由买家决定购买、调整或暂停。"></a>
@@ -42,7 +40,7 @@
 
 [流程图源码](docs/diagrams/workflow-cn.dot) · [渲染脚本](docs/diagrams/render.py)
 
-报告保留未知费用和待补证据，并按具体车辆和购车阶段安排核查。联系卖方、预约、投保和作出购车承诺，都需要对应行动的授权。买家可以在任何阶段暂停或调整方向。
+报告保留未知费用和待补证据，并按具体车辆和购车阶段安排核查。PPI 指独立购前检查。联系卖方、预约、投保和作出购车承诺，都需要对应行动的授权。买家可以在任何阶段暂停或调整方向。
 
 报价审阅与车辆核查可以按需并行。签约交车前，核对合同、保险保障、付款、车辆和文件。
 
@@ -86,7 +84,11 @@ python tools/runtime_paths.py --write
 python tools/runtime_paths.py cycles/example/criteria.md --write
 ```
 
-该路径以私有 DATA 为根。浏览器与抓取命令也应在已验证的私有购车目录执行。
+该路径以私有 DATA 为根。浏览器与抓取命令也应在已验证的私有购车目录执行。完整发现顺序、全部有效 fetch/push 目的地的验证、有效产物声明和安全切换步骤见 [CONFIG.md](CONFIG.md)。切换伴生仓根目录前，清除优先级更高的旧变量。
+
+### 私有存储生命周期
+
+[DATA.md](DATA.md)依据 [storage.contract.json](storage.contract.json)说明保留、恢复和生成文件写入限额。最终交付及其唯一引用证据保留在私有伴生仓；维护操作使用[保留工具](tools/storage_retention.py)。
 
 ## 60 秒上手
 
@@ -109,7 +111,7 @@ python tools/runtime_paths.py cycles/example/criteria.md --write
 | `buyer_research.html` | 查看需求、检索范围、车型取舍、车源、用途适配、运输、持有风险和推荐。 |
 | `buyer_research.pdf` | 阅读或打印经过检查的报告，包含下一步和来源。 |
 
-当前研究渲染器输出中文报告。缺少报价和未知成本会明确列出，不妨碍初次研究报告交付。联系卖方、预约和作出承诺，需要相应授权与可用集成。详见[交付工作流](skills/orchestrator/references/report_delivery.md)。
+当前研究渲染器输出中文报告。[交付工作流](skills/orchestrator/references/report_delivery.md)规定了分析内容、证据缺口、PDF 检查和部分交付的处理方式。
 
 ## 技能一览
 
@@ -333,7 +335,3 @@ python eval/test_rubric.py
 后续工作见 [ROADMAP.md](ROADMAP.md)，改动记录见 [CHANGELOG.md](CHANGELOG.md)。贡献请附上可复现的合成用例、适用时的当前来源，以及相关验证结果。提交 [issue](https://github.com/DaizeDong/buy-me-a-car/issues) 或 [pull request](https://github.com/DaizeDong/buy-me-a-car/pulls) 时，不要附带私有购车记录。
 
 采用 [MIT 许可](LICENSE)。
-
-运行数据的发现顺序、A/B 切换和私有仓校验见 [CONFIG.md](CONFIG.md)。路径按 `BUY_ME_A_CAR_DATA_DIR`、`BUY_ME_A_CAR_CONFIG`、`BUY_ME_A_CAR_CONFIG_DIR`、已证明的同级伴生仓、家目录约定顺序选择。切换前清除优先级更高的旧变量；输出始终在伴生仓的 `data` 子目录。
-
-生命周期与恢复规则见 [DATA.md](DATA.md)、[storage.contract.json](storage.contract.json) 和 [保留工具](tools/storage_retention.py)。写入前会核对全部有效 fetch/push 目的地和唯一产物归属。

@@ -1,9 +1,9 @@
 # Purchase DATA storage
 
 Real purchase inputs, reports, source captures and inbox state belong in a verified
-PRIVATE Git companion. tools/runtime_paths.py resolves BUY_ME_A_CAR_CONFIG or
-BUY_ME_A_CAR_DATA_DIR and proves repository visibility before access. Missing or
-unknown proof fails; there is no public or unversioned fallback.
+PRIVATE Git companion. Follow [CONFIG.md](CONFIG.md) to select and validate storage
+with `tools/runtime_paths.py`. Missing or unknown proof fails; there is no public
+or unversioned fallback.
 
 Final reports include user-selected synthetic acceptance cases. Their synthetic
 inputs do not make the requested final deliverable disposable. Preserve the final
@@ -54,8 +54,7 @@ purchase records, final reports and their source evidence are never evicted to
 make room. Review completed work and its recovery obligations before reclaiming
 capacity.
 
-Runtime storage selection is specified in [CONFIG.md](CONFIG.md). All new writes require the pinned Guards artifact authorizer; a retained retired path is never permission to write new data. Missing `data/` does not permit writing at the companion root.
-
-Opt-in research evaluation writes new records under `data/research-runs/` in the companion.
-The former `data/eval/` namespace is retained as historical retired material and cannot receive
-new writes. Restore current receipts and referenced inputs together before any continuation.
+[Opt-in evaluation](eval/README.md) writes current records under `data/research-runs/`
+in the companion. The former `data/eval/` namespace is retained as historical retired
+material and cannot receive new writes. Restore current receipts and referenced
+inputs together before any continuation.

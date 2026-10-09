@@ -1,7 +1,8 @@
-# Deliver a useful buying report without extra prompting
+# Buyer research report delivery
 
-Broad vehicle-selection requests include a buyer research packet. The user need
-not say "make it detailed", "compare candidates" or "generate a PDF" separately.
+Broad vehicle-selection requests include a comparison and buyer research HTML/PDF
+without an additional report request. The agent prepares the structured input from
+the research; the buyer need not assemble sources or fill a configuration file.
 Use the current private cycle and keep the same artifact paths when updating it.
 
 ## Progress from one request
@@ -26,7 +27,8 @@ Use the current private cycle and keep the same artifact paths when updating it.
    [dossier-builder](../../dossier-builder/SKILL.md) to render
    `buyer_research.html` and `buyer_research.pdf`. Do this during initial
    selection, without waiting for competing written OTD quotes.
-5. Inspect the rendered report, revise content or layout defects, then deliver
+5. Review the analysis and inspect every PDF page for readability and source
+   consistency. Revise content or layout defects, then deliver
    clickable artifacts with the decision, strongest alternatives, important
    unknowns and next action. Preserve research receipts separately from the
    buyer-facing report. Implementation logs are not the report itself.
@@ -68,7 +70,8 @@ adjustments, savings or a numerical score unsupported by the data.
   choices and defer location-dependent totals or affordability conclusions.
 - Missing PDF renderer: deliver the HTML and comparison with a specific PDF
   failure status. Fix or install the dependency within authorized scope; do not
-  claim PDF completion merely because an older file exists.
+  claim PDF completion merely because an older file exists. Continue the remaining
+  work; the full package is incomplete until a valid PDF is available.
 
 ## Keep generation manageable
 
