@@ -36,22 +36,15 @@ This is an agent skill package. It uses search, browser and mailbox tools suppli
 
 Initial market and inventory research produces the comparison and buyer research HTML/PDF, even before written dealer quotes arrive. The later stages use the same private buying cycle when the buyer chooses to continue.
 
-```mermaid
-flowchart TD
-    request["Describe the car you need"] --> clarify["Fill in material gaps<br/>Reuse known requirements"]
-    clarify --> research["Check feasibility and market prices<br/>Research actual inventory"]
-    research --> report["Deliver buyer research HTML/PDF<br/>Comparison, shortlist and next steps"]
-    report -->|"Continue as needed"| quotes["Review written quotes and itemized OTD<br/>Prepare negotiation drafts"]
-    report -->|"Continue as needed"| inspection["Plan visits and review vehicle evidence<br/>Test drive, PPI and insurance options"]
-    quotes --> preparation["Update the report and closing checklist<br/>Check contract, coverage and payment"]
-    inspection --> preparation
-    preparation --> decision{"Buyer's decision"}
-    decision -->|"Proceed"| handover["Authorized closing and handover<br/>Verify the vehicle and documents"]
-    decision -->|"Revise terms"| revise["Return to quote review<br/>Prepare the next negotiation draft"]
-    decision -->|"Pause or walk away"| pause["Keep the research and evidence<br/>in the private buying cycle"]
-```
+<p align="center">
+  <a href="docs/diagrams/workflow-en.png"><img width="760" src="docs/diagrams/workflow-en.png" alt="Car purchase workflow: requirements, market research and initial report, optional quote and vehicle checks, then the buyer's decision to close, revise or pause."></a>
+</p>
+
+[Diagram source](docs/diagrams/workflow-en.dot) · [Render script](docs/diagrams/render.py)
 
 Unknown costs and evidence gaps stay visible in the report. Vehicle checks follow the candidate and purchase stage; PPI means an independent pre-purchase inspection. Seller contact, bookings, binding insurance and purchase commitments require authorization for the specific action. The buyer can pause or change direction at any stage.
+
+Quote review and vehicle checks can run in parallel as needed. Before closing, verify the contract, coverage, payment, vehicle and documents.
 
 ## Install
 
