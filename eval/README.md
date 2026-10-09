@@ -42,9 +42,9 @@ The functional CI runs the offline checks on Windows and Ubuntu.
 ## Actual model evaluations
 
 The installed `llmcall` package and a verified PRIVATE companion repository are
-required. Configure the companion as described in the root README; receipts
+required. Configure the companion through [CONFIG.md](../CONFIG.md); receipts
 resolve through `tools/runtime_paths.py`. Raw inputs, replies, provider identities
-and review decisions are written under private `eval/model-runs/` only.
+and review decisions are written under private `research-runs/` only (relative to the companion DATA root).
 
 ```bash
 python eval/test_rubric.py --llm -v
@@ -105,7 +105,7 @@ If all writing finished and a known rendering check failed before review, repair
 and reverify the deterministic artifacts, then resume only the first review:
 
 ```sh
-python eval/run_report_pipeline.py --resume-review eval/model-runs/report-example --llm -v
+python eval/run_report_pipeline.py --resume-review research-runs/report-example --llm -v
 ```
 
 Resume requires unchanged config/packet evidence and successful, hash-matching
@@ -118,7 +118,7 @@ out, first reconcile that pure-analysis attempt. An explicit continuation can
 preserve completed work in a new run:
 
 ```sh
-python eval/run_report_pipeline.py --continue-writers eval/model-runs/report-example --llm -v
+python eval/run_report_pipeline.py --continue-writers research-runs/report-example --llm -v
 ```
 
 This mode locks and validates the terminal parent, its unchanged packet and
@@ -137,7 +137,7 @@ If all writing and artifact checks passed, but the final reviewer timed out
 without returning text, explicitly continue that reconciled attempt in a new run:
 
 ```sh
-python eval/run_report_pipeline.py --continue-review eval/model-runs/report-example --llm -v
+python eval/run_report_pipeline.py --continue-review research-runs/report-example --llm -v
 ```
 
 This requires a terminal `review_uncertain` receipt with an uncertainty error and
@@ -165,7 +165,7 @@ explicit local operator reconciliation, not signed provider proof. Its path and
 hash are recorded in the child. It never overrides nonempty stored review text.
 
 Before starting a review child, the runner writes a one-use claim under private
-`eval/model-runs/review-continuations/`, keyed by the parent receipt hash. A later
+`research-runs/review-continuations/`, keyed by the parent receipt hash. A later
 attempt to use that same parent is rejected even if the child was rejected or the
 process stopped before starting it. Inspect the recorded child and reconcile its
 state; do not delete a claim to obtain another review. No claim or output is

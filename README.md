@@ -24,17 +24,15 @@ A useful buying decision needs comparable costs, vehicle evidence and a next ste
 
 The operating rules live in the [main skill](skills/orchestrator/SKILL.md) and [default report workflow](skills/orchestrator/references/report_delivery.md).
 
-## What it is (and isn't)
+## Scope
 
 One orchestrator coordinates a US buying cycle; 15 focused skills handle individual jobs such as OTD math, CARFAX review, trade-in valuation, lease comparisons, dealer drafts and closing checks. Use a narrow skill for a single question, or let the orchestrator carry the cycle forward.
-
-A broad buying request includes a market comparison and buyer research HTML/PDF by default. Research can proceed before written dealer quotes exist. An outward dealer proposal has a separate, stricter complete-quote requirement.
 
 This is an agent skill package. It uses search, browser and mailbox tools supplied by the host; it does not install Gmail access, a background scheduler or a booking service. Availability and authorization determine which external actions can run.
 
 ## Purchase workflow
 
-Initial market and inventory research produces the comparison and buyer research HTML/PDF, even before written dealer quotes arrive. The later stages use the same private buying cycle when the buyer chooses to continue.
+A broad buying request includes a comparison and buyer research HTML/PDF after initial market and inventory research, even before written dealer quotes arrive. An outward dealer proposal requires complete quotes. Later stages use the same private buying cycle when the buyer chooses to continue.
 
 <p align="center">
   <a href="docs/diagrams/workflow-en.png"><img width="760" src="docs/diagrams/workflow-en.png" alt="Car purchase workflow: requirements, market research and initial report, optional quote and vehicle checks, then the buyer's decision to close, revise or pause."></a>
@@ -86,7 +84,11 @@ Real criteria, captures, quotes, inbox state, PDFs, feedback and evaluation rece
 python tools/runtime_paths.py cycles/example/criteria.md --write
 ```
 
-This path is relative to private DATA. Run browser and scraping captures from the verified private cycle directory too.
+This path is relative to private DATA. Run browser and scraping captures from the verified private cycle directory too. For the full discovery order, validation of every effective fetch/push destination, active output declarations and safe companion switching, follow [CONFIG.md](CONFIG.md). Clear stale higher-priority selectors before changing the companion root.
+
+### Private storage lifecycle
+
+[DATA.md](DATA.md) defines retention, recovery and generated-storage admission limits under [storage.contract.json](storage.contract.json). Keep final deliverables and their unique cited evidence in the PRIVATE companion.
 
 ## 60-second tour
 
@@ -109,7 +111,7 @@ Your private research package includes:
 | `buyer_research.html` | Review requirements, search coverage, model alternatives, listings, suitability, logistics, ownership risks and recommendations. |
 | `buyer_research.pdf` | Read or print the checked report, including next steps and sources. |
 
-The current research renderer produces Chinese reports. Missing quotes and unknown costs remain visible; they do not prevent an initial research report. Seller outreach, bookings and commitments require the relevant authorization and working integrations. See the [delivery workflow](skills/orchestrator/references/report_delivery.md).
+The current research renderer produces Chinese reports. The [delivery workflow](skills/orchestrator/references/report_delivery.md) defines the required analysis, evidence gaps, PDF review and partial-delivery handling.
 
 ## Skills at a glance
 
@@ -333,9 +335,3 @@ English (`README.md`, authoritative) and Chinese (`README_CN.md`) mirror the sam
 See [ROADMAP.md](ROADMAP.md) for remaining work and [CHANGELOG.md](CHANGELOG.md) for changes. Contributions should include reproducible synthetic cases, current sources where applicable and the relevant validation results. Open an [issue](https://github.com/DaizeDong/buy-me-a-car/issues) or a [pull request](https://github.com/DaizeDong/buy-me-a-car/pulls) without private purchase records.
 
 Released under the [MIT license](LICENSE).
-
-## Private storage lifecycle
-
-See [DATA.md](DATA.md) and [storage.contract.json](storage.contract.json) for core outputs, reviewed retirement, recovery and generated-storage admission limits. Keep final deliverables and their unique cited evidence in the PRIVATE companion.
-
-Exact discovery order, safe A/B switching and PRIVATE proof are documented in [CONFIG.md](CONFIG.md): `BUY_ME_A_CAR_DATA_DIR`, `BUY_ME_A_CAR_CONFIG`, `BUY_ME_A_CAR_CONFIG_DIR`, proven sibling, then home conventions. Clear stale higher-priority pointers before switching. All outputs use the companion `data` child and require a unique active source-owned artifact declaration. Every effective fetch and push destination must prove PRIVATE.

@@ -17,10 +17,9 @@ listings, applicable manufacturer offers and official specification, warranty an
 tax sources. Retain source artifacts and distinguish asking prices, conditional
 advertisements, estimates, owner reports and written OTD offers.
 
-The default result of Phases 2 and 3 is a buyer-facing research package, including
-HTML and PDF, described below. A request to help buy a car includes preparing that
-package once the research is ready; do not wait for a second request to expand the
-analysis or generate the PDF. It does not authorize seller contact or purchases.
+Phases 2 and 3 produce the initial comparison and buyer research HTML/PDF under
+the [report-delivery contract](report_delivery.md). This research can proceed
+without written quotes and does not authorize seller contact or purchases.
 
 ## Phase 3: Inventory
 
@@ -78,19 +77,11 @@ the following sections in order:
    visit or decision, with a source or person to check and the decision it affects.
    Distinguish research that can continue now from contact requiring authorization.
 
-Use [dossier-builder](../../dossier-builder/SKILL.md) to produce the buyer research
-HTML and PDF from this evidence, by default `buyer_research.html` and
-`buyer_research.pdf` in the same private cycle. Follow its current research schema
-and CLI rather than copying a dealer-proposal config. Research does not require
-two written OTD quotes. Show missing quotes and costs as gaps while delivering the
-supported analysis. A dealer proposal has a separate, stricter evidence contract.
-
-Inspect every PDF page for clipping, readable tables, useful comparisons and
-consistent source references. Return links to the Markdown, HTML and PDF with the
-shortlist conclusion and material limitations. If rendering fails, deliver the
-available research files and report the PDF failure explicitly; the full package
-remains incomplete until a valid PDF is available. A routing or acceptance-test
-receipt is not this buyer deliverable.
+Render `buyer_research.html` and `buyer_research.pdf` in the same private cycle
+using [dossier-builder](../../dossier-builder/SKILL.md)'s research schema and CLI.
+Follow [report delivery](report_delivery.md) for required analysis, page review,
+artifact links and partial-delivery handling. Dealer proposals use a separate
+schema with stricter quote requirements.
 
 ## Phase 4: Outreach
 

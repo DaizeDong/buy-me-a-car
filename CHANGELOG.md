@@ -6,8 +6,8 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ### Documentation
 
-- Replaced the bilingual Mermaid flowcharts with compact color PNGs and editable Graphviz sources.
-- Added matching English and Chinese purchase flowcharts, showing the initial buyer research HTML/PDF delivery before written quotes and the buyer-controlled steps through closing and handover.
+- Replaced the bilingual Mermaid flowcharts with compact color PNGs and editable Graphviz sources. They show the initial buyer research HTML/PDF before written quotes and buyer-authorized steps through closing and handover.
+- Consolidated report-delivery and storage guidance, corrected evaluation output paths, and aligned the email-format reference with the approved-offer and private-ceiling rules.
 
 ### Storage review threshold
 - Set a 64 MiB companion working-data review threshold. Required observations and
@@ -23,7 +23,7 @@ All notable changes to this project are documented here (Keep a Changelog style)
 - Compare equivalent Windows extended paths consistently when capacity scans
   race sibling staging-file renames; actual DATA escapes remain rejected.
 - Prove all effective companion fetch/push destinations, require source-owned active output declarations, and retain the `data` child in alternate installation layouts.
-- Declare runtime-storage-only configuration and document exact precedence and safe companion switching in both README editions.
+- Declare runtime-storage-only configuration; document exact precedence and safe companion switching in CONFIG.md, linked from both README editions.
 
 - Align storage declarations with the whole companion repository while retaining
   DATA-relative native retirement plans; nested development material cannot
