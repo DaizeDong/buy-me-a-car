@@ -23,7 +23,14 @@ class DataBoundaryError(RuntimeError):
     """A real output destination lacks a verifiable private boundary."""
 
 
+_VISIBILITY_PREFIX = ['gh', 'api', '--hostname', 'github.com']
+_VISIBILITY_SUFFIX = ['--jq', '.private']
+
+
 def _run(command: list[str]) -> str:
+    if (len(command) == 7 and list(command[:4]) == _VISIBILITY_PREFIX and list(command[5:]) == _VISIBILITY_SUFFIX
+            and isinstance(command[4], str) and command[4].startswith('repos/')):
+        return _github_private(command[4][len('repos/'):])
     try:
         result = subprocess.run(command, capture_output=True, text=True,
                                 encoding='utf-8', errors='strict', timeout=20,
@@ -34,6 +41,24 @@ def _run(command: list[str]) -> str:
         # Do not echo command arguments, remote URLs or auth diagnostics.
         raise DataBoundaryError(f'Cannot verify private DATA destination: {command[0]} exited {result.returncode}.')
     return result.stdout.strip()
+
+
+def _github_private(repository: str) -> str:
+    """Live PRIVATE answer for OWNER/NAME, independent of the ACTIVE gh account.
+
+    A plain `gh api repos/OWNER/NAME` asks only with whichever account `gh auth switch` last
+    selected, so an active account that cannot see the companion failed every proof closed. The
+    pinned guards kit asks with the owner's stored account, then every other stored account, then
+    gh's default, and refuses only when none can see it. Returns 'true' only for PRIVATE."""
+    api = _guard_module('data_boundary')
+    ask = getattr(api, 'query_github_visibility', None)
+    if not callable(ask):
+        raise DataBoundaryError('Guards dependency lacks the account-independent visibility API.')
+    try:
+        visibility = ask(repository)
+    except api.GitError as exc:
+        raise DataBoundaryError('Cannot verify private DATA destination: no gh credential can see it.') from exc
+    return 'true' if visibility == 'PRIVATE' else 'false'
 
 
 def _inside(path: Path, root: Path) -> bool:
