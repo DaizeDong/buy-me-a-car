@@ -8,15 +8,13 @@ product registry or settings initializer. [DATA.md](DATA.md) owns output lifecyc
 
 The first nonempty explicit environment selection is authoritative. If that selected path is
 missing, resolution fails before writing rather than trying a lower-priority location. When no
-explicit selector is set, discovery continues through the sibling and home conventions below.
+explicit selector is set, discovery continues to the sibling convention below; there is no home-directory location.
 Clear stale higher-priority variables before switching:
 
 1. `BUY_ME_A_CAR_DATA_DIR`: the exact `data` child of the PRIVATE companion.
 2. `BUY_ME_A_CAR_CONFIG`: the companion root.
 3. `BUY_ME_A_CAR_CONFIG_DIR`: companion-root alias.
 4. A proven sibling `buy-me-a-car-config` discovered by pinned Guards.
-5. `~/.buy-me-a-car-config`.
-6. Legacy `~/.buy-me-a-car-data`, only when it contains the required companion `data` child.
 
 All layouts use `<companion>/data`; a missing child does not move output to the root.
 Initialize and commit the separate PRIVATE companion, authenticate `gh`, then point one
