@@ -28,7 +28,7 @@ installed skill link to its source before following relative references.
    need explicit scope and awareness of their cancellation fees.
 5. Preserve the provider's booking receipt. A prepared form or timeout is not a
    confirmed appointment. Reconcile uncertain execution before retrying.
-6. Store real booking details and inspection reports in verified private DATA.
+6. Store real booking details and inspection reports in private DATA.
    Share only the information necessary for the authorized appointment.
 7. Read the report, separate urgent safety/mechanical issues from maintenance and
    cosmetic observations, and obtain written repair estimates where needed.

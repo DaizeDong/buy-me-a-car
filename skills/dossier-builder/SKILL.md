@@ -34,7 +34,7 @@ questionnaire or validation log. Use the
 python skills/orchestrator/scripts/generate_research_report.py --mode live --config cycles/session/research_config.json --output cycles/session/buyer_research.html --to-pdf cycles/session/buyer_research.pdf
 ```
 
-Live relative paths resolve under verified private DATA. Keep
+Live relative paths resolve under private DATA. Keep
 `master_comparison.md` alongside the report. When a scenario has fictional buyer
 criteria but real source observations, use live private storage and label every
 fictional criterion as an assumption; never turn observed inventory into public
@@ -57,8 +57,8 @@ whether a dealer still honors its terms. Read the sources before making claims.
   labeled as a synthetic demonstration that must not be presented as real.
   Changing a fixture to include personal information is rejected.
 - `live` requires a current config, evidence files, and output files under the
-  proven private companion DATA directory. Missing initialization, public or
-  unknown repository visibility, and paths outside that directory fail.
+  private companion DATA directory. Missing initialization and paths outside
+  that directory fail.
 
 Do not turn the demo into a real proposal by changing only its mode. Replace
 fictional input with researched facts and buyer-approved statements, and bind

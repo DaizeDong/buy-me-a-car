@@ -17,9 +17,11 @@ Clear stale higher-priority variables before switching:
 4. A proven sibling `buy-me-a-car-config` discovered by pinned Guards.
 
 All layouts use `<companion>/data`; a missing child does not move output to the root.
-Initialize and commit the separate PRIVATE companion, authenticate `gh`, then point one
-selection at it. All effective fetch and push destinations must prove PRIVATE. Public,
-unknown, unborn, ignored, undeclared and retired output targets fail before parent creation.
+Initialize the separate PRIVATE companion, then point one selection at it. Writes are
+checked by path only: the target must stay inside `<companion>/data`, outside this source
+tree, without traversal, links that escape, `.git` components or nested repositories. The
+runtime does not query repository visibility; PRIVATE publication is enforced at commit time
+by the Guards hooks and CI.
 
 To switch A to B in PowerShell:
 
@@ -32,16 +34,16 @@ python tools/doctor.py --private
 ```
 
 For POSIX shells, use `unset BUY_ME_A_CAR_DATA_DIR BUY_ME_A_CAR_CONFIG_DIR` and
-`export BUY_ME_A_CAR_CONFIG="<private-companion-B>"`. The path command performs admission
-without writing a purchase record. The doctor reports local dependencies separately from
-PRIVATE proof; neither command proves mailbox, scheduler, model, PDF or real purchase outcomes.
+`export BUY_ME_A_CAR_CONFIG="<private-companion-B>"`. The path command checks the destination
+without writing a purchase record. The doctor reports local dependencies separately from the
+companion location; neither command proves mailbox, scheduler, model, PDF or real purchase outcomes.
 
 ## Output ownership
 
-Every write must match exactly one active declaration in [storage.contract.json](storage.contract.json).
-The pinned Guards authorizer checks the source contract and version-control eligibility before
-creating output parents. Retained historical paths do not authorize new writes. Add a reviewed
-producer, schema, consumer and recovery rule before introducing a new output kind.
+Every output kind should have one active declaration in [storage.contract.json](storage.contract.json).
+The runtime does not admit writes against the contract; it confines them to the companion by path
+before creating output parents. Add a reviewed producer, schema, consumer and recovery rule before
+introducing a new output kind.
 
 Current evaluation output locations and continuation commands are documented in the
 [evaluation guide](eval/README.md). Follow [DATA.md](DATA.md) when retaining or restoring their

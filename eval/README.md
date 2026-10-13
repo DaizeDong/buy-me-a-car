@@ -41,7 +41,7 @@ The functional CI runs the offline checks on Windows and Ubuntu.
 
 ## Actual model evaluations
 
-The installed `llmcall` package and a verified PRIVATE companion repository are
+The installed `llmcall` package and a PRIVATE companion repository are
 required. Configure the companion through [CONFIG.md](../CONFIG.md); receipts
 resolve through `tools/runtime_paths.py`. Raw inputs, replies, provider identities
 and review decisions are written under private `research-runs/` only (relative to the companion DATA root).
@@ -88,7 +88,7 @@ python eval/run_report_pipeline.py --packet dossiers/example/pipeline_packet.jso
 
 `research_data` uses the [research schema](../skills/dossier-builder/references/research_schema.md)
 without `title`, `decision_summary` or `sections`. All source captures must already
-have verified private artifact paths and hashes. Keep the user prompt as the
+have private artifact paths and hashes. Keep the user prompt as the
 ordinary buying request; do not add an expansion or PDF request for this test.
 
 The planner reads the shipped workflow and selects the default deliverables.

@@ -27,7 +27,7 @@ scratch/
 *.local.md
 *.local.txt
 
-# Real purchase DATA belongs in a verified PRIVATE companion Git repository.
+# Real purchase DATA belongs in a PRIVATE companion Git repository.
 # These ignores are advisory only; tools/check_repository.py rejects physical DATA here.
 # Do not write user-generated trackers/PDFs/prep files inside this public worktree.
 *.pdf

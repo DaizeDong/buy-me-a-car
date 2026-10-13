@@ -1,6 +1,6 @@
 # Phase references
 
-Begin in a verified private cycle directory. All capture paths in these phases
+Begin in a private cycle directory. All capture paths in these phases
 refer to that directory. The source repository contains only the tool and
 generated synthetic fixtures.
 
@@ -40,7 +40,7 @@ price, dealer, location, listing URL and conditional pricing. Never join separat
 global arrays of prices and VINs by position. Preserve missing fields as unknown;
 do not infer an all-in price from an advertised price.
 
-The read-only browser snippet `scripts/extract_inventory.js` extracts connected Cars.com cards and generic vehicle JSON-LD. Run it through the host browser code tool with the script filename, then store its returned payload under verified private DATA. It explicitly reports one-page partial coverage and missing fields. Other DOM layouts need an adapter; zero records is not success.
+The read-only browser snippet `scripts/extract_inventory.js` extracts connected Cars.com cards and generic vehicle JSON-LD. Run it through the host browser code tool with the script filename, then store its returned payload under private DATA. It explicitly reports one-page partial coverage and missing fields. Other DOM layouts need an adapter; zero records is not success.
 
 Paginate until the site signals the end, a verified duplicate page occurs, or a
 documented budget/block stops the run. Retain the coverage boundary. Open detail

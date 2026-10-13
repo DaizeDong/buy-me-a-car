@@ -1,5 +1,5 @@
 async (page) => {
-  // Read-only extraction. Store the returned records only in verified private DATA.
+  // Read-only extraction. Store the returned records only in private DATA.
   return await page.evaluate(() => {
     const records = [];
     const errors = [];

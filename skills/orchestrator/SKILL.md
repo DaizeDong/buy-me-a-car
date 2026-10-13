@@ -20,13 +20,13 @@ corresponding transaction evidence.
    available dependencies and integrations.
 3. Before capturing any real criteria, web page, inbox content or feedback, run
    `python tools/runtime_paths.py --write`. It must identify a PRIVATE companion.
-   Missing initialization or uncertain visibility blocks writes. A read-only
+   Missing initialization blocks writes. A read-only
    check may report uninitialized without error.
 4. Use a private `cycles/<cycle-id>/` directory under that DATA root. Resolve
    individual paths with `tools/runtime_paths.py cycles/<cycle-id>/criteria.md --write`.
-   Create the returned parent directory only after proof. Copy blank templates
+   Create the returned parent directory only after that check. Copy blank templates
    there, then fill them. All relative capture paths below are relative to this
-   verified private cycle directory, never the public tool repository.
+   private cycle directory, never the public tool repository.
 5. Read [requirements](references/requirements.md), confirm missing material
    decisions, and continue within the buyer's existing authorization.
 

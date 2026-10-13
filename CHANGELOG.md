@@ -4,6 +4,9 @@ All notable changes to this project are documented here (Keep a Changelog style)
 
 ## [Unreleased]
 
+### Changed
+- Removed the runtime PRIVATE proof. `tools/runtime_paths.py` no longer calls `prove_private_companion`, `gh api` visibility queries, `ssh -G` alias resolution or `authorize_artifact_write`; it resolves the companion through the pinned Guards resolver and checks each destination by path only (inside `<companion>/data`, outside this repository, no traversal, escaping links, `.git` components or nested repositories). Writes still fail when the companion is uninitialized. PRIVATE publication is enforced at commit time by the Guards hooks and CI. Proof-only tests, `tools/test_support.py` and `eval/test_visibility_any_gh_account.py` were removed and the fleet storage fixture was regenerated.
+
 ### Fixed
 - The live PRIVATE visibility check no longer depends on which gh account is active: it asks through the pinned guards kit's `query_github_visibility`, which tries the owner's stored account, every other stored account, then gh's default, and never switches the active account. Before, an active account that could not see the companion made every proof fail closed. Only PRIVATE is accepted.
 

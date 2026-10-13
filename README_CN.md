@@ -20,7 +20,7 @@
 2. **把研究交付完整。** 复用已知需求，集中询问会影响判断的缺失信息，并直接把研究整理成比较表和 HTML/PDF 报告。
 3. **由买家控制行动。** 内部最高预算与获准对外提出的价格分开。草稿必须有证据，联系卖方、预约和其他对外承诺需要相应授权。
 4. **让证据可追溯。** 保存来源日期、原始材料、访问受阻情况和相互冲突的记录。采集到车源只说明当时看到了什么，不保证现在仍在售。
-5. **把购车记录留在私有仓。** 公开仓库是一件未初始化的工具。真实需求、报价和报告属于买家已验证为私有的伴生 Git 仓库。
+5. **把购车记录留在私有仓。** 公开仓库是一件未初始化的工具。真实需求、报价和报告属于买家的私有伴生 Git 仓库。
 
 完整操作规则见[主技能](skills/orchestrator/SKILL.md)和[默认报告工作流](skills/orchestrator/references/report_delivery.md)。
 
@@ -46,7 +46,7 @@
 
 ## 安装
 
-需要 Python 3.10 以上、Git 和完整子模块。通过下面的命令安装 YAML/PDF 依赖，使用 Chromium 或 Edge 渲染 PDF。验证私有存储还需要 GitHub CLI（`gh`）。
+需要 Python 3.10 以上、Git 和完整子模块。通过下面的命令安装 YAML/PDF 依赖，使用 Chromium 或 Edge 渲染 PDF。
 
 ```sh
 git clone --recurse-submodules https://github.com/DaizeDong/buy-me-a-car.git
@@ -64,7 +64,7 @@ python tools/doctor.py
 
 ## 配置
 
-在公开工作树之外创建或克隆一个**私有 GitHub 伴生仓库**，建立其中的 `data` 目录，并完成 `gh` 认证。将 `BUY_ME_A_CAR_CONFIG` 设为该伴生仓的根目录：
+在公开工作树之外创建或克隆一个**私有 GitHub 伴生仓库**，建立其中的 `data` 目录。将 `BUY_ME_A_CAR_CONFIG` 设为该伴生仓的根目录：
 
 ```powershell
 $env:BUY_ME_A_CAR_CONFIG = "<private-companion-root>"
@@ -76,7 +76,7 @@ POSIX shell 使用 `export BUY_ME_A_CAR_CONFIG="<private-companion-root>"`。然
 python tools/runtime_paths.py --write
 ```
 
-解析器会标明已验证的私有仓和 DATA 路径。公开仓、可见性未知、目录缺失或未纳入版本管理的目标均被拒绝。可选读取可以报告 `UNINITIALIZED`，写入必须先证明存储位置私有。
+解析器会标明伴生仓和 DATA 路径。落在该 DATA 目录之外或本仓之内的目标会被拒绝；运行时不查询仓库可见性，PRIVATE 发布由 Guards 提交钩子和 CI 在提交时把关。可选读取可以报告 `UNINITIALIZED`，写入必须先有已初始化的伴生仓。
 
 真实需求、采集材料、报价、邮件状态、PDF、反馈和评测回执，都保存在这个私有 Git 仓库中，沿用其版本管理与备份流程。没有退回公开工作树的备用路径。复制空白模板或填写记录前，先解析目标位置：
 
@@ -84,7 +84,7 @@ python tools/runtime_paths.py --write
 python tools/runtime_paths.py cycles/example/criteria.md --write
 ```
 
-该路径以私有 DATA 为根。浏览器与抓取命令也应在已验证的私有购车目录执行。完整发现顺序、全部有效 fetch/push 目的地的验证、有效产物声明和安全切换步骤见 [CONFIG.md](CONFIG.md)。切换伴生仓根目录前，清除优先级更高的旧变量。
+该路径以私有 DATA 为根。浏览器与抓取命令也应在私有购车目录执行。完整发现顺序、路径检查、产物声明和安全切换步骤见 [CONFIG.md](CONFIG.md)。切换伴生仓根目录前，清除优先级更高的旧变量。
 
 ### 私有存储生命周期
 

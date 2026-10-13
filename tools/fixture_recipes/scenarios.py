@@ -90,7 +90,7 @@ def build():
                        '\n'.join(f'- {criterion}' for criterion in case['criteria'].values())
                        for case in alaska_cases)
         + '\n\nRun `python eval/run_scenarios.py --llm` for actual responses and independent review. '
-          'Receipts stay in the verified private companion. Offline checks alone do not demonstrate model behavior.\n'
+          'Receipts stay in the private companion. Offline checks alone do not demonstrate model behavior.\n'
     ).encode('utf-8')
     scenarios = [
         ('01_used_outback_ct_cash', 'Used SUV, cash, CT', 'Cash, used vehicle, no trade.', 'Verify the Connecticut tax and fee fields before computing. Request a written comparable quote and an independent inspection.'),

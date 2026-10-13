@@ -5,7 +5,7 @@
 **Started:** {YYYY-MM-DD}
 **Target Vehicle:** {YEAR_RANGE} {MAKE} {MODEL} {TRIM_LIST}, under {MILEAGE_CAP} mi, budget {OTD_RANGE}
 
-This is a blank shape. Copy it to verified private DATA before entering real records. Keep source artifacts, account/message/operation IDs, authorization and provider receipts with each entry.
+This is a blank shape. Copy it to private DATA before entering real records. Keep source artifacts, account/message/operation IDs, authorization and provider receipts with each entry.
 
 ---
 

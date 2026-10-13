@@ -1,6 +1,6 @@
 # Private cycle feedback template
 
-This file describes the shape only. Copy it into the verified private cycle directory before filling it. Never record a real cycle in this asset, an example, a public issue, or a public changelog.
+This file describes the shape only. Copy it into the private cycle directory before filling it. Never record a real cycle in this asset, an example, a public issue, or a public changelog.
 
 - Event ID: {stable unique identifier for this observation}
 - Cycle ID and criteria revision: {private identifiers}

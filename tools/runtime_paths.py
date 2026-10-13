@@ -1,7 +1,8 @@
-"""Resolve real purchase output through the pinned guard and prove it is private.
+"""Resolve real purchase output through the pinned guard, by path checks only.
 
-No in-repository or unversioned fallback is permitted. Visibility is checked
-against GitHub on each resolution; unavailable or ambiguous proof is an error.
+No in-repository fallback is permitted. The runtime runs no git or gh subprocess
+and does not query repository visibility; PRIVATE publication of the companion is
+enforced at commit time by the Guards hooks and CI.
 """
 from __future__ import annotations
 
@@ -10,55 +11,14 @@ import importlib.util
 import ntpath
 import os
 from pathlib import Path
-import re
-import subprocess
 import sys
-from urllib.parse import urlsplit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SKILL = 'buy-me-a-car'
 
 
 class DataBoundaryError(RuntimeError):
-    """A real output destination lacks a verifiable private boundary."""
-
-
-_VISIBILITY_PREFIX = ['gh', 'api', '--hostname', 'github.com']
-_VISIBILITY_SUFFIX = ['--jq', '.private']
-
-
-def _run(command: list[str]) -> str:
-    if (len(command) == 7 and list(command[:4]) == _VISIBILITY_PREFIX and list(command[5:]) == _VISIBILITY_SUFFIX
-            and isinstance(command[4], str) and command[4].startswith('repos/')):
-        return _github_private(command[4][len('repos/'):])
-    try:
-        result = subprocess.run(command, capture_output=True, text=True,
-                                encoding='utf-8', errors='strict', timeout=20,
-                                check=False)
-    except (OSError, ValueError, UnicodeError, subprocess.TimeoutExpired) as exc:
-        raise DataBoundaryError(f'Cannot verify private DATA destination: {command[0]} unavailable or failed.') from exc
-    if result.returncode:
-        # Do not echo command arguments, remote URLs or auth diagnostics.
-        raise DataBoundaryError(f'Cannot verify private DATA destination: {command[0]} exited {result.returncode}.')
-    return result.stdout.strip()
-
-
-def _github_private(repository: str) -> str:
-    """Live PRIVATE answer for OWNER/NAME, independent of the ACTIVE gh account.
-
-    A plain `gh api repos/OWNER/NAME` asks only with whichever account `gh auth switch` last
-    selected, so an active account that cannot see the companion failed every proof closed. The
-    pinned guards kit asks with the owner's stored account, then every other stored account, then
-    gh's default, and refuses only when none can see it. Returns 'true' only for PRIVATE."""
-    api = _guard_module('data_boundary')
-    ask = getattr(api, 'query_github_visibility', None)
-    if not callable(ask):
-        raise DataBoundaryError('Guards dependency lacks the account-independent visibility API.')
-    try:
-        visibility = ask(repository)
-    except api.GitError as exc:
-        raise DataBoundaryError('Cannot verify private DATA destination: no gh credential can see it.') from exc
-    return 'true' if visibility == 'PRIVATE' else 'false'
+    """A real output destination is not inside the private companion."""
 
 
 def _inside(path: Path, root: Path) -> bool:
@@ -87,91 +47,23 @@ def _guard_data_dir() -> Path | None:
     try:
         result = module.resolve_data_dir(SKILL, create=False)
     except (RuntimeError, OSError, ValueError) as exc:
-        raise DataBoundaryError('The shared guard could not prove the companion. Check BUY_ME_A_CAR_CONFIG and its origin.') from exc
+        raise DataBoundaryError('The shared guard could not resolve the companion. Check BUY_ME_A_CAR_CONFIG and its origin.') from exc
     return Path(result).resolve() if result is not None else None
 
 
-def _github_repo(remote: str) -> str:
-    if '://' in remote:
-        parsed = urlsplit(remote)
-        if parsed.scheme not in ('https', 'ssh') or parsed.password:
-            raise DataBoundaryError('Only authenticated GitHub private repositories are supported for DATA.')
-        host, path = parsed.hostname, parsed.path.lstrip('/')
-    else:
-        match = re.fullmatch(r'(?:[^@/:\s]+@)?([^/:\s]+):([^\s]+)', remote)
-        if not match:
-            raise DataBoundaryError('DATA origin is missing or is not a supported GitHub remote.')
-        host, path = match.groups()
-    if host != 'github.com':
-        # Resolve SSH host aliases through their effective configuration, not a
-        # hardcoded list of personal aliases. HTTP hosts cannot be SSH aliases.
-        if remote.startswith('https://') or not re.fullmatch(r'[A-Za-z0-9_.-]+', host or ''):
-            raise DataBoundaryError('Cannot verify visibility for a non-GitHub DATA origin.')
-        config = _run(['ssh', '-G', host])
-        hosts = [line.split(None, 1)[1].strip().lower() for line in config.splitlines()
-                 if line.lower().startswith('hostname ')]
-        if hosts != ['github.com']:
-            raise DataBoundaryError('DATA SSH alias does not resolve to github.com.')
-    path = path.removesuffix('.git')
-    if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', path):
-        raise DataBoundaryError('DATA origin must identify exactly one GitHub owner/repository.')
-    return path
-
-
-def _existing_directory(path: Path) -> Path:
-    candidate = path if path.is_dir() else path.parent
-    while not candidate.exists() and candidate != candidate.parent:
-        candidate = candidate.parent
-    return candidate
-
-
-def _guard_module(name):
-    path = REPO_ROOT / 'guards' / 'tools' / (name + '.py')
-    if not path.is_file():
-        raise DataBoundaryError('Missing guards submodule; initialize it before accessing DATA.')
-    key = '_bmac_guard_' + name
-    spec = importlib.util.spec_from_file_location(key, path)
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[key] = module
-    spec.loader.exec_module(module)
-    return module
-
-
-def _private_repo_identity(directory: Path) -> str:
-    try:
-        api = _guard_module('data_boundary')
-        proof = api.prove_private_companion(_existing_directory(directory))
-        root = Path(proof.root).resolve()
-        if _inside(root, REPO_ROOT) or _inside(REPO_ROOT, root):
-            raise DataBoundaryError('DATA requires a separate PRIVATE companion.')
-        head = api.read_private_companion_git(proof, 'rev-parse', '--verify', 'HEAD')
-        if head.returncode or not head.stdout.strip():
-            raise DataBoundaryError('DATA companion must have committed history.')
-        for identity in proof.repositories:
-            if _run(['gh', 'api', '--hostname', 'github.com', f'repos/{identity}', '--jq', '.private']) != 'true':
-                raise DataBoundaryError('DATA publication destination is public or unknown.')
-        current = api.prove_private_companion(_existing_directory(directory))
-        if (proof.root, proof.repositories, proof.signature) != (current.root, current.repositories, current.signature):
-            raise DataBoundaryError('DATA publication destinations changed during proof.')
-        return ', '.join(proof.repositories)
-    except (OSError, ValueError, RuntimeError) as exc:
-        raise DataBoundaryError('Cannot prove every PRIVATE DATA publication destination.') from exc
-
-
-def _authorize_target(base: Path, relative: Path, *, directory=False) -> Path:
-    try:
-        receipt = _guard_module('storage_contract').authorize_artifact_write(
-            REPO_ROOT, base.parent, 'data/' + relative.as_posix(), directory=directory)
-        return Path(receipt.path)
-    except (OSError, ValueError, RuntimeError) as exc:
-        raise DataBoundaryError('Output lacks source-owned, versioned artifact authorization.') from exc
+def _companion_root(directory: Path) -> Path:
+    """The companion root that holds a DATA directory: separate from this source tree."""
+    root = directory.parent if directory.name == 'data' else directory
+    if _inside(root, REPO_ROOT) or _inside(REPO_ROOT, root):
+        raise DataBoundaryError('DATA requires a separate PRIVATE companion.')
+    return root
 
 
 def resolve_data_dir(*, required: bool = False) -> Path | None:
     candidate = _guard_data_dir()
     if candidate is None:
         if required:
-            raise DataBoundaryError('Uninitialized: clone a PRIVATE buy-me-a-car-config companion, create its data directory, and set BUY_ME_A_CAR_CONFIG. Authenticate gh to verify its visibility.')
+            raise DataBoundaryError('Uninitialized: clone a PRIVATE buy-me-a-car-config companion, create its data directory, and set BUY_ME_A_CAR_CONFIG.')
         return None
     candidate = candidate.resolve()
     if candidate.name != 'data':
@@ -180,7 +72,7 @@ def resolve_data_dir(*, required: bool = False) -> Path | None:
         candidate = candidate / 'data'
     if _inside(candidate, REPO_ROOT):
         raise DataBoundaryError('Real DATA cannot be stored inside the public tool repository.')
-    _private_repo_identity(candidate)
+    _companion_root(candidate)
     return candidate
 
 
@@ -201,10 +93,16 @@ def _checked_target(base: Path, relative: Path, *, for_write: bool, directory=Fa
     target = lexical.resolve()
     if not _inside(target, base):
         raise DataBoundaryError('DATA path escapes the private directory through a link or traversal.')
-    _private_repo_identity(_existing_directory(target))
+    node = base
+    for part in relative.parts:
+        node = node / part
+        if os.path.lexists(node / '.git'):
+            raise DataBoundaryError('DATA path enters a nested repository.')
     if for_write:
-        if _authorize_target(base, relative, directory=directory) != target:
-            raise DataBoundaryError("Artifact authority returned a different destination.")
+        if directory and target.is_file():
+            raise DataBoundaryError('DATA directory destination is a file.')
+        if not directory and target.is_dir():
+            raise DataBoundaryError('DATA file destination is a directory.')
         from tools.storage_retention import enforce_capacity
         enforce_capacity(base, relative.as_posix())
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -254,7 +152,7 @@ def validate_data_path(path: str | Path, *, for_write: bool = False, directory=F
         try:
             relative = _expand_windows_short_path(supplied).relative_to(base)
         except ValueError as exc:
-            raise DataBoundaryError('Live input/output must be inside the proven private DATA directory.') from exc
+            raise DataBoundaryError('Live input/output must be inside the private DATA directory.') from exc
     else:
         relative = supplied
     return _checked_target(base, _relative_path(relative), for_write=for_write, directory=directory)
@@ -270,7 +168,7 @@ def main(argv=None) -> int:
         if base is None:
             print('UNINITIALIZED: no private purchase data; initialize a private companion before writing.')
             return 0
-        print(f'PRIVATE companion: {_private_repo_identity(base)}', file=sys.stderr)
+        print(f'PRIVATE companion: {_companion_root(base)}', file=sys.stderr)
         print(data_path(args.relative, for_write=args.write) if args.relative else base)
         return 0
     except DataBoundaryError as exc:

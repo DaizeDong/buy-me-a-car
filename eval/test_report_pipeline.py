@@ -29,14 +29,9 @@ class ReportPipelineTests(unittest.TestCase):
         self.base = Path(self.temp.name).resolve()
         self.private = self.base / "companion" / "data"
         self.private.mkdir(parents=True)
-        for guard in (
-            patch.object(runtime_paths, "_guard_data_dir", return_value=self.private),
-            patch.object(runtime_paths, "_private_repo_identity", return_value="example/private-fixture"),
-        ):
-            guard.start()
-            self.addCleanup(guard.stop)
-        from tools.test_support import install_artifact_proof
-        install_artifact_proof(self, runtime_paths)
+        guard = patch.object(runtime_paths, "_guard_data_dir", return_value=self.private)
+        guard.start()
+        self.addCleanup(guard.stop)
         config = demo_config()
         config.update(synthetic=False, date=date.today().isoformat())
         for source in config["sources"]:

@@ -1,6 +1,6 @@
 # Private buyer criteria
 
-Copy this blank template into `cycles/<cycle-id>/criteria.md` under the verified private DATA directory before entering buyer information.
+Copy this blank template into `cycles/<cycle-id>/criteria.md` under the private DATA directory before entering buyer information.
 
 | Field | Value |
 |---|---|

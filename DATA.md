@@ -1,9 +1,9 @@
 # Purchase DATA storage
 
-Real purchase inputs, reports, source captures and inbox state belong in a verified
-PRIVATE Git companion. Follow [CONFIG.md](CONFIG.md) to select and validate storage
-with `tools/runtime_paths.py`. Missing or unknown proof fails; there is no public
-or unversioned fallback.
+Real purchase inputs, reports, source captures and inbox state belong in a separate
+PRIVATE Git companion. Follow [CONFIG.md](CONFIG.md) to select storage and check paths
+with `tools/runtime_paths.py`. A missing companion fails writes; there is no public
+or in-repository fallback.
 
 Final reports include user-selected synthetic acceptance cases. Their synthetic
 inputs do not make the requested final deliverable disposable. Preserve the final

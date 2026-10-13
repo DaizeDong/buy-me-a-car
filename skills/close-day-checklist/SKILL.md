@@ -14,7 +14,7 @@ Reuse known criteria and the current buyer research package. For a visit before
 terms are locked, fill the private [negotiation and visit preparation](../orchestrator/assets/negotiation_prep_template.md)
 with unknowns and questions; a test drive does not require two competing quotes.
 Use [dealer-reply-drafter](../dealer-reply-drafter/SKILL.md) for a revised written
-offer. Save real notes under verified private DATA. Sending, booking, paying or
+offer. Save real notes under private DATA. Sending, booking, paying or
 signing requires authorization for that action and an execution receipt.
 
 ## When To Use

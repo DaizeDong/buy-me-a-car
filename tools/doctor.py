@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Report local readiness without contacting mail, scheduling, or model services.
 
-Only --private requests live GitHub visibility proof through runtime_paths.
+Only --private resolves the private companion through runtime_paths (path checks only).
 A detected browser/package is not a completed PDF or integration acceptance test.
 """
 
@@ -111,12 +111,12 @@ def diagnose(target=None, *, check_private=False):
         try:
             private = resolve_data_dir(required=False)
             checks.append(_check("private_data", "pass" if private else "uninitialized",
-                                 "Private companion visibility verified; no data written." if private else
+                                 "Private companion located; no data written." if private else
                                  "Initialize a private companion before live writes.", required=True))
         except (DataBoundaryError, OSError) as exc:
-            checks.append(_check("private_data", "blocked", f"Private boundary proof failed: {type(exc).__name__}.", required=True))
+            checks.append(_check("private_data", "blocked", f"Private companion check failed: {type(exc).__name__}.", required=True))
     else:
-        checks.append(_check("private_data", "not_checked", "Use --private for live visibility proof; no private probe ran."))
+        checks.append(_check("private_data", "not_checked", "Use --private to locate the private companion; no private probe ran."))
     ready = all(item["status"] == "pass" for item in checks if item["required"])
     return {
         "schema_version": 1, "status": "ready" if ready else "needs_setup", "checks": checks,
@@ -133,7 +133,7 @@ def diagnose(target=None, *, check_private=False):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", type=Path, help="agent skill directory to inspect")
-    parser.add_argument("--private", action="store_true", help="verify private companion visibility live")
+    parser.add_argument("--private", action="store_true", help="locate the private companion by path")
     args = parser.parse_args(argv)
     report = diagnose(args.target, check_private=args.private)
     print(json.dumps(report, indent=2))

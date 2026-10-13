@@ -201,16 +201,11 @@ class LiveDossierBoundaryTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.private_data = Path(self.temp.name) / "companion" / "data"
         self.private_data.mkdir(parents=True)
-        # Mock only the external private-repository proof. Production path,
-        # containment, file loading, hashing, validation, and rendering run.
+        # Mock only companion discovery. Production path containment, file
+        # loading, hashing, validation, and rendering run.
         self.guard = patch.object(runtime_paths, "_guard_data_dir", return_value=self.private_data)
-        self.proof = patch.object(runtime_paths, "_private_repo_identity", return_value="example/private-fixture")
-        from tools.test_support import install_artifact_proof
-        install_artifact_proof(self, runtime_paths)
         self.guard.start()
-        self.proof.start()
         self.addCleanup(self.guard.stop)
-        self.addCleanup(self.proof.stop)
         config = demo_config()
         for key, value in list(config.items()):
             if isinstance(value, str) and key not in dossier.MONEY_KEYS + ("TAX_ADJUSTMENT", "TAX_RATE", "YEAR", "MILES", "MSRP"):

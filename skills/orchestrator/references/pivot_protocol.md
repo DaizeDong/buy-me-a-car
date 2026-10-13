@@ -1,7 +1,7 @@
 # Mid-cycle pivot protocol
 
 Use this reference when a change to criteria affects active research, quotes or
-visit preparations. Work in the verified private cycle directory. Keep previous
+visit preparations. Work in the private cycle directory. Keep previous
 revisions and source artifacts in the private companion rather than deleting the
 evidence needed to understand an earlier decision.
 
@@ -45,7 +45,7 @@ candidate. Changing a private maximum never authorizes changing an outward offer
 
 ## Private artifact register
 
-All paths below are relative to the verified private cycle directory. Record the
+All paths below are relative to the private cycle directory. Record the
 actual paths used by the cycle; do not create real DATA under the public tool repo.
 
 | Artifact | Recheck after the change | Record |

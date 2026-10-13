@@ -15,7 +15,7 @@ coverage. Resolve installed links to the repository source before following
 Confirm registration/garaging location, vehicle VIN, expected use and mileage,
 drivers who need coverage, lender/lease requirements, current coverage and desired
 effective date. Collect only information required for the authorized step.
-Store any real quote or policy information under verified private DATA.
+Store any real quote or policy information under private DATA.
 Do not collect SSNs, account credentials or full identity documents to make a
 comparison table.
 

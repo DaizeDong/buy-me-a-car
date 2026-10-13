@@ -1,6 +1,6 @@
 # Private negotiation and visit preparation
 
-Copy this blank template to `negotiation_prep.md` in the verified private cycle
+Copy this blank template to `negotiation_prep.md` in the private cycle
 directory before filling it. It is buyer-only: private limits, alternatives and
 negotiation notes do not belong in a dealer attachment. Prepare a separate outward
 proposal only with the buyer's authorization and appropriate evidence.

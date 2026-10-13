@@ -2,9 +2,9 @@
   "_comment": [
     "TOOL: shipped code, blank templates, documentation and public reference rules.",
     "FIXTURE: generated synthetic inputs; exact reproduction required.",
-    "DATA: all real-run inputs and outputs; physically absent here and versioned in a verified PRIVATE companion."
+    "DATA: all real-run inputs and outputs; physically absent here and versioned in a PRIVATE companion."
   ],
-  "_audited": "2026-09-22: live paths include cycle criteria, inventory, quotes, documents, inbox state, feedback and model evaluation receipts. tools/runtime_paths.py proves private storage; tools/check_repository.py enforces physical absence in addition to pinned fleet guards.",
+  "_audited": "2026-09-22: live paths include cycle criteria, inventory, quotes, documents, inbox state, feedback and model evaluation receipts. tools/runtime_paths.py confines writes to the private companion by path; tools/check_repository.py enforces physical absence in addition to pinned fleet guards.",
   "data": [
     "cycles/",
     "inbox/",
@@ -65,5 +65,5 @@
     "docs/superpowers/plans/*": "Implementation plans for the tool, containing no actual purchase or user records."
   },
   "_readme_diagrams": "TOOL: docs/diagrams/ contains generic workflow drawings, rendered PNGs and their render script; no buyer records or live purchase evidence.",
-  "_data_home": "tools/runtime_paths.py delegates discovery to guards/tools/datadir.py, then proves PRIVATE GitHub visibility. Set BUY_ME_A_CAR_CONFIG to an initialized private companion; no repository or unversioned fallback."
+  "_data_home": "tools/runtime_paths.py delegates discovery to guards/tools/datadir.py and checks destinations by path only; PRIVATE publication is enforced at commit time by the Guards hooks and CI. Set BUY_ME_A_CAR_CONFIG to an initialized private companion; no repository or unversioned fallback."
 }

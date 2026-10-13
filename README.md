@@ -20,7 +20,7 @@ A useful buying decision needs comparable costs, vehicle evidence and a next ste
 2. **Finish the research delivery.** Reuse known requirements, ask for material missing inputs together, and turn the research into a comparison and HTML/PDF report without another prompt.
 3. **Keep the buyer in control.** Separate the private ceiling from an authorized outward offer. Draft from actual evidence; obtain authorization for seller contact, bookings or other external commitments.
 4. **Make evidence traceable.** Retain source dates, original artifacts, access gaps and conflicting observations. A captured listing is evidence of what was seen, not a guarantee of current availability.
-5. **Keep purchase records private.** The public repository is an uninitialized tool. Real requirements, quotes and reports belong in the buyer's verified private companion Git repository.
+5. **Keep purchase records private.** The public repository is an uninitialized tool. Real requirements, quotes and reports belong in the buyer's private companion Git repository.
 
 The operating rules live in the [main skill](skills/orchestrator/SKILL.md) and [default report workflow](skills/orchestrator/references/report_delivery.md).
 
@@ -46,7 +46,7 @@ Quote review and vehicle checks can run in parallel as needed. Before closing, v
 
 ## Install
 
-Requires Python 3.10 or newer, Git and the pinned submodules. Install the YAML/PDF dependencies below; use Chromium or Edge for PDF rendering. GitHub CLI (`gh`) is required to verify private storage.
+Requires Python 3.10 or newer, Git and the pinned submodules. Install the YAML/PDF dependencies below; use Chromium or Edge for PDF rendering.
 
 ```sh
 git clone --recurse-submodules https://github.com/DaizeDong/buy-me-a-car.git
@@ -64,7 +64,7 @@ For an existing clone, run `git submodule update --init --recursive`. Missing gu
 
 ## Runtime storage configuration
 
-Create or clone a **private GitHub companion repository** outside this public worktree, create its `data` directory, and authenticate `gh`. Set `BUY_ME_A_CAR_CONFIG` to that companion's root:
+Create or clone a **private GitHub companion repository** outside this public worktree, and create its `data` directory. Set `BUY_ME_A_CAR_CONFIG` to that companion's root:
 
 ```powershell
 $env:BUY_ME_A_CAR_CONFIG = "<private-companion-root>"
@@ -76,7 +76,7 @@ On a POSIX shell, use `export BUY_ME_A_CAR_CONFIG="<private-companion-root>"`. V
 python tools/runtime_paths.py --write
 ```
 
-The resolver reports the verified private repository and DATA path. Public, unknown, missing and unversioned destinations are rejected. An optional read may report `UNINITIALIZED`; writes require proof of private storage.
+The resolver reports the companion and DATA path. Destinations outside that DATA directory or inside this repository are rejected, and the runtime does not query repository visibility; PRIVATE publication is enforced at commit time by the Guards hooks and CI. An optional read may report `UNINITIALIZED`; writes require an initialized companion.
 
 Real criteria, captures, quotes, inbox state, PDFs, feedback and evaluation receipts stay in this private Git repository and its normal versioning and backup workflow. There is no public-worktree fallback. To prepare a record, resolve its destination before copying a blank template or filling it:
 
@@ -84,7 +84,7 @@ Real criteria, captures, quotes, inbox state, PDFs, feedback and evaluation rece
 python tools/runtime_paths.py cycles/example/criteria.md --write
 ```
 
-This path is relative to private DATA. Run browser and scraping captures from the verified private cycle directory too. For the full discovery order, validation of every effective fetch/push destination, active output declarations and safe companion switching, follow [CONFIG.md](CONFIG.md). Clear stale higher-priority selectors before changing the companion root.
+This path is relative to private DATA. Run browser and scraping captures from the private cycle directory too. For the full discovery order, path checks, output declarations and safe companion switching, follow [CONFIG.md](CONFIG.md). Clear stale higher-priority selectors before changing the companion root.
 
 ### Private storage lifecycle
 

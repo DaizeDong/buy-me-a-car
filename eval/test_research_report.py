@@ -59,13 +59,8 @@ class ResearchReportTests(unittest.TestCase):
         private = self.base / "companion" / "data"
         private.mkdir(parents=True, exist_ok=True)
         guard = patch.object(runtime_paths, "_guard_data_dir", return_value=private)
-        proof = patch.object(runtime_paths, "_private_repo_identity", return_value="example/private-fixture")
-        from tools.test_support import install_artifact_proof
-        install_artifact_proof(self, runtime_paths)
         guard.start()
-        proof.start()
         self.addCleanup(guard.stop)
-        self.addCleanup(proof.stop)
         config = demo_config()
         config.update(synthetic=False, date=date.today().isoformat())
         for source in config["sources"]:
