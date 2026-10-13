@@ -70,8 +70,6 @@ def resolve_data_dir(*, required: bool = False) -> Path | None:
         if os.environ.get('BUY_ME_A_CAR_DATA_DIR'):
             raise DataBoundaryError('BUY_ME_A_CAR_DATA_DIR must select the companion data child.')
         candidate = candidate / 'data'
-    if _inside(candidate, REPO_ROOT):
-        raise DataBoundaryError('Real DATA cannot be stored inside the public tool repository.')
     _companion_root(candidate)
     return candidate
 
