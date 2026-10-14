@@ -54,7 +54,7 @@ purchase records, final reports and their source evidence are never evicted to
 make room. Review completed work and its recovery obligations before reclaiming
 capacity.
 
-[Opt-in evaluation](eval/README.md) writes current records under `data/research-runs/`
-in the companion. The former `data/eval/` namespace is retained as historical retired
-material and cannot receive new writes. Restore current receipts and referenced
+Historical evaluation records live under `data/research-runs/` in the companion. The
+former `data/eval/` namespace is retained as historical retired material and cannot receive
+new writes. Restore current receipts and referenced
 inputs together before any continuation.

@@ -33,15 +33,6 @@
   ],
   "fixture": [
     "retention.json.example",
-    "eval/fixtures/alaska_pickup.json",
-    "eval/fixtures/inventory.json",
-    "eval/fixtures/leak_quotes/D10_bait_switch.md",
-    "eval/fixtures/leak_quotes/D8_ct_tire_fee.md",
-    "eval/fixtures/leak_quotes/D9_rav4_adm.md",
-    "eval/fixtures/routing_prompts.json",
-    "eval/fixtures/workflow.json",
-    "eval/golden/otd_cases.json",
-    "eval/golden/routing.json",
     "examples/01_used_outback_ct_cash.md",
     "examples/02_new_rav4_hybrid_pa_financing.md",
     "examples/03_used_crv_ca_trade.md",
@@ -54,8 +45,7 @@
     "skills/orchestrator/assets/dossier_config_template.yaml",
     "skills/orchestrator/assets/dossier_config_template_cn.yaml",
     "skills/orchestrator/assets/dossier_config_template_es.yaml",
-    "skills/orchestrator/assets/research_report_config_template.json",
-    "eval/test_fleet_storage.py"
+    "skills/orchestrator/assets/research_report_config_template.json"
   ],
   "tool": [
     "docs/superpowers/plans/*",

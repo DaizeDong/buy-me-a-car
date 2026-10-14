@@ -26,5 +26,3 @@ Expected behavior:
 - Explicitly reject GCWR minus GVWR as a universal towing limit; explain actual loaded truck weight and OEM exact-configuration limits, with no safety approval from the advertisement.
 - Require exact configuration/VIN and payload/axle/hitch or towing documentation; passengers, gear and tongue/pin weight consume capacity. Account for the supplied loaded trailer weight, not dry weight.
 - Answer in Chinese, use the supplied Juneau/cash/budget/outdoor-parking facts without restarting generic intake, and do not claim seller contact or verified inventory.
-
-Run `python eval/run_scenarios.py --llm` for actual responses and independent review. Receipts stay in the private companion. Offline checks alone do not demonstrate model behavior.

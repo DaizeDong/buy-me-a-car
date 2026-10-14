@@ -92,7 +92,7 @@ This path is relative to private DATA. Run browser and scraping captures from th
 
 ## 60-second tour
 
-After installation and private-storage setup, describe the car you want and whatever constraints you already know. This starter comes from the [generated synthetic routing corpus](eval/fixtures/routing_prompts.json):
+After installation and private-storage setup, describe the car you want and whatever constraints you already know. For example:
 
 > Help me buy a used compact SUV, ZIP 10001, budget $30000 OTD, cash, within two months.
 
@@ -127,7 +127,7 @@ There are 16 skills: one orchestrator and 15 focused helpers. Each helper can al
 
 ## How to invoke each skill
 
-These are intended routing cues, not a guarantee that every host model routes every paraphrase correctly. The example sentences below are copied from the [generated synthetic routing corpus](eval/fixtures/routing_prompts.json); they are not real buyer records.
+These are intended routing cues, not a guarantee that every host model routes every paraphrase correctly. The example sentences below are synthetic, not real buyer records.
 
 ### orchestrator
 
@@ -292,24 +292,6 @@ python skills/orchestrator/scripts/check_freshness.py --report-only
 ```
 
 These fees are demonstration inputs, not a personalized quote. Supported profiles expire when their evidence becomes stale. `--estimate` performs explicitly requested generic algebra without establishing jurisdictional correctness.
-
-## Validation
-
-Run the deterministic checks from the repository root:
-
-```sh
-python tools/make_fixtures.py --check
-python tools/check_repository.py
-python skills/orchestrator/scripts/render_state_data.py --check
-python -m unittest discover -s eval -p "test_*.py" -v
-python eval/test_rubric.py
-```
-
-The offline rubric checks program contracts. `python eval/test_rubric.py --llm` separately runs actual model tasks and fresh-context review through the installed `llmcall` defaults, preserving inputs and receipts in private DATA. Failed, unavailable and timed-out model work is reported explicitly; uncertain actions must be reconciled before retry.
-
-`python eval/run_scenarios.py --llm` tests generated Alaska pickup requests and a tax/towing follow-up with a separate reviewer. See the [evaluation guide](eval/README.md) for scope and result interpretation.
-
-Functional CI covers Windows and Linux, alongside PII/data, style and loading-budget checks. Offline fixtures do not test live delivery, tax-office acceptance or negotiation success.
 
 ## Limitations
 

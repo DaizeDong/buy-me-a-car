@@ -92,7 +92,7 @@ python tools/runtime_paths.py cycles/example/criteria.md --write
 
 ## 60 秒上手
 
-安装并配置私有存储后，说明你想买什么车，以及目前知道的条件即可。下面的启动例句来自[生成的合成路由样例](eval/fixtures/routing_prompts.json)，保留英文原文：
+安装并配置私有存储后，说明你想买什么车，以及目前知道的条件即可。例如（保留英文原文）：
 
 > Help me buy a used compact SUV, ZIP 10001, budget $30000 OTD, cash, within two months.
 
@@ -127,7 +127,7 @@ python tools/runtime_paths.py cycles/example/criteria.md --write
 
 ## 如何调用每个技能
 
-这些是预期的路由提示，不保证每个宿主模型都能正确识别所有改写。下列例句直接取自[生成的合成路由样例](eval/fixtures/routing_prompts.json)，保留英文原文，不是真实买家记录。
+这些是预期的路由提示，不保证每个宿主模型都能正确识别所有改写。下列例句为合成样例，保留英文原文，不是真实买家记录。
 
 ### orchestrator
 
@@ -292,24 +292,6 @@ python skills/orchestrator/scripts/check_freshness.py --report-only
 ```
 
 这些费用只是演示输入，不是个性化报价。支持的计算方案会随证据过期而失效。`--estimate` 只在明确要求时进行通用代数估算，不能证明税费适用于实际注册地。
-
-## 验证
-
-在仓库根目录运行确定性检查：
-
-```sh
-python tools/make_fixtures.py --check
-python tools/check_repository.py
-python skills/orchestrator/scripts/render_state_data.py --check
-python -m unittest discover -s eval -p "test_*.py" -v
-python eval/test_rubric.py
-```
-
-离线检查验证程序规则。另行运行 `python eval/test_rubric.py --llm`，才会通过已安装的 `llmcall` 默认配置执行模型任务并独立复核，输入和回执保存在私有 DATA。失败、不可用和超时都明确报告；结果不确定的行动要先核对，再决定是否重试。
-
-`python eval/run_scenarios.py --llm` 测试生成的阿拉斯加皮卡请求及税费、拖挂能力追问，并由另一个评审复核。范围和结果解读见[评测指南](eval/README.md)。
-
-功能 CI 覆盖 Windows 和 Linux；另有隐私与数据、文风和加载预算检查。离线样例不验证真实发送、税务机关受理或谈判成功。
 
 ## 局限
 

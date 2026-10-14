@@ -5,19 +5,15 @@ They cover cash, finance, trade-in, EV, pickup, lease, private seller and CPO
 branches using fictional people and counterparties.
 
 [Alaska pickup](09_alaska_pickup.md) adds initial intake and a follow-up that
-challenges tax and towing shortcuts. Run `python eval/run_scenarios.py --llm`
-for actual buyer responses and independent criterion-based review.
+challenges tax and towing shortcuts.
 
 Each file contains an input and expected checks. None contains a measured
 purchase outcome, a verified saving or proof that a model executed the scenario.
-To measure behavior, run the evaluator and retain the actual input/output and
-review receipts in private DATA.
 
 Regenerate with:
 
 ```sh
 python tools/make_fixtures.py
-python tools/make_fixtures.py --check
 ```
 
 Never substitute a real buyer, inventory selection, quote or conversation into

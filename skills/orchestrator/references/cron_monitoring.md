@@ -108,11 +108,7 @@ history and provider receipts for review.
 
 ## Acceptance boundary
 
-`eval/test_workflow.py` tests synthetic duplicate pages, immutable IDs, cursor and
-account conflicts, body completeness, locks, atomic replacement, actual process
-death and no replay after a provider timeout. Those are OFFLINE tests.
-
-Live acceptance additionally requires the installed adapter and authorized test
+Live acceptance requires the installed adapter and authorized test
 mailbox: account probe, complete-body/attachment retrieval, pagination, provider
 draft creation, receipt reconciliation, interrupted-save recovery and host reboot.
 Until these are tested, say "offline ledger verified; live Gmail/scheduler untested".

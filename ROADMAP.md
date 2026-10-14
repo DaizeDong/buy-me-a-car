@@ -10,17 +10,12 @@ purchase requests include a comparison and buyer research HTML/PDF even with
 zero written quotes and explicit unknown costs. Outward dealer proposals retain
 their complete-quote and authorization requirements.
 
-[Validation](README.md#validation) distinguishes deterministic checks from model
-and external verification. Runtime tests cover PRIVATE publication routes and
-declared storage paths with synthetic metadata. They do not establish live
-integration availability or purchase outcomes.
-
 ## Planned work
 
 - Extend verified state calculation profiles from current official sources,
   including local taxes, thresholds and transaction-specific exemptions.
 - Add authenticated mailbox adapters and a durable scheduler with independently
-  verified receipts and restart tests.
+  verified receipts.
 - Maintain structured inventory adapters with per-page coverage, source integrity,
   changing site layouts and explicit blocked/partial results.
 - Evaluate actual model routing, quote extraction and draft selection on frozen

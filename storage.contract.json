@@ -526,9 +526,9 @@
     {
       "artifact_id": "research-evaluation-runs",
       "path_pattern": "data/research-runs/**",
-      "purpose": "Current opt-in research evaluator receipts, model responses and generated report validation.",
-      "schema": "eval/run_report_pipeline.py receipt/continuation schemas and report deliverables.",
-      "producer": "eval/run_report_pipeline.py explicit opt-in execution.",
+      "purpose": "Historical research evaluator receipts, model responses and generated report validation.",
+      "schema": "Receipt/continuation schemas and report deliverables of the retired research evaluator.",
+      "producer": "Retired research evaluator; no current producer writes here.",
       "consumer_or_final_deliverable": "Reviewer, continuation reconciliation and report validation.",
       "rebuild_or_restore": "Restore receipts, exact inputs and any referenced provider responses together; never replay an uncertain external operation merely because local files are missing.",
       "retention_rule": {

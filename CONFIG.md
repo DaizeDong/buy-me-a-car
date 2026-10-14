@@ -45,6 +45,5 @@ The runtime does not admit writes against the contract; it confines them to the 
 before creating output parents. Add a reviewed producer, schema, consumer and recovery rule before
 introducing a new output kind.
 
-Current evaluation output locations and continuation commands are documented in the
-[evaluation guide](eval/README.md). Follow [DATA.md](DATA.md) when retaining or restoring their
-receipts and referenced inputs.
+Follow [DATA.md](DATA.md) when retaining or restoring historical evaluation receipts and
+referenced inputs.

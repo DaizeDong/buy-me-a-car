@@ -101,8 +101,6 @@ The low-level Python functions `compute_otd(sales, doc, tax_rate, title, reg, ad
 
 ## Verification and sources
 
-Run `python tools/make_fixtures.py --check` and `python -m unittest discover -s eval -p "test_*tax*.py"`, plus `eval/test_otd.py`, for deterministic validation. The generated [OTD cases](../../eval/golden/otd_cases.json) contain synthetic inputs and independent expected totals. Tests call production calculation and trade functions.
-
 See [state fees and source evidence](../orchestrator/references/state_fees.md) and [state fee lookup](../state-fee-lookup/SKILL.md).
 
 When installed through directory links, resolve this SKILL.md to its source directory before following relative file paths. Those paths refer to the repository layout.
