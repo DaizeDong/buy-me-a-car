@@ -91,18 +91,11 @@ def diagnose(target=None, *, check_private=False):
     target = Path(target or Path.home() / ".agents/skills").expanduser()
     checks = [_check("python", "pass" if sys.version_info >= (3, 10) else "blocked",
                      f"Python {sys.version_info.major}.{sys.version_info.minor}; minimum 3.10.", required=True)]
-    for name, module, required in [("pyyaml", "yaml", True), ("pypdf", "pypdf", False)]:
+    for name, module, required in [("pyyaml", "yaml", True), ("pypdf", "pypdf", False),
+                                   ("fleet_guards", "fleet_guards.runtime", True)]:
         checks.append(_check(name, *_package(module), required=required))
     for executable, required in [("git", True), ("gh", False)]:
         checks.append(_check(executable, *_executable(executable), required=required))
-    for name, files in {
-        "guards": ["tools/datadir.py", "tools/data_boundary.py", "tools/pii_guard.py", "tools/storage_contract.py"],
-        "style": ["tools/dash_guard.py", "tools/load_budget.py"],
-    }.items():
-        populated = (ROOT / name / ".git").is_file() and all((ROOT / name / item).is_file() for item in files)
-        checks.append(_check(f"submodule_{name}", "pass" if populated else "missing",
-                             "Populated submodule files found." if populated else
-                             "Run git submodule update --init --recursive.", required=True))
     registration, detail = _registration(target)
     checks.append(_check("skill_registration", registration, detail, required=True))
     checks.append(_check("browser", *_browser()))

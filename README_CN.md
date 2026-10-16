@@ -46,10 +46,15 @@
 
 ## 安装
 
-需要 Python 3.10 以上、Git 和完整子模块。通过下面的命令安装 YAML/PDF 依赖，使用 Chromium 或 Edge 渲染 PDF。
+需要 Python 3.10 以上、Git，以及本地的 [fleet-guards](https://github.com/DaizeDong/fleet-guards) 与 [fleet-style](https://github.com/DaizeDong/fleet-style) 检出。通过下面的命令安装 YAML/PDF 依赖，使用 Chromium 或 Edge 渲染 PDF。
 
 ```sh
-git clone --recurse-submodules https://github.com/DaizeDong/buy-me-a-car.git
+git clone https://github.com/DaizeDong/fleet-guards.git
+git clone https://github.com/DaizeDong/fleet-style.git
+git config --global fleet.guards "$PWD/fleet-guards"
+git config --global fleet.style "$PWD/fleet-style"
+python -m pip install -e fleet-guards
+git clone https://github.com/DaizeDong/buy-me-a-car.git
 cd buy-me-a-car
 python -m pip install -r requirements.txt
 git config core.hooksPath .githooks
@@ -60,7 +65,7 @@ python tools/doctor.py
 
 安装器先预览，`--apply` 才把全部 16 个技能注册到 `~/.agents/skills`。其他宿主可用 `--target <skill-directory>` 指定目录。遇到已有的无关技能会报告冲突，保留原内容。安装后启动新会话。Claude 插件宿主也可通过 `.claude-plugin/plugin.json` 把仓库作为本地插件加载。
 
-已有克隆缺少子模块时，运行 `git submodule update --init --recursive`。缺少安全守卫应明确失败，不要绕过钩子。
+`.githooks` 里的转发脚本通过 `git config fleet.guards` 和 `fleet.style` 找到检查脚本，任一未设置都会挡下提交。不要绕过钩子。
 
 ## 配置
 
@@ -76,7 +81,7 @@ POSIX shell 使用 `export BUY_ME_A_CAR_CONFIG="<private-companion-root>"`。然
 python tools/runtime_paths.py --write
 ```
 
-解析器会标明伴生仓和 DATA 路径。落在该 DATA 目录之外或本仓之内的目标会被拒绝；运行时不查询仓库可见性，PRIVATE 发布由 Guards 提交钩子和 CI 在提交时把关。可选读取可以报告 `UNINITIALIZED`，写入必须先有已初始化的伴生仓。
+解析器会标明伴生仓和 DATA 路径。落在该 DATA 目录之外或本仓之内的目标会被拒绝；运行时不查询仓库可见性，PRIVATE 发布由 `.githooks` 转发脚本调用的 fleet-guards 检查在提交时把关。可选读取可以报告 `UNINITIALIZED`，写入必须先有已初始化的伴生仓。
 
 真实需求、采集材料、报价、邮件状态、PDF、反馈和评测回执，都保存在这个私有 Git 仓库中，沿用其版本管理与备份流程。没有退回公开工作树的备用路径。复制空白模板或填写记录前，先解析目标位置：
 

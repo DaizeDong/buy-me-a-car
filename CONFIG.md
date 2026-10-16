@@ -14,14 +14,14 @@ Clear stale higher-priority variables before switching:
 1. `BUY_ME_A_CAR_DATA_DIR`: the exact `data` child of the PRIVATE companion.
 2. `BUY_ME_A_CAR_CONFIG`: the companion root.
 3. `BUY_ME_A_CAR_CONFIG_DIR`: companion-root alias.
-4. A proven sibling `buy-me-a-car-config` discovered by pinned Guards.
+4. A proven sibling `buy-me-a-car-config` discovered by the installed fleet_guards resolver.
 
 All layouts use `<companion>/data`; a missing child does not move output to the root.
 Initialize the separate PRIVATE companion, then point one selection at it. Writes are
 checked by path only: the target must stay inside `<companion>/data`, outside this source
 tree, without traversal, links that escape, `.git` components or nested repositories. The
 runtime does not query repository visibility; PRIVATE publication is enforced at commit time
-by the Guards hooks and CI.
+by the fleet-guards checks that the `.githooks` shims run.
 
 To switch A to B in PowerShell:
 

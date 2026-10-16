@@ -46,10 +46,15 @@ Quote review and vehicle checks can run in parallel as needed. Before closing, v
 
 ## Install
 
-Requires Python 3.10 or newer, Git and the pinned submodules. Install the YAML/PDF dependencies below; use Chromium or Edge for PDF rendering.
+Requires Python 3.10 or newer, Git, and a local [fleet-guards](https://github.com/DaizeDong/fleet-guards) and [fleet-style](https://github.com/DaizeDong/fleet-style) checkout. Install the YAML/PDF dependencies below; use Chromium or Edge for PDF rendering.
 
 ```sh
-git clone --recurse-submodules https://github.com/DaizeDong/buy-me-a-car.git
+git clone https://github.com/DaizeDong/fleet-guards.git
+git clone https://github.com/DaizeDong/fleet-style.git
+git config --global fleet.guards "$PWD/fleet-guards"
+git config --global fleet.style "$PWD/fleet-style"
+python -m pip install -e fleet-guards
+git clone https://github.com/DaizeDong/buy-me-a-car.git
 cd buy-me-a-car
 python -m pip install -r requirements.txt
 git config core.hooksPath .githooks
@@ -60,7 +65,7 @@ python tools/doctor.py
 
 The installer previews first, then `--apply` registers all 16 skills under `~/.agents/skills`. Use `--target <skill-directory>` for another host. Existing unrelated skills are preserved through a conflict check. Start a new agent session after installation. Claude plugin hosts can also load the repository as a local plugin through `.claude-plugin/plugin.json`.
 
-For an existing clone, run `git submodule update --init --recursive`. Missing guards must fail explicitly; do not bypass the hooks.
+The `.githooks` shims find the checks through `git config fleet.guards` and `fleet.style`; when either is unset the commit is blocked. Do not bypass the hooks.
 
 ## Runtime storage configuration
 
@@ -76,7 +81,7 @@ On a POSIX shell, use `export BUY_ME_A_CAR_CONFIG="<private-companion-root>"`. V
 python tools/runtime_paths.py --write
 ```
 
-The resolver reports the companion and DATA path. Destinations outside that DATA directory or inside this repository are rejected, and the runtime does not query repository visibility; PRIVATE publication is enforced at commit time by the Guards hooks and CI. An optional read may report `UNINITIALIZED`; writes require an initialized companion.
+The resolver reports the companion and DATA path. Destinations outside that DATA directory or inside this repository are rejected, and the runtime does not query repository visibility; PRIVATE publication is enforced at commit time by the fleet-guards checks that the `.githooks` shims run. An optional read may report `UNINITIALIZED`; writes require an initialized companion.
 
 Real criteria, captures, quotes, inbox state, PDFs, feedback and evaluation receipts stay in this private Git repository and its normal versioning and backup workflow. There is no public-worktree fallback. To prepare a record, resolve its destination before copying a blank template or filling it:
 

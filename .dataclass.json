@@ -55,5 +55,5 @@
     "docs/superpowers/plans/*": "Implementation plans for the tool, containing no actual purchase or user records."
   },
   "_readme_diagrams": "TOOL: docs/diagrams/ contains generic workflow drawings, rendered PNGs and their render script; no buyer records or live purchase evidence.",
-  "_data_home": "tools/runtime_paths.py delegates discovery to guards/tools/datadir.py and checks destinations by path only; PRIVATE publication is enforced at commit time by the Guards hooks and CI. Set BUY_ME_A_CAR_CONFIG to an initialized private companion; no repository or unversioned fallback."
+  "_data_home": "tools/runtime_paths.py delegates discovery to the installed fleet_guards.runtime companion resolver and checks destinations by path only; PRIVATE publication is enforced at commit time by the fleet-guards checks the .githooks shims run. Set BUY_ME_A_CAR_CONFIG to an initialized private companion; no repository or unversioned fallback."
 }

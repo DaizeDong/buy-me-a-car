@@ -1,13 +1,12 @@
-"""Resolve real purchase output through the pinned guard, by path checks only.
+"""Resolve real purchase output through the installed fleet_guards resolver, by path checks only.
 
 No in-repository fallback is permitted. The runtime runs no git or gh subprocess
 and does not query repository visibility; PRIVATE publication of the companion is
-enforced at commit time by the Guards hooks and CI.
+enforced at commit time by the .githooks shims.
 """
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import ntpath
 import os
 from pathlib import Path
@@ -30,22 +29,20 @@ def _inside(path: Path, root: Path) -> bool:
 
 
 def _guard_data_dir() -> Path | None:
-    guard_path = REPO_ROOT / 'guards' / 'tools' / 'datadir.py'
-    if not guard_path.is_file():
-        raise DataBoundaryError('Missing guards submodule. Run git submodule update --init --recursive.')
+    try:
+        from fleet_guards.runtime import companion_resolver
+    except ImportError as exc:
+        raise ImportError('fleet_guards is not installed. Run: pip install -e "$(git config --get fleet.guards)"') from exc
     # An explicit broken pointer is an error, not permission to use a different
-    # existing companion. Discovery itself remains owned by the pinned guard.
+    # existing companion. Discovery itself remains owned by fleet_guards.
     for name in ('BUY_ME_A_CAR_DATA_DIR', 'BUY_ME_A_CAR_CONFIG', 'BUY_ME_A_CAR_CONFIG_DIR'):
         value = os.environ.get(name)
         if value:
             if not Path(value).expanduser().is_dir():
                 raise DataBoundaryError(f'{name} does not name an existing private directory.')
             break
-    spec = importlib.util.spec_from_file_location('_bmac_guard_datadir', guard_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
     try:
-        result = module.resolve_data_dir(SKILL, create=False)
+        result = companion_resolver(source_root=REPO_ROOT).resolve_data_dir(SKILL, create=False)
     except (RuntimeError, OSError, ValueError) as exc:
         raise DataBoundaryError('The shared guard could not resolve the companion. Check BUY_ME_A_CAR_CONFIG and its origin.') from exc
     return Path(result).resolve() if result is not None else None
