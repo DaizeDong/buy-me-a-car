@@ -16,7 +16,6 @@ import stat
 ROOT = Path(__file__).resolve().parents[1]
 MAX_FILES = 2000
 MAX_BYTES = 128 * 1024 * 1024
-MAX_RUNS = 32
 
 
 def relative_name(value):
@@ -123,7 +122,7 @@ def files_under(root, relative, *, allow_vanished=False):
 def contract_relative_name(name, contract):
     """Keep registry paths DATA-relative and compare companion-root patterns."""
     name = relative_name(name)
-    return "data/" + name if contract.get("tool") == "buy-me-a-car" else name
+    return "data/" + name
 
 
 def build_plan(root, registry, contract):
@@ -170,29 +169,9 @@ def enforce_capacity(root, relative, *, max_files=MAX_FILES, max_bytes=MAX_BYTES
     """Refuse additional generated output at capacity; never evict core records."""
     root = Path(root).absolute()
     name = relative_name(relative)
-    tool = json.loads((ROOT / "storage.contract.json").read_text(encoding="utf-8"))["tool"]
-    if tool == "buy-me-a-car":
-        areas = ("audits", "diagnostics", "eval/model-runs", "research-runs", "browser-sessions", "playwright-mcp", "scratch")
-        if not any(name == a or name.startswith(a + "/") for a in areas):
-            return
-    else:
-        areas = ("agent-work", "grader-work", "edgar-cache", "calibration")
-        if name.startswith("targets/") and "/runs/" in name:
-            run = "/".join(name.split("/")[:4])
-            if checked(root, run).exists():
-                return
-            targets = checked(root, "targets")
-            runs = []
-            if targets.exists():
-                for target in targets.iterdir():
-                    directory = checked(root, target.relative_to(root).as_posix() + "/runs")
-                    if directory.exists():
-                        runs.extend(checked(root, p.relative_to(root).as_posix()) for p in directory.iterdir())
-            if len(runs) >= MAX_RUNS:
-                raise ValueError("Run capacity reached; retire completed runs with their dependency review first")
-            return
-        if not any(name == a or name.startswith(a + "/") for a in areas):
-            return
+    areas = ("audits", "diagnostics", "eval/model-runs", "research-runs", "browser-sessions", "playwright-mcp", "scratch")
+    if not any(name == a or name.startswith(a + "/") for a in areas):
+        return
     count = size = 0
     for area in areas:
         for path in files_under(root, area, allow_vanished=True):
@@ -217,12 +196,8 @@ def main(argv=None):
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args(argv)
     contract = json.loads((ROOT / "storage.contract.json").read_text(encoding="utf-8"))
-    if contract["tool"] == "self-evolve":
-        from tools.sie.runtime_data import private_root
-        root = private_root()
-    else:
-        from tools.runtime_paths import resolve_data_dir
-        root = resolve_data_dir(required=True)
+    from tools.runtime_paths import resolve_data_dir
+    root = resolve_data_dir(required=True)
     registry_path = checked(root, "retention.json")
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     plan = build_plan(root, registry, contract)
