@@ -30,10 +30,6 @@ def check(root: Path = ROOT) -> list[str]:
 
     for directory, names, files in os.walk(root, followlinks=False, onerror=unreadable):
         current = Path(directory)
-        # Submodules are separately pinned repositories, identified by shape.
-        if current != root and (current / '.git').is_file():
-            names[:] = []
-            continue
         names[:] = [name for name in names if name not in {'.git', '__pycache__', '.pytest_cache', '.venv', 'venv'}]
         for name in names + files:
             path = current / name
