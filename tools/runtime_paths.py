@@ -35,14 +35,14 @@ def _guard_data_dir() -> Path | None:
         raise ImportError('fleet_guards is not installed. Run: pip install -e "$(git config --get fleet.guards)"') from exc
     # An explicit broken pointer is an error, not permission to use a different
     # existing companion. Discovery itself remains owned by fleet_guards.
-    for name in ('BUY_ME_A_CAR_DATA_DIR', 'BUY_ME_A_CAR_CONFIG', 'BUY_ME_A_CAR_CONFIG_DIR'):
+    for name in ('BUY_ME_A_CAR_DATA_DIR', 'BUY_ME_A_CAR_CONFIG'):
         value = os.environ.get(name)
         if value:
             if not Path(value).expanduser().is_dir():
                 raise DataBoundaryError(f'{name} does not name an existing private directory.')
             break
     try:
-        result = companion_resolver(source_root=REPO_ROOT).resolve_data_dir(SKILL, create=False)
+        result = companion_resolver(source_root=REPO_ROOT).resolve_data_dir(SKILL)
     except (RuntimeError, OSError, ValueError) as exc:
         raise DataBoundaryError('The shared guard could not resolve the companion. Check BUY_ME_A_CAR_CONFIG and its origin.') from exc
     return Path(result).resolve() if result is not None else None

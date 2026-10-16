@@ -13,8 +13,7 @@ Clear stale higher-priority variables before switching:
 
 1. `BUY_ME_A_CAR_DATA_DIR`: the exact `data` child of the PRIVATE companion.
 2. `BUY_ME_A_CAR_CONFIG`: the companion root.
-3. `BUY_ME_A_CAR_CONFIG_DIR`: companion-root alias.
-4. A proven sibling `buy-me-a-car-config` discovered by the installed fleet_guards resolver.
+3. A proven sibling `buy-me-a-car-config` discovered by the installed fleet_guards resolver.
 
 All layouts use `<companion>/data`; a missing child does not move output to the root.
 Initialize the separate PRIVATE companion, then point one selection at it. Writes are
@@ -27,13 +26,12 @@ To switch A to B in PowerShell:
 
 ```powershell
 Remove-Item Env:BUY_ME_A_CAR_DATA_DIR -ErrorAction SilentlyContinue
-Remove-Item Env:BUY_ME_A_CAR_CONFIG_DIR -ErrorAction SilentlyContinue
 $env:BUY_ME_A_CAR_CONFIG = "<private-companion-B>"
 python tools/runtime_paths.py --write
 python tools/doctor.py --private
 ```
 
-For POSIX shells, use `unset BUY_ME_A_CAR_DATA_DIR BUY_ME_A_CAR_CONFIG_DIR` and
+For POSIX shells, use `unset BUY_ME_A_CAR_DATA_DIR` and
 `export BUY_ME_A_CAR_CONFIG="<private-companion-B>"`. The path command checks the destination
 without writing a purchase record. The doctor reports local dependencies separately from the
 companion location; neither command proves mailbox, scheduler, model, PDF or real purchase outcomes.
